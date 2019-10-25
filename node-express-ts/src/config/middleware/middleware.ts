@@ -8,6 +8,7 @@ import * as passport from 'passport';
 import * as session from 'express-session';
 import config from '../env/index';
 import * as mongo from 'connect-mongo';
+import * as path from 'path';
 import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
 const ejs:any = require('ejs');
@@ -71,10 +72,12 @@ export function configure(app: express.Application): void {
         res.header('Access-Control-Allow-Credentials', 'true');
         next();
     });
-    app.engine('html', require('ejs').__express);
+    
+    app.set('view engine','ejs');
     app.set('view engine', 'html');
     app.engine('html', require('ejs-mate'));
     app.locals._layoutFile = 'layout.html';
+    app.use(express.static('public'));
 
 }
 

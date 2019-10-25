@@ -1,43 +1,20 @@
-<nav id="navbar" class="navbar has-shadow">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="#">JS之禅</a>
-            <div class="navbar-burger burger" data-target="navMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <div class="logoDiv">
+            <img src="img/logo/logo.png" alt="" srcset="">
+            <span>溜忙之道</span>
         </div>
-        <div id="navMenu" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item" href="/">主页</a>
-                <a class="navbar-item" href="http://a.lmongo.com">前端面试题</a>
-            </div>
-            <div class="navbar-end">
-                {% if ctx.session.user.isAdmin %}
-                <div class="navbar-item">
-                    <a class="button is-small is-primary" href="/category">分类</a>
-                </div>
-                {% endif %}
-                {% if ctx.session.user %}
-                <div class="navbar-item">
-                    <a class="button is-small is-primary" href="/posts/new">写文章</a>
-                </div>
-                <div class="navbar-item">
-                    <a href="/user/{{ctx.session.user.name}}">{{ctx.session.user.name}}</a>
-                </div>
-                <div class="navbar-item">
-                    <a href="/signout">退出</a>
-                </div>
-                {% else %}
-                <div class="navbar-item">
-                    <a class="button is-small is-primary" href="/signup">注册</a>
-                </div>
-                <div class="navbar-item">
-                    <a class="button is-small" href="/signin">登录</a>
-                </div>
-                {% endif %}
-            </div>
+        <div class="nav-left">
+            <ul class="pingpu"> 
+                <li>首页</li>
+                <li>首页</li>
+                <li>首页</li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <a href=""><i class="iconfont icon-shoujianludan"></i>写文章</a> 
+            <span class="shuxian"></span>
+            <a href="">注册</a> · <a href="">登录</a>
         </div>
     </div>
 </nav>

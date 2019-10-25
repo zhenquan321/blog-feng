@@ -1,0 +1,68 @@
+
+@import "./config.less";
+.navbar-default {
+    background-color: #ffffff;
+    border-color: #e7e7e7;
+}
+
+.pingpu{
+    padding: 0;
+    margin: 0;
+    li{
+        text-decoration: none;
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 20px;
+        cursor: pointer;
+        &:hover{
+            color: @mainColor;
+        }
+    }
+    active{
+        color: @mainColor;
+    }
+}
+.navbar{
+    font-size: 16px;
+}
+.shuxian{
+    display: inline-block;
+    height: 14px;
+    width: 1px;
+    color: #666;
+    background-color: #888;
+    margin: -1px 5px;
+}
+.nav-left{
+    float: left;
+}
+.nav-right{
+    height: 50px;
+    line-height: 50px;
+    float: right;
+    color:@mainColor;
+    a{
+        color:@mainColor;
+        text-decoration: none;
+    }
+}
+
+.logoDiv{
+    float: left;
+    height: 50px;
+    line-height: 42px;
+    padding: 4px;
+    margin-right: 20px;
+    img{
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        position: relative;
+        top: -1px;
+    }
+    span{
+        color: @mainColor;
+        font-size: 18px;
+    }
+}
