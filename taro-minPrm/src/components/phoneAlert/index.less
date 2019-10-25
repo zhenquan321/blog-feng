@@ -1,0 +1,50 @@
+@import '../../styles/theme.less';
+.PhoneAlert{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 998;
+  .Alert1{
+    width: 420px;
+    height: 460px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #fff;
+    border-radius: 16px;
+    text-align: center;
+    .taro-img{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+      left: 0;
+      top: 0;
+    }
+    .title{
+      font-size: 32px;
+      color:#fff;
+      font-weight: 600;
+      margin-top: 32px;
+    }
+    .tsNeiRong{
+      font-size: 28px;
+      color: #222;
+      margin: 160px 50px 40px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      height:80px;
+    }
+    .zd-btn{
+      width: 280px;
+      height: 60px;
+      line-height: 60px;
+      color:#fff;
+      background: linear-gradient(90deg, #ff8074, #ff4b39);
+    }
+  }
+}
