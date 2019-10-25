@@ -59,7 +59,7 @@ export function configure(app: express.Application): void {
     app.use(sendHttpErrorModule);
 
     // cors
-    app.use((req, res, next) => {
+    app.use((req:any, res:any, next:any) => {
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS ');
         res.header(
             'Access-Control-Allow-Headers',
@@ -75,7 +75,7 @@ export function configure(app: express.Application): void {
     app.set('view engine', 'html');
     app.engine('html', require('ejs-mate'));
     app.locals._layoutFile = 'layout.html';
-    
+
 }
 
 interface CustomResponse extends express.Response {
