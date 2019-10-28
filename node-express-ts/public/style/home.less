@@ -67,6 +67,24 @@
     .navbar-item{
         display: inline;
     }
+    .btn-group{
+        a{
+            color:#777;
+        }
+        vertical-align: top;
+        .dropdown-menu{
+            text-align: center;
+            border: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,.175);
+        }
+    }
+    .btn-group.open .dropdown-toggle{
+        color:@mainColor;
+        box-shadow:0 0 0;
+        a{
+            color:@mainColor;
+        }
+    }
 }
 
 .logoDiv{
@@ -101,6 +119,7 @@ a{
     background-color: rgba(0, 0, 0, 0.4) !important;
     position: fixed;
     z-index: 1000000;
+   
     .loginBody{
         width: 320px;
         height: 330px;
