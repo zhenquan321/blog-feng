@@ -1,0 +1,49 @@
+<div id="login" style="display: none;" >
+    <form class="loginBody singinBody" action="/auth/login" method="post" style="display: none;" >
+        <i class="iconfont icon-guanbi1 closeLogin" onclick="closeLogin()"></i>
+        <h4>登录</h4>
+        <div class="input-group">
+            <input type="text" class="form-control" name="email" placeholder="请输入用户名"
+                aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group">
+            <input type="password" class="form-control" name="password" placeholder="请输入密码" aria-describedby="basic-addon1">
+        </div>
+        <div class="loginHref">
+            <a onclick="changeSingUp()">没有账号，去注册</a>
+        </div>
+        <input class="btn btn-primary" type="submit" value="登录" />
+    </form>
+    <form class="loginBody singupBody" action="/auth/signup" method="post"   style="display: none;">
+        <i class="iconfont icon-guanbi1 closeLogin" onclick="closeLogin()"></i>
+        <h4>注册</h4>
+        <!-- <div class="input-group">
+            <input type="text" class="form-control" name="username" placeholder="请输入用户名" aria-describedby="basic-addon1">
+        </div> -->
+        <div class="input-group">
+            <input type="email" class="form-control" name="email" placeholder="邮箱" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group">
+            <input type="password" class="form-control" name="password" placeholder="请输入密码" aria-describedby="basic-addon1">
+        </div>
+        <div class="loginHref">
+            <a onclick="changeSingIn()">已有账号，去登录</a>
+        </div>
+        <input class="btn btn-primary" type="submit" value="注册" />
+    </form>
+</div>
+<script>
+        function changeSingIn(){
+            $(".singinBody").css({display:"block"})
+            $(".singupBody").css({display:"none"})
+        };
+        function changeSingUp(){
+            $(".singinBody").css({display:"none"})
+            $(".singupBody").css({display:"block"})
+        };
+        function closeLogin(){
+            $("#login").css({display:"none"})
+            $(".singupBody").css({display:"none"})
+            $(".singinBody").css({display:"none"})
+        }
+    </script>

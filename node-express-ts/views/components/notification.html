@@ -1,0 +1,22 @@
+<% if (req && req.flash){ %>
+<div class="notifications">
+    <% if (req &&req.flash.success){ %>
+    <div class="notification is-success">
+        <%= req.flash.success %>
+    </div>
+    <% } else if (req &&req.flash.warning) { %>
+    <div class="notification is-warning">
+        <%= req.flash.warning %>
+    </div>
+    <% } %>
+    <i onclick="closeNotifications()" class="iconfont icon-guanbi1"></i>
+</div>
+<% }  %>
+<script>
+    setTimeout(function(){
+        $(".notifications").css({display:"none"})
+    },3000);
+    function closeNotifications(){
+        $(".notifications").css({display:"none"})
+    }
+</script>

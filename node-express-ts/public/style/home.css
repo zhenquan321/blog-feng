@@ -1,24 +1,53 @@
+@font-face {
+  font-family: 'iconfont';
+  /* project id 1476614 */
+  src: url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.eot');
+  src: url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.woff2') format('woff2'), url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.woff') format('woff'), url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.ttf') format('truetype'), url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
 .navbar-default {
   background-color: #ffffff;
   border-color: #e7e7e7;
+}
+.btn-primary {
+  background-color: #e59233;
+  border-color: #e59233;
+}
+.btn-primary:hover {
+  background-color: #c67e2b;
+  border-color: #c67e2b;
 }
 .pingpu {
   padding: 0;
   margin: 0;
 }
 .pingpu li {
-  text-decoration: none;
   display: inline-block;
   height: 50px;
   line-height: 50px;
-  padding: 0 20px;
+  padding: 0 15px;
   cursor: pointer;
 }
-.pingpu li:hover {
+.pingpu li a {
+  color: #555;
+}
+.pingpu li a:hover {
+  color: #e59233;
+  text-decoration: none;
+}
+.pingpu .active a {
   color: #e59233;
 }
-.pingpu active {
-  color: #e59233;
+.sepcaliColor-zi {
+  color: #b71ed7 !important;
+  font-weight: 600;
 }
 .navbar {
   font-size: 16px;
@@ -27,8 +56,7 @@
   display: inline-block;
   height: 14px;
   width: 1px;
-  color: #666;
-  background-color: #888;
+  background-color: #999;
   margin: -1px 5px;
 }
 .nav-left {
@@ -39,17 +67,24 @@
   line-height: 50px;
   float: right;
   color: #e59233;
+  cursor: pointer;
 }
 .nav-right a {
   color: #e59233;
   text-decoration: none;
+}
+.nav-right .navbar-item {
+  display: inline;
 }
 .logoDiv {
   float: left;
   height: 50px;
   line-height: 42px;
   padding: 4px;
-  margin-right: 20px;
+  margin-right: 30px;
+}
+.logoDiv a {
+  text-decoration: none;
 }
 .logoDiv img {
   width: 40px;
@@ -61,4 +96,85 @@
 .logoDiv span {
   color: #e59233;
   font-size: 18px;
+}
+a {
+  color: #0071d2;
+}
+#login {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  position: fixed;
+  z-index: 1000000;
+}
+#login .loginBody {
+  width: 320px;
+  height: 330px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+#login .loginBody h4 {
+  color: #e59233;
+}
+#login .loginBody input {
+  width: 280px;
+  height: 40px;
+  margin-top: 12px;
+}
+#login .loginBody .btn {
+  margin-top: 20px;
+}
+#login .loginBody .closeLogin {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+}
+#login .singinBody {
+  width: 320px;
+  height: 284px;
+}
+#login .singupBody {
+  width: 320px;
+  height: 284px;
+}
+#login .loginHref {
+  margin-top: 10px;
+}
+#login .loginHref {
+  cursor: pointer;
+}
+.notifications {
+  position: fixed;
+  top: 60px;
+  width: 280px;
+  right: 10px;
+  z-index: 999;
+}
+.notifications i {
+  position: absolute;
+  right: 6px;
+  color: #fff;
+  font-size: 18px;
+  top: 8px;
+  cursor: pointer;
+}
+.notification {
+  padding: 10px;
+  padding-right: 20px;
+  border-radius: 4px;
+  color: #fff;
+}
+.is-success {
+  background-color: rgba(92, 149, 46, 0.68);
+}
+.is-warning {
+  background-color: rgba(219, 145, 18, 0.68);
 }

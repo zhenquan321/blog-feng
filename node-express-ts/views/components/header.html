@@ -1,20 +1,53 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="logoDiv">
-            <img src="img/logo/logo.png" alt="" srcset="">
-            <span>溜忙之道</span>
+            <a href="/">
+                <img src="img/logo/logo.png" alt="" srcset="">
+                <span>溜忙之道</span>
+            </a>
         </div>
         <div class="nav-left">
-            <ul class="pingpu"> 
-                <li>首页</li>
-                <li>首页</li>
-                <li>首页</li>
+            <ul class="pingpu">
+                <li class="active"><a href="/">首页</a></li>
+                <li><a href="/movie">电影</a></li>
+                <li><a href="/latestCareerInformation">最新职讯</a></li>
+                <li><a href="http://a.lmongo.com" class="sepcaliColor-zi" target="_blank">offer之道</a></li>
             </ul>
         </div>
         <div class="nav-right">
-            <a href=""><i class="iconfont icon-shoujianludan"></i>写文章</a> 
+            <a href="/posts/new"><i class="iconfont icon-bianji"></i>写文章</a>
             <span class="shuxian"></span>
-            <a href="">注册</a> · <a href="">登录</a>
+            <% if (req.session.user){ %>
+            <div class="navbar-item">
+                <a href="/user/<%=req.session.user._id%>"><%= (req.session.user.profile&&req.session.user.profile.name)|| req.session.user.email %></a>
+            </div>
+            <!-- <div class="navbar-item">
+                <a href="/auth/signout">退出</a>
+            </div> -->
+            <% }else{ %>
+                <a onclick="singIn()">登录</a>  ·<a onclick=" singUp()">注册</a> 
+            <% } %>
+           
         </div>
     </div>
 </nav>
+<%- include('../components/login.html') %>
+<script>
+    function singIn() {
+        $("#login").css({
+            display: "block"
+        })
+        $(".singinBody").css({
+            display: "block"
+        })
+    };
+
+    function singUp() {
+        $("#login").css({
+            display: "block"
+        })
+        $(".singupBody").css({
+            display: "block"
+        })
+    };
+</script>

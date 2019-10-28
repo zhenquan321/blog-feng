@@ -14,7 +14,7 @@ export interface IUserModel extends Document {
     password: string;
     passwordResetToken: string;
     passwordResetExpires: Date;
-
+    
     facebook: string;
     tokens: AuthToken[];
 

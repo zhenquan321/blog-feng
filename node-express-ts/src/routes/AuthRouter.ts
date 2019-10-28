@@ -109,7 +109,7 @@ router.post('/login', AuthComponent.login);
  *              logged: false
  *              message: You are not authorized to app. Can't logout
  */
-router.post('/logout', AuthComponent.logout);
+router.get('/signout', AuthComponent.signout);
 
 
 /**

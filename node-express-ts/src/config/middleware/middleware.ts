@@ -12,6 +12,7 @@ import * as path from 'path';
 import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
 const ejs:any = require('ejs');
+import { flash } from './flash';
 
 const MongoStore: mongo.MongoStoreFactory = mongo(session);
 
@@ -73,6 +74,8 @@ export function configure(app: express.Application): void {
         next();
     });
     
+    app.use(flash());
+
     app.set('view engine','ejs');
     app.set('view engine', 'html');
     app.engine('html', require('ejs-mate'));

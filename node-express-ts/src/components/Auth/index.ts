@@ -12,14 +12,20 @@ import { NextFunction, Request, Response } from 'express';
  * @param {string} resMessage 
  */
 function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel ,resMessage: string): void {
-    return req.logIn(user, (err) => {
+    return req.logIn(user, (err:any) => {
         if (err) return next(new HttpError(err));
-
-        res.json({
-            status: 200,
-            logged: true,
-            message: resMessage
-        });
+        // res.json({
+        //     status: 200,
+        //     logged: true,
+        //     message: resMessage
+        // });
+        req.session.user = {
+            _id: user._id,
+            email: user.email,
+            profile:user.profile
+        };
+        req.flash = { success: '登录成功' };
+        res.redirect('/');
     });
 }
 
@@ -76,7 +82,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
  * @param {NextFunction} next
  * @returns {Promise < void >} 
  */
-export async function logout(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function signout(req: Request, res: Response, next: NextFunction): Promise < void > {
 
     if (!req.user) {
         res.json({
@@ -88,11 +94,14 @@ export async function logout(req: Request, res: Response, next: NextFunction): P
 
     if (req.user) {
         req.logout();
-        res.json({
-            status: 200,
-            logged: false,
-            message: 'Successfuly logged out!'
-        });
+        // res.json({
+        //     status: 200,
+        //     logged: false,
+        //     message: 'Successfuly logged out!'
+        // });
+        req.session.user = '';
+        req.flash = { success: '退出成功~' };
+        res.redirect('/');
     }
-
+    
 }

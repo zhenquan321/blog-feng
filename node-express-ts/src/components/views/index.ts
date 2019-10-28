@@ -11,7 +11,8 @@ import { NextFunction, Request, Response } from 'express';
  * @param {string} resMessage 
  */
 export function index(req: Request, res: Response, next: NextFunction): void {
-    res.render('index',{ title:'hello world' });
+    req.flash = { success: '欢迎光临~' };
+    res.render('index',{ req, title:'hello world' });
 }
 
 
