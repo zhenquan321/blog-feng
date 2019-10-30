@@ -30,6 +30,6 @@ export async function jobRt(req: Request, res: Response, next: NextFunction): Pr
     res.status(200).json(
         {
             status: 200,
-            message: "已开始抓取招聘信息~"
+            message: '已开始抓取招聘信息~'
         });
 }

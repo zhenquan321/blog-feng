@@ -1,5 +1,5 @@
-import { MovieReptileService } from './../service';
-import { IMovieModel, MovieModel } from './../model';
+import  MovieService from './../../movie/service';
+import  MovieModel ,{ IMovieModel } from './../../movie/model';
 import { concat } from 'rxjs';
 import { string } from 'joi';
 
@@ -139,7 +139,7 @@ class getMovieDetails {
                             years: Number(obj.name.substring(0, 4)) || 0,
                             type: type,
                         }
-                        MovieReptileService.insert(movie);
+                        MovieService.insert(movie);
                     });
                     const result: any = {
                         movieLink: myurl

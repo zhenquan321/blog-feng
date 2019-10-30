@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const service_1 = require("./../service");
+const service_1 = require("./../../movie/service");
 const superagent = require('superagent'); // 发起请求 
 const cheerio = require('cheerio'); // 可以像jquery一样操作界面
 const charset = require('superagent-charset'); // 解决乱码问题:
@@ -133,7 +133,7 @@ class getMovieDetails {
                             years: Number(obj.name.substring(0, 4)) || 0,
                             type: type,
                         };
-                        service_1.MovieReptileService.insert(movie);
+                        service_1.default.insert(movie);
                     });
                     const result = {
                         movieLink: myurl

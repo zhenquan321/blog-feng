@@ -11,26 +11,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const connections = require("../../config/connection/connection");
 const mongoose_1 = require("mongoose");
-const JobSchema = new mongoose_1.Schema({
-    id: String,
-    jobName: String,
-    company: String,
-    Recruiter: String,
+const MovieSchema = new mongoose_1.Schema({
+    name: String,
+    updateDate: String,
+    clickNum: Number,
     href: String,
-    releaseTime: Date,
-    area: String,
-    jobDescription: String,
-    companyProfile: String,
-    Salary: Number,
-    SalaryRange: String,
+    sketch: String,
+    imgUrl: String,
+    downLink: String,
+    years: Number,
+    type: String,
+    details: {
+        downloadLinks: String,
+    }
 }, {
-    collection: 'jobmodel',
+    collection: 'moviemodel',
     versionKey: false
 }).pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const job = this; // tslint:disable-line
+        const movie = this; // tslint:disable-line
         next();
     });
 });
-exports.JobModel = connections.db.model('JobModel', JobSchema);
+exports.default = connections.db.model('MovieModel', MovieSchema);
 //# sourceMappingURL=model.js.map

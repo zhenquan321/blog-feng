@@ -14,37 +14,7 @@ const model_1 = require("./model");
  * @export
  * @implements {MovieReptileService}
  */
-exports.MovieReptileService = {
-    insert(body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                // const validate: Joi.ValidationResult < MovieModel > = UserValidation.createUser(body);
-                // if (validate.error) {
-                //     throw new Error(validate.error.message);
-                // }
-                const hsmovie = yield this.findOne(body.name);
-                if (hsmovie && hsmovie.name) {
-                    // console.log('该电影已存在');
-                    const Movie = yield model_1.MovieModel.update({ name: body.name }, body);
-                }
-                else {
-                    const Movie = yield model_1.MovieModel.create(body);
-                    return Movie;
-                }
-            }
-            catch (error) {
-                throw new Error(error.message);
-            }
-        });
-    },
-    findOne(name) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield model_1.MovieModel.findOne({
-                name: name
-            });
-        });
-    },
-};
+exports.MovieReptileService = {};
 /**
  * @export
  * @implements {JobReptileService}

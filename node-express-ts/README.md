@@ -35,11 +35,11 @@ npm install -g ts-node
 npm install -g typescript
 npm install
 ```
-Start the application in dev env:
+## Start the application in dev env:
 ```
 nodemon
 ```
-Start the application in production env:
+## Start the application in production env:
 
 Install ts pm2 and typescript compiler:
 ```
@@ -49,7 +49,7 @@ pm2 install typescript
 
 example start with scale on 2 core:
 ```
-pm2 start ./src/index.ts -i 2 --no-daemon
+pm2 start ./src/config/server/index.ts -i 2 --no-daemon
 ```
 
 Express server listening on http://localhost:3000/, in development mode
