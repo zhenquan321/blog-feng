@@ -20,7 +20,6 @@ const MongoStore = mongo(session);
  * @param {express.Application} app
  */
 function configure(app) {
-    app.use(flash_1.flash());
     // express middleware
     app.use(bodyParser.urlencoded({
         extended: false
@@ -67,6 +66,7 @@ function configure(app) {
         res.header('Access-Control-Allow-Credentials', 'true');
         next();
     });
+    app.use(flash_1.flash());
     app.set('view engine', 'ejs');
     app.set('view engine', 'html');
     app.engine('html', require('ejs-mate'));
