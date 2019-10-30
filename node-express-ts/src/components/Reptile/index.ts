@@ -14,8 +14,9 @@ export async function movieRt(req: Request, res: Response, next: NextFunction): 
     res.status(200).json(
         {
             status: 200,
-            message: "已开始抓取电影~"
+            message: '已开始抓取电影~'
         });
+
 }
 
 /**

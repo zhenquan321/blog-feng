@@ -13,11 +13,17 @@ const connections = require("../../config/connection/connection");
 const mongoose_1 = require("mongoose");
 const MovieSchema = new mongoose_1.Schema({
     name: String,
-    downLoadHref: String,
-    picture: String,
+    updateDate: String,
+    clickNum: Number,
     href: String,
+    sketch: String,
+    imgUrl: String,
+    downLink: String,
     years: Number,
     type: String,
+    details: {
+        downloadLinks: String,
+    }
 }, {
     collection: 'moviemodel',
     versionKey: false

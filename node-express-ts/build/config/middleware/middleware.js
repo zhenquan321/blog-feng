@@ -13,6 +13,7 @@ const mongo = require("connect-mongo");
 const index_2 = require("../error/index");
 const sendHttpError_1 = require("../error/sendHttpError");
 const ejs = require('ejs');
+const flash_1 = require("./flash");
 const MongoStore = mongo(session);
 /**
  * @export
@@ -65,6 +66,7 @@ function configure(app) {
         res.header('Access-Control-Allow-Credentials', 'true');
         next();
     });
+    app.use(flash_1.flash());
     app.set('view engine', 'ejs');
     app.set('view engine', 'html');
     app.engine('html', require('ejs-mate'));

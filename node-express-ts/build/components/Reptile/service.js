@@ -22,9 +22,10 @@ exports.MovieReptileService = {
                 // if (validate.error) {
                 //     throw new Error(validate.error.message);
                 // }
-                let hsmovie = yield this.findOne(body.name);
+                const hsmovie = yield this.findOne(body.name);
                 if (hsmovie && hsmovie.name) {
-                    console.log("该电影已存在");
+                    // console.log('该电影已存在');
+                    const Movie = yield model_1.MovieModel.update({ name: body.name }, body);
                 }
                 else {
                     const Movie = yield model_1.MovieModel.create(body);

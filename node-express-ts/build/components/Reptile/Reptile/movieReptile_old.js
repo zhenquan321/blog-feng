@@ -21,7 +21,6 @@ const newMovieLinkArr = []; // 存放新电影的url
 const errLength = []; // 统计出错的链接数
 const highScoreMovieArr = []; // 高评分电影
 charset(superagent);
-superagent.buffer['mime'] = false;
 /**
  * @export
  * @param {Response} res
@@ -30,93 +29,72 @@ superagent.buffer['mime'] = false;
  */
 function movieReptile() {
     return __awaiter(this, void 0, void 0, function* () {
-        const get2019moviesFun = new get2019movies;
-        get2019moviesFun.index();
+        const getMovieOldFun = new getMovieOld;
+        getMovieOldFun.getMovieOld();
     });
 }
 exports.movieReptile = movieReptile;
-// 获取2019最新电影
-class get2019movies {
-    constructor() {
-        this.baseUrl = 'https://www.dytt8.net/html/gndy/dyzz/index.html';
-        this.errLength = [];
-        this.urlList = [];
+class getMovieOld {
+    getMovieOld() {
+        superagent.get(baseUrl)
+            .charset('gb2312')
+            .end((err, sres) => {
+            // 常规的错误处理
+            if (err) {
+                console.log('抓取' + baseUrl + '这条信息的时候出错了');
+            }
+            const $ = cheerio.load(sres && sres.text);
+            const linkElem = $('.co_content2 ul a');
+            // 170条电影链接，注意去重
+            this.getAllMovieLink($, 'highScoreMovie');
+            ep.once('highScoreMovie', () => {
+                this.highScoreMovie(linkElem.eq(1).attr('href'));
+            });
+        });
+    }
+    // 获取首页中左侧栏的所有链接
+    getAllMovieLink($, next) {
+        const linkElem = $('.co_content2 ul a');
+        for (let i = 2; i < 170; i = i + 1) {
+            if (linkElem.eq(i).attr('href')) {
+                const url = 'http://www.dytt8.net' + linkElem.eq(i).attr('href');
+                // 注意去重
+                if (newMovieLinkArr.indexOf(url) == -1) {
+                    newMovieLinkArr.push(url);
+                }
+            }
+        }
+        const getMovieDetailsFun = new getMovieDetails;
+        getMovieDetailsFun.insertUrl(highScoreMovieArr, '高分', next);
     }
     // 评分8分以上影片 200余部!，这里只是统计数据，不再进行抓取
-    index() {
+    highScoreMovie(url, next) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!url) {
+                return;
+            }
+            const useUrl = 'http://www.dytt8.net' + url;
             superagent
-                .get(this.baseUrl)
+                .get(useUrl)
                 .charset('gb2312')
                 .end((err, sres) => {
                 // 常规的错误处理
                 if (err) {
-                    console.log('抓取' + this.baseUrl + '这条信息的时候出错了', err);
+                    console.log('抓取' + useUrl + '这条信息的时候出错了', err);
                 }
                 const $ = cheerio.load(sres && sres.text);
-                const elemPageList = $('.bd3r .co_content8 .x');
-                console.log('获取2019最新电影');
-                const allPages1 = elemPageList[0].firstChild.data;
-                const allPages = allPages1.split('共')[1].split('页')[0];
-                const baseHref = $('.bd3r .co_content8 .x a').eq(1).attr('href');
-                this.getPageListArray($);
-                this.getPagesMovieList(Number(allPages), baseHref);
+                const elemP = $('#Zoom p');
+                const elemAany = $('#Zoom a');
+                const getMovieDetailsFun = new getMovieDetails;
+                for (let k = 1; k < elemP.length; k++) {
+                    const Hurl = elemP.eq(k).find('a').text();
+                    if (highScoreMovieArr.indexOf(Hurl) === -1) {
+                        highScoreMovieArr.push(Hurl);
+                    }
+                }
+                getMovieDetailsFun.insertUrl(highScoreMovieArr, '高分', next);
             });
         });
-    }
-    getPagesMovieList(allPages, baseHref) {
-        console.log(allPages, baseHref);
-        for (let i = 2; i < allPages + 1; i++) {
-            this.urlList.push(`https://www.dytt8.net/html/gndy/dyzz/list_23_${i}.html`);
-            setTimeout(() => {
-                this.getPageList(`https://www.dytt8.net/html/gndy/dyzz/list_23_${i}.html`);
-            }, i * 1000);
-        }
-    }
-    getPageList(url) {
-        return __awaiter(this, void 0, void 0, function* () {
-            superagent
-                .get(url)
-                .charset('gb2312')
-                .end((err, sres) => {
-                // 常规的错误处理
-                if (err) {
-                    console.log('抓取' + url + '这条信息的时候出错了', err);
-                    this.errLength.push(url);
-                }
-                else {
-                    console.log('抓取：' + url);
-                    const $ = cheerio.load(sres && sres.text);
-                    this.getPageListArray($);
-                }
-            });
-        });
-    }
-    getPageListArray($) {
-        const movieArray = $('.bd3r .co_content8 ul table');
-        for (let i = 0; i < movieArray.length; i++) {
-            const movieItem = {
-                name: '',
-                updateDate: '',
-                clickNum: 0,
-                href: '',
-                sketch: '',
-                years: 0,
-            };
-            const fonts = movieArray[i].lastChild.children[4].children[3].children[1].children[0].data || '';
-            movieItem.name = movieArray[i].lastChild.children[2].children[3].children[1].children[1].children[0].data || '';
-            movieItem.href = 'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[1].attribs.href || '';
-            movieItem.years = Number(movieItem.name.slice(0, 4)) || '';
-            movieItem.clickNum = Number(fonts.split('点击：')[1]) || '';
-            movieItem.updateDate = fonts.split('点击：')[0].split('日期：')[1] || '';
-            movieItem.sketch = (movieArray[i].lastChild.children[6].children[1] && movieArray[i].lastChild.children[6].children[1].lastChild &&
-                movieArray[i].lastChild.children[6].children[1].lastChild.data) || '';
-            // 获取到单个电影的信息;
-            this.insetMovieToDB(movieItem);
-        }
-    }
-    insetMovieToDB(movieItem) {
-        service_1.MovieReptileService.insert(movieItem);
     }
 }
 // 抓取详情
@@ -192,4 +170,4 @@ class getMovieDetails {
         callback(obj);
     }
 }
-//# sourceMappingURL=movieReptile.js.map
+//# sourceMappingURL=movieReptile_old.js.map

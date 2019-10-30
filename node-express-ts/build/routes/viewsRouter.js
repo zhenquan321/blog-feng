@@ -7,6 +7,10 @@ const express_1 = require("express");
  */
 const router = express_1.Router();
 router.get('/', components_1.viewsComponent.index);
+router.get('/userInfo/:id', components_1.viewsComponent.userInfo);
+router.get('/movie', components_1.viewsComponent.movie);
+router.get('/movieItem/:id', components_1.viewsComponent.movieItem);
+router.get('/careerInformation', components_1.viewsComponent.careerInformation);
 /**
  * @export {express.Router}
  */

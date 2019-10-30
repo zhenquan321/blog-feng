@@ -108,7 +108,7 @@ router.post('/login', components_1.AuthComponent.login);
  *              logged: false
  *              message: You are not authorized to app. Can't logout
  */
-router.post('/logout', components_1.AuthComponent.logout);
+router.get('/signout', components_1.AuthComponent.signout);
 /**
  * @export {express.Router}
  */
