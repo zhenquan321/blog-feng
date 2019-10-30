@@ -22,6 +22,7 @@ const MongoStore: mongo.MongoStoreFactory = mongo(session);
  * @param {express.Application} app
  */
 export function configure(app: express.Application): void {
+    app.use(flash());
     // express middleware
     app.use(bodyParser.urlencoded({
         extended: false
@@ -73,8 +74,6 @@ export function configure(app: express.Application): void {
         res.header('Access-Control-Allow-Credentials', 'true');
         next();
     });
-    
-    app.use(flash());
 
     app.set('view engine','ejs');
     app.set('view engine', 'html');
