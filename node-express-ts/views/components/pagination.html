@@ -1,0 +1,49 @@
+<div class="change-Pages">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li>
+                <% if(pageInfo.currentPage <=1) {%>
+                <a href="<%- pageInfo.baseUrl + 'page=' + 1 %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                <% }else{%>
+                <a href="<%- pageInfo.baseUrl + 'page=' + (pageInfo.currentPage - 1) %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                <% }%>
+            </li>
+            <% if( pageInfo.currentPage > Math.ceil(pageInfo.count/pageInfo.pageSize)) {%>
+                <% for(let i=((Math.ceil(pageInfo.count/pageInfo.pageSize)-5)>1?(Math.ceil(pageInfo.count/pageInfo.pageSize)-5):1);i<Math.ceil(pageInfo.count/pageInfo.pageSize);i++){ %>
+                    <li> 
+                        <a <% if(pageInfo.currentPage==i){%> class="active" <% }%>  href="<%- pageInfo.baseUrl + 'page=' + i %>" aria-label="Previous">
+                            <%- i %>
+                        </a>
+                    </li>
+                <% }%>
+            <% }else if(pageInfo.currentPage <=3) {%>
+                <% for(let i=1;i<(Math.ceil(pageInfo.count/pageInfo.pageSize)<7?Math.ceil(pageInfo.count/pageInfo.pageSize):6 );i++){ %>
+                    <li> 
+                        <a <% if(pageInfo.currentPage==i){%> class="active" <% }%> href="<%- pageInfo.baseUrl + 'page=' + i %>" aria-label="Previous">
+                            <%- i %>
+                        </a>
+                    </li>
+                <% }%>
+            <% }else{%>
+                <% for(let i=pageInfo.currentPage-2;i<(Math.ceil(pageInfo.count/pageInfo.pageSize)<(pageInfo.currentPage+3)?Math.ceil(pageInfo.count/pageInfo.pageSize):(pageInfo.currentPage+3) );i++){ %>
+                    <li> 
+                        <a <% if(pageInfo.currentPage==i){%> class="active" <% }%>  href="<%- pageInfo.baseUrl + 'page=' + i %>" aria-label="Previous">
+                            <%- i %>
+                        </a>
+                    </li>
+                <% }%>
+            <% }%>
+            <li>
+                <a href="<%- pageInfo.baseUrl + 'page=' + (pageInfo.currentPage + 1) %>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <span class="allPage">共<%- Math.ceil(pageInfo.count/pageInfo.pageSize)%>页 </span>
+</div>
+

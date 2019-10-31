@@ -79,10 +79,34 @@ const MovieService = {
         * @returns {Promise < IMovieModel[] >}
         * @memberof UserService
         */
-    findAll() {
+    findAll(pageQurey) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const page = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
+            const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
+            try {
+                const findKeyObj = {};
+                if (pageQurey && pageQurey.year) {
+                    findKeyObj.years = Number(pageQurey.year);
+                }
+                if (pageQurey && pageQurey.type) {
+                    findKeyObj.type = pageQurey.type;
+                }
+                const movieList = yield model_1.default.find(findKeyObj).limit(pagesize).skip(page * pagesize);
+                const count = yield model_1.default.find(findKeyObj).count();
+                return {
+                    count,
+                    data: movieList,
+                };
+            }
+            catch (error) {
+                throw new Error(error.message);
+            }
+        });
+    },
+    getCount() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model_1.default.find({});
+                return yield model_1.default.find().count();
             }
             catch (error) {
                 throw new Error(error.message);

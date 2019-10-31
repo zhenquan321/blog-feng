@@ -1,13 +1,13 @@
 import * as Joi from 'joi';
 import MovieModel, { IMovieModel } from './model';
-import { MovieReptileService } from './interface';
+import { MovieService } from './interface';
 import { Types } from 'mongoose';
 
 /**
  * @export
  * @implements {IMovieModelService}
  */
-const MovieService: MovieReptileService = {
+const MovieService: MovieService = {
 
 
     /**
@@ -70,13 +70,41 @@ const MovieService: MovieReptileService = {
         * @returns {Promise < IMovieModel[] >}
         * @memberof UserService
         */
-    async findAll(): Promise<IMovieModel[]> {
+    async findAll(pageQurey?: any): Promise<any> {
+
+        const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
+        const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
         try {
-            return await MovieModel.find({});
+            const findKeyObj: any = {};
+
+
+            if (pageQurey && pageQurey.year) {
+                findKeyObj.years = Number(pageQurey.year);
+            }
+            if (pageQurey && pageQurey.type) {
+                findKeyObj.type = pageQurey.type;
+            }
+
+            const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).limit(pagesize).skip(page * pagesize);
+            const count: number = await MovieModel.find(findKeyObj).count();
+
+            return {
+                count,
+                data: movieList,
+            };
         } catch (error) {
             throw new Error(error.message);
         }
     },
+    async getCount(): Promise<number> {
+        try {
+            return await MovieModel.find().count();
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
+
     /**
      * @param {string} id
      * @returns {Promise < IMovieModel >}

@@ -1,1 +1,27 @@
-电影
+<div class="selectHeader">
+    <h4>年份</h4>
+    <ul>
+        <li><a <% if(!req.query||!req.query.year){%> class="active" <% }%>  href="<%- '/movie?' %>">全部</a></li>
+        <% for (let y=2019;y>2008;y--){%>
+            <li><a  <% if(req.query&&req.query.year==y){%> class="active" <% }%> href="<%- '/movie?year=' + y %>"><%- y %></a></li>
+        <% } %>
+    </ul>
+    <h5>共：<%- pageInfo.count %> 部电影</h5>
+</div>
+
+<div class="movieList">
+    <div class="row">
+        <% movieList.forEach(function(movie){ %>
+        <div class="col-xs-6 col-md-3 movieCard">
+            <a href="" class="thumbnail">
+                <img src="http://extraimage.net/images/2019/10/14/11bf1461f18d70c768f24e1ef7530444.jpg" alt="">
+                <div class="movieHeader">
+                    <h4><%-  movie.name %></h4>
+                    <h6><%-  movie.sketch %></h6>
+                </div>
+            </a>
+        </div>
+        <% }); %>
+    </div>
+    <%- include('./components/pagination.html') %>
+</div>

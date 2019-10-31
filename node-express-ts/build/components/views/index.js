@@ -9,9 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const service_1 = require("../movie/service");
 const error_1 = require("../../config/error");
 // 用户信息
-const service_1 = require("./../User/service");
+const service_2 = require("./../User/service");
 /**
  *
  * @param {Request} req
@@ -28,7 +29,7 @@ exports.index = index;
 function userInfo(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const user = yield service_1.default.findOne(req.params.id);
+            const user = yield service_2.default.findOne(req.params.id);
             res.render('userInfo', { req, user, title: '个人中心', path: 'userInfo' });
         }
         catch (error) {
@@ -40,7 +41,23 @@ exports.userInfo = userInfo;
 function movie(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            res.render('movie', { req, title: '电影', path: 'movie' });
+            const pageQurey = req.query || req.body;
+            pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
+            const movieList = yield service_1.default.findAll(pageQurey); //
+            const movieArray = movieList.data;
+            let baseUrl = req.path + '?';
+            for (let key in pageQurey) {
+                if (key !== 'page') {
+                    baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+                }
+            }
+            const pageInfo = {
+                baseUrl,
+                count: movieList.count,
+                currentPage: pageQurey.page + 1 || 0,
+                pageSize: pageQurey.pageSize || 20,
+            };
+            res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));
@@ -51,7 +68,7 @@ exports.movie = movie;
 function movieItem(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            res.render('movieItem', { req, title: '电影详情', path: 'movie' });
+            res.render('movieItem', { req, title: '电影', path: 'movie' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));
