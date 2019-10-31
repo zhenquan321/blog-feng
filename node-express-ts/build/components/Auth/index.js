@@ -24,11 +24,18 @@ function passportRequestLogin(req, res, next, user, resMessage) {
     return req.logIn(user, (err) => {
         if (err)
             return next(new error_1.default(err));
-        res.json({
-            status: 200,
-            logged: true,
-            message: resMessage
-        });
+        // res.json({
+        //     status: 200,
+        //     logged: true,
+        //     message: resMessage
+        // });
+        req.session.user = {
+            _id: user._id,
+            email: user.email,
+            profile: user.profile
+        };
+        req.flash = { success: '登录成功' };
+        res.redirect('/');
     });
 }
 /**
@@ -88,7 +95,7 @@ exports.login = login;
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-function logout(req, res, next) {
+function signout(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!req.user) {
             res.json({
@@ -99,13 +106,16 @@ function logout(req, res, next) {
         }
         if (req.user) {
             req.logout();
-            res.json({
-                status: 200,
-                logged: false,
-                message: 'Successfuly logged out!'
-            });
+            // res.json({
+            //     status: 200,
+            //     logged: false,
+            //     message: 'Successfuly logged out!'
+            // });
+            req.session.user = '';
+            req.flash = { success: '退出成功~' };
+            res.redirect('/');
         }
     });
 }
-exports.logout = logout;
+exports.signout = signout;
 //# sourceMappingURL=index.js.map

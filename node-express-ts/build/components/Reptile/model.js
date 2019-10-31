@@ -11,23 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const connections = require("../../config/connection/connection");
 const mongoose_1 = require("mongoose");
-const MovieSchema = new mongoose_1.Schema({
-    name: String,
-    downLoadHref: String,
-    picture: String,
-    href: String,
-    years: Number,
-    type: String,
-}, {
-    collection: 'moviemodel',
-    versionKey: false
-}).pre('save', function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const movie = this; // tslint:disable-line
-        next();
-    });
-});
-exports.MovieModel = connections.db.model('MovieModel', MovieSchema);
 const JobSchema = new mongoose_1.Schema({
     id: String,
     jobName: String,

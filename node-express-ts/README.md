@@ -24,53 +24,7 @@ Then generate your new project:
 ```bash
 yo node-express-typescript-api
 ```
-## App skeleton
-```
-.
-├── LICENSE
-├── README.md
-├── nodemon.json
-├── package.json
-├── src
-│   ├── components
-│   │   ├── Auth
-│   │   │   ├── index.ts
-│   │   │   ├── interface.ts
-│   │   │   ├── service.ts
-│   │   │   └── validation.ts
-│   │   ├── User
-│   │   │   ├── index.ts
-│   │   │   ├── interface.ts
-│   │   │   ├── model.ts
-│   │   │   ├── service.ts
-│   │   │   └── validation.ts
-│   │   ├── index.ts
-│   │   └── validation.ts
-│   ├── config
-│   │   ├── connection
-│   │   │   └── connection.ts
-│   │   ├── env
-│   │   │   └── index.ts
-│   │   ├── error
-│   │   │   ├── index.ts
-│   │   │   └── sendHttpError.ts
-│   │   ├── middleware
-│   │   │   ├── middleware.ts
-│   │   │   └── passport.ts
-│   │   └── server
-│   │       ├── ServerInterface.ts
-│   │       ├── index.ts
-│   │       ├── server.ts
-│   │       └── serverHandlers.ts
-│   └── routes
-│       ├── AuthRouter.ts
-│       ├── UserRouter.ts
-│       └── index.ts
-├── swagger.json
-├── swaggerDef.js
-├── tsconfig.json
-└── tslint.json
-```
+
 ## Running the API
 ### Development
 To start the application in development mode, run:
@@ -81,11 +35,11 @@ npm install -g ts-node
 npm install -g typescript
 npm install
 ```
-Start the application in dev env:
+## Start the application in dev env:
 ```
 nodemon
 ```
-Start the application in production env:
+## Start the application in production env:
 
 Install ts pm2 and typescript compiler:
 ```
@@ -95,7 +49,7 @@ pm2 install typescript
 
 example start with scale on 2 core:
 ```
-pm2 start ./src/index.ts -i 2 --no-daemon
+pm2 start ./src/config/server/index.ts -i 2 --no-daemon
 ```
 
 Express server listening on http://localhost:3000/, in development mode
@@ -125,3 +79,5 @@ http://localhost:3000/docs
 ```
 ![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
 
+## Linux 下mongodb后台运行
+./bin/mongod -f mongodb.conf --fork
