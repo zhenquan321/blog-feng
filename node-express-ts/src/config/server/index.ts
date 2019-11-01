@@ -16,3 +16,8 @@ Server.on('error',
     (error: Error) => serverHandlers.onError(error, server.get('port')));
 Server.on('listening',
     serverHandlers.onListening.bind(Server));
+
+
+Server.on('exit', (code: any) => {
+    console.log('About to exit with code: ' + JSON.stringify(code));
+})

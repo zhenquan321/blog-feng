@@ -13,4 +13,7 @@ Server.listen(server_1.default.get('port'));
  */
 Server.on('error', (error) => serverHandlers.onError(error, server_1.default.get('port')));
 Server.on('listening', serverHandlers.onListening.bind(Server));
+Server.on('exit', (code) => {
+    console.log('About to exit with code: ' + JSON.stringify(code));
+});
 //# sourceMappingURL=index.js.map
