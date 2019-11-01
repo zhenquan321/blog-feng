@@ -1,6 +1,4 @@
-{% extends 'views/base.html' %}
-{% block body %}
-<div class="page-404 has-background-light has-text-centered">
+<div class="page-404">
     <pre>
           .----.
        _.'__    `.
@@ -16,10 +14,10 @@
     ___`. | .'___
    (______|______)
     </pre>
-    <p class="subtitle is-3">迷路了…</p>
-    <a href="javascript:history.back();" class="button is-primary">上一页</a>
-    <a href="/" class="button is-link">回主页</a>
+    <p class="subtitle is-3">抱歉，未找到相关资源</p>
+    <p>欢迎浏览其他内容</p>
+    <button type="submit" class="btn btn-primary"><a href="javascript:history.back();" class="button is-primary">上一页</a></button>
+    <button type="button" class="btn btn-success"><a href="/" class="button is-link">回主页</a></button>
+    
 </div>
 
-
-{% endblock %}

@@ -66,9 +66,13 @@ const MovieService = {
                 // if (validate.error) {
                 //     throw new Error(validate.error.message);
                 // }
-                return yield model_1.default.findOne({
+                let Movie = yield model_1.default.findOne({
                     _id: mongoose_1.Types.ObjectId(id)
                 });
+                if (Movie) {
+                    return Movie;
+                }
+                return false;
             }
             catch (error) {
                 throw new Error(error.message);

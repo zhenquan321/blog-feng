@@ -7,7 +7,7 @@ import { IMovieModel } from './model';
 export interface MovieService {
     insert(MovieModel: IMovieModel): Promise < IMovieModel > ;
     remove(id: string): Promise < IMovieModel > ;
-    findOne(id: string): Promise<IMovieModel>;
+    findOne(id: string): Promise<IMovieModel|false>;
     findAll(pageQurey?: any): Promise<IMovieModel[]>;
     findOneByName(name: string): Promise<IMovieModel>;
     getCount(): Promise<number>;

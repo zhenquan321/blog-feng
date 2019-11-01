@@ -69,12 +69,19 @@ function movieItem(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const getMovie = yield service_1.default.findOne(req.params.id);
-            const movie = JSON.parse(JSON.stringify(getMovie));
-            movie.details.detailDes = movie.details.detailDes.split('detailDes');
-            res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
+            if (getMovie) {
+                const movie = JSON.parse(JSON.stringify(getMovie));
+                console.log(getMovie);
+                movie.details.detailDes = movie.details.detailDes.split('detailDes');
+                res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
+            }
+            else {
+                res.render('404', { req, title: '未找到资源', path: 'movie' });
+            }
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));
+            res.render('404', { req, title: '未找到资源', path: 'movie' });
         }
     });
 }

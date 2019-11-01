@@ -46,7 +46,7 @@ const MovieService: MovieService = {
      * @returns {Promise < IMovieModel >}
      * @memberof UserService
      */
-    async findOne(id: string): Promise<IMovieModel> {
+    async findOne(id: string): Promise<IMovieModel|false> {
         try {
             // const validate: Joi.ValidationResult<{
             //     id: string
@@ -57,10 +57,16 @@ const MovieService: MovieService = {
             // if (validate.error) {
             //     throw new Error(validate.error.message);
             // }
-
-            return await MovieModel.findOne({
+            let Movie: any = await MovieModel.findOne({
                 _id: Types.ObjectId(id)
             });
+            if (Movie) {
+
+                return Movie;
+
+            } 
+            return false;
+
         } catch (error) {
             throw new Error(error.message);
         }
