@@ -75,7 +75,10 @@ const MovieService: MovieService = {
         const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
         const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
         try {
-            const findKeyObj: any = {};
+            const findKeyObj: any = {
+                downLink: { $ne: '' },
+                imgUrl:{ $ne: '' },
+            };
 
 
             if (pageQurey && pageQurey.year) {
@@ -99,7 +102,7 @@ const MovieService: MovieService = {
 
     async update(qurey: any, body: any): Promise<void> {
         try {
-            const updateInfo:any = await MovieModel.updateOne(qurey, { $set: body });
+            const updateInfo: any = await MovieModel.updateOne(qurey, { $set: body });
             console.log(updateInfo);
         } catch (error) {
             throw new Error(error.message);

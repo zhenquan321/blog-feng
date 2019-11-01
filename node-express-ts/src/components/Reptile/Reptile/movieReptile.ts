@@ -131,13 +131,14 @@ export async function getMovieDetail(): Promise<void> {
     const movieList: any = await MovieService.findAll({ page: 0, pagesize: 10000 });
     let a = 1;
     for (let i = 0; i < movieList.data.length; i++) {
-        if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
+        if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {  //&& movieList.data[i].details.detailDes
             a++
             setTimeout(() => {
                 getMovieDetailFun.fetchUrl(movieList.data[i]);
-            }, a * Math.ceil(Math.random() * 10) * 3000);
+            }, a * Math.ceil(Math.random() * 10) * 1500);
         }
     }
+    console.log('开始抓取详情');
 
 }
 class getMovieDetailClass {
@@ -146,7 +147,7 @@ class getMovieDetailClass {
     fetchUrl(movieOj: any): void {
         superagent
             .get(movieOj.href)
-            .set('User-Agent','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36')
+            .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36')
             .charset('gb2312') // 解决编码问题
             .end((err: any, ssres: any) => {
                 if (err) {
@@ -155,6 +156,7 @@ class getMovieDetailClass {
                 const $: any = cheerio.load(ssres && ssres.text);
 
                 this.getDetail($, movieOj);
+                console.log("已抓取：" + movieOj.href);
             });
     }
     getDetail($: any, movieOj: any): void {
@@ -172,6 +174,8 @@ class getMovieDetailClass {
         for (let i = 0; i < detailHtmlGet.children.length; i++) {
             if (detailHtmlGet.children[i].data) {
                 detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes';// detailDes 用于分割详情
+            } else {
+                detailDes = '暂无详情~';
             }
         }
         newMovieOj.details = {
@@ -179,6 +183,7 @@ class getMovieDetailClass {
             detailDes
         };
         MovieService.update(updateQurey, newMovieOj);
+
     }
 
 }

@@ -126,13 +126,14 @@ function getMovieDetail() {
         const movieList = yield service_1.default.findAll({ page: 0, pagesize: 10000 });
         let a = 1;
         for (let i = 0; i < movieList.data.length; i++) {
-            if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
+            if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) { //&& movieList.data[i].details.detailDes
                 a++;
                 setTimeout(() => {
                     getMovieDetailFun.fetchUrl(movieList.data[i]);
-                }, a * Math.ceil(Math.random() * 10) * 3000);
+                }, a * Math.ceil(Math.random() * 10) * 1500);
             }
         }
+        console.log('开始抓取详情');
     });
 }
 exports.getMovieDetail = getMovieDetail;
@@ -151,6 +152,7 @@ class getMovieDetailClass {
             }
             const $ = cheerio.load(ssres && ssres.text);
             this.getDetail($, movieOj);
+            console.log("已抓取：" + movieOj.href);
         });
     }
     getDetail($, movieOj) {
@@ -166,6 +168,9 @@ class getMovieDetailClass {
         for (let i = 0; i < detailHtmlGet.children.length; i++) {
             if (detailHtmlGet.children[i].data) {
                 detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes'; // detailDes 用于分割详情
+            }
+            else {
+                detailDes = '暂无详情~';
             }
         }
         newMovieOj.details = {

@@ -84,7 +84,10 @@ const MovieService = {
             const page = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
             const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
             try {
-                const findKeyObj = {};
+                const findKeyObj = {
+                    downLink: { $ne: '' },
+                    imgUrl: { $ne: '' },
+                };
                 if (pageQurey && pageQurey.year) {
                     findKeyObj.years = Number(pageQurey.year);
                 }

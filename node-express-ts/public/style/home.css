@@ -300,6 +300,10 @@ a.thumbnail:hover {
   background-color: #fff;
   margin-bottom: 0;
   color: #888;
+  padding-left: 0;
+}
+.movieDetail {
+  margin-bottom: 20px;
 }
 .movieDetail hr {
   margin-top: 0px;
@@ -336,7 +340,7 @@ a.thumbnail:hover {
   padding: 10px;
   border-radius: 10px;
   border: 1px dashed #e59233;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .movieDetail .movieJj .downLoadCard h6 {
   margin: 0;
@@ -350,6 +354,10 @@ a.thumbnail:hover {
   background-color: #fff;
   border-radius: 6px;
   margin-top: 10px ;
+}
+.movieDetail .detailCard p:first-child {
+  font-weight: 600;
+  font-size: 18px;
 }
 .h100 {
   height: 100%;
