@@ -130,7 +130,7 @@ function getMovieDetail() {
                 a++;
                 setTimeout(() => {
                     getMovieDetailFun.fetchUrl(movieList.data[i]);
-                }, a * Math.ceil(Math.random() * 10) * 1500);
+                }, a * Math.ceil(Math.random() * 10) * 500);
             }
         }
         console.log('开始抓取详情');
@@ -149,10 +149,14 @@ class getMovieDetailClass {
             .end((err, ssres) => {
             if (err) {
                 errLength.push(movieOj.href);
+                console.log('抓取失败：' + movieOj.href);
             }
-            const $ = cheerio.load(ssres && ssres.text);
-            this.getDetail($, movieOj);
-            console.log("已抓取：" + movieOj.href);
+            else {
+                const $ = cheerio.load(ssres && ssres.text);
+                if ($) {
+                    this.getDetail($, movieOj);
+                }
+            }
         });
     }
     getDetail($, movieOj) {

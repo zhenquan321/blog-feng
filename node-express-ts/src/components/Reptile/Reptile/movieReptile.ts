@@ -135,7 +135,7 @@ export async function getMovieDetail(): Promise<void> {
             a++
             setTimeout(() => {
                 getMovieDetailFun.fetchUrl(movieList.data[i]);
-            }, a * Math.ceil(Math.random() * 10) * 1500);
+            }, a * Math.ceil(Math.random() * 10) * 500);
         }
     }
     console.log('开始抓取详情');
@@ -152,11 +152,14 @@ class getMovieDetailClass {
             .end((err: any, ssres: any) => {
                 if (err) {
                     errLength.push(movieOj.href);
-                }
-                const $: any = cheerio.load(ssres && ssres.text);
+                    console.log('抓取失败：' + movieOj.href);
+                } else {
+                    const $: any = cheerio.load(ssres && ssres.text);
 
-                this.getDetail($, movieOj);
-                console.log("已抓取：" + movieOj.href);
+                    if ($) {
+                        this.getDetail($, movieOj);
+                    }
+                }
             });
     }
     getDetail($: any, movieOj: any): void {
