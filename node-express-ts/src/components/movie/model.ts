@@ -10,18 +10,19 @@ import { NextFunction } from 'express';
  * @extends {Document}
  */
 export interface IMovieModel extends Document {
-    name: string,
-    updateDate:string,
-    clickNum:number,
-    href: string,
-    sketch:string,
-    imgUrl?: string,
-    downLink?: string,
-    years?: number,
-    type?: string,
+    name: string;
+    updateDate:string;
+    clickNum:number;
+    href: string;
+    sketch:string;
+    imgUrl?: string;
+    downLink?: string;
+    years?: number;
+    type?: string;
     details?:{
-        downloadLinks:string,
-    }
+        detailImg:string,
+        detailDes:string,
+    };
 }
 
 const MovieSchema: Schema = new Schema({
@@ -35,7 +36,8 @@ const MovieSchema: Schema = new Schema({
     years: Number,
     type: String,
     details:{
-        downloadLinks:String,
+        detailImg:String,
+        detailDes:String,
     }
 }, {
     collection: 'moviemodel',

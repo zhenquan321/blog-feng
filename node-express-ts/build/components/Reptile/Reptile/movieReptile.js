@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("./../../movie/service");
+const mongoose_1 = require("mongoose");
 const superagent = require('superagent'); // 发起请求 
 const cheerio = require('cheerio'); // 可以像jquery一样操作界面
 const charset = require('superagent-charset'); // 解决乱码问题:
@@ -119,77 +120,59 @@ class get2019movies {
         service_1.default.insert(movieItem);
     }
 }
-// 抓取详情
-class getMovieDetails {
-    insertUrl(eps, type) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let concurrencyCount = 0;
-            let num = -4; // 因为是5个并发，所以需要减4
-            let yizhuqu = 0;
-            // 利用callback函数将结果返回去，然后在结果中取出整个结果数组。
-            function fetchUrl(myurl, callback) {
-                const fetchStart = new Date().getTime();
-                concurrencyCount++;
-                num += 1;
-                console.log('现在的并发数是', concurrencyCount, '，正在抓取的是', myurl);
-                superagent
-                    .get(myurl)
-                    .charset('gb2312') // 解决编码问题
-                    .end((err, ssres) => {
-                    yizhuqu++;
-                    if (err) {
-                        callback(err, myurl + ' error happened!');
-                        errLength.push(myurl);
-                    }
-                    var time = new Date().getTime() - fetchStart;
-                    console.log(yizhuqu + '抓取 ' + myurl + ' 成功', '，耗时' + time + '毫秒');
-                    concurrencyCount--;
-                    var $ = cheerio.load(ssres && ssres.text);
-                    // 对获取的结果进行处理函数
-                    this.getDownloadLink($, (obj) => {
-                        const movie = {
-                            name: obj.name,
-                            downLink: obj.downLink,
-                            href: myurl,
-                            imgUrl: obj.imgUrl,
-                            years: Number(obj.name.substring(0, 4)) || 0,
-                            type: type,
-                        };
-                        service_1.default.insert(movie);
-                    });
-                    const result = {
-                        movieLink: myurl
-                    };
-                    callback(null, result);
-                });
+function getMovieDetail() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const getMovieDetailFun = new getMovieDetailClass;
+        const movieList = yield service_1.default.findAll({ page: 0, pagesize: 10000 });
+        let a = 1;
+        for (let i = 0; i < movieList.data.length; i++) {
+            if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
+                a++;
+                setTimeout(() => {
+                    getMovieDetailFun.fetchUrl(movieList.data[i]);
+                }, a * Math.ceil(Math.random() * 10) * 3000);
             }
-            // 控制最大并发数为5，在结果中取出callback返回来的整个结果数组。
-            // mapLimit(arr, limit, iterator, [callback])
-            async.mapLimit(eps, 5, (myurl, callback) => {
-                fetchUrl(myurl, callback);
-            }, () => {
-                // 爬虫结束后的回调，可以做一些统计结果
-                console.log('抓包结束，一共抓取了-->' + eps.length + '条数据');
-                console.log('出错-->' + errLength.length + '条数据');
-            });
+        }
+    });
+}
+exports.getMovieDetail = getMovieDetail;
+class getMovieDetailClass {
+    constructor() {
+        this.errurlList = [];
+    }
+    fetchUrl(movieOj) {
+        superagent
+            .get(movieOj.href)
+            .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36')
+            .charset('gb2312') // 解决编码问题
+            .end((err, ssres) => {
+            if (err) {
+                errLength.push(movieOj.href);
+            }
+            const $ = cheerio.load(ssres && ssres.text);
+            this.getDetail($, movieOj);
         });
     }
-    // 获取下载链接
-    getDownloadLink($, callback) {
-        let downLink = $('#Zoom table a').text();
-        const movieName = $('.title_all h1 font').text();
-        const imgUrl = $('#Zoom p img').attr('src');
-        if (!downLink) {
-            downLink = '该电影暂无链接';
-        }
-        const obj = {
-            downLink: downLink,
-            name: movieName,
-            imgUrl: imgUrl,
-            href: "",
-            years: 0
+    getDetail($, movieOj) {
+        const updateQurey = {
+            _id: mongoose_1.Types.ObjectId(movieOj.id)
         };
-        callback(obj);
+        let newMovieOj = JSON.parse(JSON.stringify(movieOj));
+        newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
+        newMovieOj.downLink = $('#Zoom table a').text() || '';
+        const detailImg = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || ''; //.children[1].attr('src') || '';
+        const detailHtmlGet = $('#Zoom p')[0] || { children: [] };
+        let detailDes = '';
+        for (let i = 0; i < detailHtmlGet.children.length; i++) {
+            if (detailHtmlGet.children[i].data) {
+                detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes'; // detailDes 用于分割详情
+            }
+        }
+        newMovieOj.details = {
+            detailImg,
+            detailDes
+        };
+        service_1.default.update(updateQurey, newMovieOj);
     }
 }
 //# sourceMappingURL=movieReptile.js.map

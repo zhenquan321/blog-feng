@@ -7,6 +7,7 @@ const express_1 = require("express");
  */
 const router = express_1.Router();
 router.get('/movieRt', components_1.ReptileComponent.movieRt);
+router.get('/getMvDetail', components_1.ReptileComponent.getMvDetail);
 router.get('/jobRt', components_1.ReptileComponent.jobRt);
 /**
  * @export {express.Router}

@@ -1,7 +1,8 @@
 import MovieService from './../../movie/service';
-import MovieModel,{ IMovieModel } from './../../movie/model';
+import MovieModel, { IMovieModel } from './../../movie/model';
 import { concat } from 'rxjs';
 import { string, any } from 'joi';
+import { Types } from 'mongoose';
 
 
 const superagent: any = require('superagent'); // 发起请求 
@@ -38,7 +39,7 @@ class get2019movies {
     baseUrl: string = 'https://www.dytt8.net/html/gndy/dyzz/index.html';
     errLength: string[] = [];
     urlList: string[] = [];
-    
+
     // 评分8分以上影片 200余部!，这里只是统计数据，不再进行抓取
     async index(): Promise<void> {
         superagent
@@ -80,7 +81,7 @@ class get2019movies {
                 if (err) {
                     console.log('抓取' + url + '这条信息的时候出错了', err);
                     this.errLength.push(url);
-                }else{
+                } else {
                     console.log('抓取：' + url);
                     const $: any = cheerio.load(sres && sres.text);
 
@@ -90,6 +91,7 @@ class get2019movies {
     }
 
     getPageListArray($: any): void {
+
         const movieArray: any = $('.bd3r .co_content8 ul table');
 
         for (let i: number = 0; i < movieArray.length; i++) {
@@ -122,79 +124,65 @@ class get2019movies {
 }
 
 
-// 抓取详情
-class getMovieDetails {
-    async insertUrl(eps: any, type: string): Promise<void> {
-        let concurrencyCount: number = 0;
-        let num: number = -4; // 因为是5个并发，所以需要减4
-        let yizhuqu: number = 0;
+export async function getMovieDetail(): Promise<void> {
 
-        // 利用callback函数将结果返回去，然后在结果中取出整个结果数组。
-        function fetchUrl(myurl: any, callback: any): void {
-            const fetchStart: any = new Date().getTime();
-            concurrencyCount++;
-            num += 1;
-            console.log('现在的并发数是', concurrencyCount, '，正在抓取的是', myurl);
-            superagent
-                .get(myurl)
-                .charset('gb2312') // 解决编码问题
-                .end((err: any, ssres: any) => {
-                    yizhuqu++
-                    if (err) {
-                        callback(err, myurl + ' error happened!');
-                        errLength.push(myurl);
-                    }
-                    var time = new Date().getTime() - fetchStart;
-                    console.log(yizhuqu + '抓取 ' + myurl + ' 成功', '，耗时' + time + '毫秒');
-                    concurrencyCount--;
-                    var $ = cheerio.load(ssres && ssres.text);
-                    // 对获取的结果进行处理函数
-                    this.getDownloadLink($, (obj: IMovieModel) => {
-                        const movie: any = {
-                            name: obj.name,
-                            downLink: obj.downLink,
-                            href: myurl,
-                            imgUrl: obj.imgUrl,
-                            years: Number(obj.name.substring(0, 4)) || 0,
-                            type: type,
-                        }
-                        MovieService.insert(movie);
-                    });
-                    const result: any = {
-                        movieLink: myurl
-                    };
-                    callback(null, result);
-                });
+    const getMovieDetailFun: any = new getMovieDetailClass;
+
+    const movieList: any = await MovieService.findAll({ page: 0, pagesize: 10000 });
+    let a = 1;
+    for (let i = 0; i < movieList.data.length; i++) {
+        if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
+            a++
+            setTimeout(() => {
+                getMovieDetailFun.fetchUrl(movieList.data[i]);
+            }, a * Math.ceil(Math.random() * 10) * 3000);
         }
-        // 控制最大并发数为5，在结果中取出callback返回来的整个结果数组。
-        // mapLimit(arr, limit, iterator, [callback])
-        async.mapLimit(eps, 5, (myurl: any, callback: any) => {
-            fetchUrl(myurl, callback);
-        }, () => {
-            // 爬虫结束后的回调，可以做一些统计结果
-            console.log('抓包结束，一共抓取了-->' + eps.length + '条数据');
-            console.log('出错-->' + errLength.length + '条数据');
-        });
     }
 
-    // 获取下载链接
-    getDownloadLink($: any, callback: any): void {
-        let downLink: string = $('#Zoom table a').text();
-        const movieName: string = $('.title_all h1 font').text();
-        const imgUrl: string = $('#Zoom p img').attr('src');
-
-        if (!downLink) {
-            downLink = '该电影暂无链接';
-        }
-        const obj: any = {
-            downLink: downLink,
-            name: movieName,
-            imgUrl: imgUrl,
-            href: "",
-            years: 0
-        };
-        callback(obj);
-    }
 }
+class getMovieDetailClass {
+    errurlList: string[] = [];
+
+    fetchUrl(movieOj: any): void {
+        superagent
+            .get(movieOj.href)
+            .set('User-Agent','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36')
+            .charset('gb2312') // 解决编码问题
+            .end((err: any, ssres: any) => {
+                if (err) {
+                    errLength.push(movieOj.href);
+                }
+                const $: any = cheerio.load(ssres && ssres.text);
+
+                this.getDetail($, movieOj);
+            });
+    }
+    getDetail($: any, movieOj: any): void {
+        const updateQurey: any = {
+            _id: Types.ObjectId(movieOj.id)
+        };
+        let newMovieOj: any = JSON.parse(JSON.stringify(movieOj));
+
+        newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
+        newMovieOj.downLink = $('#Zoom table a').text() || '';
+        const detailImg: any = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';//.children[1].attr('src') || '';
+        const detailHtmlGet: any = $('#Zoom p')[0] || { children: [] };
+        let detailDes: string = '';
+
+        for (let i = 0; i < detailHtmlGet.children.length; i++) {
+            if (detailHtmlGet.children[i].data) {
+                detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes';// detailDes 用于分割详情
+            }
+        }
+        newMovieOj.details = {
+            detailImg,
+            detailDes
+        };
+        MovieService.update(updateQurey, newMovieOj);
+    }
+
+}
+
+
 
 

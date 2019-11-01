@@ -296,3 +296,61 @@ a.thumbnail:hover {
 .selectHeader ul li:last-child {
   border-right: 0;
 }
+.breadcrumb {
+  background-color: #fff;
+  margin-bottom: 0;
+  color: #888;
+}
+.movieDetail hr {
+  margin-top: 0px;
+}
+.movieDetail .imgCard img {
+  width: 100%;
+}
+.movieDetail .baseDiv {
+  position: relative;
+  margin-bottom: 20px;
+}
+.movieDetail .movieJj {
+  bottom: 10px;
+  width: 100%;
+}
+.movieDetail .movieJj h3 {
+  color: #e59233;
+}
+.movieDetail .movieJj h5 {
+  font-size: 16px;
+  color: #999;
+}
+.movieDetail .movieJj p {
+  margin-top: 40px;
+  font-size: 14px;
+  color: #666;
+}
+.movieDetail .movieJj p span {
+  color: #333;
+  font-weight: 600;
+}
+.movieDetail .movieJj .downLoadCard {
+  background: #efefef;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px dashed #e59233;
+  margin-top: 20px;
+}
+.movieDetail .movieJj .downLoadCard h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #e59233;
+  font-size: 14px;
+}
+.movieDetail .movieJj .downLoadCard p {
+  margin: 0;
+  padding: 6px 10px;
+  background-color: #fff;
+  border-radius: 6px;
+  margin-top: 10px ;
+}
+.h100 {
+  height: 100%;
+}

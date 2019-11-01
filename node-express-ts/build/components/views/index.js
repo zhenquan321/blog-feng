@@ -68,7 +68,10 @@ exports.movie = movie;
 function movieItem(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            res.render('movieItem', { req, title: '电影', path: 'movie' });
+            const getMovie = yield service_1.default.findOne(req.params.id);
+            const movie = JSON.parse(JSON.stringify(getMovie));
+            movie.details.detailDes = movie.details.detailDes.split('detailDes');
+            res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));

@@ -13,8 +13,8 @@
     <div class="row">
         <% movieList.forEach(function(movie){ %>
         <div class="col-xs-6 col-md-3 movieCard">
-            <a href="" class="thumbnail">
-                <img src="http://extraimage.net/images/2019/10/14/11bf1461f18d70c768f24e1ef7530444.jpg" alt="">
+            <a href="/movieItem/<%- movie.id%>" class="thumbnail">
+                <img src="<%- movie.imgUrl %>" alt="">
                 <div class="movieHeader">
                     <h4><%-  movie.name %></h4>
                     <h6><%-  movie.sketch %></h6>

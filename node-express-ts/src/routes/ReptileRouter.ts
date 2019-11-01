@@ -9,6 +9,7 @@ const router: Router = Router();
 
 router.get('/movieRt', ReptileComponent.movieRt);
 
+router.get('/getMvDetail', ReptileComponent.getMvDetail);
 
 router.get('/jobRt', ReptileComponent.jobRt);
 /**

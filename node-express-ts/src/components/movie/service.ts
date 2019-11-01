@@ -86,7 +86,7 @@ const MovieService: MovieService = {
             }
 
             const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).limit(pagesize).skip(page * pagesize);
-            const count: number = await MovieModel.find(findKeyObj).count();
+            const count: number = await MovieModel.find(findKeyObj).countDocuments();
 
             return {
                 count,
@@ -96,9 +96,18 @@ const MovieService: MovieService = {
             throw new Error(error.message);
         }
     },
+
+    async update(qurey: any, body: any): Promise<void> {
+        try {
+            const updateInfo:any = await MovieModel.updateOne(qurey, { $set: body });
+            console.log(updateInfo);
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
     async getCount(): Promise<number> {
         try {
-            return await MovieModel.find().count();
+            return await MovieModel.find().countDocuments();
         } catch (error) {
             throw new Error(error.message);
         }

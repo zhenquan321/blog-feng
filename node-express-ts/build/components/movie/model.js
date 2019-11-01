@@ -22,7 +22,8 @@ const MovieSchema = new mongoose_1.Schema({
     years: Number,
     type: String,
     details: {
-        downloadLinks: String,
+        detailImg: String,
+        detailDes: String,
     }
 }, {
     collection: 'moviemodel',

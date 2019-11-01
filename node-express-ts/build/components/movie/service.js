@@ -92,7 +92,7 @@ const MovieService = {
                     findKeyObj.type = pageQurey.type;
                 }
                 const movieList = yield model_1.default.find(findKeyObj).limit(pagesize).skip(page * pagesize);
-                const count = yield model_1.default.find(findKeyObj).count();
+                const count = yield model_1.default.find(findKeyObj).countDocuments();
                 return {
                     count,
                     data: movieList,
@@ -103,10 +103,21 @@ const MovieService = {
             }
         });
     },
+    update(qurey, body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const updateInfo = yield model_1.default.updateOne(qurey, { $set: body });
+                console.log(updateInfo);
+            }
+            catch (error) {
+                throw new Error(error.message);
+            }
+        });
+    },
     getCount() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model_1.default.find().count();
+                return yield model_1.default.find().countDocuments();
             }
             catch (error) {
                 throw new Error(error.message);

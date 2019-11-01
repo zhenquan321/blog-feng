@@ -27,6 +27,16 @@ function movieRt(req, res, next) {
     });
 }
 exports.movieRt = movieRt;
+function getMvDetail(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        movieReptile_1.getMovieDetail();
+        res.status(200).json({
+            status: 200,
+            message: '已开始抓取电影详情~'
+        });
+    });
+}
+exports.getMvDetail = getMvDetail;
 /**
  * @export
  * @param {Response} res

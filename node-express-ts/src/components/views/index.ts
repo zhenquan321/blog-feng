@@ -56,7 +56,7 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
             pageSize: pageQurey.pageSize || 20,
         };
 
-        res.render('movie', { pageInfo, req, movieList:movieArray,  title: '电影', path: 'movie' });
+        res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -64,8 +64,11 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
 
 export async function movieItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+        const getMovie: any = await MovieService.findOne(req.params.id);
+        const movie:any = JSON.parse(JSON.stringify(getMovie));
 
-        res.render('movieItem', { req, title: '电影', path: 'movie' });
+        movie.details.detailDes = movie.details.detailDes.split('detailDes');
+        res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

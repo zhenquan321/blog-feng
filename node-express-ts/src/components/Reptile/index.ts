@@ -1,7 +1,7 @@
 import * as passport from 'passport';
 import HttpError from '../../config/error';
 import { NextFunction, Request, Response } from 'express';
-import { movieReptile } from './Reptile/movieReptile';
+import { movieReptile ,getMovieDetail} from './Reptile/movieReptile';
 import { jobReptile } from './Reptile/jobReptile';
 /**
  * @export
@@ -18,6 +18,17 @@ export async function movieRt(req: Request, res: Response, next: NextFunction): 
         });
 
 }
+export async function getMvDetail(req: Request, res: Response, next: NextFunction): Promise<void> {
+    getMovieDetail();
+    res.status(200).json(
+        {
+            status: 200,
+            message: '已开始抓取电影详情~'
+        });
+
+}
+
+
 
 /**
  * @export

@@ -1,1 +1,36 @@
-电影详情
+<ol class="breadcrumb">
+    <li><a href="/movie">电影</a></li>
+    <li><%- movie.name %></li>
+</ol>
+<div class="movieDetail">
+    <!-- <h4><%- movie.name %></h4> -->
+    <hr />
+    <div class="imgCard">
+        <div class="row baseDiv">
+            <div class="col-xs-12 col-md-4">
+                <img src="<%- movie.imgUrl %>" alt="">
+            </div>
+            <div class="col-xs-12 col-md-8 h100">
+                <div class="movieJj">
+                    <h3><%- movie.name %></h3>
+                    <h5>更新时间： <%- movie.updateDate %></h5>
+                    <p><span>简介：</span> <%- movie.sketch %></p>
+                    <div class="downLoadCard">
+                        <h6>下载链接</h6>
+                        <p><%- movie.downLink %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div>
+            <% movie.details&&movie.details.detailDes.forEach(function(ms){ if(ms!=""){%>
+            <p><%- ms %></p>
+            <% }})%>
+            <img src="<%- movie.details.detailImg %>" alt="">
+        </div>
+    </div>
+
+</div>
+
+<% console.log(movie)  %>
