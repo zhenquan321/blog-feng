@@ -13,7 +13,7 @@
                 <% }%>
             </li>
             <% if( pageInfo.currentPage > Math.ceil(pageInfo.count/pageInfo.pageSize)) {%>
-                <% for(let i=((Math.ceil(pageInfo.count/pageInfo.pageSize)-5)>1?(Math.ceil(pageInfo.count/pageInfo.pageSize)-5):1);i<Math.ceil(pageInfo.count/pageInfo.pageSize);i++){ %>
+                <% for(let i=((Math.ceil(pageInfo.count/pageInfo.pageSize)-5)>1?(Math.ceil(pageInfo.count/pageInfo.pageSize)-5):1);i<=Math.ceil(pageInfo.count/pageInfo.pageSize);i++){ %>
                     <li> 
                         <a <% if(pageInfo.currentPage==i){%> class="active" <% }%>  href="<%- pageInfo.baseUrl + 'page=' + i %>" aria-label="Previous">
                             <%- i %>
@@ -21,7 +21,7 @@
                     </li>
                 <% }%>
             <% }else if(pageInfo.currentPage <=3) {%>
-                <% for(let i=1;i<(Math.ceil(pageInfo.count/pageInfo.pageSize)<7?Math.ceil(pageInfo.count/pageInfo.pageSize):6 );i++){ %>
+                <% for(let i=1;i<=(Math.ceil(pageInfo.count/pageInfo.pageSize)<7?Math.ceil(pageInfo.count/pageInfo.pageSize):6 );i++){ %>
                     <li> 
                         <a <% if(pageInfo.currentPage==i){%> class="active" <% }%> href="<%- pageInfo.baseUrl + 'page=' + i %>" aria-label="Previous">
                             <%- i %>
@@ -29,7 +29,7 @@
                     </li>
                 <% }%>
             <% }else{%>
-                <% for(let i=pageInfo.currentPage-2;i<(Math.ceil(pageInfo.count/pageInfo.pageSize)<(pageInfo.currentPage+3)?Math.ceil(pageInfo.count/pageInfo.pageSize):(pageInfo.currentPage+3) );i++){ %>
+                <% for(let i=pageInfo.currentPage-2;i<=(Math.ceil(pageInfo.count/pageInfo.pageSize)<(pageInfo.currentPage+3)?Math.ceil(pageInfo.count/pageInfo.pageSize):(pageInfo.currentPage+3) );i++){ %>
                     <li> 
                         <a <% if(pageInfo.currentPage==i){%> class="active" <% }%>  href="<%- pageInfo.baseUrl + 'page=' + i %>" aria-label="Previous">
                             <%- i %>
