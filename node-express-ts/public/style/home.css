@@ -362,3 +362,14 @@ a.thumbnail:hover {
 .h100 {
   height: 100%;
 }
+.searchTop {
+  height: 40px;
+  margin: 5px 0;
+}
+.searchTop .form-inline {
+  width: 300px;
+  float: right;
+}
+.searchTop .form-inline input {
+  width: 240px;
+}

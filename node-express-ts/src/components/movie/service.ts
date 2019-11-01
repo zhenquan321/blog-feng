@@ -77,7 +77,7 @@ const MovieService: MovieService = {
         try {
             const findKeyObj: any = {
                 downLink: { $ne: '' },
-                imgUrl:{ $ne: '' },
+                imgUrl: { $ne: '' },
             };
 
 
@@ -88,6 +88,11 @@ const MovieService: MovieService = {
                 findKeyObj.type = pageQurey.type;
             }
 
+            if (pageQurey && pageQurey.keyword) {
+                findKeyObj.name = { $regex: pageQurey.keyword, $options: 'i' };
+            }
+
+            console.log(findKeyObj);
             const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).limit(pagesize).skip(page * pagesize);
             const count: number = await MovieModel.find(findKeyObj).countDocuments();
 
