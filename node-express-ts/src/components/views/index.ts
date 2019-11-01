@@ -65,15 +65,16 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
 export async function movieItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const getMovie: any = await MovieService.findOne(req.params.id);
-        if(getMovie){
-            const movie:any = JSON.parse(JSON.stringify(getMovie));
-            console.log(getMovie);
+
+        if (getMovie) {
+            const movie: any = JSON.parse(JSON.stringify(getMovie));
+
             movie.details.detailDes = movie.details.detailDes.split('detailDes');
             res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
-        }else{
+        } else {
             res.render('404', { req, title: '未找到资源', path: 'movie' });
         }
-       
+
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
         res.render('404', { req, title: '未找到资源', path: 'movie' });

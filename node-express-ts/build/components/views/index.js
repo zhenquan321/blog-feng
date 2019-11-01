@@ -71,7 +71,6 @@ function movieItem(req, res, next) {
             const getMovie = yield service_1.default.findOne(req.params.id);
             if (getMovie) {
                 const movie = JSON.parse(JSON.stringify(getMovie));
-                console.log(getMovie);
                 movie.details.detailDes = movie.details.detailDes.split('detailDes');
                 res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
             }
