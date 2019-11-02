@@ -30,4 +30,4 @@ router.get('/careerInformation', components_1.ViewsComponent.careerInformation);
  * @export {express.Router}
  */
 exports.default = router;
-//# sourceMappingURL=viewsRouter.js.map
+//# sourceMappingURL=ViewsRouter.js.map

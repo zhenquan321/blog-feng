@@ -9,95 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const bcrypt = require("bcrypt");
 const connections = require("../../config/connection/connection");
-const crypto = require("crypto");
 const mongoose_1 = require("mongoose");
-/**
- * @swagger
- * components:
- *  schemas:
- *    BlogSchema:
- *      required:
- *        - email
- *        - name
- *      properties:
- *        id:
- *          type: string
- *        name:
- *          type: string
- *        email:
- *          type: string
- *        password:
- *          type: string
- *        passwordResetToken:
- *          type: string
- *        passwordResetExpires:
- *          type: string
- *          format: date
- *        tokens:
- *          type: array
- *    Blogs:
- *      type: array
- *      items:
- *        $ref: '#/components/schemas/BlogSchema'
- */
 const BlogSchema = new mongoose_1.Schema({
-    email: {
-        type: String,
-        unique: true,
-        trim: true
-    },
-    password: String,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
-    tokens: Array,
+    title: String,
+    details: Object,
 }, {
     collection: 'Blogmodel',
     versionKey: false
 }).pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         const Blog = this; // tslint:disable-line
-        if (!Blog.isModified('password')) {
-            return next();
-        }
-        try {
-            const salt = yield bcrypt.genSalt(10);
-            const hash = yield bcrypt.hash(Blog.password, salt);
-            Blog.password = hash;
-            next();
-        }
-        catch (error) {
-            return next(error);
-        }
+        next();
     });
 });
-/**
- * Method for comparing passwords
- */
-BlogSchema.methods.comparePassword = function (candidatePassword) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const match = yield bcrypt.compare(candidatePassword, this.password);
-            return match;
-        }
-        catch (error) {
-            return error;
-        }
-    });
-};
-/**
- * Helper method for getting Blog's gravatar.
- */
-BlogSchema.methods.gravatar = function (size) {
-    if (!size) {
-        size = 200;
-    }
-    if (!this.email) {
-        return `https://gravatar.com/avatar/?s=${size}&d=retro`;
-    }
-    const md5 = crypto.createHash('md5').update(this.email).digest('hex');
-    return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
-};
 exports.default = connections.db.model('BlogModel', BlogSchema);
 //# sourceMappingURL=model.js.map
