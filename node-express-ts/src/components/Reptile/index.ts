@@ -1,7 +1,7 @@
 import * as passport from 'passport';
 import HttpError from '../../config/error';
 import { NextFunction, Request, Response } from 'express';
-import { movieReptile ,getMovieDetail} from './Reptile/movieReptile';
+import { movieReptile ,getMovieDetail } from './Reptile/movieReptile';
 import { jobReptile } from './Reptile/jobReptile';
 /**
  * @export

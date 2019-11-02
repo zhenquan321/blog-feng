@@ -7,7 +7,7 @@ const swaggerUi = require("swagger-ui-express");
 const AuthRouter_1 = require("./AuthRouter");
 const UserRouter_1 = require("./UserRouter");
 const ReptileRouter_1 = require("./ReptileRouter");
-const viewsRouter_1 = require("./viewsRouter");
+const ViewsRouter_1 = require("./ViewsRouter");
 let swaggerDoc;
 try {
     swaggerDoc = require('../../swagger.json');
@@ -25,7 +25,7 @@ catch (error) {
  */
 function init(app) {
     const router = express.Router();
-    app.use('/', viewsRouter_1.default);
+    app.use('/', ViewsRouter_1.default);
     /**
      * @description
      *  Forwards any requests to the /v1/users URI to our UserRouter

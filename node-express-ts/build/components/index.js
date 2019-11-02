@@ -6,6 +6,9 @@ const UserComponent = require("./User");
 exports.UserComponent = UserComponent;
 const ReptileComponent = require("./Reptile");
 exports.ReptileComponent = ReptileComponent;
-const viewsComponent = require("./views");
-exports.viewsComponent = viewsComponent;
+const ViewsComponent = require("./Views");
+exports.ViewsComponent = ViewsComponent;
+// import * as MovieComponent from './Movie';
+const BlogComponent = require("./Blog");
+exports.BlogComponent = BlogComponent;
 //# sourceMappingURL=index.js.map

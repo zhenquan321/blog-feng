@@ -5,7 +5,7 @@ import * as swaggerUi from 'swagger-ui-express';
 import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
 import ReptileRouter from './ReptileRouter';
-import viewsRouter from './viewsRouter';
+import ViewsRouter from './ViewsRouter';
 
 
 let swaggerDoc: Object;
@@ -27,7 +27,7 @@ try {
 export function init(app: express.Application): void {
     const router: express.Router = express.Router();
 
-    app.use('/', viewsRouter);
+    app.use('/', ViewsRouter);
     /**
      * @description
      *  Forwards any requests to the /v1/users URI to our UserRouter

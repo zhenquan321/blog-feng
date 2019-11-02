@@ -1,4 +1,4 @@
-import { viewsComponent } from '../components';
+import { ViewsComponent } from '../components';
 import { Router } from 'express';
 
 
@@ -7,11 +7,31 @@ import { Router } from 'express';
  */
 const router: Router = Router();
 
-router.get('/', viewsComponent.movie); // .index
-router.get('/userInfo/:id', viewsComponent.userInfo);
-router.get('/movie', viewsComponent.movie);
-router.get('/movieItem/:id', viewsComponent.movieItem);
-router.get('/careerInformation', viewsComponent.careerInformation);
+/**
+ * 博客板块
+ * .列表
+ * .详情
+ */
+router.get('/', ViewsComponent.blog); 
+router.get('/blog/:id', ViewsComponent.blogItem);
+
+
+/**
+ * 用户板块
+ * .用户详情
+ */
+router.get('/userInfo/:id', ViewsComponent.userInfo);
+
+/**
+ * 电影版块
+ * .列表
+ * .详情
+ */
+router.get('/movie', ViewsComponent.movie);
+router.get('/movieItem/:id', ViewsComponent.movieItem);
+
+
+router.get('/careerInformation', ViewsComponent.careerInformation);
 
 
 /**
