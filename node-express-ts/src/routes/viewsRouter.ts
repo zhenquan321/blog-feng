@@ -7,7 +7,7 @@ import { Router } from 'express';
  */
 const router: Router = Router();
 
-router.get('/', viewsComponent.index);
+router.get('/', viewsComponent.movie); // .index
 router.get('/userInfo/:id', viewsComponent.userInfo);
 router.get('/movie', viewsComponent.movie);
 router.get('/movieItem/:id', viewsComponent.movieItem);
