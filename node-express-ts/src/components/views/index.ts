@@ -1,6 +1,6 @@
 import * as passport from 'passport';
 import AuthService from './service';
-import MovieService from '../Movie/service';
+import MovieService from './../movie/service';//目录 Movie 大小写有疑问
 import HttpError from '../../config/error';
 import { NextFunction, Request, Response } from 'express';
 

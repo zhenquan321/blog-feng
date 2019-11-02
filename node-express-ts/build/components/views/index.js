@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const service_1 = require("../Movie/service");
+const service_1 = require("./../movie/service");
 const error_1 = require("../../config/error");
 // 用户信息
 const service_2 = require("./../User/service");
