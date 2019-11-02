@@ -49,7 +49,16 @@ pm2 install typescript
 
 example start with scale on 2 core:
 ```
-pm2 start ./src/config/server/index.ts -i 2 --no-daemon
+pm2 start ./src/config/server/index.ts -i 2 --no-daemon 
+
+## 运行打包后的
+pm2 start ./build/config/server/index.js
+
+
+pm2 start ./src/config/server/index.ts --watch      # 当文件变化时自动重启应用
+
+
+$ pm2 delete all                # 关闭并删除所有应用
 ```
 
 Express server listening on http://localhost:3000/, in development mode
@@ -81,3 +90,9 @@ http://localhost:3000/docs
 
 ## Linux 下mongodb后台运行
 ./bin/mongod -f mongodb.conf --fork
+
+## Linux 下关闭mongodb
+./bin/mongod -f mongodb.conf --shutdown
+
+#### 重启服务器
+./bin/mongod  --repair
