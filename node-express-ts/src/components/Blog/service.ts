@@ -1,6 +1,5 @@
 import * as Joi from 'joi';
 import BlogModel, { IBlogModel } from './model';
-import BlogValidation from './validation';
 import { IBlogService } from './interface';
 import { Types } from 'mongoose';
 
@@ -28,16 +27,6 @@ const BlogService: IBlogService = {
      */
     async findOne(id: string): Promise < IBlogModel > {
         try {
-            const validate: Joi.ValidationResult < {
-                id: string
-            } > = BlogValidation.getBlog({
-                id
-            });
-
-            if (validate.error) {
-                throw new Error(validate.error.message);
-            }
-
             return await BlogModel.findOne({
                 _id: Types.ObjectId(id)
             });
@@ -53,12 +42,6 @@ const BlogService: IBlogService = {
      */
     async insert(body: IBlogModel): Promise < IBlogModel > {
         try {
-            const validate: Joi.ValidationResult < IBlogModel > = BlogValidation.createBlog(body);
-
-            if (validate.error) {
-                throw new Error(validate.error.message);
-            }
-
             const Blog: IBlogModel = await BlogModel.create(body);
 
             return Blog;
@@ -74,15 +57,6 @@ const BlogService: IBlogService = {
      */
     async remove(id: string): Promise < IBlogModel > {
         try {
-            const validate: Joi.ValidationResult < {
-                id: string
-            } > = BlogValidation.removeBlog({
-                id
-            });
-
-            if (validate.error) {
-                throw new Error(validate.error.message);
-            }
 
             const Blog: IBlogModel = await BlogModel.findOneAndRemove({
                 _id: Types.ObjectId(id)

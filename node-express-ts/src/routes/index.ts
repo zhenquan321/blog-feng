@@ -6,6 +6,8 @@ import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
 import ReptileRouter from './ReptileRouter';
 import ViewsRouter from './ViewsRouter';
+import ToolRouter from './ToolRouter';
+import ClassificationRouter from './ClassificationRouter';
 
 
 let swaggerDoc: Object;
@@ -42,13 +44,27 @@ export function init(app: express.Application): void {
      */
     app.use('/auth', AuthRouter);
 
-      /**
+     /**
      * @description
      * 爬虫
      * @constructs
      */
+    
     app.use('/reptile', ReptileRouter);
-  
+
+
+     /**
+     * 博客分类
+     */
+    app.use('/Classification', ClassificationRouter);
+   
+
+
+     /**
+     * 工具类接口
+     */
+    app.use('/tool', ToolRouter);
+
 
     /**
      * @description

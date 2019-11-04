@@ -1,0 +1,114 @@
+<script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.sspai.com/MWeb.css"> -->
+<!-- <link rel="stylesheet" href="https://cdn.sspai.com/sspai.css"> -->
+<%- include('./components/header_createBlog.html') %>
+
+<form class="blogCreate">
+    <div class="header">
+        <div class="header-left">
+            <input type="text" class="form-control" placeholder="请输入文章标题">
+            <hr />
+            <div class="btn-group selTypes">
+                <div class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <i class="iconfont icon-cecenidechenggongshuai"></i> 选择分类
+                </div>
+                <ul class="dropdown-menu">
+                    <li>
+                        分类1
+                    </li>
+                    <li>
+                        分类2
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="createBlog">
+        <% if(editor&&editor =='markDown'){%>
+        <div class="markDown">
+            <textarea name="" id="md-area" onkeyup=mdSwitch()></textarea>
+            <div id="show-area" class="clearfix"></div>
+        </div>
+        <% }else{%>
+        <div class="richTextEditor">
+            <div id="richTextEditor"></div>
+            <textarea id="contentText" style="width:100%; height:200px; opacity: 0;"></textarea>
+        </div>
+
+        <% }%>
+    </div>
+</form>
+
+
+<script>
+    function mdSwitch() {
+        var mdValue = document.getElementById("md-area").value;
+        var converter = new showdown.Converter();
+        var html = converter.makeHtml(mdValue);
+        document.getElementById("show-area").innerHTML = html;
+    }
+</script>
+<script type="text/javascript">
+    var E = window.wangEditor
+    var editor = new E('#richTextEditor')
+    //上传图片到服务器--配置
+    editor.customConfig.uploadImgServer = '/tool/upload';
+    editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+    editor.customConfig.uploadImgMaxLength = 10;
+    editor.customConfig.uploadImgHooks = {
+        before: function (xhr, editor, files) {
+            // 图片上传之前触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
+            // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
+            // return {
+            //     prevent: true,
+            //     msg: '放弃上传'
+            // }
+        },
+        success: function (xhr, editor, result) {
+            // 图片上传并返回结果，图片插入成功之后触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+        },
+        fail: function (xhr, editor, result) {
+            // 图片上传并返回结果，但图片插入错误时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+        },
+        error: function (xhr, editor) {
+            // 图片上传出错时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+        },
+        timeout: function (xhr, editor) {
+            // 图片上传超时时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+        },
+        // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+        // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+        customInsert: function (insertImg, result, editor) {
+            // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+            // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+            // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+            console.log(result);
+            var url = result.url
+            insertImg(url)
+
+            // result 必须是一个 JSON 格式字符串！！！否则报错
+        }
+    }
+    editor.customConfig.customAlert = function (info) {
+        // info 是需要提示的内容
+        alert('上传图片发成错误：' + info)
+    }
+    var $text1 = $('#contentText')
+    editor.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $text1.val(html)
+    }
+
+    editor.create();
+
+    // 初始化 textarea 的值
+    $text1.val(editor.txt.html());
+</script>

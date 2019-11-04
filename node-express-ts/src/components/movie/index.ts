@@ -30,7 +30,7 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
  */
 export async function findOne(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const movie: IMovieModel = await MovieService.findOne(req.params.id);
+        const movie: IMovieModel|false = await MovieService.findOne(req.params.id);
 
         res.status(200).json(movie);
     } catch (error) {

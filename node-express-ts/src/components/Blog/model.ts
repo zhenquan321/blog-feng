@@ -11,33 +11,65 @@ import { NextFunction } from 'express';
  */
 
 export interface IBlogModel extends Document {
-    name: string,
-    updateDate:string,
-    clickNum:number,
-    href: string,
-    sketch:string,
-    imgUrl?: string,
-    downLink?: string,
-    years?: number,
-    type?: string,
-    details?:{
-        downloadLinks:string,
-    }
+    author: String;
+    title: String;
+    content: String;
+    category: String;
+    pv: Number;
+    contentType: String;
+    keyWords:String;
+    published:boolean;
+    meta: {
+        createdAt: Date,
+        updatedAt: Date,
+    };
 }
 
 const BlogSchema: Schema = new Schema({
-    name: String,
-    updateDate:String,
-    clickNum:Number,
-    href: String,
-    sketch:String,
-    imgUrl: String,
-    downLink: String,
-    years: Number,
-    type: String,
-    details:{
-        downloadLinks:String,
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        require: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    keyWords: {
+        type: String,
+        default: ''
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
+    },
+    pv: {
+        type: Number,
+        default: 0
+    },
+    published: {
+        type: Boolean,
+        default: false
+    },
+    contentType: {
+        type: String,
+        default: 'Markdown'
+    },
+    meta: {
+        createdAt: {
+            type: Date,
+            default: Date.now()
+        },
+        updatedAt: {
+            type: Date,
+            default: Date.now()
+        }
     }
+
 }, {
     collection: 'Blogmodel',
     versionKey: false

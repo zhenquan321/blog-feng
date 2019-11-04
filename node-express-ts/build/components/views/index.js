@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const service_1 = require("./../movie/service");
+const service_1 = require("../movie/service"); // 目录 Movie 大小写有疑问
 const error_1 = require("../../config/error");
 // 用户信息
 const service_2 = require("./../User/service");
@@ -104,7 +104,7 @@ function blog(req, res, next) {
                 currentPage: pageQurey.page + 1 || 0,
                 pageSize: pageQurey.pageSize || 20,
             };
-            res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
+            res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: '/' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));
@@ -132,6 +132,19 @@ function blogItem(req, res, next) {
     });
 }
 exports.blogItem = blogItem;
+function blogCreate(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const editor = 'markDown';
+            res.render('blogCreate', { req, editor, title: '发布博客', path: 'blogCreate' });
+        }
+        catch (error) {
+            next(new error_1.default(error.message.status, error.message));
+            res.render('404', { req, title: '未找到资源', path: 'movie' });
+        }
+    });
+}
+exports.blogCreate = blogCreate;
 function careerInformation(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

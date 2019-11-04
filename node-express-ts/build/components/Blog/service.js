@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_1 = require("./model");
-const validation_1 = require("./validation");
 const mongoose_1 = require("mongoose");
 /**
  * @export
@@ -39,12 +38,6 @@ const BlogService = {
     findOne(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validate = validation_1.default.getBlog({
-                    id
-                });
-                if (validate.error) {
-                    throw new Error(validate.error.message);
-                }
                 return yield model_1.default.findOne({
                     _id: mongoose_1.Types.ObjectId(id)
                 });
@@ -62,10 +55,6 @@ const BlogService = {
     insert(body) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validate = validation_1.default.createBlog(body);
-                if (validate.error) {
-                    throw new Error(validate.error.message);
-                }
                 const Blog = yield model_1.default.create(body);
                 return Blog;
             }
@@ -82,12 +71,6 @@ const BlogService = {
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validate = validation_1.default.removeBlog({
-                    id
-                });
-                if (validate.error) {
-                    throw new Error(validate.error.message);
-                }
                 const Blog = yield model_1.default.findOneAndRemove({
                     _id: mongoose_1.Types.ObjectId(id)
                 });

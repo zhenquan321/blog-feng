@@ -1,0 +1,66 @@
+.iconfont {
+  margin: 0 5px;
+}
+.navbar-default {
+  background-color: #ffffff;
+  border-color: #e7e7e7;
+}
+.pingpu {
+  padding: 0;
+  margin: 0;
+}
+.pingpu li {
+  text-decoration: none;
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+  cursor: pointer;
+}
+.pingpu li:hover {
+  color: #e59233;
+}
+.pingpu active {
+  color: #e59233;
+}
+.navbar {
+  font-size: 16px;
+}
+.shuxian {
+  display: inline-block;
+  height: 14px;
+  width: 1px;
+  color: #666;
+  background-color: #888;
+  margin: -1px 5px;
+}
+.nav-left {
+  float: left;
+}
+.nav-right {
+  height: 50px;
+  line-height: 50px;
+  float: right;
+  color: #e59233;
+}
+.nav-right a {
+  color: #e59233;
+  text-decoration: none;
+}
+.logoDiv {
+  float: left;
+  height: 50px;
+  line-height: 42px;
+  padding: 4px;
+}
+.logoDiv img {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  position: relative;
+  top: -1px;
+}
+.logoDiv span {
+  color: #e59233;
+  font-size: 18px;
+}

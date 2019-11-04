@@ -8,6 +8,8 @@ const AuthRouter_1 = require("./AuthRouter");
 const UserRouter_1 = require("./UserRouter");
 const ReptileRouter_1 = require("./ReptileRouter");
 const ViewsRouter_1 = require("./ViewsRouter");
+const ToolRouter_1 = require("./ToolRouter");
+const ClassificationRouter_1 = require("./ClassificationRouter");
 let swaggerDoc;
 try {
     swaggerDoc = require('../../swagger.json');
@@ -39,11 +41,19 @@ function init(app) {
      */
     app.use('/auth', AuthRouter_1.default);
     /**
-   * @description
-   * 爬虫
-   * @constructs
-   */
+    * @description
+    * 爬虫
+    * @constructs
+    */
     app.use('/reptile', ReptileRouter_1.default);
+    /**
+    * 博客分类
+    */
+    app.use('/Classification', ClassificationRouter_1.default);
+    /**
+    * 工具类接口
+    */
+    app.use('/tool', ToolRouter_1.default);
     /**
      * @description
      *  If swagger.json file exists in root folder, shows swagger api description

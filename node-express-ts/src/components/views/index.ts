@@ -1,6 +1,6 @@
 import * as passport from 'passport';
 import AuthService from './service';
-import MovieService from './../movie/service';//目录 Movie 大小写有疑问
+import MovieService from '../movie/service'; // 目录 Movie 大小写有疑问
 import HttpError from '../../config/error';
 import { NextFunction, Request, Response } from 'express';
 
@@ -106,7 +106,7 @@ export async function blog(req: Request, res: Response, next: NextFunction): Pro
             pageSize: pageQurey.pageSize || 20,
         };
 
-        res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
+        res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: '/' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -130,6 +130,20 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
         res.render('404', { req, title: '未找到资源', path: 'movie' });
     }
 }
+
+export async function blogCreate(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        const editor: string = 'markDown';
+        
+        res.render('blogCreate', { req, editor, title: '发布博客', path: 'blogCreate' });
+
+
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+        res.render('404', { req, title: '未找到资源', path: 'movie' });
+    }
+}
+
 
 
 

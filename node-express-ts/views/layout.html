@@ -10,15 +10,16 @@
     <link rel="stylesheet" href="/style/app.css">
     <link rel="stylesheet" href="/style/home.css">
     <link rel="icon" href="/img/logo/favicon_64.ico">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   </head>
   <body>
     <%- include('./components/header.html') %>
     <%- include('./components/notification.html') %>
-    <div class="main-body container">
+    <div <% if(path =='blogCreate'){ %> class="main-body" <% }else{ %> class="main-body container" <%}%> >
       <%- body %>
     </div>
   </body>
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
   <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </html>

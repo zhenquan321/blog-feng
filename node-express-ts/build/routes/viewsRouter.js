@@ -13,6 +13,7 @@ const router = express_1.Router();
  */
 router.get('/', components_1.ViewsComponent.blog);
 router.get('/blog/:id', components_1.ViewsComponent.blogItem);
+router.get('/blogCreate', components_1.ViewsComponent.blogCreate);
 /**
  * 用户板块
  * .用户详情

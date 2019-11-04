@@ -14,7 +14,7 @@ const router: Router = Router();
  */
 router.get('/', ViewsComponent.blog); 
 router.get('/blog/:id', ViewsComponent.blogItem);
-
+router.get('/blogCreate', ViewsComponent.blogCreate);
 
 /**
  * 用户板块

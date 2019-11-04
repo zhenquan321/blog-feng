@@ -8,7 +8,14 @@ const ReptileComponent = require("./Reptile");
 exports.ReptileComponent = ReptileComponent;
 const ViewsComponent = require("./Views");
 exports.ViewsComponent = ViewsComponent;
-// import * as MovieComponent from './Movie';
+const MovieComponent = require("./movie");
+exports.MovieComponent = MovieComponent;
 const BlogComponent = require("./Blog");
 exports.BlogComponent = BlogComponent;
+const JobComponent = require("./Job");
+exports.JobComponent = JobComponent;
+const ToolComponent = require("./Tool");
+exports.ToolComponent = ToolComponent;
+const ClassificationComponent = require("./Classification");
+exports.ClassificationComponent = ClassificationComponent;
 //# sourceMappingURL=index.js.map

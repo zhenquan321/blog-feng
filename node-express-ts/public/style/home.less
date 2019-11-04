@@ -42,8 +42,12 @@
 }
 .navbar{
     font-size: 16px;
+    z-index: 100000;
+    padding: 0 20px;
 }
-
+.navbarCreateBlog{
+    z-index: 100001;
+}
 .shuxian{
     display: inline-block;
     height: 14px;
@@ -418,4 +422,102 @@ a.thumbnail:hover {
     p{
         color:#888
     }
+}
+
+.blogCreate{
+    padding: 10px 20px;
+    .header-left{
+        position: relative;
+        hr{
+            margin-bottom: 0;
+        }
+        .selTypes{
+            position: absolute;
+            right: 30px;
+            top: 4px;
+            color:#888;
+            cursor: pointer;
+            .dropdown-toggle {
+                font-size: 18px;
+                i{
+                    font-size: 20px;
+                    position: relative;
+                    top: 1px;
+                    right: -4px;
+                }
+            }
+           &:hover{
+               color:#555
+           }
+        }
+        .open .dropdown-toggle{
+            box-shadow: 0 0 0;
+        }
+        .dropdown-menu{
+            left: auto;
+            right: 0;
+            padding:10px 0;
+            border: 0;
+            li{
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                &:hover{
+                    background-color: #eee;
+                }
+            }
+        }
+    }
+    .header{
+        .header-left{
+            input{
+                border: 0;
+                box-shadow: 0 0 0;
+                font-size: 22px;
+            }
+            
+        }
+    }
+    .richTextEditor{
+        
+    }
+    .markDown{
+        width: 100%;
+        display: flex;
+        #md-area{
+            width: 50%;
+            border: 0;
+            border: 0;
+            min-height: 800px;
+            background-color: #ededed;
+            border-right:1px solid #ccc;
+            height: 100%;
+            padding: 10px;
+        }
+        #show-area{
+            width: 50%;
+            margin-left: -1px;
+            padding: 10px;
+            border-left:1px solid #ccc ;
+
+        }
+    }
+}
+.selectedEditor{
+    position: relative;
+    top: -1px;
+    margin-left: 15px;
+    .btn-default{
+        background-color: #999;
+        color: #fff;
+        border: 0;
+        &:hover{
+            color: #fff;
+        }
+    }
+    .active{
+        background-color: @mainColor!important;
+    }
+
+
 }

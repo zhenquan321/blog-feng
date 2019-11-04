@@ -1,0 +1,37 @@
+<nav class="navbar navbar-default navbar-fixed-top navbarCreateBlog" >
+    <div <% if( editor && editor =='markDown'){ %>  <% } else {%>  class="container" <% }%> >
+        <div class="logoDiv">
+            <img src="/img/logo/logo.png" alt="" srcset="">
+            <div class="btn-group selectedEditor" role="group">
+                <input type="button" class="btn btn-default active" placeholder="" value="markDown"></button>
+                <input type="button" class="btn btn-default " placeholder="" value="富文本编辑器"></button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a class="sxBtn"><i class="iconfont icon-zhangdan"></i>暂存</a>
+            <span class="shuxian"></span>
+            <a class="sxBtn"><i class="iconfont icon-fenxiang1"></i>发布</a>
+        </div>
+    </div>
+</nav>
+
+<%- include('../components/login.html') %>
+<script>
+    function singIn() {
+        $("#login").css({
+            display: "block"
+        })
+        $(".singinBody").css({
+            display: "block"
+        })
+    };
+
+    function singUp() {
+        $("#login").css({
+            display: "block"
+        })
+        $(".singupBody").css({
+            display: "block"
+        })
+    };
+</script>

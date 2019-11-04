@@ -12,17 +12,48 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const connections = require("../../config/connection/connection");
 const mongoose_1 = require("mongoose");
 const BlogSchema = new mongoose_1.Schema({
-    name: String,
-    updateDate: String,
-    clickNum: Number,
-    href: String,
-    sketch: String,
-    imgUrl: String,
-    downLink: String,
-    years: Number,
-    type: String,
-    details: {
-        downloadLinks: String,
+    author: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'User',
+        require: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    keyWords: {
+        type: String,
+        default: ''
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Category'
+    },
+    pv: {
+        type: Number,
+        default: 0
+    },
+    published: {
+        type: Boolean,
+        default: false
+    },
+    contentType: {
+        type: String,
+        default: 'Markdown'
+    },
+    meta: {
+        createdAt: {
+            type: Date,
+            default: Date.now()
+        },
+        updatedAt: {
+            type: Date,
+            default: Date.now()
+        }
     }
 }, {
     collection: 'Blogmodel',
