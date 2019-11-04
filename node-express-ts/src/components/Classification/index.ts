@@ -48,7 +48,7 @@ export async function create(req: Request, res: Response, next: NextFunction): P
     try {
         const Classification: IClassificationModel = await ClassificationService.insert(req.body);
 
-        res.status(201).json(Classification);
+        res.status(200).json(Classification);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

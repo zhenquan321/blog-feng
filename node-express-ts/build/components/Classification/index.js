@@ -60,7 +60,7 @@ function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const Classification = yield service_1.default.insert(req.body);
-            res.status(201).json(Classification);
+            res.status(200).json(Classification);
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));
