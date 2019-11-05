@@ -1,6 +1,9 @@
 import * as passport from 'passport';
 import AuthService from './service';
 import MovieService from '../movie/service'; // 目录 Movie 大小写有疑问
+import BolgService from '../Blog/service'; // 目录 Movie 大小写有疑问
+
+import ClassificationService from '../Classification/service'; // 目录 Movie 大小写有疑问
 import HttpError from '../../config/error';
 import { NextFunction, Request, Response } from 'express';
 
@@ -16,9 +19,35 @@ import { connect } from 'http2';
  * @param {IUserModel} user 
  * @param {string} resMessage 
  */
-export function index(req: Request, res: Response, next: NextFunction): void {
+export async function index(req: Request, res: Response, next: NextFunction): Promise<any> {
     req.flash = { success: '欢迎光临~' };
-    res.render('index', { req, title: '溜忙之道', path: '/' });
+
+
+    const pageQurey: any = req.query || req.body;
+
+    pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
+
+    const blogList: any = await BolgService.findAll(pageQurey);//
+    const blogArray: any = blogList.data;
+
+    let baseUrl: string = req.path + '?';
+
+
+    for (let key in pageQurey) {
+        if (key !== 'page') {
+            baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+        }
+    }
+
+    const pageInfo: any = {
+        baseUrl,
+        count: blogList.count,
+        currentPage: pageQurey.page + 1 || 0,
+        pageSize: pageQurey.pageSize || 20,
+    };
+
+    console.log(blogArray);
+    res.render('index', { req,pageInfo, blogArray, title: '溜忙之道', path: '/' });
 }
 
 export async function userInfo(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -134,9 +163,11 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
 export async function blogCreate(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const editor: string = 'markDown';
-        
-        res.render('blogCreate', { req, editor, title: '发布博客', path: 'blogCreate' });
+        const classifications: any = await ClassificationService.findAll();
 
+        console.log(classifications);
+
+        res.render('blogCreate', { req, editor, classifications, title: '发布博客', path: 'blogCreate' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));

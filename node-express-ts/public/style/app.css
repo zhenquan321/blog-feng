@@ -1,8 +1,17 @@
+.iconfont {
+  margin: 0 5px;
+}
 @font-face {
   font-family: 'iconfont';
   /* project id 1476614 */
   src: url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.eot');
   src: url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.woff2') format('woff2'), url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.woff') format('woff'), url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.ttf') format('truetype'), url('//at.alicdn.com/t/font_1476614_zjy3tw9vyz.svg#iconfont') format('svg');
+}
+body {
+  background-color: #f4f5f5;
+}
+.mb20 {
+  margin-bottom: 20px;
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -20,10 +29,10 @@ textarea:focus {
 }
 .markDown {
   /*
-  
-  Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmail.com>
-  
-  */
+    
+    Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmail.com>
+    
+    */
   /* Solarized Green */
   /* Solarized Cyan */
   /* Solarized Blue */
@@ -265,9 +274,6 @@ textarea:focus {
 .markDown .tex .hljs-formula {
   background: #eee8d5;
 }
-.iconfont {
-  margin: 0 5px;
-}
 .navbar-default {
   background-color: #ffffff;
   border-color: #e7e7e7;
@@ -385,14 +391,18 @@ textarea:focus {
 a {
   color: #0071d2;
 }
-#login {
+#login,
+.addClassification {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4) !important;
   position: fixed;
   z-index: 1000000;
+  top: 0;
+  left: 0;
 }
-#login .loginBody {
+#login .loginBody,
+.addClassification .loginBody {
   width: 320px;
   height: 330px;
   position: absolute;
@@ -403,18 +413,22 @@ a {
   background-color: #fff;
   border-radius: 8px;
 }
-#login .loginBody h4 {
+#login .loginBody h4,
+.addClassification .loginBody h4 {
   color: #e59233;
 }
-#login .loginBody input {
+#login .loginBody input,
+.addClassification .loginBody input {
   width: 280px;
   height: 40px;
   margin-top: 12px;
 }
-#login .loginBody .btn {
+#login .loginBody .btn,
+.addClassification .loginBody .btn {
   margin-top: 20px;
 }
-#login .loginBody .closeLogin {
+#login .loginBody .closeLogin,
+.addClassification .loginBody .closeLogin {
   position: fixed;
   top: 5px;
   right: 5px;
@@ -422,18 +436,22 @@ a {
   color: #888;
   cursor: pointer;
 }
-#login .singinBody {
+#login .singinBody,
+.addClassification .singinBody {
   width: 320px;
   height: 284px;
 }
-#login .singupBody {
+#login .singupBody,
+.addClassification .singupBody {
   width: 320px;
   height: 284px;
 }
-#login .loginHref {
+#login .loginHref,
+.addClassification .loginHref {
   margin-top: 10px;
 }
-#login .loginHref {
+#login .loginHref,
+.addClassification .loginHref {
   cursor: pointer;
 }
 .notifications {
@@ -663,7 +681,7 @@ a.thumbnail:hover {
   color: #888;
 }
 .blogCreate {
-  padding: 20px;
+  padding: 10px 20px;
 }
 .blogCreate .header-left {
   position: relative;
@@ -707,6 +725,10 @@ a.thumbnail:hover {
 .blogCreate .header-left .dropdown-menu li:hover {
   background-color: #eee;
 }
+.blogCreate .header-left .dropdown-menu .divider {
+  height: 1px;
+  line-height: 1px;
+}
 .blogCreate .header .header-left input {
   border: 0;
   box-shadow: 0 0 0;
@@ -719,9 +741,11 @@ a.thumbnail:hover {
 .blogCreate .markDown #md-area {
   width: 50%;
   border: 0;
-  min-height: 700px;
+  min-height: 800px;
   background-color: #ededed;
   border-right: 1px solid #ccc;
+  height: 100%;
+  padding: 10px;
 }
 .blogCreate .markDown #show-area {
   width: 50%;
@@ -744,4 +768,58 @@ a.thumbnail:hover {
 }
 .selectedEditor .active {
   background-color: #e59233 !important;
+}
+.classificationHeader {
+  position: fixed;
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  font-size: 14px;
+  background-color: #fff;
+  left: 0;
+  top: 50px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.classificationHeader ul li {
+  display: inline-block;
+  padding: 0 10px;
+}
+.blogList {
+  margin-top: 50px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.blogList .blogList-header {
+  height: 44px;
+  line-height: 44px;
+  border-bottom: 1px solid #f6f6f6;
+}
+.blogList .blogList-header ul {
+  padding: 0;
+  padding-left: 10px ;
+}
+.blogList .blogList-header ul li {
+  font-size: 14px;
+  display: inline-block;
+  padding: 0 10px;
+  border-right: 1px solid #ccc;
+  height: 14px;
+  line-height: 14px;
+  padding-right: 12px;
+}
+.blogList .blogList-header ul li:last-child {
+  border-right: 0 ;
+}
+.blogList .blogList-header ul li:hover {
+  color: #e59233;
+  font-weight: 600;
+}
+.blogList .blogList-header ul li.active {
+  color: #e59233;
+  font-weight: 600;
+}
+.blogList .blogCard {
+  margin: 0 15px;
+  padding: 10px 20px;
+  border-bottom: 1px solid #f6f6f6;
 }

@@ -32,6 +32,7 @@ function passportRequestLogin(req, res, next, user, resMessage) {
         req.session.user = {
             _id: user._id,
             email: user.email,
+            isAdmin: (user.isAdmin || false),
             profile: user.profile
         };
         req.flash = { success: '登录成功' };

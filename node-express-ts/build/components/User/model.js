@@ -52,6 +52,7 @@ const UserSchema = new mongoose_1.Schema({
     passwordResetToken: String,
     passwordResetExpires: Date,
     tokens: Array,
+    isAdmin: Boolean,
 }, {
     collection: 'usermodel',
     versionKey: false

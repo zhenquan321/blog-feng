@@ -12,7 +12,7 @@ import { NextFunction, Request, Response } from 'express';
  */
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise < IMovieModel[] > {
     try {
-        const movies: IMovieModel[] = await MovieService.findAll();
+        const movies: IMovieModel[] = await MovieService.findAll(req);
 
         // res.status(200).json(movies);
         return movies;

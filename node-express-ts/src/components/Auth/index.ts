@@ -11,8 +11,8 @@ import { NextFunction, Request, Response } from 'express';
  * @param {IUserModel} user 
  * @param {string} resMessage 
  */
-function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel ,resMessage: string): void {
-    return req.logIn(user, (err:any) => {
+function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel, resMessage: string): void {
+    return req.logIn(user, (err: any) => {
         if (err) return next(new HttpError(err));
         // res.json({
         //     status: 200,
@@ -22,7 +22,8 @@ function passportRequestLogin(req: Request, res: Response, next: NextFunction, u
         req.session.user = {
             _id: user._id,
             email: user.email,
-            profile:user.profile
+            isAdmin: (user.isAdmin || false),
+            profile: user.profile
         };
         req.flash = { success: '登录成功' };
         res.redirect('/');
@@ -36,10 +37,10 @@ function passportRequestLogin(req: Request, res: Response, next: NextFunction, u
  * @param {NextFunction} next 
  * @returns {Promise < void >}
  */
-export async function signup(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const user: IUserModel = await AuthService.createUser(req.body);
-        
+
         passportRequestLogin(req, res, next, user, 'Sign in successfull');
     } catch (error) {
         if (error.code === 500) {
@@ -59,7 +60,7 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function login(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
     passport.authenticate('local', (err: Error, user: IUserModel) => {
         if (err) {
             return next(new HttpError(400, err.message));
@@ -82,7 +83,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
  * @param {NextFunction} next
  * @returns {Promise < void >} 
  */
-export async function signout(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function signout(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     if (!req.user) {
         res.json({
@@ -103,5 +104,5 @@ export async function signout(req: Request, res: Response, next: NextFunction): 
         req.flash = { success: '退出成功~' };
         res.redirect('/');
     }
-    
+
 }

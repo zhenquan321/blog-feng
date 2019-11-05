@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("./service");
 const error_1 = require("../../config/error");
+const index_1 = require("../Views/index");
 /**
  * @export
  * @param {Request} req
@@ -60,7 +61,11 @@ function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const Classification = yield service_1.default.insert(req.body);
-            res.status(200).json(Classification);
+            if (!Classification.name) {
+                req.flash = { warning: Classification.mag };
+            }
+            index_1.blogCreate(req, res, next);
+            // res.status(200).json(Classification);
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));

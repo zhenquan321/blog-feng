@@ -14,7 +14,7 @@ export interface IUserModel extends Document {
     password: string;
     passwordResetToken: string;
     passwordResetExpires: Date;
-    
+    isAdmin:Boolean;
     facebook: string;
     tokens: AuthToken[];
 
@@ -73,6 +73,7 @@ const UserSchema: Schema = new Schema({
     passwordResetToken: String,
     passwordResetExpires: Date,
     tokens: Array,
+    isAdmin:Boolean,
 }, {
     collection: 'usermodel',
     versionKey: false

@@ -10,7 +10,7 @@ import { NextFunction, Request, Response } from 'express';
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function findAll(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function findAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Blogs: IBlogModel[] = await BlogService.findAll();
 
@@ -27,7 +27,7 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function findOne(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Blog: IBlogModel = await BlogService.findOne(req.params.id);
 
@@ -44,11 +44,21 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Blog: IBlogModel = await BlogService.insert(req.body);
 
-        res.status(201).json(Blog);
+        if (Blog && Blog._id) {
+            res.status(200).json({
+                Blog,
+                state:0
+            });
+        }else{
+            res.status(200).json({
+                Blog,
+                state:1
+            });
+        }
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -61,7 +71,7 @@ export async function create(req: Request, res: Response, next: NextFunction): P
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function remove(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function remove(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Blog: IBlogModel = await BlogService.remove(req.params.id);
 

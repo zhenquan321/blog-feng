@@ -51,8 +51,14 @@ const ClassificationService = {
     insert(body) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const Classification = yield model_1.default.create(body);
-                return Classification;
+                const hasClassification = yield model_1.default.findOne({ name: body.name });
+                if (hasClassification) {
+                    return { mag: '该分类已存在' };
+                }
+                else {
+                    const Classification = yield model_1.default.create(body);
+                    return Classification;
+                }
             }
             catch (error) {
                 throw new Error(error.message);

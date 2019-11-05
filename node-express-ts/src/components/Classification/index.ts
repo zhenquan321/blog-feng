@@ -2,7 +2,7 @@ import ClassificationService from './service';
 import { HttpError } from '../../config/error';
 import { IClassificationModel } from './model';
 import { NextFunction, Request, Response } from 'express';
-
+import { blogCreate } from '../Views/index';
 /**
  * @export
  * @param {Request} req
@@ -10,7 +10,7 @@ import { NextFunction, Request, Response } from 'express';
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function findAll(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function findAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Classifications: IClassificationModel[] = await ClassificationService.findAll();
 
@@ -27,7 +27,7 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function findOne(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Classification: IClassificationModel = await ClassificationService.findOne(req.params.id);
 
@@ -44,11 +44,16 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const Classification: IClassificationModel = await ClassificationService.insert(req.body);
+        const Classification: IClassificationModel | any = await ClassificationService.insert(req.body);
+        
+        if (!Classification.name) {
+            req.flash = { warning: Classification.mag };
+        }
+        blogCreate(req, res, next);
 
-        res.status(200).json(Classification);
+        // res.status(200).json(Classification);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -61,7 +66,7 @@ export async function create(req: Request, res: Response, next: NextFunction): P
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function remove(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function remove(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Classification: IClassificationModel = await ClassificationService.remove(req.params.id);
 

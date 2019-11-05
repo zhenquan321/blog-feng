@@ -11,13 +11,13 @@ import { NextFunction } from 'express';
  */
 
 export interface IBlogModel extends Document {
-    author: String;
-    title: String;
-    content: String;
-    category: String;
+    author: string;
+    title: string;
+    content: string;
+    classifications: string;
     pv: Number;
-    contentType: String;
-    keyWords:String;
+    contentType: string;
+    keyWords:string;
     published:boolean;
     meta: {
         createdAt: Date,
@@ -43,9 +43,9 @@ const BlogSchema: Schema = new Schema({
         type: String,
         required: true
     },
-    category: {
+    classifications: {
         type: Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'classifications'
     },
     pv: {
         type: Number,

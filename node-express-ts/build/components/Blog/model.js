@@ -29,9 +29,9 @@ const BlogSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    category: {
+    classifications: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'classifications'
     },
     pv: {
         type: Number,

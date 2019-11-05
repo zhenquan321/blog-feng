@@ -6,8 +6,8 @@ import { NextFunction } from 'express';
 
 
 export interface IClassificationModel extends Document {
-    name: String;
-    describe: String;
+    name: string;
+    describe: string;
     meta: {
         createdAt: Date,
         updatedAt: Date,

@@ -10,7 +10,7 @@ export interface IBlogService {
      * @returns {Promise<IBlogModel[]>}
      * @memberof IBlogService
      */
-    findAll(): Promise<IBlogModel[]>;
+    findAll(pageQurey?:any): Promise<IBlogModel[]|any>;
 
     /**
      * @param {string} code

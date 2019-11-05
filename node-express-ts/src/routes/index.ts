@@ -7,6 +7,7 @@ import UserRouter from './UserRouter';
 import ReptileRouter from './ReptileRouter';
 import ViewsRouter from './ViewsRouter';
 import ToolRouter from './ToolRouter';
+import BlogRouter from './BlogRouter';
 import ClassificationRouter from './ClassificationRouter';
 
 
@@ -56,10 +57,13 @@ export function init(app: express.Application): void {
      /**
      * 博客分类
      */
-    app.use('/Classification', ClassificationRouter);
+    app.use('/classification', ClassificationRouter);
    
-
-
+    /**
+     * 博客
+     */
+    app.use('/blog', BlogRouter);
+   
      /**
      * 工具类接口
      */

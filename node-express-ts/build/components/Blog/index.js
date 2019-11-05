@@ -60,7 +60,18 @@ function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const Blog = yield service_1.default.insert(req.body);
-            res.status(201).json(Blog);
+            if (Blog && Blog._id) {
+                res.status(200).json({
+                    Blog,
+                    state: 0
+                });
+            }
+            else {
+                res.status(200).json({
+                    Blog,
+                    state: 1
+                });
+            }
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));

@@ -1,12 +1,13 @@
 <div class="searchTop">
     <form class="form-inline" action="/movie" method="get">
         <div class="form-group">
-            <input type="text" name="keyword" class="form-control" value="<%- req.query.keyword||'' %>" id="exampleInputAmount" placeholder="请输入搜索关键词">
+            <input type="text" name="keyword" class="form-control" value="<%- req.query.keyword||'' %>"
+                id="exampleInputAmount" placeholder="请输入搜索关键词">
         </div>
         <button type="submit" class="btn btn-primary">搜索</button>
     </form>
 </div>
-<div class="selectHeader">  
+<div class="selectHeader">
     <div>
         <h4>年份</h4>
         <ul>
@@ -21,7 +22,7 @@
 </div>
 
 <div class="movieList">
-    <div class="row">
+    <div class="row mb20">
         <% movieList.forEach(function(movie){ %>
         <div class="col-xs-6 col-md-3 movieCard">
             <a href="/movieItem/<%- movie.id%>" class="thumbnail">
@@ -35,8 +36,14 @@
         <% }); %>
 
         <% if(!(movieList&&movieList.length>0)){%>
-            <p style="margin: 20px;">抱歉，没有更多影片了~我们正在加紧收录中。。。</p>
+        <p style="margin: 20px;">抱歉，没有更多影片了~我们正在加紧收录中。。。</p>
         <%}%>
     </div>
     <%- include('./components/pagination.html') %>
-</div>
+    </div>
+
+<style>
+    body {
+        background-color: #fff;
+    }
+</style>

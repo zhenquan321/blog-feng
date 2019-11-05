@@ -12,7 +12,7 @@ const router: Router = Router();
  * .列表
  * .详情
  */
-router.get('/', ViewsComponent.blog); 
+router.get('/', ViewsComponent.index); 
 router.get('/blog/:id', ViewsComponent.blogItem);
 router.get('/blogCreate', ViewsComponent.blogCreate);
 

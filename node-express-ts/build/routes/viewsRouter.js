@@ -11,7 +11,7 @@ const router = express_1.Router();
  * .列表
  * .详情
  */
-router.get('/', components_1.ViewsComponent.blog);
+router.get('/', components_1.ViewsComponent.index);
 router.get('/blog/:id', components_1.ViewsComponent.blogItem);
 router.get('/blogCreate', components_1.ViewsComponent.blogCreate);
 /**

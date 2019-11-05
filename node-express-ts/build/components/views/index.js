@@ -10,9 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("../movie/service"); // 目录 Movie 大小写有疑问
+const service_2 = require("../Blog/service"); // 目录 Movie 大小写有疑问
+const service_3 = require("../Classification/service"); // 目录 Movie 大小写有疑问
 const error_1 = require("../../config/error");
 // 用户信息
-const service_2 = require("./../User/service");
+const service_4 = require("./../User/service");
 /**
  *
  * @param {Request} req
@@ -22,14 +24,33 @@ const service_2 = require("./../User/service");
  * @param {string} resMessage
  */
 function index(req, res, next) {
-    req.flash = { success: '欢迎光临~' };
-    res.render('index', { req, title: '溜忙之道', path: '/' });
+    return __awaiter(this, void 0, void 0, function* () {
+        req.flash = { success: '欢迎光临~' };
+        const pageQurey = req.query || req.body;
+        pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
+        const blogList = yield service_2.default.findAll(pageQurey); //
+        const blogArray = blogList.data;
+        let baseUrl = req.path + '?';
+        for (let key in pageQurey) {
+            if (key !== 'page') {
+                baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+            }
+        }
+        const pageInfo = {
+            baseUrl,
+            count: blogList.count,
+            currentPage: pageQurey.page + 1 || 0,
+            pageSize: pageQurey.pageSize || 20,
+        };
+        console.log(blogArray);
+        res.render('index', { req, pageInfo, blogArray, title: '溜忙之道', path: '/' });
+    });
 }
 exports.index = index;
 function userInfo(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const user = yield service_2.default.findOne(req.params.id);
+            const user = yield service_4.default.findOne(req.params.id);
             res.render('userInfo', { req, user, title: '个人中心', path: 'userInfo' });
         }
         catch (error) {
@@ -136,7 +157,9 @@ function blogCreate(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const editor = 'markDown';
-            res.render('blogCreate', { req, editor, title: '发布博客', path: 'blogCreate' });
+            const classifications = yield service_3.default.findAll();
+            console.log(classifications);
+            res.render('blogCreate', { req, editor, classifications, title: '发布博客', path: 'blogCreate' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));

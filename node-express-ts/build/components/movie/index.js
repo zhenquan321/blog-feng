@@ -21,7 +21,7 @@ const error_1 = require("../../config/error");
 function findAll(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const movies = yield service_1.default.findAll();
+            const movies = yield service_1.default.findAll(req);
             // res.status(200).json(movies);
             return movies;
         }

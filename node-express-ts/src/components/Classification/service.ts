@@ -36,11 +36,21 @@ const ClassificationService: IClassificationService = {
      * @returns {Promise < IClassificationModel >}
      * @memberof ClassificationService
      */
-    async insert(body: IClassificationModel): Promise<IClassificationModel> {
+    async insert(body: IClassificationModel): Promise<IClassificationModel | any> {
         try {
-            const Classification: IClassificationModel = await ClassificationModel.create(body);
+            const hasClassification: IClassificationModel = await ClassificationModel.findOne({ name: body.name });
 
-            return Classification;
+            if (hasClassification) {
+
+                return { mag: '该分类已存在' };
+
+            } else {
+
+                const Classification: IClassificationModel = await ClassificationModel.create(body);
+
+                return Classification;
+            }
+
         } catch (error) {
             throw new Error(error.message);
         }

@@ -1,4 +1,33 @@
-<%- include('./components/login.html') %>
-<%- include('./components/notification.html') %>
+<div class="classificationHeader">
+    <ul class="container">
+        <li>前端</li>
+        <li>后端</li>
+    </ul>
+</div>
+<div class="blogList" >
+    <div class="blogList-header">
+        <ul>
+            <li class="active">最新</li>
+            <li>热门</li>
+            <li>热榜</li>
+        </ul>
+    </div>
+    <div class="row">
+        <% blogArray.forEach(function(blog){ %>
+        <div class="blogCard">
+            <h6> <span class="re">热</span> · <%= (blog.author.name||blog.author.email) %> · <%= blog.classifications.name %></h6>
+            <h4><%= blog.title %></h4>
+            <div>
+                <span><i class="iconfont icon-dianzan"></i><%= blog.ratingRate||0 %></span>
+                <span><i class="iconfont icon-pinglun"></i><%= blog.thumbsUp||0 %></span>
+            </div>
+        </div>
+        <% }); %>
 
-首页还在开发中，请观看《电影》和《offer之道》板块~
+        <% if(!(blogArray&&blogArray.length>0)){%>
+        <p style="margin: 20px;">抱歉，没有更多博文了~；欢迎加入，一同创造刚好的未来</p>
+        <%}%>
+    </div>
+<%- include('./components/pagination.html') %>  
+</div>
+

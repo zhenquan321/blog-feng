@@ -123,13 +123,14 @@ a{
     color: #0071d2;
 }
 
-#login{
+#login,.addClassification{
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4) !important;
     position: fixed;
     z-index: 1000000;
-   
+    top: 0;
+    left: 0;
     .loginBody{
         width: 320px;
         height: 330px;
@@ -466,6 +467,10 @@ a.thumbnail:hover {
                     background-color: #eee;
                 }
             }
+            .divider{
+                height: 1px;
+                line-height: 1px;
+            }
         }
     }
     .header{
@@ -518,6 +523,73 @@ a.thumbnail:hover {
     .active{
         background-color: @mainColor!important;
     }
+}
 
+.classificationHeader{
+    position: fixed;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    background-color: #fff;
+    left: 0;
+    top: 50px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    ul{
+        li{
+            display: inline-block;
+            padding: 0 10px;
+        }
+    }
+}
 
+.blogList{
+    margin-top: 50px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    .blogList-header{
+        height: 44px;
+        line-height: 44px;
+        border-bottom:1px solid #f6f6f6;
+        ul{
+            padding: 0;
+            padding-left:10px ;
+            li{
+                font-size: 14px;
+                display: inline-block;
+                padding: 0 10px;
+                border-right: 1px solid #ccc ;
+                height: 14px;
+                line-height: 14px;
+                padding-right: 12px;
+                &:last-child{
+                    border-right:0 ;
+                }
+                &:hover{
+                    color: @mainColor;
+                    font-weight: 600;
+                }
+                &.active{
+                    color: @mainColor;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+    .blogCard{
+        .jian{
+            color:red;
+            font-weight: 600;
+        }
+        .re{
+            color:#b71ed7;
+            font-weight: 600;
+        }
+        margin:  0 15px;
+        padding: 10px 20px;
+        border-bottom:1px solid #f6f6f6 ;
+        h6{
+            color:#888
+        }
+    }
 }
