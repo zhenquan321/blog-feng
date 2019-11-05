@@ -34,5 +34,7 @@
         var html = converter.makeHtml(mdValue);
         document.getElementById("markDown-show-area").innerHTML = html;
     }
-    mdShow();
+    setTimeout(() => {
+        mdShow();
+    }, 100);
 </script>

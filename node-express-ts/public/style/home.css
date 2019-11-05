@@ -662,3 +662,6 @@ a.thumbnail:hover {
   border-color: #e59233;
   color: #e59233;
 }
+.blogItem h2 {
+  text-align: center;
+}
