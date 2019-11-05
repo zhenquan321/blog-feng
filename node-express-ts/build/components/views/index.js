@@ -29,7 +29,7 @@ function index(req, res, next) {
         const pageQurey = req.query || req.body;
         pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
         const blogList = yield service_2.default.findAll(pageQurey); //
-        const blogArray = blogList.data;
+        const blogArray = blogList.data || [];
         let baseUrl = req.path + '?';
         for (let key in pageQurey) {
             if (key !== 'page') {

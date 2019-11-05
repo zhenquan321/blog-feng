@@ -28,7 +28,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
     pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
 
     const blogList: any = await BlogService.findAll(pageQurey);//
-    const blogArray: any = blogList.data;
+    const blogArray: any = blogList.data || [];
 
     let baseUrl: string = req.path + '?';
 
