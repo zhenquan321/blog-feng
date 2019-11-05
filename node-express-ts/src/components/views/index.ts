@@ -147,9 +147,7 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
             const blog: any = JSON.parse(JSON.stringify(getBlog));
             const marked:any = require('marked');
 
-            
             blog.content = marked(blog.content);
-            console.log(blog);
             res.render('blogItem', { req, blog, title: blog.title, path: '/' });
         } else {
             res.render('404', { req, title: '未找到资源', path: '/' });

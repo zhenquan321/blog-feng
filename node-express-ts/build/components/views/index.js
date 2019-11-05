@@ -140,7 +140,6 @@ function blogItem(req, res, next) {
                 const blog = JSON.parse(JSON.stringify(getBlog));
                 const marked = require('marked');
                 blog.content = marked(blog.content);
-                console.log(blog);
                 res.render('blogItem', { req, blog, title: blog.title, path: '/' });
             }
             else {
