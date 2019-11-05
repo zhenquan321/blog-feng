@@ -621,6 +621,9 @@ a.thumbnail:hover {
   padding: 20px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
+.blogItem .blogTitle {
+  text-align: center;
+}
 .blogItem .blog-header {
   position: relative;
   border-bottom: 1px dashed #ccc;
@@ -661,7 +664,4 @@ a.thumbnail:hover {
   border-radius: 0;
   border-color: #e59233;
   color: #e59233;
-}
-.blogItem h2 {
-  text-align: center;
 }

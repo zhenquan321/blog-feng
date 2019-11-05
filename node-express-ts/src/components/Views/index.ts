@@ -20,7 +20,7 @@ import { connect } from 'http2';
  * @param {string} resMessage 
  */
 export async function index(req: Request, res: Response, next: NextFunction): Promise<any> {
-    
+
     const pageQurey: any = req.query || req.body;
 
     pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
@@ -45,7 +45,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
     };
 
     req.flash = { success: '欢迎光临~' };
-    res.render('index', { req,pageInfo, blogArray, title: '溜忙之道', path: '/' });
+    res.render('index', { req, pageInfo, blogArray, title: '溜忙之道', path: '/' });
 }
 
 export async function userInfo(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -145,7 +145,10 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
 
         if (getBlog) {
             const blog: any = JSON.parse(JSON.stringify(getBlog));
+            const marked:any = require('marked');
 
+            
+            blog.content = marked(blog.content);
             console.log(blog);
             res.render('blogItem', { req, blog, title: blog.title, path: '/' });
         } else {

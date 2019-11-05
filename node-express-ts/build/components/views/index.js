@@ -138,6 +138,8 @@ function blogItem(req, res, next) {
             const getBlog = yield service_2.default.findOne(req.params.id);
             if (getBlog) {
                 const blog = JSON.parse(JSON.stringify(getBlog));
+                const marked = require('marked');
+                blog.content = marked(blog.content);
                 console.log(blog);
                 res.render('blogItem', { req, blog, title: blog.title, path: '/' });
             }

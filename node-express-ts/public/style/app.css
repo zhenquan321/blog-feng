@@ -581,6 +581,12 @@ a.thumbnail:hover {
   color: #888;
   padding-left: 0;
 }
+.breadcrumbBlack {
+  background-color: rgba(0, 0, 0, 0);
+  margin-bottom: 0;
+  color: #666;
+  padding-left: 0;
+}
 .movieDetail {
   margin-bottom: 20px;
 }
@@ -822,4 +828,116 @@ a.thumbnail:hover {
   margin: 0 15px;
   padding: 10px 20px;
   border-bottom: 1px solid #f6f6f6;
+  cursor: pointer;
+}
+.blogList .blogCard:hover h4 {
+  color: #e59233;
+}
+.blogList .blogCard:last-child {
+  margin-bottom: 20px;
+}
+.blogList .blogCard .jian {
+  color: red;
+  font-weight: 600;
+}
+.blogList .blogCard .re {
+  color: #b71ed7;
+  font-weight: 600;
+}
+.blogList .blogCard h6 {
+  color: #888;
+}
+.blogList .blogCard h4 {
+  font-size: 16px;
+}
+.blogList .blogCard .dzBtnGroup {
+  color: #777;
+}
+.blogList .blogCard .dzBtnGroup span {
+  display: inline-block;
+  padding: 2px 7px 2px 3px;
+  margin-right: -5px;
+}
+.blogList .blogCard .dzBtnGroup span i {
+  font-size: 14px;
+}
+.headerImg {
+  height: 50px;
+  line-height: 50px;
+  display: inline-block;
+  margin: 0 5px;
+}
+.headerImg img {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  position: relative;
+  top: 4px;
+}
+.headerImg span {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  border: 1px solid #999;
+  color: #999;
+  text-align: center;
+  position: relative;
+  top: 4px;
+}
+.headerImg span i {
+  font-size: 24px;
+  margin: 0;
+}
+.blogItem {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.blogItem .blogTitle {
+  text-align: center;
+}
+.blogItem .blog-header {
+  position: relative;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 10px;
+}
+.blogItem .blog-header .headerImg {
+  vertical-align: top;
+}
+.blogItem .blog-header .headerImg img {
+  width: 50px;
+  height: 50px;
+}
+.blogItem .blog-header .headerImg span {
+  width: 50px;
+  height: 50px;
+  padding-top: 10px ;
+}
+.blogItem .blog-header .headerImg span i {
+  font-size: 44px;
+}
+.blogItem .blog-header .author {
+  display: inline-block;
+  vertical-align: top;
+}
+.blogItem .blog-header .author h4 {
+  margin: 10px;
+}
+.blogItem .blog-header .author h5 {
+  margin: -5px 10px 10px;
+  color: #888;
+}
+.blogItem .blog-header button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.blogItem .blog-header .btn {
+  border-radius: 0;
+  border-color: #e59233;
+  color: #e59233;
 }

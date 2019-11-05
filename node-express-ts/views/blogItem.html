@@ -20,21 +20,10 @@
         <button class="btn btn-default">关注</button>
     </div>
     <div class="blog-body">
-        <h2><%= blog.title%></h2>
+        <h2 class="blogTitle"><%= blog.title%></h2>
         <div class="markDown">
-            <div id="markDown-show-area" class="clearfix"></div>
+            <%- blog.content %>
         </div>
     </div>
 </div>
 
-<script>
-    function mdShow() {
-        var mdValue = '<%= blog.content %>';
-        var converter = new showdown.Converter();
-        var html = converter.makeHtml(mdValue);
-        document.getElementById("markDown-show-area").innerHTML = html;
-    }
-    setTimeout(() => {
-        mdShow();
-    }, 100);
-</script>
