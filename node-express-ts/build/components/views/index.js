@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const service_1 = require("../movie/service"); // 目录 Movie 大小写有疑问
+const service_1 = require("../Movie/service"); // 目录 Movie 大小写有疑问
 const service_2 = require("../Blog/service"); // 目录 Movie 大小写有疑问
 const service_3 = require("../Classification/service"); // 目录 Movie 大小写有疑问
 const error_1 = require("../../config/error");
@@ -25,7 +25,6 @@ const service_4 = require("./../User/service");
  */
 function index(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        req.flash = { success: '欢迎光临~' };
         const pageQurey = req.query || req.body;
         pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
         const blogList = yield service_2.default.findAll(pageQurey); //
@@ -42,7 +41,7 @@ function index(req, res, next) {
             currentPage: pageQurey.page + 1 || 0,
             pageSize: pageQurey.pageSize || 20,
         };
-        console.log(blogArray);
+        req.flash = { success: '欢迎光临~' };
         res.render('index', { req, pageInfo, blogArray, title: '溜忙之道', path: '/' });
     });
 }

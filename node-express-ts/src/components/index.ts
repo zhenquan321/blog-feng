@@ -2,7 +2,7 @@ import * as AuthComponent from './Auth';
 import * as UserComponent from './User';
 import * as ReptileComponent from './Reptile';
 import * as ViewsComponent from './Views';
-import * as MovieComponent from './movie';
+import * as MovieComponent from './Movie';
 import * as BlogComponent from './Blog';
 import * as JobComponent from './Job';
 import * as ToolComponent from './Tool';

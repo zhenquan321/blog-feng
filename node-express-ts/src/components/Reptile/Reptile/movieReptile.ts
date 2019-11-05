@@ -1,5 +1,5 @@
-import MovieService from './../../movie/service';
-import MovieModel, { IMovieModel } from './../../movie/model';
+import MovieService from './../../Movie/service';
+import MovieModel, { IMovieModel } from './../../Movie/model';
 import { concat } from 'rxjs';
 import { string, any } from 'joi';
 import { Types } from 'mongoose';

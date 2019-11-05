@@ -1,6 +1,6 @@
 import * as passport from 'passport';
 import AuthService from './service';
-import MovieService from '../movie/service'; // 目录 Movie 大小写有疑问
+import MovieService from '../Movie/service'; // 目录 Movie 大小写有疑问
 import BlogService from '../Blog/service'; // 目录 Movie 大小写有疑问
 
 import ClassificationService from '../Classification/service'; // 目录 Movie 大小写有疑问
@@ -20,9 +20,7 @@ import { connect } from 'http2';
  * @param {string} resMessage 
  */
 export async function index(req: Request, res: Response, next: NextFunction): Promise<any> {
-    req.flash = { success: '欢迎光临~' };
-
-
+    
     const pageQurey: any = req.query || req.body;
 
     pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
@@ -46,7 +44,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
         pageSize: pageQurey.pageSize || 20,
     };
 
-    console.log(blogArray);
+    req.flash = { success: '欢迎光临~' };
     res.render('index', { req,pageInfo, blogArray, title: '溜忙之道', path: '/' });
 }
 

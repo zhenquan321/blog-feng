@@ -1,5 +1,5 @@
-import JobService from './../../job/service';
-import JobModel, { IJobModel } from './../../job/model';
+import JobService from './../../Job/service';
+import JobModel, { IJobModel } from './../../Job/model';
 var superagent = require('superagent'); //发起请求 
 var cheerio = require('cheerio'); //可以像jquer一样操作界面
 var charset = require('superagent-charset'); //解决乱码问题:
