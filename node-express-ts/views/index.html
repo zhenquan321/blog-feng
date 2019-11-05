@@ -4,7 +4,7 @@
         <li>后端</li>
     </ul>
 </div>
-<div class="blogList" >
+<div class="blogList">
     <div class="blogList-header">
         <ul>
             <li class="active">最新</li>
@@ -15,12 +15,15 @@
     <div class="row">
         <% blogArray.forEach(function(blog){ %>
         <div class="blogCard">
-            <h6> <span class="re">热</span> · <%= (blog.author.name||blog.author.email) %> · <%= blog.classifications.name %></h6>
-            <h4><%= blog.title %></h4>
-            <div>
-                <span><i class="iconfont icon-dianzan"></i><%= blog.ratingRate||0 %></span>
-                <span><i class="iconfont icon-pinglun"></i><%= blog.thumbsUp||0 %></span>
-            </div>
+            <a href="/blog/<%=blog._id %>">
+                <h6> <span class="re">热</span> · <span class="jian">专栏</span> ·
+                    <%= (blog.author.name||blog.author.email) %> · <%= blog.classifications.name %></h6>
+                <h4><%= blog.title %></h4>
+                <div class="dzBtnGroup">
+                    <span><i class="iconfont icon-dianzan"></i><%= blog.ratingRate||0 %></span>
+                    <span><i class="iconfont icon-pinglun"></i><%= blog.thumbsUp||0 %></span>
+                </div>
+            </a>
         </div>
         <% }); %>
 
@@ -28,6 +31,5 @@
         <p style="margin: 20px;">抱歉，没有更多博文了~；欢迎加入，一同创造刚好的未来</p>
         <%}%>
     </div>
-<%- include('./components/pagination.html') %>  
-</div>
-
+<%- include('./components/pagination.html') %>
+    </div>

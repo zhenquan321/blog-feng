@@ -136,19 +136,19 @@ exports.blog = blog;
 function blogItem(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const getMovie = yield service_1.default.findOne(req.params.id);
-            if (getMovie) {
-                const movie = JSON.parse(JSON.stringify(getMovie));
-                movie.details.detailDes = movie.details.detailDes.split('detailDes');
-                res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
+            const getBlog = yield service_2.default.findOne(req.params.id);
+            if (getBlog) {
+                const blog = JSON.parse(JSON.stringify(getBlog));
+                console.log(blog);
+                res.render('blogItem', { req, blog, title: blog.title, path: '/' });
             }
             else {
-                res.render('404', { req, title: '未找到资源', path: 'movie' });
+                res.render('404', { req, title: '未找到资源', path: '/' });
             }
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));
-            res.render('404', { req, title: '未找到资源', path: 'movie' });
+            res.render('404', { req, title: '未找到资源', path: '/' });
         }
     });
 }
@@ -163,7 +163,7 @@ function blogCreate(req, res, next) {
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));
-            res.render('404', { req, title: '未找到资源', path: 'movie' });
+            res.render('404', { req, title: '未找到资源', path: '/' });
         }
     });
 }

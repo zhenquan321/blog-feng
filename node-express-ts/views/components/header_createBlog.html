@@ -1,7 +1,12 @@
 <nav class="navbar navbar-default navbar-fixed-top navbarCreateBlog" >
     <div <% if( editor && editor =='markDown'){ %>  <% } else {%>  class="container" <% }%> >
         <div class="logoDiv">
-            <img src="/img/logo/logo.png" alt="" srcset="">
+                <% if(req.session.user && req.session.user.profile && req.session.user.profile.picture){%>
+                    <img src="<%= req.session.user.profile.picture %>" alt="">
+                <% } else { %>
+                    <img src="/img/logo/logo.png" alt="" srcset="">
+                <% }%>
+           
             <div class="btn-group selectedEditor" role="group">
                 <input type="button" class="btn btn-default active" placeholder="" value="markDown"></button>
                 <input type="button" class="btn btn-default " placeholder="" value="富文本编辑器"></button>

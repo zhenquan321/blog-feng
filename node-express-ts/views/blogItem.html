@@ -1,0 +1,38 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+<ol class="breadcrumb breadcrumbBlack">
+    <li><a href="/">博客</a></li>
+    <li><%- blog.title %></li>
+</ol>
+
+<div class="blogItem">
+    <div class="blog-header">
+        <div class="headerImg">
+            <% if(blog.author&&blog.author.profile&&blog.author.profile.picture){%>
+                <img src="<%= blog.author.profile.picture %>" alt="">
+            <% } else { %>
+                <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>
+            <% }%>
+        </div>
+        <div class="author">
+            <h4><%= ((blog.author.profile&&blog.author.profile.name)|| blog.author.email) %> </h4>
+            <h5>阅读量：<%= blog.pv %></h5>
+        </div>
+        <button class="btn btn-default">关注</button>
+    </div>
+    <div class="blog-body">
+        <h2><%= blog.title%></h2>
+        <div class="markDown">
+            <div id="markDown-show-area" class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function mdShow() {
+        var mdValue = '<%= blog.content %>';
+        var converter = new showdown.Converter();
+        var html = converter.makeHtml(mdValue);
+        document.getElementById("markDown-show-area").innerHTML = html;
+    }
+    mdShow();
+</script>

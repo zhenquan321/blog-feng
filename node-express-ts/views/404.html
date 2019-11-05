@@ -16,8 +16,13 @@
     </pre>
     <p class="subtitle is-3">抱歉，未找到相关资源</p>
     <p>欢迎浏览其他内容</p>
-    <button type="submit" class="btn btn-primary"><a href="javascript:history.back();" class="button is-primary">上一页</a></button>
+    <button type="submit" class="btn btn-primary"><a onclick="goBack()" class="button is-primary">上一页</a></button>
     <button type="button" class="btn btn-success"><a href="/" class="button is-link">回主页</a></button>
     
 </div>
 
+<script >
+    function goBack(){
+      window.history.go(-1)
+    }
+</script>

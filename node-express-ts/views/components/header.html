@@ -19,6 +19,13 @@
             <span class="shuxian"></span>
             <% if (req.session.user){ %> <div class="btn-group">
                     <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="headerImg">
+                            <% if(req.session.user&&req.session.user.profile&&breq.session.user.profile.picture){%>
+                            <img src="<%= req.session.user.profile.picture %>" alt="">
+                            <% } else { %>
+                            <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>
+                            <% }%>
+                        </div>
                         <a
                             href="/userInfo/<%=req.session.user._id%>"><%= (req.session.user && req.session.user.profile && req.session.user.profile.name)|| req.session.user.email %></a>
                     </div>

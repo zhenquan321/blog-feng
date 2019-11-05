@@ -313,7 +313,12 @@ a.thumbnail:hover {
     color: #888;
     padding-left: 0;
 }
-
+.breadcrumbBlack{
+    background-color: rgba(0, 0, 0, 0.0);
+    margin-bottom: 0;
+    color: #666;
+    padding-left: 0;
+}
 .movieDetail{
     margin-bottom: 20px;
     hr{
@@ -577,6 +582,18 @@ a.thumbnail:hover {
         }
     }
     .blogCard{
+        margin:  0 15px;
+        padding: 10px 20px;
+        border-bottom:1px solid #f6f6f6 ;
+        cursor: pointer;
+        &:hover{
+            h4{
+                color:@mainColor;
+            }
+        }
+        &:last-child{
+            margin-bottom: 20px;
+        }
         .jian{
             color:red;
             font-weight: 600;
@@ -585,11 +602,109 @@ a.thumbnail:hover {
             color:#b71ed7;
             font-weight: 600;
         }
-        margin:  0 15px;
-        padding: 10px 20px;
-        border-bottom:1px solid #f6f6f6 ;
         h6{
             color:#888
         }
+        h4{
+            font-size: 16px;
+        }
+        .dzBtnGroup{
+            color:#777;
+            
+            span{
+               
+                display: inline-block;
+                padding: 2px 7px 2px 3px;
+                // border: 1px solid #ccc;
+                margin-right: -5px;
+                i{
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }
+
+.headerImg{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    margin: 0 5px;
+    img{
+        display: inline-block;
+        height: 30px;
+        width: 30px;
+        position: relative;
+        top: 4px;
+    }
+    span{
+        display: inline-block;
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+        padding: 0;
+        margin: 0;
+        border-radius: 50%;
+        border: 1px solid #999;
+        color:#999 ;
+        text-align: center;
+        position: relative;
+        top: 4px;
+        i{
+            font-size: 24px;
+            margin: 0;
+        }
+    }
+}
+
+.blogItem{
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    .blog-header{
+        position: relative;
+        border-bottom:1px dashed #ccc ;
+        padding-bottom: 10px;
+        .headerImg{
+            vertical-align: top;
+            
+            img{
+                width: 50px;
+                height: 50px;
+            }
+            span{
+                width: 50px;
+                height: 50px;
+                padding-top:10px ;
+                i{
+                    font-size: 44px;
+                    
+                }
+            }
+        }
+        .author{
+            display: inline-block;
+            vertical-align: top;
+            h4{
+                margin: 10px;
+            }
+            h5{
+                margin: -5px 10px 10px;
+                color: #888;
+            }
+        }
+        button{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .btn{
+            border-radius: 0;
+            border-color:@mainColor ;
+            color:@mainColor ;
+        }
+    }
+    
+}
+

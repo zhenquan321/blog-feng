@@ -63,9 +63,13 @@ const BlogService = {
     findOne(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model_1.default.findOne({
+                const BlogFind = yield model_1.default.findOne({
                     _id: mongoose_1.Types.ObjectId(id)
                 });
+                const Blog = JSON.parse(JSON.stringify(BlogFind));
+                Blog.author = yield service_2.default.findOne(Blog.author);
+                Blog.classifications = yield service_1.default.findOne(Blog.classifications);
+                return Blog;
             }
             catch (error) {
                 throw new Error(error.message);

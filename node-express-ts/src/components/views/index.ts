@@ -1,7 +1,7 @@
 import * as passport from 'passport';
 import AuthService from './service';
 import MovieService from '../movie/service'; // 目录 Movie 大小写有疑问
-import BolgService from '../Blog/service'; // 目录 Movie 大小写有疑问
+import BlogService from '../Blog/service'; // 目录 Movie 大小写有疑问
 
 import ClassificationService from '../Classification/service'; // 目录 Movie 大小写有疑问
 import HttpError from '../../config/error';
@@ -27,7 +27,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
 
     pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
 
-    const blogList: any = await BolgService.findAll(pageQurey);//
+    const blogList: any = await BlogService.findAll(pageQurey);//
     const blogArray: any = blogList.data;
 
     let baseUrl: string = req.path + '?';
@@ -143,20 +143,20 @@ export async function blog(req: Request, res: Response, next: NextFunction): Pro
 
 export async function blogItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const getMovie: any = await MovieService.findOne(req.params.id);
+        const getBlog: any = await BlogService.findOne(req.params.id);
 
-        if (getMovie) {
-            const movie: any = JSON.parse(JSON.stringify(getMovie));
+        if (getBlog) {
+            const blog: any = JSON.parse(JSON.stringify(getBlog));
 
-            movie.details.detailDes = movie.details.detailDes.split('detailDes');
-            res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
+            console.log(blog);
+            res.render('blogItem', { req, blog, title: blog.title, path: '/' });
         } else {
-            res.render('404', { req, title: '未找到资源', path: 'movie' });
+            res.render('404', { req, title: '未找到资源', path: '/' });
         }
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
-        res.render('404', { req, title: '未找到资源', path: 'movie' });
+        res.render('404', { req, title: '未找到资源', path: '/' });
     }
 }
 
@@ -171,7 +171,7 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
-        res.render('404', { req, title: '未找到资源', path: 'movie' });
+        res.render('404', { req, title: '未找到资源', path: '/' });
     }
 }
 

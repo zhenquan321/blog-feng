@@ -52,11 +52,17 @@ const BlogService: IBlogService = {
      * @returns {Promise < IBlogModel >}
      * @memberof BlogService
      */
-    async findOne(id: string): Promise<IBlogModel> {
+    async findOne(id: string): Promise<IBlogModel|any> {
         try {
-            return await BlogModel.findOne({
+            const BlogFind:IBlogModel = await BlogModel.findOne({
                 _id: Types.ObjectId(id)
             });
+            const Blog:any = JSON.parse(JSON.stringify(BlogFind));
+
+            Blog.author = await UserService.findOne(Blog.author);
+            Blog.classifications = await ClassificationService.findOne(Blog.classifications);
+
+            return Blog;
         } catch (error) {
             throw new Error(error.message);
         }
