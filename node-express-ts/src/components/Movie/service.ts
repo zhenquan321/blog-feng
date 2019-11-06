@@ -79,7 +79,7 @@ const MovieService: MovieService = {
     async findAll(pageQurey?: any): Promise<any> {
 
         const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
-        const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
+        const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 12;
         try {
             const findKeyObj: any = {
                 downLink: { $ne: '' },

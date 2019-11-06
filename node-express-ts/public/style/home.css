@@ -381,6 +381,7 @@ a.thumbnail:hover {
 }
 .searchTop .form-inline input {
   width: 240px;
+  border-radius: 0;
 }
 .page-404 {
   height: 100vh;
@@ -736,9 +737,9 @@ a.thumbnail:hover {
 .blogSearch input {
   float: right;
   width: 240px;
-  height: 30px;
-  line-height: 30px;
-  margin-top: 2px;
+  height: 28px;
+  line-height: 28px;
+  margin-top: 3px;
 }
 .blogSearch i {
   color: #999;

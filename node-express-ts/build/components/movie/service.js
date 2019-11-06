@@ -86,7 +86,7 @@ const MovieService = {
     findAll(pageQurey) {
         return __awaiter(this, void 0, void 0, function* () {
             const page = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
-            const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
+            const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 12;
             try {
                 const findKeyObj = {
                     downLink: { $ne: '' },
