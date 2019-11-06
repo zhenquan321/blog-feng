@@ -43,7 +43,7 @@
                     <span><i class="iconfont icon-pinglun"></i><%= blog.comments ||0 %></span>
                 </div>
             </a>
-            <% if (blog.author.id==req.session.user._id){%>
+            <% if (req.session.user && blog.author.id == req.session.user._id){%>
             <div class="removeBlog" onclick="removeBlog('<%= blog._id %>','<%= blog.title %>')">
                 <i class="iconfont icon-shanchu"></i>
             </div>
