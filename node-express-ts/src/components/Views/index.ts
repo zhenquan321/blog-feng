@@ -38,6 +38,12 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
         if (element.pv > 50) {
             element.isHeat = true;
         }
+        if (element.pv > 100) {
+            element.isRecommend = '荐';
+        }
+        if (element.pv > 200) {
+            element.isRecommend = '榜';
+        }
     })
 
     for (let key in pageQurey) {
@@ -52,7 +58,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
         currentPage: pageQurey.page + 1 || 0,
         pageSize: pageQurey.pageSize || 20,
     };
-    console.log(blogArray);
+    
     req.flash = { success: '欢迎光临~' };
     res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
 }

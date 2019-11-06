@@ -1,14 +1,16 @@
 <div class="classificationHeader">
     <div class="container">
         <ul>
-            <li <% if(!req.query.classifications){ %> class="active" <% }%> > <a href="/"> 推荐 </a></li>
+            <li <% if(!req.query.classifications){ %> class="active" <% }%>> <a href="/"> 推荐 </a></li>
             <% classification.forEach(function(item){ %>
-            <li <% if(req.query.classifications==item._id){ %> class="active" <% }%> > <a href="/?classifications=<%= item._id %>"> <%= item.name %> </a></li>
+            <li <% if(req.query.classifications==item._id){ %> class="active" <% }%>> <a
+                    href="/?classifications=<%= item._id %>"> <%= item.name %> </a></li>
             <% }) %>
         </ul>
         <div class="searchTop blogSearch">
             <form class="form-inline" action="/" method="get">
-                <input type="text" name="blogSearch" class="form-control" value="<%- req.query.blogSearch || '' %>" placeholder="请输入搜索关键词">
+                <input type="text" name="blogSearch" class="form-control" value="<%- req.query.blogSearch || '' %>"
+                    placeholder="请输入搜索关键词">
                 <i class="iconfont icon-faxianchaxun1"></i>
             </form>
         </div>
@@ -17,8 +19,9 @@
 <div class="blogList">
     <div class="blogList-header">
         <ul>
-            <li <% if(!req.query.sort || req.query.sort=='createdAt'){ %>class="active" <% }%> > <a href="/?sort=createdAt"> 最新 </a></li>
-            <li <% if(req.query.sort=='pv'){ %>class="active" <% }%> > <a href="/?&sort=pv"> 热门 </a></li>
+            <li <% if(!req.query.sort || req.query.sort=='createdAt'){ %>class="active" <% }%>> <a
+                    href="/?sort=createdAt"> 最新 </a></li>
+            <li <% if(req.query.sort=='pv'){ %>class="active" <% }%>> <a href="/?&sort=pv"> 热门 </a></li>
             <!-- <li <% if(req.query.sort=='pv'){ %>class="active" <% }%> > <a href="/?sort=pv"> 热榜 </a></li> -->
         </ul>
     </div>
@@ -26,20 +29,25 @@
         <% blogArray.forEach(function(blog){ %>
         <div class="blogCard">
             <a href="/blog/<%=blog._id %>">
-                <h6> 
+                <h6>
                     <% if(blog.isHeat){ %><span class="jian"><i class="iconfont icon-remen "></i>热</span> · <% } %>
                     <% if(blog.isRecommend){ %><span class="re"> <%= blog.isRecommend %> </span> · <% } %>
-                    <span class="lei"><%= blog.classifications.name %></span> · 
-                    <%= ((blog.author.profile && blog.author.profile.name)||blog.author.email) %> · 
+                    <span class="lei"><%= blog.classifications.name %></span> ·
+                    <%= ((blog.author.profile && blog.author.profile.name)||blog.author.email) %> ·
                     <%= blog.createdAt %>
                 </h6>
                 <h4><%= blog.title %></h4>
                 <div class="dzBtnGroup">
                     <span><i class="iconfont icon-guankan"></i><%= blog.pv||0 %></span>
-                    <span><i class="iconfont icon-dianzan"></i><%= blog.ratingRate||0 %></span>
-                    <span><i class="iconfont icon-pinglun"></i><%= blog.thumbsUp||0 %></span>
+                    <span><i class="iconfont icon-dianzan"></i><%= blog.thumbsUp ||0 %></span>
+                    <span><i class="iconfont icon-pinglun"></i><%= blog.comments ||0 %></span>
                 </div>
             </a>
+            <% if (blog.author.id==req.session.user._id){%>
+            <div class="removeBlog" onclick="removeBlog('<%= blog._id %>','<%= blog.title %>')">
+                <i class="iconfont icon-shanchu"></i>
+            </div>
+            <% } %>
         </div>
         <% }); %>
 
@@ -47,5 +55,23 @@
         <p style="margin: 20px;">抱歉，没有更多博文了~；欢迎加入，一同创造刚好的未来</p>
         <%}%>
     </div>
-<%- include('./components/pagination.html') %>
+    <%- include('./components/pagination.html') %>
     </div>
+
+    <script>
+        //发布文章
+        function removeBlog(id, name) {
+            if (confirm("确定删除《" + name + "》吗？")) {
+                $.ajax({
+                    type: 'get',
+                    url: '/blog/remove/' + id,
+                    data: '',
+                    success: (res) => {
+                        if (res.state == 0) {
+                            window.location.href = "/";
+                        }
+                    },
+                });
+            }
+        }
+    </script>

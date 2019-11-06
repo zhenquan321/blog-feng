@@ -10,6 +10,7 @@ const ReptileRouter_1 = require("./ReptileRouter");
 const ViewsRouter_1 = require("./ViewsRouter");
 const ToolRouter_1 = require("./ToolRouter");
 const BlogRouter_1 = require("./BlogRouter");
+const CommentRouter_1 = require("./CommentRouter");
 const ClassificationRouter_1 = require("./ClassificationRouter");
 let swaggerDoc;
 try {
@@ -55,6 +56,10 @@ function init(app) {
      * 博客
      */
     app.use('/blog', BlogRouter_1.default);
+    /**
+     * 博客评论
+     */
+    app.use('/comment', CommentRouter_1.default);
     /**
     * 工具类接口
     */

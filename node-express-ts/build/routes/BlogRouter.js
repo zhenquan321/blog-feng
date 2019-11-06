@@ -126,6 +126,7 @@ router.get('/:id', components_1.BlogComponent.findOne);
  *                - $ref: '#/components/schemas/BlogSchema'
  */
 router.delete('/:id', components_1.BlogComponent.remove);
+router.get('/remove/:id', components_1.BlogComponent.remove);
 /**
  * @export {express.Router}
  */

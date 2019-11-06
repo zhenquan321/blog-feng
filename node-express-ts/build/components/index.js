@@ -18,4 +18,6 @@ const ToolComponent = require("./Tool");
 exports.ToolComponent = ToolComponent;
 const ClassificationComponent = require("./Classification");
 exports.ClassificationComponent = ClassificationComponent;
+const CommentComponent = require("./Comment");
+exports.CommentComponent = CommentComponent;
 //# sourceMappingURL=index.js.map

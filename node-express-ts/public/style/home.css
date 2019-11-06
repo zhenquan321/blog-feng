@@ -561,9 +561,27 @@ a.thumbnail:hover {
   padding: 10px 20px;
   border-bottom: 1px solid #f6f6f6;
   cursor: pointer;
+  position: relative;
+}
+.blogList .blogCard .removeBlog {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  right: 20px;
+  top: 30px;
+}
+.blogList .blogCard .removeBlog i {
+  color: red;
+  font-size: 30px;
+}
+.blogList .blogCard:hover {
+  background-color: #fafafa;
 }
 .blogList .blogCard:hover h4 {
   color: #e59233;
+}
+.blogList .blogCard:hover .removeBlog {
+  display: block;
 }
 .blogList .blogCard:last-child {
   margin-bottom: 20px;

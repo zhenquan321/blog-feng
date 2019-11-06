@@ -1,5 +1,6 @@
 
 @import "./config.less";
+
 .navbar-default {
     background-color: #ffffff;
     border-color: #e7e7e7;
@@ -594,9 +595,25 @@ a.thumbnail:hover {
         padding: 10px 20px;
         border-bottom:1px solid #f6f6f6 ;
         cursor: pointer;
+        position: relative;
+        .removeBlog{
+            display: none;
+            position: absolute;
+            z-index: 10;
+            right: 20px;
+            top: 30px;
+            i{
+                color:red;
+                font-size: 30px;
+            }
+        }
         &:hover{
+            background-color: @Bghover;
             h4{
                 color:@mainColor;
+            }
+            .removeBlog{
+                display: block;
             }
         }
         &:last-child{

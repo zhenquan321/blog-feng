@@ -29,13 +29,29 @@ const BlogSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    category: {
+    classifications: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'classifications'
     },
     pv: {
         type: Number,
         default: 0
+    },
+    comments: {
+        type: Number,
+        default: 0
+    },
+    thumbsUp: {
+        type: Number,
+        default: 0
+    },
+    isRecommend: {
+        type: String,
+        default: ''
+    },
+    isHeat: {
+        type: Boolean,
+        default: false
     },
     published: {
         type: Boolean,
@@ -45,15 +61,13 @@ const BlogSchema = new mongoose_1.Schema({
         type: String,
         default: 'Markdown'
     },
-    meta: {
-        createdAt: {
-            type: Date,
-            default: Date.now()
-        },
-        updatedAt: {
-            type: Date,
-            default: Date.now()
-        }
+    createdAt: {
+        type: Date,
+        default: new Date().getTime()
+    },
+    updatedAt: {
+        type: Date,
+        default: new Date().getTime()
     }
 }, {
     collection: 'Blogmodel',
@@ -64,34 +78,5 @@ const BlogSchema = new mongoose_1.Schema({
         next();
     });
 });
-exports.BlogModel = connections.db.model('BlogModel', BlogSchema);
-const ClassificatSchema = new mongoose_1.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    describe: {
-        type: String,
-        default: ''
-    },
-    meta: {
-        createdAt: {
-            type: Date,
-            default: Date.now()
-        },
-        updatedAt: {
-            type: Date,
-            default: Date.now()
-        }
-    }
-}, {
-    collection: 'classificationmodel',
-    versionKey: false
-}).pre('save', function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const Blog = this; // tslint:disable-line
-        next();
-    });
-});
-exports.ClassificationModel = connections.db.model('Classification', ClassificatSchema);
+exports.default = connections.db.model('BlogModel', BlogSchema);
 //# sourceMappingURL=model.js.map

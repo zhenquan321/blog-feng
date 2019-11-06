@@ -24,7 +24,9 @@ export interface IBlogModel extends Document {
     isHeat:boolean;
     createdAt: Date;
     updatedAt: Date;
-    
+    comments:number;
+    thumbsUp:number;
+    deleted:boolean;
 }
 
 const BlogSchema: Schema = new Schema({
@@ -53,6 +55,14 @@ const BlogSchema: Schema = new Schema({
         type: Number,
         default: 0
     },
+    comments: {
+        type: Number,
+        default: 0
+    },
+    thumbsUp: {
+        type: Number,
+        default: 0
+    },
     isRecommend: {
         type: String,
         default: ''
@@ -62,6 +72,10 @@ const BlogSchema: Schema = new Schema({
         default: false
     },
     published: {
+        type: Boolean,
+        default: false
+    },
+    deleted: {
         type: Boolean,
         default: false
     },

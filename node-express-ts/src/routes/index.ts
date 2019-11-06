@@ -8,6 +8,7 @@ import ReptileRouter from './ReptileRouter';
 import ViewsRouter from './ViewsRouter';
 import ToolRouter from './ToolRouter';
 import BlogRouter from './BlogRouter';
+import CommentRouter from './CommentRouter';
 import ClassificationRouter from './ClassificationRouter';
 
 
@@ -64,6 +65,11 @@ export function init(app: express.Application): void {
      */
     app.use('/blog', BlogRouter);
    
+    /**
+     * 博客评论
+     */
+    app.use('/comment', CommentRouter);
+
      /**
      * 工具类接口
      */

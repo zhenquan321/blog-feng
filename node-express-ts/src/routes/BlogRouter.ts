@@ -130,6 +130,8 @@ router.get('/:id', BlogComponent.findOne);
  */
 router.delete('/:id', BlogComponent.remove);
 
+
+router.get('/remove/:id', BlogComponent.remove);
 /**
  * @export {express.Router}
  */

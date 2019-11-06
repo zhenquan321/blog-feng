@@ -18,7 +18,7 @@ const BlogService: IBlogService = {
         try {
             const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
             const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
-            let findKeyObj: any = {};
+            let findKeyObj: any = { deleted: false };
             const sort: any = {};
 
             if (pageQurey && pageQurey.sort) {
@@ -83,18 +83,18 @@ const BlogService: IBlogService = {
         }
     },
 
-     /**
-     * @param {string} id
-     * @returns {Promise < IBlogModel >}
-     * @memberof BlogService
-     */
-    async update(id: string,updateInfo:any): Promise<any> {
+    /**
+    * @param {string} id
+    * @returns {Promise < IBlogModel >}
+    * @memberof BlogService
+    */
+    async update(id: string, updateInfo: any): Promise<any> {
         try {
             const BlogFind: IBlogModel = await BlogModel.updateOne({
                 _id: Types.ObjectId(id)
-            },updateInfo);
+            }, updateInfo);
 
-            console.log(BlogFind,updateInfo);
+            console.log(BlogFind, updateInfo);
 
             return BlogFind;
         } catch (error) {

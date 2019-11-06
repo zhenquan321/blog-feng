@@ -7,6 +7,7 @@ import * as BlogComponent from './Blog';
 import * as JobComponent from './Job';
 import * as ToolComponent from './Tool';
 import * as ClassificationComponent from './Classification';
+import * as CommentComponent from './Comment';
 
 
 export {
@@ -18,6 +19,6 @@ export {
     BlogComponent,
     JobComponent,
     ToolComponent,
-    ClassificationComponent
-
+    ClassificationComponent,
+    CommentComponent
 };

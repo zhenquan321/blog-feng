@@ -89,8 +89,14 @@ exports.create = create;
 function remove(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const Blog = yield service_1.default.remove(req.params.id);
-            res.status(200).json(Blog);
+            const Blog = yield service_1.default.update(req.params.id, { deleted: true });
+            console.log(Blog);
+            if (Blog) {
+                res.status(200).json({
+                    Blog,
+                    state: 0
+                });
+            }
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));
