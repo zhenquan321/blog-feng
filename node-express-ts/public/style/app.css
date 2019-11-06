@@ -27,6 +27,35 @@ body {
 textarea:focus {
   outline-offset: 0px;
 }
+.a-upload {
+  padding: 4px 10px;
+  line-height: 34px;
+  position: relative;
+  cursor: pointer;
+  color: #888;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-block;
+  /* top: 6px; */
+  display: inline;
+}
+.a-upload input {
+  position: absolute;
+  font-size: 10px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}
+.a-upload:hover {
+  color: #444;
+  background: #eee;
+  border-color: #ccc;
+  text-decoration: none;
+}
 .markDown {
   /*
 
@@ -638,7 +667,7 @@ a.thumbnail:hover {
   padding: 6px 10px;
   background-color: #fff;
   border-radius: 6px;
-  margin-top: 10px ;
+  margin-top: 10px;
 }
 .movieDetail .detailCard p:first-child {
   font-weight: 600;
@@ -657,6 +686,7 @@ a.thumbnail:hover {
 }
 .searchTop .form-inline input {
   width: 240px;
+  border-radius: 0;
 }
 .page-404 {
   height: 100vh;
@@ -799,10 +829,12 @@ a.thumbnail:hover {
   height: 44px;
   line-height: 44px;
   border-bottom: 1px solid #f6f6f6;
+  cursor: pointer;
 }
 .blogList .blogList-header ul {
   padding: 0;
-  padding-left: 10px ;
+  padding-left: 10px;
+  color: #777;
 }
 .blogList .blogList-header ul li {
   font-size: 14px;
@@ -814,24 +846,48 @@ a.thumbnail:hover {
   padding-right: 12px;
 }
 .blogList .blogList-header ul li:last-child {
-  border-right: 0 ;
+  border-right: 0;
 }
 .blogList .blogList-header ul li:hover {
   color: #e59233;
   font-weight: 600;
 }
+.blogList .blogList-header ul li:hover a {
+  color: #e59233;
+}
 .blogList .blogList-header ul li.active {
   color: #e59233;
   font-weight: 600;
+}
+.blogList .blogList-header ul li.active a {
+  color: #e59233;
 }
 .blogList .blogCard {
   margin: 0 15px;
   padding: 10px 20px;
   border-bottom: 1px solid #f6f6f6;
   cursor: pointer;
+  position: relative;
+}
+.blogList .blogCard .removeBlog {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  right: 20px;
+  top: 30px;
+}
+.blogList .blogCard .removeBlog i {
+  color: red;
+  font-size: 30px;
+}
+.blogList .blogCard:hover {
+  background-color: #fafafa;
 }
 .blogList .blogCard:hover h4 {
   color: #e59233;
+}
+.blogList .blogCard:hover .removeBlog {
+  display: block;
 }
 .blogList .blogCard:last-child {
   margin-bottom: 20px;
@@ -844,8 +900,16 @@ a.thumbnail:hover {
   color: #b71ed7;
   font-weight: 600;
 }
+.blogList .blogCard .lei {
+  color: #f70;
+  font-weight: 600;
+}
 .blogList .blogCard h6 {
   color: #888;
+  font-size: 12px;
+}
+.blogList .blogCard h6 i {
+  font-size: 12px;
 }
 .blogList .blogCard h4 {
   font-size: 16px;
@@ -915,7 +979,7 @@ a.thumbnail:hover {
 .blogItem .blog-header .headerImg span {
   width: 50px;
   height: 50px;
-  padding-top: 10px ;
+  padding-top: 10px;
 }
 .blogItem .blog-header .headerImg span i {
   font-size: 44px;
@@ -940,4 +1004,76 @@ a.thumbnail:hover {
   border-radius: 0;
   border-color: #e59233;
   color: #e59233;
+}
+.classificationHeader ul {
+  padding: 0;
+  padding-left: 10px;
+  float: left;
+}
+.classificationHeader ul li {
+  font-size: 14px;
+  display: inline-block;
+  padding: 0 10px;
+  padding-right: 12px;
+  color: #777;
+  cursor: pointer;
+}
+.classificationHeader ul li:last-child {
+  border-right: 0;
+}
+.classificationHeader ul li:hover {
+  color: #e59233;
+  font-weight: 600;
+}
+.classificationHeader ul li:hover a {
+  color: #e59233;
+}
+.classificationHeader ul li.active {
+  color: #e59233;
+  font-weight: 600;
+}
+.classificationHeader ul li.active a {
+  color: #e59233;
+}
+.blogSearch {
+  float: right;
+  position: relative;
+}
+.blogSearch input {
+  float: right;
+  width: 240px;
+  height: 28px;
+  line-height: 28px;
+  margin-top: 3px;
+}
+.blogSearch i {
+  color: #999;
+  font-size: 22px;
+  position: absolute;
+  right: 2px;
+  top: -4px;
+}
+.userInfo {
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 20px 40px;
+  width: 70%;
+  margin-top: 10px ;
+}
+.userInfo .header {
+  font-size: 22px;
+  font-weight: 600;
+  border-bottom: 1px solid #eee;
+  height: 60px;
+  line-height: 60px;
+}
+.userInfo .form-group {
+  border-bottom: 1px solid #eee;
+  padding: 20px 0;
+  margin: 0;
+}
+.userInfo .form-group input {
+  border-radius: 0;
+  border: 0;
+  box-shadow: 0 0 0;
 }
