@@ -35,7 +35,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
 
     blogArray.forEach((element: any) => {
         element.createdAt = new Time().formatDate(element.createdAt);
-        if (element.pv > 10) {
+        if (element.pv > 50) {
             element.isHeat = true;
         }
     })

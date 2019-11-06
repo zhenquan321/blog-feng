@@ -34,7 +34,7 @@ function index(req, res, next) {
         let baseUrl = req.path + '?';
         blogArray.forEach((element) => {
             element.createdAt = new Time_1.default().formatDate(element.createdAt);
-            if (element.pv > 10) {
+            if (element.pv > 50) {
                 element.isHeat = true;
             }
         });
