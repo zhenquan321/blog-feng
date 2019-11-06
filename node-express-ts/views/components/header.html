@@ -15,7 +15,11 @@
             </ul>
         </div>
         <div class="nav-right">
-            <a class="sxBtn" href="/blogCreate"><i class="iconfont icon-bianji"></i>写文章</a>
+            <% if (req.session.user){ %>  
+                <a class="sxBtn" href="/blogCreate"><i class="iconfont icon-bianji"></i>写文章</a>
+            <% } else { %>
+                <a class="sxBtn" onclick="singIn()" ><i class="iconfont icon-bianji"></i>写文章</a> 
+             <% } %>
             <span class="shuxian"></span>
             <% if (req.session.user){ %> <div class="btn-group">
                     <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
