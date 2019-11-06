@@ -546,9 +546,15 @@ a.thumbnail:hover {
   color: #e59233;
   font-weight: 600;
 }
+.blogList .blogList-header ul li:hover a {
+  color: #e59233;
+}
 .blogList .blogList-header ul li.active {
   color: #e59233;
   font-weight: 600;
+}
+.blogList .blogList-header ul li.active a {
+  color: #e59233;
 }
 .blogList .blogCard {
   margin: 0 15px;
@@ -576,6 +582,10 @@ a.thumbnail:hover {
 }
 .blogList .blogCard h6 {
   color: #888;
+  font-size: 12px;
+}
+.blogList .blogCard h6 i {
+  font-size: 12px;
 }
 .blogList .blogCard h4 {
   font-size: 16px;
@@ -691,9 +701,15 @@ a.thumbnail:hover {
   color: #e59233;
   font-weight: 600;
 }
+.classificationHeader ul li:hover a {
+  color: #e59233;
+}
 .classificationHeader ul li.active {
   color: #e59233;
   font-weight: 600;
+}
+.classificationHeader ul li.active a {
+  color: #e59233;
 }
 .blogSearch {
   float: right;

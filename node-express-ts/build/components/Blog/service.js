@@ -27,38 +27,40 @@ const BlogService = {
             try {
                 const page = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
                 const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
-                try {
-                    let findKeyObj = {};
-                    if (pageQurey && pageQurey.blogSearch) {
-                        const blogSearchKeyWords = { $regex: pageQurey.blogSearch, $options: 'i' };
-                        findKeyObj = {
-                            $or: [
-                                { title: blogSearchKeyWords },
-                                { content: blogSearchKeyWords }
-                            ]
-                        };
-                    }
-                    if (pageQurey && pageQurey.keywords) {
-                        findKeyObj.keywords = pageQurey.keywords;
-                    }
-                    if (pageQurey && pageQurey.classifications) {
-                        findKeyObj.classifications = pageQurey.classifications;
-                    }
-                    const BlogListFind = yield model_1.default.find(findKeyObj).sort({ createdAt: -1 }).limit(pagesize).skip(page * pagesize);
-                    const BlogList = JSON.parse(JSON.stringify(BlogListFind));
-                    const count = yield model_1.default.find(findKeyObj).countDocuments();
-                    for (let i = 0; i < BlogList.length; i++) {
-                        BlogList[i].author = yield service_2.default.findOne(BlogList[i].author);
-                        BlogList[i].classifications = yield service_1.default.findOne(BlogList[i].classifications);
-                    }
-                    return {
-                        count,
-                        data: BlogList,
+                let findKeyObj = {};
+                const sort = {};
+                if (pageQurey && pageQurey.sort) {
+                    sort[pageQurey.sort] = -1;
+                }
+                else {
+                    sort.createdAt = -1;
+                }
+                if (pageQurey && pageQurey.blogSearch) {
+                    const blogSearchKeyWords = { $regex: pageQurey.blogSearch, $options: 'i' };
+                    findKeyObj = {
+                        $or: [
+                            { title: blogSearchKeyWords },
+                            { content: blogSearchKeyWords }
+                        ]
                     };
                 }
-                catch (error) {
-                    throw new Error(error.message);
+                if (pageQurey && pageQurey.keywords) {
+                    findKeyObj.keywords = pageQurey.keywords;
                 }
+                if (pageQurey && pageQurey.classifications) {
+                    findKeyObj.classifications = pageQurey.classifications;
+                }
+                const BlogListFind = yield model_1.default.find(findKeyObj).sort(sort).limit(pagesize).skip(page * pagesize);
+                const BlogList = JSON.parse(JSON.stringify(BlogListFind));
+                const count = yield model_1.default.find(findKeyObj).countDocuments();
+                for (let i = 0; i < BlogList.length; i++) {
+                    BlogList[i].author = yield service_2.default.findOne(BlogList[i].author);
+                    BlogList[i].classifications = yield service_1.default.findOne(BlogList[i].classifications);
+                }
+                return {
+                    count,
+                    data: BlogList,
+                };
             }
             catch (error) {
                 throw new Error(error.message);
@@ -80,6 +82,25 @@ const BlogService = {
                 Blog.author = yield service_2.default.findOne(Blog.author);
                 Blog.classifications = yield service_1.default.findOne(Blog.classifications);
                 return Blog;
+            }
+            catch (error) {
+                throw new Error(error.message);
+            }
+        });
+    },
+    /**
+    * @param {string} id
+    * @returns {Promise < IBlogModel >}
+    * @memberof BlogService
+    */
+    update(id, updateInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const BlogFind = yield model_1.default.updateOne({
+                    _id: mongoose_1.Types.ObjectId(id)
+                }, updateInfo);
+                console.log(BlogFind, updateInfo);
+                return BlogFind;
             }
             catch (error) {
                 throw new Error(error.message);

@@ -18,42 +18,45 @@ const BlogService: IBlogService = {
         try {
             const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
             const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
-            try {
-                let findKeyObj: any = {};
+            let findKeyObj: any = {};
+            const sort: any = {};
 
-                if (pageQurey && pageQurey.blogSearch) {
-                    const blogSearchKeyWords: any = { $regex: pageQurey.blogSearch, $options: 'i' };
-                    findKeyObj = {
-                        $or: [
-                            { title: blogSearchKeyWords },
-                            { content: blogSearchKeyWords }
-                        ]
-                    };
-                }
-                if (pageQurey && pageQurey.keywords) {
-                    findKeyObj.keywords = pageQurey.keywords;
-                }
-                if (pageQurey && pageQurey.classifications) {
-                    findKeyObj.classifications = pageQurey.classifications;
-                }
-
-                const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort({ createdAt: -1 }).limit(pagesize).skip(page * pagesize);
-                const BlogList: any[] = JSON.parse(JSON.stringify(BlogListFind));
-                const count: number = await BlogModel.find(findKeyObj).countDocuments();
-
-
-                for (let i: number = 0; i < BlogList.length; i++) {
-                    BlogList[i].author = await UserService.findOne(BlogList[i].author);
-                    BlogList[i].classifications = await ClassificationService.findOne(BlogList[i].classifications);
-                }
-
-                return {
-                    count,
-                    data: BlogList,
-                };
-            } catch (error) {
-                throw new Error(error.message);
+            if (pageQurey && pageQurey.sort) {
+                sort[pageQurey.sort] = -1;
+            } else {
+                sort.createdAt = -1;
             }
+            if (pageQurey && pageQurey.blogSearch) {
+                const blogSearchKeyWords: any = { $regex: pageQurey.blogSearch, $options: 'i' };
+                findKeyObj = {
+                    $or: [
+                        { title: blogSearchKeyWords },
+                        { content: blogSearchKeyWords }
+                    ]
+                };
+            }
+            if (pageQurey && pageQurey.keywords) {
+                findKeyObj.keywords = pageQurey.keywords;
+            }
+            if (pageQurey && pageQurey.classifications) {
+                findKeyObj.classifications = pageQurey.classifications;
+            }
+
+            const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort(sort).limit(pagesize).skip(page * pagesize);
+            const BlogList: any[] = JSON.parse(JSON.stringify(BlogListFind));
+            const count: number = await BlogModel.find(findKeyObj).countDocuments();
+
+
+            for (let i: number = 0; i < BlogList.length; i++) {
+                BlogList[i].author = await UserService.findOne(BlogList[i].author);
+                BlogList[i].classifications = await ClassificationService.findOne(BlogList[i].classifications);
+            }
+
+            return {
+                count,
+                data: BlogList,
+            };
+
         } catch (error) {
             throw new Error(error.message);
         }
@@ -80,6 +83,24 @@ const BlogService: IBlogService = {
         }
     },
 
+     /**
+     * @param {string} id
+     * @returns {Promise < IBlogModel >}
+     * @memberof BlogService
+     */
+    async update(id: string,updateInfo:any): Promise<any> {
+        try {
+            const BlogFind: IBlogModel = await BlogModel.updateOne({
+                _id: Types.ObjectId(id)
+            },updateInfo);
+
+            console.log(BlogFind,updateInfo);
+
+            return BlogFind;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
     /**
      * @param {IBlogModel} Blog
      * @returns {Promise < IBlogModel >}

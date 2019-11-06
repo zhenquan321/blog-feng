@@ -6,6 +6,7 @@ import BlogService from '../Blog/service'; // 目录 Movie 大小写有疑问
 import ClassificationService from '../Classification/service'; // 目录 Movie 大小写有疑问
 import HttpError from '../../config/error';
 import { NextFunction, Request, Response } from 'express';
+import Time from '../../utils/Time';
 
 // 用户信息
 import UserService from './../User/service';
@@ -26,12 +27,18 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
     pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
 
     const blogList: any = await BlogService.findAll(pageQurey);//
-    const classification:any = await ClassificationService.findAll();//
+    const classification: any = await ClassificationService.findAll();//
 
     const blogArray: any = blogList.data || [];
 
     let baseUrl: string = req.path + '?';
 
+    blogArray.forEach((element: any) => {
+        element.createdAt = new Time().formatDate(element.createdAt);
+        if (element.pv > 10) {
+            element.isHeat = true;
+        }
+    })
 
     for (let key in pageQurey) {
         if (key !== 'page') {
@@ -145,10 +152,13 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
     try {
         const getBlog: any = await BlogService.findOne(req.params.id);
 
+
         if (getBlog) {
             const blog: any = JSON.parse(JSON.stringify(getBlog));
-            const marked:any = require('marked');
+            const marked: any = require('marked');
 
+            // 增加阅读数
+            BlogService.update(req.params.id, { $set: { pv: (getBlog.pv + Math.round(Math.random() * 10)) } });
             blog.content = marked(blog.content);
             res.render('blogItem', { req, blog, title: blog.title, path: '/' });
         } else {

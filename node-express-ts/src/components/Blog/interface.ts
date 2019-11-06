@@ -27,6 +27,11 @@ export interface IBlogService {
     insert(IBlogModel: IBlogModel): Promise<IBlogModel>;
 
     /**
+     *更新数据
+     */
+    update(id: string,updateInfo:any): Promise<any>;
+
+    /**
      * @param {string} id
      * @returns {Promise<IBlogModel>}
      * @memberof IBlogService

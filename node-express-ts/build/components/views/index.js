@@ -13,6 +13,7 @@ const service_1 = require("../Movie/service"); // 目录 Movie 大小写有疑�
 const service_2 = require("../Blog/service"); // 目录 Movie 大小写有疑问
 const service_3 = require("../Classification/service"); // 目录 Movie 大小写有疑问
 const error_1 = require("../../config/error");
+const Time_1 = require("../../utils/Time");
 // 用户信息
 const service_4 = require("./../User/service");
 /**
@@ -31,6 +32,12 @@ function index(req, res, next) {
         const classification = yield service_3.default.findAll(); //
         const blogArray = blogList.data || [];
         let baseUrl = req.path + '?';
+        blogArray.forEach((element) => {
+            element.createdAt = new Time_1.default().formatDate(element.createdAt);
+            if (element.pv > 10) {
+                element.isHeat = true;
+            }
+        });
         for (let key in pageQurey) {
             if (key !== 'page') {
                 baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
@@ -141,6 +148,8 @@ function blogItem(req, res, next) {
             if (getBlog) {
                 const blog = JSON.parse(JSON.stringify(getBlog));
                 const marked = require('marked');
+                // 增加阅读数
+                service_2.default.update(req.params.id, { $set: { pv: (getBlog.pv + Math.round(Math.random() * 10)) } });
                 blog.content = marked(blog.content);
                 res.render('blogItem', { req, blog, title: blog.title, path: '/' });
             }
