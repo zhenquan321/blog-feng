@@ -37,6 +37,14 @@ const BlogSchema = new mongoose_1.Schema({
         type: Number,
         default: 0
     },
+    isRecommend: {
+        type: String,
+        default: ''
+    },
+    isHeat: {
+        type: Boolean,
+        default: false
+    },
     published: {
         type: Boolean,
         default: false
@@ -45,15 +53,13 @@ const BlogSchema = new mongoose_1.Schema({
         type: String,
         default: 'Markdown'
     },
-    meta: {
-        createdAt: {
-            type: Date,
-            default: Date.now()
-        },
-        updatedAt: {
-            type: Date,
-            default: Date.now()
-        }
+    createdAt: {
+        type: Date,
+        default: new Date().getTime()
+    },
+    updatedAt: {
+        type: Date,
+        default: new Date().getTime()
     }
 }, {
     collection: 'Blogmodel',

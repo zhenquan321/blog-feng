@@ -4,6 +4,7 @@ import * as crypto from 'crypto';
 import { Document, Schema } from 'mongoose';
 import { NextFunction } from 'express';
 
+
 /**
  * @export
  * @interface IBlogModel
@@ -19,10 +20,11 @@ export interface IBlogModel extends Document {
     contentType: string;
     keyWords:string;
     published:boolean;
-    meta: {
-        createdAt: Date,
-        updatedAt: Date,
-    };
+    isRecommend:string;
+    isHeat:boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    
 }
 
 const BlogSchema: Schema = new Schema({
@@ -51,6 +53,14 @@ const BlogSchema: Schema = new Schema({
         type: Number,
         default: 0
     },
+    isRecommend: {
+        type: String,
+        default: ''
+    },
+    isHeat: {
+        type: Boolean,
+        default: false
+    },
     published: {
         type: Boolean,
         default: false
@@ -59,15 +69,13 @@ const BlogSchema: Schema = new Schema({
         type: String,
         default: 'Markdown'
     },
-    meta: {
-        createdAt: {
-            type: Date,
-            default: Date.now()
-        },
-        updatedAt: {
-            type: Date,
-            default: Date.now()
-        }
+    createdAt: {
+        type: Date,
+        default: new Date().getTime()
+    },
+    updatedAt: {
+        type: Date,
+        default: new Date().getTime()
     }
 
 }, {

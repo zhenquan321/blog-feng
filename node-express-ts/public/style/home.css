@@ -523,10 +523,12 @@ a.thumbnail:hover {
   height: 44px;
   line-height: 44px;
   border-bottom: 1px solid #f6f6f6;
+  cursor: pointer;
 }
 .blogList .blogList-header ul {
   padding: 0;
   padding-left: 10px ;
+  color: #777;
 }
 .blogList .blogList-header ul li {
   font-size: 14px;
@@ -566,6 +568,10 @@ a.thumbnail:hover {
 }
 .blogList .blogCard .re {
   color: #b71ed7;
+  font-weight: 600;
+}
+.blogList .blogCard .lei {
+  color: #f70;
   font-weight: 600;
 }
 .blogList .blogCard h6 {
@@ -664,4 +670,46 @@ a.thumbnail:hover {
   border-radius: 0;
   border-color: #e59233;
   color: #e59233;
+}
+.classificationHeader ul {
+  padding: 0;
+  padding-left: 10px ;
+  float: left;
+}
+.classificationHeader ul li {
+  font-size: 14px;
+  display: inline-block;
+  padding: 0 10px;
+  padding-right: 12px;
+  color: #777;
+  cursor: pointer;
+}
+.classificationHeader ul li:last-child {
+  border-right: 0 ;
+}
+.classificationHeader ul li:hover {
+  color: #e59233;
+  font-weight: 600;
+}
+.classificationHeader ul li.active {
+  color: #e59233;
+  font-weight: 600;
+}
+.blogSearch {
+  float: right;
+  position: relative;
+}
+.blogSearch input {
+  float: right;
+  width: 240px;
+  height: 30px;
+  line-height: 30px;
+  margin-top: 2px;
+}
+.blogSearch i {
+  color: #999;
+  font-size: 22px;
+  position: absolute;
+  right: 2px;
+  top: -4px;
 }

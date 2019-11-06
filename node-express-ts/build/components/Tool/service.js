@@ -35,6 +35,7 @@ const ToolService = {
                 form.parse(req, (err, fields, files) => {
                     console.log(fields, files);
                     let avatarName = '';
+                    const succMap = {};
                     for (const key in files) {
                         if (files[key].name) {
                             const file = files[key];
@@ -51,9 +52,18 @@ const ToolService = {
                             avatarName = name + time + '.' + type;
                             const newPath = form.uploadDir + '/' + avatarName;
                             fs.renameSync(file.path, newPath); // 重命名
-                            res.send({ url: '/upload/' + avatarName });
+                            succMap[nameArray[0]] = '/upload/' + avatarName;
                         }
                     }
+                    res.send({
+                        msg: '',
+                        code: 0,
+                        data: {
+                            succMap,
+                            errFiles: [],
+                        }
+                    });
+                    // res.send({ url: '/upload/' + avatarName});
                 });
             }
             catch (error) {

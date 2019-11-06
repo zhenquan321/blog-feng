@@ -28,7 +28,9 @@ const ToolService: ToolService = {
             // 处理图片
             form.parse(req, (err: any, fields: any, files: any) => {
                 console.log(fields, files);
-                let avatarName:string = '';
+                let avatarName: string = '';
+                const succMap: any = {};
+
                 for (const key in files) {
                     if (files[key].name) {
                         const file: any = files[key];
@@ -36,20 +38,27 @@ const ToolService: ToolService = {
                         const nameArray: string[] = filename.split('.');
                         const type: string = nameArray[nameArray.length - 1];
                         let name: string = '';
-                        for (let i:number = 0; i < nameArray.length - 1; i++) {
+                        for (let i: number = 0; i < nameArray.length - 1; i++) {
                             name = name + nameArray[i];
                         }
                         const date: Data = new Date();
                         const time: string = '_' + date.getFullYear() + '_' + date.getMonth() + '_'
-                         + date.getDay() + '_' + date.getHours() + '_' + date.getMinutes();
+                            + date.getDay() + '_' + date.getHours() + '_' + date.getMinutes();
                         avatarName = name + time + '.' + type;
-                        const newPath:string = form.uploadDir + '/' + avatarName;
-
+                        const newPath: string = form.uploadDir + '/' + avatarName;
                         fs.renameSync(file.path, newPath);  // 重命名
-
-                        res.send({ url: '/upload/' + avatarName });
+                        succMap[nameArray[0]] = '/upload/' + avatarName;
                     }
                 }
+                res.send({
+                    msg: '',
+                    code: 0,
+                    data: {
+                        succMap,
+                        errFiles: [],
+                    }
+                });
+                // res.send({ url: '/upload/' + avatarName});
             });
 
         } catch (error) {

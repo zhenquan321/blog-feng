@@ -28,6 +28,7 @@ function index(req, res, next) {
         const pageQurey = req.query || req.body;
         pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
         const blogList = yield service_2.default.findAll(pageQurey); //
+        const classification = yield service_3.default.findAll(); //
         const blogArray = blogList.data || [];
         let baseUrl = req.path + '?';
         for (let key in pageQurey) {
@@ -41,8 +42,9 @@ function index(req, res, next) {
             currentPage: pageQurey.page + 1 || 0,
             pageSize: pageQurey.pageSize || 20,
         };
+        console.log(blogArray);
         req.flash = { success: '欢迎光临~' };
-        res.render('index', { req, pageInfo, blogArray, title: '溜忙之道', path: '/' });
+        res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
     });
 }
 exports.index = index;

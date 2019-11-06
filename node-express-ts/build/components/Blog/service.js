@@ -28,14 +28,24 @@ const BlogService = {
                 const page = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
                 const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
                 try {
-                    const findKeyObj = {};
+                    let findKeyObj = {};
+                    if (pageQurey && pageQurey.blogSearch) {
+                        const blogSearchKeyWords = { $regex: pageQurey.blogSearch, $options: 'i' };
+                        findKeyObj = {
+                            $or: [
+                                { title: blogSearchKeyWords },
+                                { content: blogSearchKeyWords }
+                            ]
+                        };
+                    }
                     if (pageQurey && pageQurey.keywords) {
                         findKeyObj.keywords = pageQurey.keywords;
                     }
                     if (pageQurey && pageQurey.classifications) {
                         findKeyObj.classifications = pageQurey.classifications;
                     }
-                    const BlogList = JSON.parse(JSON.stringify(yield model_1.default.find(findKeyObj).limit(pagesize).skip(page * pagesize)));
+                    const BlogListFind = yield model_1.default.find(findKeyObj).sort({ createdAt: -1 }).limit(pagesize).skip(page * pagesize);
+                    const BlogList = JSON.parse(JSON.stringify(BlogListFind));
                     const count = yield model_1.default.find(findKeyObj).countDocuments();
                     for (let i = 0; i < BlogList.length; i++) {
                         BlogList[i].author = yield service_2.default.findOne(BlogList[i].author);
@@ -84,6 +94,8 @@ const BlogService = {
     insert(body) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                body.createdAt = new Date();
+                body.updatedAt = new Date();
                 const Blog = yield model_1.default.create(body);
                 return Blog;
             }

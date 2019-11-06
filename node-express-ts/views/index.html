@@ -1,8 +1,18 @@
 <div class="classificationHeader">
-    <ul class="container">
-        <li>前端</li>
-        <li>后端</li>
-    </ul>
+    <div class="container">
+        <ul>
+            <li class="active">推荐</li>
+            <% classification.forEach(function(item){ %>
+            <li><%= item.name %></li>
+            <% }) %>
+        </ul>
+        <div class="searchTop blogSearch">
+            <form class="form-inline" action="/" method="get">
+                <input type="text" name="blogSearch" class="form-control" value="<%- req.query.blogSearch || '' %>" placeholder="请输入搜索关键词">
+                <i class="iconfont icon-faxianchaxun1"></i>
+            </form>
+        </div>
+    </div>
 </div>
 <div class="blogList">
     <div class="blogList-header">
@@ -16,8 +26,13 @@
         <% blogArray.forEach(function(blog){ %>
         <div class="blogCard">
             <a href="/blog/<%=blog._id %>">
-                <h6> <span class="re">热</span> · <span class="jian">专栏</span> ·
-                    <%= (blog.author.name||blog.author.email) %> · <%= blog.classifications.name %></h6>
+                <h6> 
+                    <% if(blog.isHeat){ %><span class="re">热</span> · <% } %>
+                    <% if(blog.isRecommend){ %><span class="jian"> <%= blog.isRecommend %> </span> · <% } %>
+                    <span class="lei"><%= blog.classifications.name %></span> · 
+                    <%= ((blog.author.profile && blog.author.profile.name)||blog.author.email) %> · 
+                    <%= blog.createdAt %>
+                </h6>
                 <h4><%= blog.title %></h4>
                 <div class="dzBtnGroup">
                     <span><i class="iconfont icon-dianzan"></i><%= blog.ratingRate||0 %></span>

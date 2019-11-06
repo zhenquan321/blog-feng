@@ -19,8 +19,17 @@ const BlogService: IBlogService = {
             const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
             const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
             try {
-                const findKeyObj: any = {};
+                let findKeyObj: any = {};
 
+                if (pageQurey && pageQurey.blogSearch) {
+                    const blogSearchKeyWords: any = { $regex: pageQurey.blogSearch, $options: 'i' };
+                    findKeyObj = {
+                        $or: [
+                            { title: blogSearchKeyWords },
+                            { content: blogSearchKeyWords }
+                        ]
+                    };
+                }
                 if (pageQurey && pageQurey.keywords) {
                     findKeyObj.keywords = pageQurey.keywords;
                 }
@@ -28,8 +37,11 @@ const BlogService: IBlogService = {
                     findKeyObj.classifications = pageQurey.classifications;
                 }
 
-                const BlogList: any[] =JSON.parse(JSON.stringify( await BlogModel.find(findKeyObj).limit(pagesize).skip(page * pagesize)));
+                const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort({ createdAt: -1 }).limit(pagesize).skip(page * pagesize);
+                const BlogList: any[] = JSON.parse(JSON.stringify(BlogListFind));
                 const count: number = await BlogModel.find(findKeyObj).countDocuments();
+
+
                 for (let i: number = 0; i < BlogList.length; i++) {
                     BlogList[i].author = await UserService.findOne(BlogList[i].author);
                     BlogList[i].classifications = await ClassificationService.findOne(BlogList[i].classifications);
@@ -52,12 +64,12 @@ const BlogService: IBlogService = {
      * @returns {Promise < IBlogModel >}
      * @memberof BlogService
      */
-    async findOne(id: string): Promise<IBlogModel|any> {
+    async findOne(id: string): Promise<IBlogModel | any> {
         try {
-            const BlogFind:IBlogModel = await BlogModel.findOne({
+            const BlogFind: IBlogModel = await BlogModel.findOne({
                 _id: Types.ObjectId(id)
             });
-            const Blog:any = JSON.parse(JSON.stringify(BlogFind));
+            const Blog: any = JSON.parse(JSON.stringify(BlogFind));
 
             Blog.author = await UserService.findOne(Blog.author);
             Blog.classifications = await ClassificationService.findOne(Blog.classifications);
@@ -75,6 +87,8 @@ const BlogService: IBlogService = {
      */
     async insert(body: IBlogModel): Promise<IBlogModel> {
         try {
+            body.createdAt = new Date();
+            body.updatedAt = new Date();
             const Blog: IBlogModel = await BlogModel.create(body);
 
             return Blog;

@@ -1,8 +1,8 @@
-<script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
-<!-- <link rel="stylesheet" href="https://cdn.sspai.com/MWeb.css"> -->
-<!-- <link rel="stylesheet" href="https://cdn.sspai.com/sspai.css"> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css" />
+<script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.min.js"></script>
 <%- include('./components/header_createBlog.html') %>
+
+vditor  上传图片有bug；
 
 <form class="blogCreate">
     <div class="header">
@@ -32,10 +32,7 @@
     </div>
     <div class="createBlog">
         <% if(editor&&editor =='markDown'){%>
-        <div class="markDown">
-            <textarea name="" id="md-area" onkeyup=mdSwitch()></textarea>
-            <div id="show-area" class="clearfix"></div>
-        </div>
+        <div id="vditor"></div>
         <% }else{%>
         <div class="richTextEditor">
             <div id="richTextEditor"></div>
@@ -62,7 +59,48 @@
 </div>
 
 <script>
+    const vditor = new Vditor('vditor', {
+        typewriterMode: true,
+        counter: 100,
+        height: 700,
+        width:"100%",
+        placeholder:"请输入博客正文",
+        hint: {
+            emojiPath: 'https://cdn.jsdelivr.net/npm/vditor@1.8.3/dist/images/emoji',
+            emojiTail: '<a href="https://hacpai.com/settings/function" target="_blank">设置常用表情</a>',
+            emoji: {
+                'sd': '💔',
+                'j': 'https://unpkg.com/vditor@1.3.1/dist/images/emoji/j.png',
+            },
+        },
+        tab: '\t',
+        upload: {
+            accept: 'image/*,.wav',
+            token: 'test',
+            url: '/tool/upload',
+            max:"3 * 1024 * 1024",
+            linkToImgUrl: '/tool/upload',
+            format:(files,responseText)=>{
+                console.log(files,responseText);
+            },
+            success:(res)=>{
+                console.log(res);
+            },
+           
+            filename:(name) =>{
+                return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5\.)]/g, '').
+                replace(/[\?\\/:|<>\*\[\]\(\)\$%\{\}@~]/g, '').
+                replace('/\\s/g', '')
+            },
+           
+        }
+    });
+</script>
+
+
+<script>
     let classificationsId = "";
+
     function mdSwitch() {
         var mdValue = document.getElementById("md-area").value;
         var converter = new showdown.Converter();
@@ -82,24 +120,24 @@
         })
     }
 
-    function selClassifications(name,id) {
+    function selClassifications(name, id) {
         $("#classificationsName").val(name);
-        classificationsId=id;
+        classificationsId = id;
     }
 
     //发布文章
     function publishBlog(published) {
         let userId = "<%=req.session.user._id||''%>";
         let contentType = '<%=editor %>';
-        if(!$('#blogCreate-title').val()){
+        if (!$('#blogCreate-title').val()) {
             alert("博文标题不能为空");
             return
         }
-        if(!$('#md-area').val()){
+        if (!$('#md-area').val()) {
             alert("内容不能为空");
             return
         }
-        if(!classificationsId){
+        if (!classificationsId) {
             alert('请选择分类');
             return
         }
@@ -109,83 +147,25 @@
             title: $('#blogCreate-title').val(),
             content: $('#md-area').val(),
             contentType: contentType,
-            classifications:classificationsId,
+            classifications: classificationsId,
         }
         $.ajax({
             type: 'POST',
             url: '/blog',
             data: data,
-            success: (res)=>{
-                if(res.state==0){
-                    window.location.href="/";
+            success: (res) => {
+                if (res.state == 0) {
+                    window.location.href = "/";
                 }
             },
         });
     }
 </script>
-<script type="text/javascript">
-    var E = window.wangEditor
-    var editor = new E('#richTextEditor')
-    //上传图片到服务器--配置
-    editor.customConfig.uploadImgServer = '/tool/upload';
-    editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
-    editor.customConfig.uploadImgMaxLength = 10;
-    editor.customConfig.uploadImgHooks = {
-        before: function (xhr, editor, files) {
-            // 图片上传之前触发
-            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
-            // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
-            // return {
-            //     prevent: true,
-            //     msg: '放弃上传'
-            // }
-        },
-        success: function (xhr, editor, result) {
-            // 图片上传并返回结果，图片插入成功之后触发
-            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-        },
-        fail: function (xhr, editor, result) {
-            // 图片上传并返回结果，但图片插入错误时触发
-            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-        },
-        error: function (xhr, editor) {
-            // 图片上传出错时触发
-            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-        },
-        timeout: function (xhr, editor) {
-            // 图片上传超时时触发
-            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-        },
-        // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
-        // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
-        customInsert: function (insertImg, result, editor) {
-            // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-            // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
 
-            // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-            console.log(result);
-            var url = result.url
-            insertImg(url)
 
-            // result 必须是一个 JSON 格式字符串！！！否则报错
-        }
-    }
-    editor.customConfig.customAlert = function (info) {
-        // info 是需要提示的内容
-        alert('上传图片发成错误：' + info)
-    }
-    var $text1 = $('#contentText')
-    editor.customConfig.onchange = function (html) {
-        // 监控变化，同步更新到 textarea
-        $text1.val(html)
-    }
-
-    editor.create();
-
-    // 初始化 textarea 的值
-    $text1.val(editor.txt.html());
-</script>
 
 <style>
-body{background-color: #fff;}
+    body {
+        background-color: #fff;
+    }
 </style>

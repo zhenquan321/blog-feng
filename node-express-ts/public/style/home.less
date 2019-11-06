@@ -556,9 +556,11 @@ a.thumbnail:hover {
         height: 44px;
         line-height: 44px;
         border-bottom:1px solid #f6f6f6;
+        cursor: pointer;
         ul{
             padding: 0;
             padding-left:10px ;
+            color: #777;
             li{
                 font-size: 14px;
                 display: inline-block;
@@ -600,6 +602,10 @@ a.thumbnail:hover {
         }
         .re{
             color:#b71ed7;
+            font-weight: 600;
+        }
+        .lei{
+            color: #f70;
             font-weight: 600;
         }
         h6{
@@ -711,3 +717,48 @@ a.thumbnail:hover {
    
 }
 
+.classificationHeader{
+    ul{
+        padding: 0;
+        padding-left:10px ;
+        float: left;
+        li{
+            font-size: 14px;
+            display: inline-block;
+            padding: 0 10px;
+            padding-right: 12px;
+            color: #777;
+            cursor: pointer;
+            &:last-child{
+                border-right:0 ;
+            }
+            &:hover{
+                color: @mainColor;
+                font-weight: 600;
+            }
+            &.active{
+                color: @mainColor;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.blogSearch{
+    float: right;
+    position: relative;
+    input{
+        float: right;
+        width: 240px;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 2px;
+    }
+    i{
+        color: #999;
+        font-size: 22px;
+        position: absolute;
+        right: 2px;
+        top: -4px;
+    }
+}
