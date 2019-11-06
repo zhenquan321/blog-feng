@@ -27,7 +27,7 @@ const BlogService = {
             try {
                 const page = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
                 const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
-                let findKeyObj = { deleted: false };
+                let findKeyObj = { deleted: { $ne: true } };
                 const sort = {};
                 if (pageQurey && pageQurey.sort) {
                     sort[pageQurey.sort] = -1;

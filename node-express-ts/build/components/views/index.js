@@ -28,8 +28,8 @@ function index(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const pageQurey = req.query || req.body;
         pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
-        const blogList = yield service_2.default.findAll(pageQurey); //
-        const classification = yield service_3.default.findAll(); //
+        const blogList = yield service_2.default.findAll(pageQurey);
+        const classification = yield service_3.default.findAll();
         const blogArray = blogList.data || [];
         let baseUrl = req.path + '?';
         blogArray.forEach((element) => {

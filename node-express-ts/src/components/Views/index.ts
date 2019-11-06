@@ -26,8 +26,8 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
 
     pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
 
-    const blogList: any = await BlogService.findAll(pageQurey);//
-    const classification: any = await ClassificationService.findAll();//
+    const blogList: any = await BlogService.findAll(pageQurey);
+    const classification: any = await ClassificationService.findAll();
 
     const blogArray: any = blogList.data || [];
 
@@ -58,7 +58,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
         currentPage: pageQurey.page + 1 || 0,
         pageSize: pageQurey.pageSize || 20,
     };
-    
+
     req.flash = { success: '欢迎光临~' };
     res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
 }

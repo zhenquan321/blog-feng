@@ -18,7 +18,7 @@ const BlogService: IBlogService = {
         try {
             const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
             const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
-            let findKeyObj: any = { deleted: false };
+            let findKeyObj: any = { deleted: { $ne: true } };
             const sort: any = {};
 
             if (pageQurey && pageQurey.sort) {
