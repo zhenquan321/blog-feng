@@ -126,6 +126,7 @@ router.get('/:id', components_1.UserComponent.findOne);
  *                - $ref: '#/components/schemas/UserSchema'
  */
 router.delete('/:id', components_1.UserComponent.remove);
+router.post('/update', components_1.UserComponent.update);
 /**
  * @export {express.Router}
  */

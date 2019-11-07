@@ -87,4 +87,52 @@ function remove(req, res, next) {
     });
 }
 exports.remove = remove;
+/**
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ * @returns {Promise < void >}
+ */
+function update(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const qurey = req.body || req.params;
+            const userInfo = {
+                name: qurey.name,
+                gender: qurey.gender,
+                location: qurey.location,
+                Occupation: qurey.Occupation,
+                picture: qurey.picture
+            };
+            const updateInfo = yield service_1.default.update(qurey.id, userInfo);
+            const user = yield service_1.default.findOne(qurey.id);
+            req.session.user = {
+                _id: user._id,
+                email: user.email,
+                isAdmin: (user.isAdmin || false),
+                profile: user.profile
+            };
+            console.log(updateInfo, req.session.user);
+            req.flash = { success: '用户信息更新成功！' };
+            if (updateInfo && updateInfo.ok === 1) {
+                res.json({
+                    updateInfo,
+                    state: 0
+                });
+            }
+            else {
+                res.json({
+                    updateInfo,
+                    state: 0,
+                    mag: '用户信息更新失败！'
+                });
+            }
+        }
+        catch (error) {
+            next(new error_1.HttpError(error.message.status, error.message));
+        }
+    });
+}
+exports.update = update;
 //# sourceMappingURL=index.js.map

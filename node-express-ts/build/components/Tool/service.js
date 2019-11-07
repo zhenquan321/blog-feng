@@ -36,6 +36,7 @@ const ToolService = {
                     console.log(fields, files);
                     let avatarName = '';
                     const succMap = {};
+                    const normalMap = [];
                     for (const key in files) {
                         if (files[key].name) {
                             const file = files[key];
@@ -53,16 +54,26 @@ const ToolService = {
                             const newPath = form.uploadDir + '/' + avatarName;
                             fs.renameSync(file.path, newPath); // 重命名
                             succMap[nameArray[0]] = '/upload/' + avatarName;
+                            normalMap.push('/upload/' + avatarName);
                         }
                     }
-                    res.send({
-                        msg: '',
-                        code: 0,
-                        data: {
-                            succMap,
-                            errFiles: [],
-                        }
-                    });
+                    if (fields && fields.useWhere && fields.useWhere == 'normal') {
+                        res.send({
+                            msg: '',
+                            code: 0,
+                            data: normalMap
+                        });
+                    }
+                    else {
+                        res.send({
+                            msg: '',
+                            code: 0,
+                            data: {
+                                succMap,
+                                errFiles: [],
+                            }
+                        });
+                    }
                     // res.send({ url: '/upload/' + avatarName});
                 });
             }

@@ -23,7 +23,8 @@ export interface IUserModel extends Document {
         gender: string,
         location: string,
         website: string,
-        picture: string
+        picture: string, 
+        Occupation:string,
     };
     comparePassword: (password: string) => Promise < boolean > ;
     gravatar: (size: number) => string;
@@ -74,6 +75,14 @@ const UserSchema: Schema = new Schema({
     passwordResetExpires: Date,
     tokens: Array,
     isAdmin:Boolean,
+    profile: {
+        name: String,
+        gender: String,
+        location: String,
+        website: String,
+        picture: String,
+        Occupation:String,
+    },
 }, {
     collection: 'usermodel',
     versionKey: false

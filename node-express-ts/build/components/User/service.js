@@ -97,6 +97,30 @@ const UserService = {
                 throw new Error(error.message);
             }
         });
+    },
+    /**
+     * @param {string,qurey}
+     * @returns {Promise < any >}
+     * @memberof UserService
+     */
+    update(id, profile) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const validate = validation_1.default.removeUser({
+                    id
+                });
+                if (validate.error) {
+                    throw new Error(validate.error.message);
+                }
+                const user = yield model_1.default.updateOne({
+                    _id: mongoose_1.Types.ObjectId(id)
+                }, { $set: { profile } });
+                return user;
+            }
+            catch (error) {
+                throw new Error(error.message);
+            }
+        });
     }
 };
 exports.default = UserService;

@@ -32,4 +32,12 @@ export interface IUserService {
      * @memberof IUserService
      */
     remove(id: string): Promise<IUserModel>;
+
+    /**
+     * @param {string,qurey}
+     * @returns {Promise < any >}
+     * @memberof UserService
+     */
+    update(id: string,qurey:any): Promise < any > ;
+
 }

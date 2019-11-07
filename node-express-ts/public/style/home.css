@@ -631,7 +631,7 @@ a.thumbnail:hover {
   height: 30px;
   width: 30px;
   position: relative;
-  top: 4px;
+  top: -2px;
 }
 .headerImg span {
   display: inline-block;
@@ -670,6 +670,7 @@ a.thumbnail:hover {
 .blogItem .blog-header .headerImg img {
   width: 50px;
   height: 50px;
+  top: 4px;
 }
 .blogItem .blog-header .headerImg span {
   width: 50px;
@@ -777,6 +778,11 @@ a.thumbnail:hover {
 .userInfo .userInfoHeader .headerImg span i {
   font-size: 42px;
 }
+.userInfo .userInfoHeader .headerImg img {
+  width: 52px;
+  height: 52px;
+  top: 4px;
+}
 .userInfo .form-group {
   border-bottom: 1px solid #eee;
   padding: 20px 0;
@@ -793,9 +799,9 @@ a.thumbnail:hover {
   padding: 30px 0 15px ;
 }
 .userInfo .changeInfoBtn button {
-  padding: 5px 30px;
+  padding: 8px 50px;
   background-color: #e59233;
   color: #fff;
   border: 0px;
-  font-size: 20px;
+  font-size: 16px;
 }

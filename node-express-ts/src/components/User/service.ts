@@ -13,7 +13,7 @@ const UserService: IUserService = {
      * @returns {Promise < IUserModel[] >}
      * @memberof UserService
      */
-    async findAll(): Promise < IUserModel[] > {
+    async findAll(): Promise<IUserModel[]> {
         try {
             return await UserModel.find({});
         } catch (error) {
@@ -26,11 +26,11 @@ const UserService: IUserService = {
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async findOne(id: string): Promise < IUserModel > {
+    async findOne(id: string): Promise<IUserModel> {
         try {
-            const validate: Joi.ValidationResult < {
+            const validate: Joi.ValidationResult<{
                 id: string
-            } > = UserValidation.getUser({
+            }> = UserValidation.getUser({
                 id
             });
 
@@ -51,9 +51,9 @@ const UserService: IUserService = {
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async insert(body: IUserModel): Promise < IUserModel > {
+    async insert(body: IUserModel): Promise<IUserModel> {
         try {
-            const validate: Joi.ValidationResult < IUserModel > = UserValidation.createUser(body);
+            const validate: Joi.ValidationResult<IUserModel> = UserValidation.createUser(body);
 
             if (validate.error) {
                 throw new Error(validate.error.message);
@@ -72,11 +72,11 @@ const UserService: IUserService = {
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async remove(id: string): Promise < IUserModel > {
+    async remove(id: string): Promise<IUserModel> {
         try {
-            const validate: Joi.ValidationResult < {
+            const validate: Joi.ValidationResult<{
                 id: string
-            } > = UserValidation.removeUser({
+            }> = UserValidation.removeUser({
                 id
             });
 
@@ -87,6 +87,33 @@ const UserService: IUserService = {
             const user: IUserModel = await UserModel.findOneAndRemove({
                 _id: Types.ObjectId(id)
             });
+
+            return user;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
+    /**
+     * @param {string,qurey}
+     * @returns {Promise < any >}
+     * @memberof UserService
+     */
+    async update(id: string, profile: any): Promise<any> {
+        try {
+            const validate: Joi.ValidationResult<{
+                id: string
+            }> = UserValidation.removeUser({
+                id
+            });
+
+            if (validate.error) {
+                throw new Error(validate.error.message);
+            }
+
+            const user: any = await UserModel.updateOne({
+                _id: Types.ObjectId(id)
+            }, { $set: { profile } });
 
             return user;
         } catch (error) {
