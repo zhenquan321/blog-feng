@@ -27,6 +27,9 @@ body {
 textarea:focus {
   outline-offset: 0px;
 }
+.dropdown-menu > li > a {
+  padding: 8px 20px;
+}
 .a-upload {
   padding: 4px 10px;
   line-height: 34px;
@@ -936,7 +939,7 @@ a.thumbnail:hover {
   height: 30px;
   width: 30px;
   position: relative;
-  top: 4px;
+  top: -2px;
 }
 .headerImg span {
   display: inline-block;
@@ -975,6 +978,7 @@ a.thumbnail:hover {
 .blogItem .blog-header .headerImg img {
   width: 50px;
   height: 50px;
+  top: 4px;
 }
 .blogItem .blog-header .headerImg span {
   width: 50px;
@@ -1067,6 +1071,26 @@ a.thumbnail:hover {
   height: 60px;
   line-height: 60px;
 }
+.userInfo .userInfoHeader {
+  position: relative;
+}
+.userInfo .userInfoHeader .headerImg {
+  position: absolute;
+  top: -12px;
+}
+.userInfo .userInfoHeader .headerImg span {
+  width: 52px;
+  height: 52px;
+  padding-top: 8px;
+}
+.userInfo .userInfoHeader .headerImg span i {
+  font-size: 42px;
+}
+.userInfo .userInfoHeader .headerImg img {
+  width: 52px;
+  height: 52px;
+  top: 4px;
+}
 .userInfo .form-group {
   border-bottom: 1px solid #eee;
   padding: 20px 0;
@@ -1076,4 +1100,16 @@ a.thumbnail:hover {
   border-radius: 0;
   border: 0;
   box-shadow: 0 0 0;
+}
+.userInfo .changeInfoBtn {
+  width: 100%;
+  text-align: center;
+  padding: 30px 0 15px ;
+}
+.userInfo .changeInfoBtn button {
+  padding: 8px 50px;
+  background-color: #e59233;
+  color: #fff;
+  border: 0px;
+  font-size: 16px;
 }
