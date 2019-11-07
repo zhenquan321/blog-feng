@@ -105,12 +105,12 @@ export async function update(req: Request, res: Response, next: NextFunction): P
         req.flash = { success: '用户信息更新成功！' };
 
         if (updateInfo && updateInfo.ok === 1) {
-            res.json({
+            res.status(200).json({
                 updateInfo,
                 state: 0
             });
         } else {
-            res.json({
+            res.status(200).json({
                 updateInfo,
                 state: 0,
                 mag: '用户信息更新失败！'
