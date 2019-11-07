@@ -46,4 +46,8 @@
   .nav-right {
     display: none;
   }
+  .movieCard img {
+    height: auto;
+    height: 280px;
+  }
 }
