@@ -40,7 +40,7 @@
     margin-right: 10px;
   }
   .nav-left .pingpu li {
-    padding: 0 8px;
+    padding: 0 5px;
     font-size: 14px;
   }
   .nav-right {
@@ -49,5 +49,10 @@
   .movieCard img {
     height: auto;
     height: 280px;
+  }
+  .breadcrumb {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
