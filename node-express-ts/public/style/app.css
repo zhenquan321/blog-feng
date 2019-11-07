@@ -689,7 +689,9 @@ a.thumbnail:hover {
 }
 .searchTop .form-inline input {
   width: 240px;
-  border-radius: 0;
+  border-color: #ddd;
+  box-shadow: 0 0 0;
+  border-radius: 20px;
 }
 .page-404 {
   height: 100vh;
@@ -1112,4 +1114,18 @@ a.thumbnail:hover {
   color: #fff;
   border: 0px;
   font-size: 16px;
+}
+@media screen and (max-width: 500px) {
+  .navbar {
+    padding: 0;
+  }
+  .logoDiv {
+    margin-right: 10px;
+  }
+  .nav-left .pingpu li {
+    padding: 0 10px;
+  }
+  .nav-right {
+    display: none;
+  }
 }

@@ -285,6 +285,9 @@ a.thumbnail:hover {
   font-weight: 600;
   display: inline-block;
 }
+.selectHeader div {
+  display: inline-block;
+}
 .selectHeader ul {
   display: inline-block;
   margin: 0;
@@ -378,12 +381,17 @@ a.thumbnail:hover {
 .searchTop .form-inline {
   width: 300px;
   float: right;
+  height: 50px;
 }
 .searchTop .form-inline input {
   width: 240px;
   border-color: #ddd;
   box-shadow: 0 0 0;
   border-radius: 20px;
+  float: left;
+}
+.searchTop .form-inline button {
+  float: right;
 }
 .page-404 {
   height: 100vh;

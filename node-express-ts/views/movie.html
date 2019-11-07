@@ -1,15 +1,15 @@
 <div class="searchTop">
     <form class="form-inline" action="/movie" method="get">
-        <div class="form-group">
-            <input type="text" name="keyword" class="form-control" value="<%- req.query.keyword||'' %>"
+        <div class="form-group" >
+            <input type="text" name="keyword" style="border-radius: 5px;" class="form-control" value="<%- req.query.keyword||'' %>"
                 id="exampleInputAmount" placeholder="请输入搜索关键词">
+            <button type="submit" class="btn btn-primary">搜索</button>
         </div>
-        <button type="submit" class="btn btn-primary">搜索</button>
     </form>
 </div>
 <div class="selectHeader">
+    <h4>年份</h4>
     <div>
-        <h4>年份</h4>
         <ul>
             <li><a <% if(!req.query||!req.query.year){%> class="active" <% }%> href="<%- '/movie?' %>">全部</a></li>
             <% for (let y=2019;y>2008;y--){%>

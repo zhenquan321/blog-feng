@@ -1,0 +1,49 @@
+@media screen and (max-width: 500px) {
+  .container {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+  .movieList {
+    padding: 0 5px;
+  }
+  .movieList .movieCard {
+    padding: 5px;
+  }
+  .movieList .movieCard a {
+    margin-bottom: 0px;
+  }
+  .blogSearch {
+    display: none;
+  }
+  .selectHeader {
+    height: 40px;
+  }
+  .selectHeader h4 {
+    width: 15%;
+    vertical-align: middle;
+    float: left;
+  }
+  .selectHeader div {
+    width: 85%;
+    overflow-x: auto;
+    vertical-align: middle;
+    float: right;
+    margin-top: 5px;
+  }
+  .selectHeader ul {
+    width: 1000px;
+  }
+  .navbar {
+    padding: 0;
+  }
+  .logoDiv {
+    margin-right: 10px;
+  }
+  .nav-left .pingpu li {
+    padding: 0 8px;
+    font-size: 14px;
+  }
+  .nav-right {
+    display: none;
+  }
+}
