@@ -381,7 +381,9 @@ a.thumbnail:hover {
 }
 .searchTop .form-inline input {
   width: 240px;
-  border-radius: 0;
+  border-color: #ddd;
+  box-shadow: 0 0 0;
+  border-radius: 20px;
 }
 .page-404 {
   height: 100vh;
