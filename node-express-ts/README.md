@@ -88,11 +88,16 @@ http://localhost:3000/docs
 ```
 ![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
 
+
+
 ## Linux 下mongodb后台运行
 ./bin/mongod -f mongodb.conf --fork
 
 ## Linux 下关闭mongodb
 ./bin/mongod -f mongodb.conf --shutdown
 
-#### 重启服务器
+## 重启服务器
 ./bin/mongod  --repair
+
+## 个人服务器地址
+ssh fengzq@120.92.36.138
