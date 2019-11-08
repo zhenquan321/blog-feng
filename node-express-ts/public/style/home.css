@@ -389,6 +389,7 @@ a.thumbnail:hover {
   box-shadow: 0 0 0;
   border-radius: 20px;
   float: left;
+  margin-right: 5px;
 }
 .searchTop .form-inline button {
   float: right;

@@ -134,3 +134,8 @@ UserSchema.methods.gravatar = function (size: number): string {
 };
 
 export default connections.db.model < IUserModel > ('UserModel', UserSchema);
+
+
+
+
+

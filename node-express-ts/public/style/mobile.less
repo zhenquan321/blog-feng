@@ -1,41 +1,79 @@
 @media screen and (max-width: 500px) {
-    .container{
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        position: relative;
+        min-height: 1px;
         padding-right: 8px;
         padding-left: 8px;
     }
-    .movieList{
-        padding: 0 5px;
-        .movieCard{
+   
+    html,body{
+        width: 100%;
+    }
+    body{
+        background-color: #f4f5f5!important;
+    }
+    .row {
+        margin: 0;
+    }
+    .navbar {
+        padding: 0!important;
+        margin: 0!important;
+        width: 100%!important;
+        overflow: hidden;
+    
+        .container{
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .container {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .movieList {
+        .movieCard {
             padding: 5px;
-            a{
+            a {
                 margin-bottom: 0px;
             }
         }
     }
-    .blogSearch{
+
+    .blogSearch {
         display: none;
     }
-    .selectHeader{
-        height: 40px;
-        h4{
+    .breadcrumb{
+        background-color: #f4f5f5!important;
+    }
+    .selectHeader {
+        height: 38px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        ul{
+            padding-left:0 ;
+        }
+        h4 {
             width: 15%;
-            vertical-align:middle;
+            vertical-align: middle;
             float: left;
         }
-        div{
+
+        div {
             width: 85%;
             overflow-x: auto;
-            vertical-align:middle;
+            vertical-align: middle;
             float: right;
-            margin-top: 5px;
+            margin-top: 4px;
         }
-        ul{
+
+        ul {
             width: 1000px;
         }
     }
-    .navbar {
-        padding: 0;
-    }
+
+  
 
     .logoDiv {
         margin-right: 10px;
@@ -53,13 +91,18 @@
     .nav-right {
         display: none;
     }
-    .movieCard img{
+
+    .movieCard img {
         height: auto;
-        height: 280px;
+        height: 270px;
     }
-    .breadcrumb{
+
+    .breadcrumb {
         display: block;
         overflow: hidden;
         white-space: nowrap;
     }
 }
+
+
+
