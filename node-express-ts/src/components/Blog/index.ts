@@ -75,8 +75,6 @@ export async function create(req: Request, res: Response, next: NextFunction): P
 export async function remove(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Blog: IBlogModel = await BlogService.update(req.params.id, { deleted: true });
-
-        console.log(Blog);
         if (Blog) {
             res.status(200).json({
                 Blog,

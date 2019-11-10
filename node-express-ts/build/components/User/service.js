@@ -99,7 +99,7 @@ const UserService = {
         });
     },
     /**
-     * @param {string,qurey}
+     * @param {string,query}
      * @returns {Promise < any >}
      * @memberof UserService
      */

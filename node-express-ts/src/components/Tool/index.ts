@@ -13,7 +13,7 @@ import { NextFunction, Request, Response } from 'express';
 export async function upload(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
         const file: any = await ToolService.upload(req,res);
-        console.log('filefile',file);
+        
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

@@ -97,23 +97,22 @@ exports.remove = remove;
 function update(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const qurey = req.body || req.params;
+            const query = req.body || req.params;
             const userInfo = {
-                name: qurey.name,
-                gender: qurey.gender,
-                location: qurey.location,
-                Occupation: qurey.Occupation,
-                picture: qurey.picture
+                name: query.name,
+                gender: query.gender,
+                location: query.location,
+                Occupation: query.Occupation,
+                picture: query.picture
             };
-            const updateInfo = yield service_1.default.update(qurey.id, userInfo);
-            const user = yield service_1.default.findOne(qurey.id);
+            const updateInfo = yield service_1.default.update(query.id, userInfo);
+            const user = yield service_1.default.findOne(query.id);
             req.session.user = {
                 _id: user._id,
                 email: user.email,
                 isAdmin: (user.isAdmin || false),
                 profile: user.profile
             };
-            console.log(updateInfo, req.session.user);
             req.flash = { success: '用户信息更新成功！' };
             if (updateInfo && updateInfo.ok === 1) {
                 res.status(200).json({

@@ -12,7 +12,8 @@ import { blogCreate } from '../Views/index';
  */
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const Comments: ICommentModel[] = await CommentService.findAll();
+        const query: any = req.query || req.body;
+        const Comments: ICommentModel[] = await CommentService.findAll(query);
 
         res.status(200).json(Comments);
     } catch (error) {

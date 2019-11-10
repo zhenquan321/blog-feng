@@ -11,24 +11,38 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const connections = require("../../config/connection/connection");
 const mongoose_1 = require("mongoose");
-const ClassificatSchema = new mongoose_1.Schema({
-    name: {
+const CommentSchema = new mongoose_1.Schema({
+    userId: {
         type: String,
         default: ''
     },
-    describe: {
+    content: {
         type: String,
         default: ''
     },
-    meta: {
-        createdAt: {
-            type: Date,
-            default: Date.now()
-        },
-        updatedAt: {
-            type: Date,
-            default: Date.now()
-        }
+    subjectType: {
+        type: String,
+        default: ''
+    },
+    subjectId: {
+        type: String,
+        default: ''
+    },
+    fatherCommentId: {
+        type: String,
+        default: ''
+    },
+    deleted: {
+        type: Boolean,
+        default: false
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
     }
 }, {
     collection: 'commentmodel',
@@ -39,5 +53,5 @@ const ClassificatSchema = new mongoose_1.Schema({
         next();
     });
 });
-exports.default = connections.db.model('Comment', ClassificatSchema);
+exports.default = connections.db.model('Comment', CommentSchema);
 //# sourceMappingURL=model.js.map

@@ -10,7 +10,7 @@ export interface ICommentService {
      * @returns {Promise<ICommentModel[]>}
      * @memberof ICommentService
      */
-    findAll(): Promise<ICommentModel[]>;
+    findAll(findAll:any): Promise<any>;
 
     /**
      * @param {string} code

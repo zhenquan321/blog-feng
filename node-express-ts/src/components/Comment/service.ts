@@ -8,9 +8,24 @@ const CommentService: ICommentService = {
      * @returns {Promise < ICommentModel[] >}
      * @memberof CommentService
      */
-    async findAll(): Promise<ICommentModel[]> {
+    async findAll(query:any): Promise<any> {
+        
         try {
-            return await CommentModel.find({});
+            const page: number = query && query.page ? Number(query.page) : 0;
+            const pagesize: number = query && query.pagesize ? Number(query.pagesize) : 10;
+            const findKeyObj: any = {
+                subjectId:query.subjectId
+            };
+
+            const commentList: ICommentModel[] = await CommentModel.find(findKeyObj).limit(pagesize).skip(page * pagesize);
+            const count: number = await CommentModel.find(findKeyObj).countDocuments();
+
+            return {
+                count,
+                data: commentList,
+            };
+           
+
         } catch (error) {
             throw new Error(error.message);
         }
@@ -38,18 +53,9 @@ const CommentService: ICommentService = {
      */
     async insert(body: ICommentModel): Promise<ICommentModel | any> {
         try {
-            const hasComment: ICommentModel = await CommentModel.findOne({ name: body.name });
-
-            if (hasComment) {
-
-                return { mag: '该分类已存在' };
-
-            } else {
-
-                const Comment: ICommentModel = await CommentModel.create(body);
-
-                return Comment;
-            }
+            const Comment: ICommentModel = await CommentModel.create(body);
+            
+            return Comment;
 
         } catch (error) {
             throw new Error(error.message);

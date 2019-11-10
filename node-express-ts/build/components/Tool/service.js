@@ -33,7 +33,6 @@ const ToolService = {
                 form.maxFieldsSize = 3 * 1024 * 1024;
                 // 处理图片
                 form.parse(req, (err, fields, files) => {
-                    console.log(fields, files);
                     let avatarName = '';
                     const succMap = {};
                     const normalMap = [];

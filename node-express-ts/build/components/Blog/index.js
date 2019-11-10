@@ -90,7 +90,6 @@ function remove(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const Blog = yield service_1.default.update(req.params.id, { deleted: true });
-            console.log(Blog);
             if (Blog) {
                 res.status(200).json({
                     Blog,

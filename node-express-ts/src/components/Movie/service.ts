@@ -76,29 +76,26 @@ const MovieService: MovieService = {
         * @returns {Promise < IMovieModel[] >}
         * @memberof UserService
         */
-    async findAll(pageQurey?: any): Promise<any> {
+    async findAll(query?: any): Promise<any> {
 
-        const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
-        const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 12;
+        const page: number = query && query.page ? Number(query.page) : 0;
+        const pagesize: number = query && query.pagesize ? Number(query.pagesize) : 12;
         try {
             const findKeyObj: any = {
                 downLink: { $ne: '' },
                 imgUrl: { $ne: '' },
             };
 
-
-            if (pageQurey && pageQurey.year) {
-                findKeyObj.years = Number(pageQurey.year);
+            if (query && query.year) {
+                findKeyObj.years = Number(query.year);
             }
-            if (pageQurey && pageQurey.type) {
-                findKeyObj.type = pageQurey.type;
+            if (query && query.type) {
+                findKeyObj.type = query.type;
             }
-
-            if (pageQurey && pageQurey.keyword) {
-                findKeyObj.name = { $regex: pageQurey.keyword, $options: 'i' };
+            if (query && query.keyword) {
+                findKeyObj.name = { $regex: query.keyword, $options: 'i' };
             }
 
-            console.log(findKeyObj);
             const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).limit(pagesize).skip(page * pagesize);
             const count: number = await MovieModel.find(findKeyObj).countDocuments();
 
@@ -111,14 +108,15 @@ const MovieService: MovieService = {
         }
     },
 
-    async update(qurey: any, body: any): Promise<void> {
+    async update(query: any, body: any): Promise<void> {
         try {
-            const updateInfo: any = await MovieModel.updateOne(qurey, { $set: body });
-            console.log(updateInfo);
+            const updateInfo: any = await MovieModel.updateOne(query, { $set: body });
         } catch (error) {
             throw new Error(error.message);
         }
     },
+
+
     async getCount(): Promise<number> {
         try {
             return await MovieModel.find().countDocuments();
@@ -135,16 +133,6 @@ const MovieService: MovieService = {
      */
     async remove(id: string): Promise<IMovieModel> {
         try {
-            // const validate: Joi.ValidationResult<{
-            //     id: string
-            // }> = UserValidation.removeUser({
-            //     id
-            // });
-
-            // if (validate.error) {
-            //     throw new Error(validate.error.message);
-            // }
-
             const user: IMovieModel = await MovieModel.findOneAndRemove({
                 _id: Types.ObjectId(id)
             });

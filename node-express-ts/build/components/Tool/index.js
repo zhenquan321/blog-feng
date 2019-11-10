@@ -22,7 +22,6 @@ function upload(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const file = yield service_1.default.upload(req, res);
-            console.log('filefile', file);
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));

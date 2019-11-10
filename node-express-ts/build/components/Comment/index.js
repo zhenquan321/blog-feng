@@ -22,7 +22,8 @@ const index_1 = require("../Views/index");
 function findAll(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const Comments = yield service_1.default.findAll();
+            const query = req.query || req.body;
+            const Comments = yield service_1.default.findAll(query);
             res.status(200).json(Comments);
         }
         catch (error) {

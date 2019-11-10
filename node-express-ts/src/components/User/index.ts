@@ -81,17 +81,17 @@ export async function remove(req: Request, res: Response, next: NextFunction): P
  */
 export async function update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const qurey: any = req.body || req.params;
+        const query: any = req.body || req.params;
         const userInfo: any = {
-            name: qurey.name,
-            gender: qurey.gender,
-            location: qurey.location,
-            Occupation: qurey.Occupation,
-            picture: qurey.picture
+            name: query.name,
+            gender: query.gender,
+            location: query.location,
+            Occupation: query.Occupation,
+            picture: query.picture
         };
 
-        const updateInfo: any = await UserService.update(qurey.id, userInfo);
-        const user: any = await UserService.findOne(qurey.id);
+        const updateInfo: any = await UserService.update(query.id, userInfo);
+        const user: any = await UserService.findOne(query.id);
 
         req.session.user = {
             _id: user._id,
@@ -99,8 +99,6 @@ export async function update(req: Request, res: Response, next: NextFunction): P
             isAdmin: (user.isAdmin || false),
             profile: user.profile
         };
-
-        console.log(updateInfo,req.session.user);
 
         req.flash = { success: '用户信息更新成功！' };
 

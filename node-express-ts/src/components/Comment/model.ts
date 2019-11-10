@@ -6,33 +6,49 @@ import { NextFunction } from 'express';
 
 
 export interface ICommentModel extends Document {
-    name: string;
-    describe: string;
-    meta: {
-        createdAt: Date,
-        updatedAt: Date,
-    };
+    userId: string;
+    content: string;
+    subjectType: 'movie' | 'blog' | 'comment';
+    deleted: boolean;
+    subjectId: string;
+    fatherCommentId?:string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 
-const ClassificatSchema: Schema = new Schema({
-    name: {
+const CommentSchema: Schema = new Schema({
+    userId: {
         type: String,
         default: ''
     },
-    describe: {
+    content: {
         type: String,
         default: ''
     },
-    meta: {
-        createdAt: {
-            type: Date,
-            default: Date.now()
-        },
-        updatedAt: {
-            type: Date,
-            default: Date.now()
-        }
+    subjectType: {
+        type: String,
+        default: ''
+    },
+    subjectId: {
+        type: String,
+        default: ''
+    },
+    fatherCommentId: {
+        type: String,
+        default: ''
+    },
+    deleted: {
+        type: Boolean,
+        default: false
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
     }
 
 }, {
@@ -43,4 +59,4 @@ const ClassificatSchema: Schema = new Schema({
     next();
 });
 
-export default connections.db.model<ICommentModel>('Comment', ClassificatSchema);
+export default connections.db.model<ICommentModel>('Comment', CommentSchema);

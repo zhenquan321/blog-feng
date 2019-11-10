@@ -26,9 +26,9 @@ const service_4 = require("./../User/service");
  */
 function index(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const pageQurey = req.query || req.body;
-        pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
-        const blogList = yield service_2.default.findAll(pageQurey);
+        const query = req.query || req.body;
+        query.page = query.page >= 1 ? query.page - 1 : 0;
+        const blogList = yield service_2.default.findAll(query);
         const classification = yield service_3.default.findAll();
         const blogArray = blogList.data || [];
         let baseUrl = req.path + '?';
@@ -44,16 +44,16 @@ function index(req, res, next) {
                 element.isRecommend = '榜';
             }
         });
-        for (let key in pageQurey) {
+        for (let key in query) {
             if (key !== 'page') {
-                baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+                baseUrl = baseUrl + key + '=' + query[key] + '&';
             }
         }
         const pageInfo = {
             baseUrl,
             count: blogList.count,
-            currentPage: pageQurey.page + 1 || 0,
-            pageSize: pageQurey.pageSize || 20,
+            currentPage: query.page + 1 || 0,
+            pageSize: query.pageSize || 20,
         };
         req.flash = { success: '欢迎光临~' };
         res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
@@ -75,21 +75,21 @@ exports.userInfo = userInfo;
 function movie(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const pageQurey = req.query || req.body;
-            pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
-            const movieList = yield service_1.default.findAll(pageQurey); //
+            const query = req.query || req.body;
+            query.page = query.page >= 1 ? query.page - 1 : 0;
+            const movieList = yield service_1.default.findAll(query); //
             const movieArray = movieList.data;
             let baseUrl = req.path + '?';
-            for (let key in pageQurey) {
+            for (let key in query) {
                 if (key !== 'page') {
-                    baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+                    baseUrl = baseUrl + key + '=' + query[key] + '&';
                 }
             }
             const pageInfo = {
                 baseUrl,
                 count: movieList.count,
-                currentPage: pageQurey.page + 1 || 0,
-                pageSize: pageQurey.pageSize || 20,
+                currentPage: query.page + 1 || 0,
+                pageSize: query.pageSize || 20,
             };
             res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
         }
@@ -122,21 +122,21 @@ exports.movieItem = movieItem;
 function blog(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const pageQurey = req.query || req.body;
-            pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
-            const movieList = yield service_1.default.findAll(pageQurey); //
+            const query = req.query || req.body;
+            query.page = query.page >= 1 ? query.page - 1 : 0;
+            const movieList = yield service_1.default.findAll(query); //
             const movieArray = movieList.data;
             let baseUrl = req.path + '?';
-            for (let key in pageQurey) {
+            for (let key in query) {
                 if (key !== 'page') {
-                    baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+                    baseUrl = baseUrl + key + '=' + query[key] + '&';
                 }
             }
             const pageInfo = {
                 baseUrl,
                 count: movieList.count,
-                currentPage: pageQurey.page + 1 || 0,
-                pageSize: pageQurey.pageSize || 20,
+                currentPage: query.page + 1 || 0,
+                pageSize: query.pageSize || 20,
             };
             res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: '/' });
         }
@@ -174,8 +174,7 @@ function blogCreate(req, res, next) {
         try {
             const editor = 'markDown';
             const classifications = yield service_3.default.findAll();
-            console.log(classifications);
-            res.render('blogCreate', { req, editor, classifications, title: '发布博客', path: 'blogCreate' });
+            res.render('blogCreateVditor', { req, editor, classifications, title: '发布博客', path: 'blogCreate' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));

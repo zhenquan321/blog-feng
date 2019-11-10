@@ -83,25 +83,24 @@ const MovieService = {
         * @returns {Promise < IMovieModel[] >}
         * @memberof UserService
         */
-    findAll(pageQurey) {
+    findAll(query) {
         return __awaiter(this, void 0, void 0, function* () {
-            const page = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
-            const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 12;
+            const page = query && query.page ? Number(query.page) : 0;
+            const pagesize = query && query.pagesize ? Number(query.pagesize) : 12;
             try {
                 const findKeyObj = {
                     downLink: { $ne: '' },
                     imgUrl: { $ne: '' },
                 };
-                if (pageQurey && pageQurey.year) {
-                    findKeyObj.years = Number(pageQurey.year);
+                if (query && query.year) {
+                    findKeyObj.years = Number(query.year);
                 }
-                if (pageQurey && pageQurey.type) {
-                    findKeyObj.type = pageQurey.type;
+                if (query && query.type) {
+                    findKeyObj.type = query.type;
                 }
-                if (pageQurey && pageQurey.keyword) {
-                    findKeyObj.name = { $regex: pageQurey.keyword, $options: 'i' };
+                if (query && query.keyword) {
+                    findKeyObj.name = { $regex: query.keyword, $options: 'i' };
                 }
-                console.log(findKeyObj);
                 const movieList = yield model_1.default.find(findKeyObj).limit(pagesize).skip(page * pagesize);
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
                 return {
@@ -114,11 +113,10 @@ const MovieService = {
             }
         });
     },
-    update(qurey, body) {
+    update(query, body) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const updateInfo = yield model_1.default.updateOne(qurey, { $set: body });
-                console.log(updateInfo);
+                const updateInfo = yield model_1.default.updateOne(query, { $set: body });
             }
             catch (error) {
                 throw new Error(error.message);
@@ -143,14 +141,6 @@ const MovieService = {
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                // const validate: Joi.ValidationResult<{
-                //     id: string
-                // }> = UserValidation.removeUser({
-                //     id
-                // });
-                // if (validate.error) {
-                //     throw new Error(validate.error.message);
-                // }
                 const user = yield model_1.default.findOneAndRemove({
                     _id: mongoose_1.Types.ObjectId(id)
                 });

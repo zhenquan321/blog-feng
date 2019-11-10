@@ -34,10 +34,10 @@ export interface IUserService {
     remove(id: string): Promise<IUserModel>;
 
     /**
-     * @param {string,qurey}
+     * @param {string,query}
      * @returns {Promise < any >}
      * @memberof UserService
      */
-    update(id: string,qurey:any): Promise < any > ;
+    update(id: string,query:any): Promise < any > ;
 
 }

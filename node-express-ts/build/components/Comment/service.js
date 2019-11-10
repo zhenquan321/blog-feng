@@ -16,10 +16,20 @@ const CommentService = {
      * @returns {Promise < ICommentModel[] >}
      * @memberof CommentService
      */
-    findAll() {
+    findAll(query) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model_1.default.find({});
+                const page = query && query.page ? Number(query.page) : 0;
+                const pagesize = query && query.pagesize ? Number(query.pagesize) : 10;
+                const findKeyObj = {
+                    subjectId: query.subjectId
+                };
+                const commentList = yield model_1.default.find(findKeyObj).limit(pagesize).skip(page * pagesize);
+                const count = yield model_1.default.find(findKeyObj).countDocuments();
+                return {
+                    count,
+                    data: commentList,
+                };
             }
             catch (error) {
                 throw new Error(error.message);
@@ -51,14 +61,8 @@ const CommentService = {
     insert(body) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const hasComment = yield model_1.default.findOne({ name: body.name });
-                if (hasComment) {
-                    return { mag: '该分类已存在' };
-                }
-                else {
-                    const Comment = yield model_1.default.create(body);
-                    return Comment;
-                }
+                const Comment = yield model_1.default.create(body);
+                return Comment;
             }
             catch (error) {
                 throw new Error(error.message);

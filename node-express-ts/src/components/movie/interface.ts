@@ -11,5 +11,5 @@ export interface MovieService {
     findAll(pageQurey?: any): Promise<IMovieModel[]>;
     findOneByName(name: string): Promise<IMovieModel>;
     getCount(): Promise<number>;
-    update(qurey:any,body: any): Promise<void>;
+    update(query:any,body: any): Promise<void>;
 }

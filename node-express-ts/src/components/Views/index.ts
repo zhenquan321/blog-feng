@@ -22,11 +22,11 @@ import { connect } from 'http2';
  */
 export async function index(req: Request, res: Response, next: NextFunction): Promise<any> {
 
-    const pageQurey: any = req.query || req.body;
+    const query: any = req.query || req.body;
 
-    pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
+    query.page = query.page >= 1 ? query.page - 1 : 0;
 
-    const blogList: any = await BlogService.findAll(pageQurey);
+    const blogList: any = await BlogService.findAll(query);
     const classification: any = await ClassificationService.findAll();
 
     const blogArray: any = blogList.data || [];
@@ -46,17 +46,17 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
         }
     })
 
-    for (let key in pageQurey) {
+    for (let key in query) {
         if (key !== 'page') {
-            baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+            baseUrl = baseUrl + key + '=' + query[key] + '&';
         }
     }
 
     const pageInfo: any = {
         baseUrl,
         count: blogList.count,
-        currentPage: pageQurey.page + 1 || 0,
-        pageSize: pageQurey.pageSize || 20,
+        currentPage: query.page + 1 || 0,
+        pageSize: query.pageSize || 20,
     };
 
     req.flash = { success: '欢迎光临~' };
@@ -75,27 +75,27 @@ export async function userInfo(req: Request, res: Response, next: NextFunction):
 
 export async function movie(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const pageQurey: any = req.query || req.body;
+        const query: any = req.query || req.body;
 
-        pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
+        query.page = query.page >= 1 ? query.page - 1 : 0;
 
-        const movieList: any = await MovieService.findAll(pageQurey);//
+        const movieList: any = await MovieService.findAll(query);//
         const movieArray: any = movieList.data;
 
         let baseUrl: string = req.path + '?';
 
 
-        for (let key in pageQurey) {
+        for (let key in query) {
             if (key !== 'page') {
-                baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+                baseUrl = baseUrl + key + '=' + query[key] + '&';
             }
         }
 
         const pageInfo: any = {
             baseUrl,
             count: movieList.count,
-            currentPage: pageQurey.page + 1 || 0,
-            pageSize: pageQurey.pageSize || 20,
+            currentPage: query.page + 1 || 0,
+            pageSize: query.pageSize || 20,
         };
 
         res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
@@ -125,27 +125,27 @@ export async function movieItem(req: Request, res: Response, next: NextFunction)
 
 export async function blog(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const pageQurey: any = req.query || req.body;
+        const query: any = req.query || req.body;
 
-        pageQurey.page = pageQurey.page >= 1 ? pageQurey.page - 1 : 0;
+        query.page = query.page >= 1 ? query.page - 1 : 0;
 
-        const movieList: any = await MovieService.findAll(pageQurey);//
+        const movieList: any = await MovieService.findAll(query);//
         const movieArray: any = movieList.data;
 
         let baseUrl: string = req.path + '?';
 
 
-        for (let key in pageQurey) {
+        for (let key in query) {
             if (key !== 'page') {
-                baseUrl = baseUrl + key + '=' + pageQurey[key] + '&';
+                baseUrl = baseUrl + key + '=' + query[key] + '&';
             }
         }
 
         const pageInfo: any = {
             baseUrl,
             count: movieList.count,
-            currentPage: pageQurey.page + 1 || 0,
-            pageSize: pageQurey.pageSize || 20,
+            currentPage: query.page + 1 || 0,
+            pageSize: query.pageSize || 20,
         };
 
         res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: '/' });
@@ -182,9 +182,7 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
         const editor: string = 'markDown';
         const classifications: any = await ClassificationService.findAll();
 
-        console.log(classifications);
-
-        res.render('blogCreate', { req, editor, classifications, title: '发布博客', path: 'blogCreate' });
+        res.render('blogCreateVditor', { req, editor, classifications, title: '发布博客', path: 'blogCreate' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
