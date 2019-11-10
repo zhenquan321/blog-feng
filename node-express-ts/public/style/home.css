@@ -747,6 +747,9 @@ a.thumbnail:hover {
   float: right;
   position: relative;
 }
+.blogSearch .form-inline {
+  width: 240;
+}
 .blogSearch input {
   float: right;
   width: 240px;
@@ -766,7 +769,7 @@ a.thumbnail:hover {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   padding: 20px 40px;
   width: 70%;
-  margin-top: 10px ;
+  margin-top: 10px;
 }
 .userInfo .header {
   font-size: 22px;
@@ -808,7 +811,7 @@ a.thumbnail:hover {
 .userInfo .changeInfoBtn {
   width: 100%;
   text-align: center;
-  padding: 30px 0 15px ;
+  padding: 30px 0 15px;
 }
 .userInfo .changeInfoBtn button {
   padding: 8px 50px;
