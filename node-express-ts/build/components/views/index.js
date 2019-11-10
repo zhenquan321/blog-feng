@@ -155,7 +155,8 @@ function blogItem(req, res, next) {
                 const marked = require('marked');
                 // 增加阅读数
                 service_2.default.update(req.params.id, { $set: { pv: (getBlog.pv + Math.round(Math.random() * 10)) } });
-                blog.content = marked(blog.content);
+                // blog.content = marked(blog.content);
+                console.log(blog);
                 res.render('blogItem', { req, blog, title: blog.title, path: '/' });
             }
             else {

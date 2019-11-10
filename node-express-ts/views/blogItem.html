@@ -1,4 +1,6 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/method.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css"/>
+
 <ol class="breadcrumb breadcrumbBlack">
     <li><a href="/">博客</a></li>
     <li><%- blog.title %></li>
@@ -8,9 +10,9 @@
     <div class="blog-header">
         <div class="headerImg">
             <% if(blog.author&&blog.author.profile&&blog.author.profile.picture){%>
-                <img src="<%= blog.author.profile.picture %>" alt="">
+            <img src="<%= blog.author.profile.picture %>" alt="">
             <% } else { %>
-                <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>
+            <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>
             <% }%>
         </div>
         <div class="author">
@@ -21,11 +23,23 @@
     </div>
     <div class="blog-body">
         <h2 class="blogTitle"><%= blog.title%></h2>
-        <div class="markDown">
-            <%- blog.content %>
-        </div>
+        <div id="vditorCentent"></div>
+        <textarea id="markdownText" class="preview" style="display:none;"><%-blog.content%></textarea>
     </div>
-    
 </div>
 
+<script>
+    Vditor.preview(document.getElementById('vditorCentent'),
+        document.getElementById('markdownText').textContent, {
+            className: 'preview vditor-reset',
+            customEmoji: {
+                'sd': '💔',
+                'j': 'https://unpkg.com/vditor@1.3.1/dist/images/emoji/j.png',
+            },
+            speech: {
+                enable: true,
+            },
+        });
+</script>
 
+<style></style>

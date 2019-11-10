@@ -47,7 +47,7 @@ const ToolService: ToolService = {
                         avatarName = name + time + '.' + type;
                         const newPath: string = form.uploadDir + '/' + avatarName;
                         fs.renameSync(file.path, newPath);  // 重命名
-                        succMap[nameArray[0]] = '/upload/' + avatarName;
+                        succMap[file.name] = '/upload/' + avatarName;
                         normalMap.push('/upload/' + avatarName);
                     }
                 }

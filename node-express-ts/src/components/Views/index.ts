@@ -165,7 +165,8 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
 
             // 增加阅读数
             BlogService.update(req.params.id, { $set: { pv: (getBlog.pv + Math.round(Math.random() * 10)) } });
-            blog.content = marked(blog.content);
+            // blog.content = marked(blog.content);
+            console.log(blog);
             res.render('blogItem', { req, blog, title: blog.title, path: '/' });
         } else {
             res.render('404', { req, title: '未找到资源', path: '/' });

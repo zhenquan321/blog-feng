@@ -2,7 +2,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.min.js"></script>
 <%- include('./components/header_createBlog.html') %>
 
-vditor  上传图片有bug；
+<!-- vditor  上传图片有bug； -->
 
 <form class="blogCreate">
     <div class="header">
@@ -61,10 +61,9 @@ vditor  上传图片有bug；
 <script>
     const vditor = new Vditor('vditor', {
         typewriterMode: true,
-        counter: 100,
         height: 700,
-        width:"100%",
-        placeholder:"请输入博客正文",
+        width: "100%",
+        placeholder: "请输入博客正文",
         hint: {
             emojiPath: 'https://cdn.jsdelivr.net/npm/vditor@1.8.3/dist/images/emoji',
             emojiTail: '<a href="https://hacpai.com/settings/function" target="_blank">设置常用表情</a>',
@@ -74,25 +73,28 @@ vditor  上传图片有bug；
             },
         },
         tab: '\t',
+        preview:{
+            delay:500
+        },
         upload: {
             accept: 'image/*,.wav',
             token: 'test',
             url: '/tool/upload',
-            max:"3 * 1024 * 1024",
+            max: "3 * 1024 * 1024",
             linkToImgUrl: '/tool/upload',
-            format:(files,responseText)=>{
-                console.log(files,responseText);
+            format: (files, responseText) => {
+                console.log(files, responseText);
             },
-            success:(res)=>{
+            success: (res) => {
                 console.log(res);
             },
-           
-            filename:(name) =>{
+
+            filename: (name) => {
                 return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5\.)]/g, '').
                 replace(/[\?\\/:|<>\*\[\]\(\)\$%\{\}@~]/g, '').
                 replace('/\\s/g', '')
             },
-           
+
         }
     });
 </script>
@@ -129,11 +131,12 @@ vditor  上传图片有bug；
     function publishBlog(published) {
         let userId = "<%=req.session.user._id||''%>";
         let contentType = '<%=editor %>';
+        let contert = vditor.getValue();
         if (!$('#blogCreate-title').val()) {
             alert("博文标题不能为空");
             return
         }
-        if (!$('#md-area').val()) {
+        if (!contert) {
             alert("内容不能为空");
             return
         }
@@ -145,7 +148,7 @@ vditor  上传图片有bug；
             published,
             author: userId,
             title: $('#blogCreate-title').val(),
-            content: $('#md-area').val(),
+            content: contert,
             contentType: contentType,
             classifications: classificationsId,
         }
@@ -155,6 +158,7 @@ vditor  上传图片有bug；
             data: data,
             success: (res) => {
                 if (res.state == 0) {
+                    vditor.clearCache()
                     window.location.href = "/";
                 }
             },
@@ -167,5 +171,24 @@ vditor  上传图片有bug；
 <style>
     body {
         background-color: #fff;
+    }
+
+    .vditor-toolbar {
+        background-color: #fff;
+        border-bottom: 0px solid #d1d5da;
+        padding: 8px 5px;
+        border-radius: 0 0;
+    }
+
+    .vditor {
+        border: 0px solid #d1d5da;
+    }
+
+    .vditor-textarea {
+        background-color: #fafafa;
+    }
+    .vditor-toolbar svg{
+        width: 16px;
+        height: 16px;
     }
 </style>

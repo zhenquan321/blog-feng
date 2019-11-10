@@ -37,11 +37,11 @@
 }
 .navbar {
   font-size: 16px;
-  z-index: 100000;
+  z-index: 10;
   padding: 0 20px;
 }
 .navbarCreateBlog {
-  z-index: 100001;
+  z-index: 11;
 }
 .shuxian {
   display: inline-block;
@@ -121,7 +121,7 @@ a {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4) !important;
   position: fixed;
-  z-index: 1000000;
+  z-index: 100;
   top: 0;
   left: 0;
 }
@@ -183,7 +183,7 @@ a {
   top: 60px;
   width: 280px;
   right: 10px;
-  z-index: 999;
+  z-index: 100;
 }
 .notifications i {
   position: absolute;
@@ -521,7 +521,7 @@ a.thumbnail:hover {
   left: 0;
   top: 50px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  z-index: 10000;
+  z-index: 9;
 }
 .classificationHeader ul li {
   display: inline-block;
@@ -579,7 +579,7 @@ a.thumbnail:hover {
 .blogList .blogCard .removeBlog {
   display: none;
   position: absolute;
-  z-index: 10;
+  z-index: 2;
   right: 20px;
   top: 30px;
 }
