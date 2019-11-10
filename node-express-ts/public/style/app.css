@@ -59,253 +59,6 @@ textarea:focus {
   border-color: #ccc;
   text-decoration: none;
 }
-.markDown {
-  /*
-
-    Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmail.com>
-
-    */
-  /* Solarized Green */
-  /* Solarized Cyan */
-  /* Solarized Blue */
-  /* Solarized Yellow */
-  /* Solarized Orange */
-  /* Solarized Red */
-  /* Solarized Violet */
-}
-.markDown html,
-.markDown body {
-  font-family: "SF UI Display", ".PingFang SC", "PingFang SC", "Neue Haas Grotesk Text Pro", "Arial Nova", "Segoe UI", "Microsoft YaHei", "Microsoft JhengHei", "Helvetica Neue", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "Hiragino Sans GB", sans-serif;
-  font-size: 16px;
-  color: #222;
-  min-width: 200px;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 1rem;
-  line-height: 1.5rem;
-}
-.markDown h1,
-.markDown h2,
-.markDown h3,
-.markDown h4,
-.markDown h5,
-.markDown h6 {
-  font-family: "PT Sans", "SF UI Display", ".PingFang SC", "PingFang SC", "Neue Haas Grotesk Text Pro", "Arial Nova", "Segoe UI", "Microsoft YaHei", "Microsoft JhengHei", "Helvetica Neue", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "Hiragino Sans GB", sans-serif;
-  text-rendering: optimizelegibility;
-  margin-bottom: 1em;
-  font-weight: bold;
-  line-height: 1.8rem;
-}
-.markDown h1,
-.markDown h2 {
-  position: relative;
-  padding-top: 1rem;
-  padding-bottom: 0.2rem;
-  margin-bottom: 1rem;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAABCAYAAACsXeyTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFUlEQVQIHWNIS0sr/v//PwMMDzY+ADqMahlW4J91AAAAAElFTkSuQmCC') bottom left repeat-x;
-}
-.markDown h2 {
-  padding-top: 0.8rem;
-  padding-bottom: 0.2rem;
-}
-.markDown h1 {
-  font-size: 1.6rem;
-}
-.markDown h2 {
-  font-size: 1.4rem;
-}
-.markDown h3 {
-  font-size: 1.2rem;
-}
-.markDown h4 {
-  font-size: 1.1rem;
-}
-.markDown h5 {
-  font-size: 1rem;
-}
-.markDown h6 {
-  font-size: 0.9rem;
-}
-.markDown table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-top: 0.8rem;
-  margin-bottom: 1.4rem;
-}
-.markDown tr {
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-}
-.markDown th,
-.markDown td {
-  padding: 5px 14px;
-  border: 1px solid #ddd;
-}
-.markDown blockquote {
-  font-style: italic;
-  font-size: 1.1em;
-  line-height: 1.5em;
-  padding-left: 1em;
-  border-left: 4px solid #D5D5D5;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 1.5rem;
-}
-.markDown a {
-  color: #1863a1;
-}
-.markDown pre,
-.markDown code,
-.markDown p code,
-.markDown li code {
-  font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
-}
-.markDown pre {
-  -webkit-border-radius: 0.4em;
-  -moz-border-radius: 0.4em;
-  -ms-border-radius: 0.4em;
-  -o-border-radius: 0.4em;
-  border-radius: 0.4em;
-  border: 1px solid #e7dec3;
-  line-height: 1.45em;
-  font-size: 0.9rem;
-  margin-bottom: 2.1em;
-  padding: 0.8em 1em;
-  color: #586e75;
-  overflow: auto;
-  background-color: #fdf6e3;
-}
-.markDown p code,
-.markDown li code {
-  display: inline-block;
-  white-space: no-wrap;
-  background: #fff;
-  font-size: 0.9rem;
-  line-height: 1.5em;
-  color: #555;
-  border: 1px solid #ddd;
-  -webkit-border-radius: 0.4em;
-  -moz-border-radius: 0.4em;
-  -ms-border-radius: 0.4em;
-  -o-border-radius: 0.4em;
-  border-radius: 0.4em;
-  padding: 0 0.3em;
-  margin: -1px 4px;
-}
-.markDown p pre code,
-.markDown li pre code {
-  font-size: 1em !important;
-  background: none;
-  border: none;
-}
-.markDown img {
-  max-width: 100%;
-  -webkit-border-radius: 0.3em;
-  -moz-border-radius: 0.3em;
-  -ms-border-radius: 0.3em;
-  -o-border-radius: 0.3em;
-  border-radius: 0.3em;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: #fff 0.5em solid;
-}
-.markDown hr {
-  height: 0;
-  margin: 15px 0;
-  overflow: hidden;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #ddd;
-}
-.markDown .hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #fdf6e3;
-  color: #657b83;
-  -webkit-text-size-adjust: none;
-}
-.markDown .hljs-comment,
-.markDown .diff .hljs-header,
-.markDown .hljs-doctype,
-.markDown .hljs-pi,
-.markDown .lisp .hljs-string {
-  color: #93a1a1;
-}
-.markDown .hljs-keyword,
-.markDown .hljs-winutils,
-.markDown .method,
-.markDown .hljs-addition,
-.markDown .css .hljs-tag,
-.markDown .hljs-request,
-.markDown .hljs-status,
-.markDown .nginx .hljs-title {
-  color: #859900;
-}
-.markDown .hljs-number,
-.markDown .hljs-command,
-.markDown .hljs-string,
-.markDown .hljs-tag .hljs-value,
-.markDown .hljs-rule .hljs-value,
-.markDown .hljs-doctag,
-.markDown .tex .hljs-formula,
-.markDown .hljs-regexp,
-.markDown .hljs-hexcolor,
-.markDown .hljs-link_url {
-  color: #2aa198;
-}
-.markDown .hljs-title,
-.markDown .hljs-localvars,
-.markDown .hljs-chunk,
-.markDown .hljs-decorator,
-.markDown .hljs-built_in,
-.markDown .hljs-identifier,
-.markDown .vhdl .hljs-literal,
-.markDown .hljs-id,
-.markDown .css .hljs-function,
-.markDown .hljs-name {
-  color: #268bd2;
-}
-.markDown .hljs-attribute,
-.markDown .hljs-variable,
-.markDown .lisp .hljs-body,
-.markDown .smalltalk .hljs-number,
-.markDown .hljs-constant,
-.markDown .hljs-class .hljs-title,
-.markDown .hljs-parent,
-.markDown .hljs-type,
-.markDown .hljs-link_reference {
-  color: #b58900;
-}
-.markDown .hljs-preprocessor,
-.markDown .hljs-preprocessor .hljs-keyword,
-.markDown .hljs-pragma,
-.markDown .hljs-shebang,
-.markDown .hljs-symbol,
-.markDown .hljs-symbol .hljs-string,
-.markDown .diff .hljs-change,
-.markDown .hljs-special,
-.markDown .hljs-attr_selector,
-.markDown .hljs-subst,
-.markDown .hljs-cdata,
-.markDown .css .hljs-pseudo,
-.markDown .hljs-header {
-  color: #cb4b16;
-}
-.markDown .hljs-deletion,
-.markDown .hljs-important {
-  color: #dc322f;
-}
-.markDown .hljs-link_label {
-  color: #6c71c4;
-}
-.markDown .tex .hljs-formula {
-  background: #eee8d5;
-}
 .navbar-default {
   background-color: #ffffff;
   border-color: #e7e7e7;
@@ -345,11 +98,11 @@ textarea:focus {
 }
 .navbar {
   font-size: 16px;
-  z-index: 100000;
+  z-index: 10;
   padding: 0 20px;
 }
 .navbarCreateBlog {
-  z-index: 100001;
+  z-index: 11;
 }
 .shuxian {
   display: inline-block;
@@ -429,7 +182,7 @@ a {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4) !important;
   position: fixed;
-  z-index: 1000000;
+  z-index: 100;
   top: 0;
   left: 0;
 }
@@ -491,7 +244,7 @@ a {
   top: 60px;
   width: 280px;
   right: 10px;
-  z-index: 999;
+  z-index: 100;
 }
 .notifications i {
   position: absolute;
@@ -593,6 +346,9 @@ a.thumbnail:hover {
   font-weight: 600;
   display: inline-block;
 }
+.selectHeader div {
+  display: inline-block;
+}
 .selectHeader ul {
   display: inline-block;
   margin: 0;
@@ -686,12 +442,18 @@ a.thumbnail:hover {
 .searchTop .form-inline {
   width: 300px;
   float: right;
+  height: 50px;
 }
 .searchTop .form-inline input {
   width: 240px;
   border-color: #ddd;
   box-shadow: 0 0 0;
   border-radius: 20px;
+  float: left;
+  margin-right: 5px;
+}
+.searchTop .form-inline button {
+  float: right;
 }
 .page-404 {
   height: 100vh;
@@ -820,6 +582,7 @@ a.thumbnail:hover {
   left: 0;
   top: 50px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  z-index: 9;
 }
 .classificationHeader ul li {
   display: inline-block;
@@ -877,7 +640,7 @@ a.thumbnail:hover {
 .blogList .blogCard .removeBlog {
   display: none;
   position: absolute;
-  z-index: 10;
+  z-index: 2;
   right: 20px;
   top: 30px;
 }
@@ -1045,6 +808,9 @@ a.thumbnail:hover {
   float: right;
   position: relative;
 }
+.blogSearch .form-inline {
+  width: 240;
+}
 .blogSearch input {
   float: right;
   width: 240px;
@@ -1064,7 +830,7 @@ a.thumbnail:hover {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   padding: 20px 40px;
   width: 70%;
-  margin-top: 10px ;
+  margin-top: 10px;
 }
 .userInfo .header {
   font-size: 22px;
@@ -1106,7 +872,7 @@ a.thumbnail:hover {
 .userInfo .changeInfoBtn {
   width: 100%;
   text-align: center;
-  padding: 30px 0 15px ;
+  padding: 30px 0 15px;
 }
 .userInfo .changeInfoBtn button {
   padding: 8px 50px;
@@ -1116,16 +882,136 @@ a.thumbnail:hover {
   font-size: 16px;
 }
 @media screen and (max-width: 500px) {
+  .col-lg-1,
+  .col-lg-10,
+  .col-lg-11,
+  .col-lg-12,
+  .col-lg-2,
+  .col-lg-3,
+  .col-lg-4,
+  .col-lg-5,
+  .col-lg-6,
+  .col-lg-7,
+  .col-lg-8,
+  .col-lg-9,
+  .col-md-1,
+  .col-md-10,
+  .col-md-11,
+  .col-md-12,
+  .col-md-2,
+  .col-md-3,
+  .col-md-4,
+  .col-md-5,
+  .col-md-6,
+  .col-md-7,
+  .col-md-8,
+  .col-md-9,
+  .col-sm-1,
+  .col-sm-10,
+  .col-sm-11,
+  .col-sm-12,
+  .col-sm-2,
+  .col-sm-3,
+  .col-sm-4,
+  .col-sm-5,
+  .col-sm-6,
+  .col-sm-7,
+  .col-sm-8,
+  .col-sm-9,
+  .col-xs-1,
+  .col-xs-10,
+  .col-xs-11,
+  .col-xs-12,
+  .col-xs-2,
+  .col-xs-3,
+  .col-xs-4,
+  .col-xs-5,
+  .col-xs-6,
+  .col-xs-7,
+  .col-xs-8,
+  .col-xs-9 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+  html,
+  body {
+    width: 100%;
+  }
+  body {
+    background-color: #f4f5f5 !important;
+  }
+  .row {
+    margin: 0;
+  }
   .navbar {
+    padding: 0!important;
+    margin: 0!important;
+    width: 100%!important;
+    overflow: hidden;
+  }
+  .navbar .container {
     padding: 0;
+    margin: 0;
+  }
+  .container {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+  .movieList .movieCard {
+    padding: 5px;
+  }
+  .movieList .movieCard a {
+    margin-bottom: 0px;
+  }
+  .blogSearch {
+    display: none;
+  }
+  .breadcrumb {
+    background-color: #f4f5f5 !important;
+  }
+  .selectHeader {
+    height: 38px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  .selectHeader ul {
+    padding-left: 0 ;
+  }
+  .selectHeader h4 {
+    width: 15%;
+    vertical-align: middle;
+    float: left;
+  }
+  .selectHeader div {
+    width: 85%;
+    overflow-x: auto;
+    vertical-align: middle;
+    float: right;
+    margin-top: 4px;
+  }
+  .selectHeader ul {
+    width: 1000px;
   }
   .logoDiv {
     margin-right: 10px;
   }
   .nav-left .pingpu li {
-    padding: 0 10px;
+    padding: 0 5px;
+    font-size: 14px;
   }
   .nav-right {
     display: none;
+  }
+  .movieCard img {
+    height: auto;
+    height: 270px;
+  }
+  .breadcrumb {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
