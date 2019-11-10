@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("./service");
 const error_1 = require("../../config/error");
+const index_1 = require("../Views/index");
 /**
  * @export
  * @param {Request} req
@@ -21,9 +22,9 @@ const error_1 = require("../../config/error");
 function findAll(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const Jobs = yield service_1.default.findAll();
-            // res.status(200).json(Jobs);
-            return Jobs;
+            const query = req.query || req.body;
+            const Jobs = yield service_1.default.findAll(query);
+            res.status(200).json(Jobs);
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));
@@ -61,7 +62,11 @@ function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const Job = yield service_1.default.insert(req.body);
-            res.status(201).json(Job);
+            if (!Job.name) {
+                req.flash = { warning: Job.mag };
+            }
+            index_1.blogCreate(req, res, next);
+            // res.status(200).json(Job);
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));
