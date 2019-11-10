@@ -10,6 +10,7 @@ import { NextFunction, Request, Response } from 'express';
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
+
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise < IJobModel[] > {
     try {
         const Jobs: IJobModel[] = await JobService.findAll();
