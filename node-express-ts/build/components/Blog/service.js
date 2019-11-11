@@ -63,10 +63,10 @@ const BlogService = {
                     if (BlogList[i].pv > 100) {
                         BlogList[i].isHot = true;
                     }
-                    if (BlogList[i].pv > 200) {
+                    if (BlogList[i].pv > 100 && BlogList[i].thumbsUp > 10) {
                         BlogList[i].isRecommend = '荐';
                     }
-                    if (BlogList[i].pv > 200 && BlogList[i].comments > 10) {
+                    if (BlogList[i].pv > 100 && BlogList[i].comments > 10) {
                         BlogList[i].isRecommend = '榜';
                     }
                 }
