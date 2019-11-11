@@ -916,6 +916,7 @@ a.thumbnail:hover {
   text-align: center;
   font-size: 18px;
   color: #777;
+  margin: 40px 20px 20px;
 }
 .comment .listCard {
   padding: 10px 30px 10px 70px;
@@ -926,13 +927,13 @@ a.thumbnail:hover {
   display: block;
 }
 .comment .listCard:last-child .control {
-  border-bottom: 0 ;
+  border-bottom: 0;
 }
 .comment .listCard .removeBlog {
   display: none;
   position: absolute;
   color: red;
-  right: 40px ;
+  right: 40px;
   top: 10px;
   cursor: pointer;
 }
@@ -960,4 +961,49 @@ a.thumbnail:hover {
 }
 .comment .listCard .control .control-right {
   float: right;
+}
+.fixedCard {
+  position: fixed;
+  margin-left: -10rem;
+  top: 24rem;
+}
+.fixedCard ul li {
+  list-style-type: none;
+  position: relative;
+  margin-bottom: 0.75rem;
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  background-color: #fff;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  text-align: center;
+  color: #777;
+}
+.fixedCard ul li a {
+  color: #777;
+}
+.fixedCard ul li:hover {
+  color: #e59233;
+}
+.fixedCard ul li span {
+  position: absolute;
+  top: 0;
+  left: 75%;
+  padding: 0.1rem 0.4rem;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+  color: #fff;
+  background-color: #b2bac2;
+  border-radius: 0.7rem;
+  transform-origin: left top;
+  transform: scale(0.75);
+}
+.fixedCard ul li i {
+  font-size: 1.9rem;
 }

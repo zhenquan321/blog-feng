@@ -15,13 +15,13 @@ const CommentService: ICommentService = {
 
         try {
             const page: number = query && query.page ? Number(query.page) : 0;
-            const pagesize: number = query && query.pagesize ? Number(query.pagesize) : 10;
+            const pageSize: number = query && query.pageSize ? Number(query.pageSize) : 10;
             const findKeyObj: any = {
                 subjectId: query.subjectId,
-                deleted:false
+                deleted: false
             };
 
-            const commentList: ICommentModel[] = await CommentModel.find(findKeyObj).sort({ updatedAt: -1 }).limit(pagesize).skip(page * pagesize);
+            const commentList: ICommentModel[] = await CommentModel.find(findKeyObj).sort({ updatedAt: -1 }).limit(pageSize).skip(page * pageSize);
             const count: number = await CommentModel.find(findKeyObj).countDocuments();
             const commentListRt: any = JSON.parse(JSON.stringify(commentList));
 
@@ -55,6 +55,7 @@ const CommentService: ICommentService = {
             throw new Error(error.message);
         }
     },
+
 
     /**
      * @param {ICommentModel} Comment
@@ -106,7 +107,18 @@ const CommentService: ICommentService = {
         } catch (error) {
             throw new Error(error.message);
         }
+    },
+
+    async count(id: string): Promise<number> {
+        try {
+
+            return await CommentModel.find({ subjectId: id }).count();
+
+        } catch (error) {
+            throw new Error(error.message);
+        }
     }
+
 
 };
 

@@ -35,7 +35,7 @@ function index(req, res, next) {
         blogArray.forEach((element) => {
             element.createdAt = new Time_1.default().formatDate(element.createdAt);
             if (element.pv > 50) {
-                element.isHeat = true;
+                element.isHot = true;
             }
             if (element.pv > 100) {
                 element.isRecommend = '荐';
@@ -130,7 +130,7 @@ function blog(req, res, next) {
         blogArray.forEach((element) => {
             element.createdAt = new Time_1.default().formatDate(element.createdAt);
             if (element.pv > 50) {
-                element.isHeat = true;
+                element.isHot = true;
             }
             if (element.pv > 100) {
                 element.isRecommend = '荐';

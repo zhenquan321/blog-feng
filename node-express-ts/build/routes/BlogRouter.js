@@ -127,6 +127,7 @@ router.get('/:id', components_1.BlogComponent.findOne);
  */
 router.delete('/:id', components_1.BlogComponent.remove);
 router.get('/remove/:id', components_1.BlogComponent.remove);
+router.post('/thumbsUp', components_1.BlogComponent.thumbsUp);
 /**
  * @export {express.Router}
  */

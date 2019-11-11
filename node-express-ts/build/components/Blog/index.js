@@ -103,4 +103,26 @@ function remove(req, res, next) {
     });
 }
 exports.remove = remove;
+function thumbsUp(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const BlogFid = yield service_1.default.findOne(req.params.id || req.body.id);
+            const thumbsUp = BlogFid.thumbsUp + 1;
+            const Blog = yield service_1.default.update(req.params.id || req.body.id, {
+                thumbsUp
+            });
+            if (Blog) {
+                res.status(200).json({
+                    thumbsUp,
+                    Blog,
+                    state: 0
+                });
+            }
+        }
+        catch (error) {
+            next(new error_1.HttpError(error.message.status, error.message));
+        }
+    });
+}
+exports.thumbsUp = thumbsUp;
 //# sourceMappingURL=index.js.map

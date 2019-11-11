@@ -3,8 +3,11 @@ import BlogModel, { IBlogModel } from './model';
 import { IBlogService } from './interface';
 import { Types } from 'mongoose';
 
-import ClassificationService from '../Classification/service'; 
+import ClassificationService from '../Classification/service';
 import UserService from '../User/service';
+import CommentService from '../Comment/service';
+
+
 /**
  * @export
  * @implements {IBlogModelService}
@@ -17,7 +20,7 @@ const BlogService: IBlogService = {
     async findAll(pageQurey: any): Promise<IBlogModel[] | any> {
         try {
             const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
-            const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
+            const pageSize: number = pageQurey && pageQurey.pageSize ? Number(pageQurey.pageSize) : 20;
             let findKeyObj: any = { deleted: { $ne: true } };
             const sort: any = {};
 
@@ -42,7 +45,7 @@ const BlogService: IBlogService = {
                 findKeyObj.classifications = pageQurey.classifications;
             }
 
-            const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort(sort).limit(pagesize).skip(page * pagesize);
+            const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort(sort).limit(pageSize).skip(page * pageSize);
             const BlogList: any[] = JSON.parse(JSON.stringify(BlogListFind));
             const count: number = await BlogModel.find(findKeyObj).countDocuments();
 
@@ -50,6 +53,8 @@ const BlogService: IBlogService = {
             for (let i: number = 0; i < BlogList.length; i++) {
                 BlogList[i].author = await UserService.findOne(BlogList[i].author);
                 BlogList[i].classifications = await ClassificationService.findOne(BlogList[i].classifications);
+                BlogList[i].comments = await CommentService.count(BlogList[i]._id);
+
             }
 
             return {

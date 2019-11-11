@@ -86,7 +86,7 @@ const MovieService = {
     findAll(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const page = query && query.page ? Number(query.page) : 0;
-            const pagesize = query && query.pagesize ? Number(query.pagesize) : 12;
+            const pageSize = query && query.pageSize ? Number(query.pageSize) : 12;
             try {
                 const findKeyObj = {
                     downLink: { $ne: '' },
@@ -101,7 +101,7 @@ const MovieService = {
                 if (query && query.keyword) {
                     findKeyObj.name = { $regex: query.keyword, $options: 'i' };
                 }
-                const movieList = yield model_1.default.find(findKeyObj).limit(pagesize).skip(page * pagesize);
+                const movieList = yield model_1.default.find(findKeyObj).limit(pageSize).skip(page * pageSize);
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
                 return {
                     count,

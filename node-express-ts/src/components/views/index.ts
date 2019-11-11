@@ -36,7 +36,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
     blogArray.forEach((element: any) => {
         element.createdAt = new Time().formatDate(element.createdAt);
         if (element.pv > 50) {
-            element.isHeat = true;
+            element.isHot = true;
         }
         if (element.pv > 100) {
             element.isRecommend = '荐';
@@ -138,7 +138,7 @@ export async function blog(req: Request, res: Response, next: NextFunction): Pro
     blogArray.forEach((element: any) => {
         element.createdAt = new Time().formatDate(element.createdAt);
         if (element.pv > 50) {
-            element.isHeat = true;
+            element.isHot = true;
         }
         if (element.pv > 100) {
             element.isRecommend = '荐';

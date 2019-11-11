@@ -22,12 +22,12 @@ const CommentService = {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const page = query && query.page ? Number(query.page) : 0;
-                const pagesize = query && query.pagesize ? Number(query.pagesize) : 10;
+                const pageSize = query && query.pageSize ? Number(query.pageSize) : 10;
                 const findKeyObj = {
                     subjectId: query.subjectId,
                     deleted: false
                 };
-                const commentList = yield model_1.default.find(findKeyObj).sort({ updatedAt: -1 }).limit(pagesize).skip(page * pagesize);
+                const commentList = yield model_1.default.find(findKeyObj).sort({ updatedAt: -1 }).limit(pageSize).skip(page * pageSize);
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
                 const commentListRt = JSON.parse(JSON.stringify(commentList));
                 for (let i = 0; i < commentListRt.length; i++) {
@@ -110,6 +110,16 @@ const CommentService = {
                     _id: mongoose_1.Types.ObjectId(id)
                 });
                 return Comment;
+            }
+            catch (error) {
+                throw new Error(error.message);
+            }
+        });
+    },
+    count(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield model_1.default.find({ subjectId: id }).count();
             }
             catch (error) {
                 throw new Error(error.message);

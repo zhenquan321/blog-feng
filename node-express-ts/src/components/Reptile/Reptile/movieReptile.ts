@@ -128,7 +128,7 @@ export async function getMovieDetail(): Promise<void> {
 
     const getMovieDetailFun: any = new getMovieDetailClass;
 
-    const movieList: any = await MovieService.findAll({ page: 0, pagesize: 10000 });
+    const movieList: any = await MovieService.findAll({ page: 0, pageSize: 10000 });
     let a = 1;
     for (let i = 0; i < movieList.data.length; i++) {
         if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {  //&& movieList.data[i].details.detailDes

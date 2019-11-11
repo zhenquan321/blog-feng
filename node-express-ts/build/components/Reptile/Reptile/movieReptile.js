@@ -123,7 +123,7 @@ class get2019movies {
 function getMovieDetail() {
     return __awaiter(this, void 0, void 0, function* () {
         const getMovieDetailFun = new getMovieDetailClass;
-        const movieList = yield service_1.default.findAll({ page: 0, pagesize: 10000 });
+        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 10000 });
         let a = 1;
         for (let i = 0; i < movieList.data.length; i++) {
             if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) { //&& movieList.data[i].details.detailDes

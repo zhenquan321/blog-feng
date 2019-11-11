@@ -13,6 +13,7 @@ const model_1 = require("./model");
 const mongoose_1 = require("mongoose");
 const service_1 = require("../Classification/service");
 const service_2 = require("../User/service");
+const service_3 = require("../Comment/service");
 /**
  * @export
  * @implements {IBlogModelService}
@@ -26,7 +27,7 @@ const BlogService = {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const page = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
-                const pagesize = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
+                const pageSize = pageQurey && pageQurey.pageSize ? Number(pageQurey.pageSize) : 20;
                 let findKeyObj = { deleted: { $ne: true } };
                 const sort = {};
                 if (pageQurey && pageQurey.sort) {
@@ -50,12 +51,13 @@ const BlogService = {
                 if (pageQurey && pageQurey.classifications) {
                     findKeyObj.classifications = pageQurey.classifications;
                 }
-                const BlogListFind = yield model_1.default.find(findKeyObj).sort(sort).limit(pagesize).skip(page * pagesize);
+                const BlogListFind = yield model_1.default.find(findKeyObj).sort(sort).limit(pageSize).skip(page * pageSize);
                 const BlogList = JSON.parse(JSON.stringify(BlogListFind));
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
                 for (let i = 0; i < BlogList.length; i++) {
                     BlogList[i].author = yield service_2.default.findOne(BlogList[i].author);
                     BlogList[i].classifications = yield service_1.default.findOne(BlogList[i].classifications);
+                    BlogList[i].comments = yield service_3.default.count(BlogList[i]._id);
                 }
                 return {
                     count,

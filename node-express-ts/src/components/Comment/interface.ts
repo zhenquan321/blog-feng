@@ -34,5 +34,7 @@ export interface ICommentService {
     remove(id: string): Promise<ICommentModel>;
 
     update(id: string, updateInfo: any): Promise<any>;
+
+    count(id: string): Promise<number>;
 }
 

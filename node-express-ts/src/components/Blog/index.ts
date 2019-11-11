@@ -72,11 +72,35 @@ export async function create(req: Request, res: Response, next: NextFunction): P
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
+
+
 export async function remove(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const Blog: IBlogModel = await BlogService.update(req.params.id, { deleted: true });
         if (Blog) {
             res.status(200).json({
+                Blog,
+                state: 0
+            });
+        }
+
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+    }
+}
+
+
+export async function thumbsUp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        const BlogFid: IBlogModel = await BlogService.findOne(req.params.id || req.body.id);
+        const thumbsUp: number = BlogFid.thumbsUp + 1;
+        const Blog: IBlogModel = await BlogService.update(req.params.id || req.body.id, {
+            thumbsUp
+        });
+
+        if (Blog) {
+            res.status(200).json({
+                thumbsUp,
                 Blog,
                 state: 0
             });

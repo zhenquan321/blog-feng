@@ -1072,6 +1072,7 @@ a.thumbnail:hover {
                 border-radius: 5px;
                 border-color: #ccc;
                 padding: 10px;
+
                 &:focus {
                     border-color: @mainColor;
                 }
@@ -1099,8 +1100,9 @@ a.thumbnail:hover {
 
                     .emjoArea {
                         display: flex;
-                        display: -webkit-flex; /* Safari */
-                        flex-wrap:wrap;
+                        display: -webkit-flex;
+                        /* Safari */
+                        flex-wrap: wrap;
                     }
                 }
 
@@ -1119,7 +1121,7 @@ a.thumbnail:hover {
                     padding: 10px;
                     background-color: #fff;
                     box-shadow: 0 5px 18px 0 rgba(0, 0, 0, .16);
-                    
+
                     span {
                         display: inline-block;
                         height: 26px;
@@ -1146,55 +1148,116 @@ a.thumbnail:hover {
         text-align: center;
         font-size: 18px;
         color: #777;
+        margin: 40px 20px 20px;
     }
 
     .listCard {
-        padding: 10px 30px 10px 70px; 
+        padding: 10px 30px 10px 70px;
         width: 100%;
         position: relative;
-        &:hover{
-            .removeBlog{
+
+        &:hover {
+            .removeBlog {
                 display: block;
             }
         }
-        &:last-child{
-            .control{
-                border-bottom:0 ;
+
+        &:last-child {
+            .control {
+                border-bottom: 0;
             }
         }
-        .removeBlog{
+
+        .removeBlog {
             display: none;
             position: absolute;
-            color:red;
-            right:40px ;
+            color: red;
+            right: 40px;
             top: 10px;
             cursor: pointer;
-            i{
+
+            i {
                 font-size: 30px;
             }
         }
+
         .comment-right {
             padding-left: 50px;
-            .commentUserInfo{
-                color:#666;
+
+            .commentUserInfo {
+                color: #666;
             }
-            .comment-content{
+
+            .comment-content {
                 margin: 10px 0;
-                color:#555;
+                color: #555;
             }
         }
-        .control{
+
+        .control {
             padding: 0 10px;
             height: 36px;
             border-bottom: 1px solid #f1f1f1;
             color: #999;
-            .time{
+
+            .time {
                 float: left;
-                
+
             }
-            .control-right{
+
+            .control-right {
                 float: right;
 
+            }
+        }
+    }
+}
+
+.fixedCard {
+    position: fixed;
+    margin-left: -10rem;
+    top: 24rem;
+
+    ul {
+        li {
+            list-style-type:none;
+            position: relative;
+            margin-bottom: .75rem;
+            width: 3rem;
+            height: 3rem;
+            line-height: 3rem;
+            background-color: #fff;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .04);
+            cursor: pointer;
+            text-align: center;
+            color: #777;
+            a{
+                color: #777;
+            }
+            &:hover{
+                color:@mainColor
+            }
+            span {
+                position: absolute;
+                top: 0;
+                left: 75%;
+                padding: .1rem .4rem;
+                font-size: 1rem;
+                text-align: center;
+                line-height: 1;
+                white-space: nowrap;
+                color: #fff;
+                background-color: #b2bac2;
+                border-radius: .7rem;
+                transform-origin: left top;
+                transform: scale(.75);
+            }
+
+            i {
+                font-size: 1.9rem;
             }
         }
     }
