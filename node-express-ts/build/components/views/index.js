@@ -32,18 +32,6 @@ function index(req, res, next) {
         const classification = yield service_3.default.findAll();
         const blogArray = blogList.data || [];
         let baseUrl = req.path + '?';
-        blogArray.forEach((element) => {
-            element.createdAt = new Time_1.default().formatDate(element.createdAt);
-            if (element.pv > 50) {
-                element.isHot = true;
-            }
-            if (element.pv > 100) {
-                element.isRecommend = '荐';
-            }
-            if (element.pv > 200) {
-                element.isRecommend = '榜';
-            }
-        });
         for (let key in query) {
             if (key !== 'page') {
                 baseUrl = baseUrl + key + '=' + query[key] + '&';

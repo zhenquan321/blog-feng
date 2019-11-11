@@ -14,6 +14,7 @@ const mongoose_1 = require("mongoose");
 const service_1 = require("../Classification/service");
 const service_2 = require("../User/service");
 const service_3 = require("../Comment/service");
+const Time_1 = require("./../../utils/Time");
 /**
  * @export
  * @implements {IBlogModelService}
@@ -58,6 +59,16 @@ const BlogService = {
                     BlogList[i].author = yield service_2.default.findOne(BlogList[i].author);
                     BlogList[i].classifications = yield service_1.default.findOne(BlogList[i].classifications);
                     BlogList[i].comments = yield service_3.default.count(BlogList[i]._id);
+                    BlogList[i].createdAt = new Time_1.default().formatDate(BlogList[i].createdAt);
+                    if (BlogList[i].pv > 100) {
+                        BlogList[i].isHot = true;
+                    }
+                    if (BlogList[i].pv > 200) {
+                        BlogList[i].isRecommend = '荐';
+                    }
+                    if (BlogList[i].pv > 200 && BlogList[i].comments > 10) {
+                        BlogList[i].isRecommend = '榜';
+                    }
                 }
                 return {
                     count,

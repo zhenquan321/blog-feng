@@ -1,6 +1,6 @@
 import * as passport from 'passport';
 import AuthService from './service';
-import MovieService from '../Movie/service'; 
+import MovieService from '../Movie/service';
 import BlogService from '../Blog/service';
 
 import ClassificationService from '../Classification/service';
@@ -33,18 +33,6 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
 
     let baseUrl: string = req.path + '?';
 
-    blogArray.forEach((element: any) => {
-        element.createdAt = new Time().formatDate(element.createdAt);
-        if (element.pv > 50) {
-            element.isHot = true;
-        }
-        if (element.pv > 100) {
-            element.isRecommend = '荐';
-        }
-        if (element.pv > 200) {
-            element.isRecommend = '榜';
-        }
-    })
 
     for (let key in query) {
         if (key !== 'page') {

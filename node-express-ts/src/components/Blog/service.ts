@@ -7,6 +7,7 @@ import ClassificationService from '../Classification/service';
 import UserService from '../User/service';
 import CommentService from '../Comment/service';
 
+import Time from './../../utils/Time';
 
 /**
  * @export
@@ -49,12 +50,20 @@ const BlogService: IBlogService = {
             const BlogList: any[] = JSON.parse(JSON.stringify(BlogListFind));
             const count: number = await BlogModel.find(findKeyObj).countDocuments();
 
-
             for (let i: number = 0; i < BlogList.length; i++) {
                 BlogList[i].author = await UserService.findOne(BlogList[i].author);
                 BlogList[i].classifications = await ClassificationService.findOne(BlogList[i].classifications);
                 BlogList[i].comments = await CommentService.count(BlogList[i]._id);
-
+                BlogList[i].createdAt = new Time().formatDate(BlogList[i].createdAt);
+                if (BlogList[i].pv > 100) {
+                    BlogList[i].isHot = true;
+                }
+                if (BlogList[i].pv > 200) {
+                    BlogList[i].isRecommend = '荐';
+                }
+                if (BlogList[i].pv > 200 && BlogList[i].comments > 10) {
+                    BlogList[i].isRecommend = '榜';
+                }
             }
 
             return {
