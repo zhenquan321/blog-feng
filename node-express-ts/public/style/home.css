@@ -666,6 +666,7 @@ a.thumbnail:hover {
 .blogItem {
   background-color: #fff;
   padding: 20px;
+  margin-bottom: 30px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 .blogItem .blogTitle {
@@ -819,4 +820,144 @@ a.thumbnail:hover {
   color: #fff;
   border: 0px;
   font-size: 16px;
+}
+.comment .userHeader {
+  width: 60px;
+  float: left;
+}
+.comment .userHeader .headerImg {
+  vertical-align: top;
+}
+.comment .userHeader .headerImg img {
+  width: 40px;
+  height: 40px;
+  top: 4px;
+}
+.comment .userHeader .headerImg span {
+  width: 40px;
+  height: 40px;
+  padding-top: 10px;
+}
+.comment .userHeader .headerImg span i {
+  font-size: 35px;
+}
+.comment .commentInput {
+  background-color: #fafbfc;
+  padding: 15px 15px 10px 15px;
+  margin-bottom: 30px;
+}
+.comment .commentInput .inputArea {
+  width: 100%;
+  padding-left: 60px;
+}
+.comment .commentInput .inputArea textarea {
+  width: 100%;
+  border-radius: 5px;
+  border-color: #ccc;
+  padding: 10px;
+}
+.comment .commentInput .inputArea textarea:focus {
+  border-color: #e59233;
+}
+.comment .commentInput .control {
+  width: 100%;
+  padding-left: 60px;
+  height: 40px;
+}
+.comment .commentInput .control .emjo {
+  color: #888;
+  float: left;
+  position: relative;
+  cursor: pointer;
+}
+.comment .commentInput .control .emjo:hover {
+  color: #e59233;
+}
+.comment .commentInput .control .emjo:hover i {
+  color: #e59233;
+}
+.comment .commentInput .control .emjo:hover .emjoArea {
+  display: flex;
+  display: -webkit-flex;
+  /* Safari */
+  flex-wrap: wrap;
+}
+.comment .commentInput .control .emjo i {
+  font-size: 24px;
+  position: relative;
+  top: 3px;
+  color: #ffcd43;
+}
+.comment .commentInput .control .emjo .emjoArea {
+  display: none;
+  position: absolute;
+  z-index: 5;
+  width: 280px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 5px 18px 0 rgba(0, 0, 0, 0.16);
+}
+.comment .commentInput .control .emjo .emjoArea span {
+  display: inline-block;
+  height: 26px;
+  width: 26px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 20px;
+}
+.comment .commentInput .control .emjo .emjoArea span:hover {
+  font-size: 24px;
+}
+.comment .commentInput .control .push {
+  float: right;
+  margin-top: 5px;
+}
+.comment h3 {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}
+.comment .listCard {
+  padding: 10px 30px 10px 70px;
+  width: 100%;
+  position: relative;
+}
+.comment .listCard:hover .removeBlog {
+  display: block;
+}
+.comment .listCard:last-child .control {
+  border-bottom: 0 ;
+}
+.comment .listCard .removeBlog {
+  display: none;
+  position: absolute;
+  color: red;
+  right: 40px ;
+  top: 10px;
+  cursor: pointer;
+}
+.comment .listCard .removeBlog i {
+  font-size: 30px;
+}
+.comment .listCard .comment-right {
+  padding-left: 50px;
+}
+.comment .listCard .comment-right .commentUserInfo {
+  color: #666;
+}
+.comment .listCard .comment-right .comment-content {
+  margin: 10px 0;
+  color: #555;
+}
+.comment .listCard .control {
+  padding: 0 10px;
+  height: 36px;
+  border-bottom: 1px solid #f1f1f1;
+  color: #999;
+}
+.comment .listCard .control .time {
+  float: left;
+}
+.comment .listCard .control .control-right {
+  float: right;
 }

@@ -20,19 +20,19 @@ export interface ICommentModel extends Document {
 const CommentSchema: Schema = new Schema({
     userId: {
         type: String,
-        default: ''
+        required: true
     },
     content: {
         type: String,
-        default: ''
+        required: true
     },
     subjectType: {
         type: String,
-        default: ''
+        required: true
     },
     subjectId: {
         type: String,
-        default: ''
+        required: true
     },
     fatherCommentId: {
         type: String,
@@ -44,11 +44,11 @@ const CommentSchema: Schema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     updatedAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
 
 }, {

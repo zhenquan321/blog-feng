@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const service_1 = require("../Movie/service"); // 目录 Movie 大小写有疑问
-const service_2 = require("../Blog/service"); // 目录 Movie 大小写有疑问
-const service_3 = require("../Classification/service"); // 目录 Movie 大小写有疑问
+const service_1 = require("../Movie/service");
+const service_2 = require("../Blog/service");
+const service_3 = require("../Classification/service");
 const error_1 = require("../../config/error");
 const Time_1 = require("../../utils/Time");
 // 用户信息
@@ -121,28 +121,37 @@ function movieItem(req, res, next) {
 exports.movieItem = movieItem;
 function blog(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const query = req.query || req.body;
-            query.page = query.page >= 1 ? query.page - 1 : 0;
-            const movieList = yield service_1.default.findAll(query); //
-            const movieArray = movieList.data;
-            let baseUrl = req.path + '?';
-            for (let key in query) {
-                if (key !== 'page') {
-                    baseUrl = baseUrl + key + '=' + query[key] + '&';
-                }
+        const query = req.query || req.body;
+        query.page = query.page >= 1 ? query.page - 1 : 0;
+        const blogList = yield service_2.default.findAll(query);
+        const classification = yield service_3.default.findAll();
+        const blogArray = blogList.data || [];
+        let baseUrl = req.path + '?';
+        blogArray.forEach((element) => {
+            element.createdAt = new Time_1.default().formatDate(element.createdAt);
+            if (element.pv > 50) {
+                element.isHeat = true;
             }
-            const pageInfo = {
-                baseUrl,
-                count: movieList.count,
-                currentPage: query.page + 1 || 0,
-                pageSize: query.pageSize || 20,
-            };
-            res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: '/' });
+            if (element.pv > 100) {
+                element.isRecommend = '荐';
+            }
+            if (element.pv > 200) {
+                element.isRecommend = '榜';
+            }
+        });
+        for (let key in query) {
+            if (key !== 'page') {
+                baseUrl = baseUrl + key + '=' + query[key] + '&';
+            }
         }
-        catch (error) {
-            next(new error_1.default(error.message.status, error.message));
-        }
+        const pageInfo = {
+            baseUrl,
+            count: blogList.count,
+            currentPage: query.page + 1 || 0,
+            pageSize: query.pageSize || 20,
+        };
+        req.flash = { success: '欢迎光临~' };
+        res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
     });
 }
 exports.blog = blog;

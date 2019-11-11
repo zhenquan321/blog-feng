@@ -14,19 +14,19 @@ const mongoose_1 = require("mongoose");
 const CommentSchema = new mongoose_1.Schema({
     userId: {
         type: String,
-        default: ''
+        required: true
     },
     content: {
         type: String,
-        default: ''
+        required: true
     },
     subjectType: {
         type: String,
-        default: ''
+        required: true
     },
     subjectId: {
         type: String,
-        default: ''
+        required: true
     },
     fatherCommentId: {
         type: String,
@@ -38,11 +38,11 @@ const CommentSchema = new mongoose_1.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     updatedAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
 }, {
     collection: 'commentmodel',

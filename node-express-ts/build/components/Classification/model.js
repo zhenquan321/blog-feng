@@ -23,11 +23,11 @@ const ClassificatSchema = new mongoose_1.Schema({
     meta: {
         createdAt: {
             type: Date,
-            default: Date.now()
+            default: Date.now
         },
         updatedAt: {
             type: Date,
-            default: Date.now()
+            default: Date.now
         }
     }
 }, {

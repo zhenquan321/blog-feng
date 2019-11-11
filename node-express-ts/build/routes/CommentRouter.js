@@ -126,6 +126,7 @@ router.get('/:id', components_1.CommentComponent.findOne);
  *                - $ref: '#/components/schemas/CommentSchema'
  */
 router.delete('/:id', components_1.CommentComponent.remove);
+router.get('/remove/:id', components_1.CommentComponent.remove);
 /**
  * @export {express.Router}
  */

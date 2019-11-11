@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("./service");
 const error_1 = require("../../config/error");
-const index_1 = require("../Views/index");
 /**
  * @export
  * @param {Request} req
@@ -24,7 +23,12 @@ function findAll(req, res, next) {
         try {
             const query = req.query || req.body;
             const Comments = yield service_1.default.findAll(query);
-            res.status(200).json(Comments);
+            res.status(200).json({
+                state: 0,
+                msg: '',
+                data: Comments.data,
+                count: Comments.count
+            });
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));
@@ -65,8 +69,11 @@ function create(req, res, next) {
             if (!Comment.name) {
                 req.flash = { warning: Comment.mag };
             }
-            index_1.blogCreate(req, res, next);
-            // res.status(200).json(Comment);
+            res.status(200).json({
+                state: 0,
+                data: Comment,
+                msg: ''
+            });
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));
@@ -84,8 +91,13 @@ exports.create = create;
 function remove(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const Comment = yield service_1.default.remove(req.params.id);
-            res.status(200).json(Comment);
+            const Blog = yield service_1.default.update(req.params.id, { deleted: true });
+            if (Blog) {
+                res.status(200).json({
+                    Blog,
+                    state: 0
+                });
+            }
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));

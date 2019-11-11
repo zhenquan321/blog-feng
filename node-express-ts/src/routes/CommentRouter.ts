@@ -130,6 +130,8 @@ router.get('/:id', CommentComponent.findOne);
  */
 router.delete('/:id', CommentComponent.remove);
 
+
+router.get('/remove/:id', CommentComponent.remove);
 /**
  * @export {express.Router}
  */

@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_1 = require("./model");
 const mongoose_1 = require("mongoose");
+const service_1 = require("../User/service");
+const Time_1 = require("../../utils/Time");
 const CommentService = {
     /**
      * @returns {Promise < ICommentModel[] >}
@@ -22,13 +24,20 @@ const CommentService = {
                 const page = query && query.page ? Number(query.page) : 0;
                 const pagesize = query && query.pagesize ? Number(query.pagesize) : 10;
                 const findKeyObj = {
-                    subjectId: query.subjectId
+                    subjectId: query.subjectId,
+                    deleted: false
                 };
-                const commentList = yield model_1.default.find(findKeyObj).limit(pagesize).skip(page * pagesize);
+                const commentList = yield model_1.default.find(findKeyObj).sort({ updatedAt: -1 }).limit(pagesize).skip(page * pagesize);
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
+                const commentListRt = JSON.parse(JSON.stringify(commentList));
+                for (let i = 0; i < commentListRt.length; i++) {
+                    commentListRt[i].author = yield service_1.default.findOne(commentListRt[i].userId);
+                    commentListRt[i].createdAt = new Time_1.default().formatDate(commentListRt[i].createdAt);
+                    commentListRt[i].updatedAt = new Time_1.default().formatDate(commentListRt[i].updatedAt);
+                }
                 return {
                     count,
-                    data: commentList,
+                    data: commentListRt,
                 };
             }
             catch (error) {
@@ -61,8 +70,28 @@ const CommentService = {
     insert(body) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                body.createdAt = new Date();
                 const Comment = yield model_1.default.create(body);
                 return Comment;
+            }
+            catch (error) {
+                throw new Error(error.message);
+            }
+        });
+    },
+    /**
+      * @param {string} id
+      * @returns {Promise < IBlogModel >}
+      * @memberof BlogService
+      */
+    update(id, updateInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const BlogFind = yield model_1.default.updateOne({
+                    _id: mongoose_1.Types.ObjectId(id)
+                }, updateInfo);
+                console.log(BlogFind, updateInfo);
+                return BlogFind;
             }
             catch (error) {
                 throw new Error(error.message);

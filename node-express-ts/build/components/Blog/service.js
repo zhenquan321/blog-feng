@@ -11,8 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_1 = require("./model");
 const mongoose_1 = require("mongoose");
-const service_1 = require("../Classification/service"); // 目录 Movie 大小写有疑问
-const service_2 = require("../User/service"); // 目录 Movie 大小写有疑问
+const service_1 = require("../Classification/service");
+const service_2 = require("../User/service");
 /**
  * @export
  * @implements {IBlogModelService}
