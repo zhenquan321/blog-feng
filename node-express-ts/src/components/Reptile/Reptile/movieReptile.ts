@@ -150,7 +150,6 @@ class get2019movies {
                 (Number(movieItem.name.slice(0, 4)) || '');
 
             // 获取到单个电影的信息;
-            console.log(movieItem);
             if (movieItem.name) {
                 this.insetMovieToDB(movieItem);
             }
