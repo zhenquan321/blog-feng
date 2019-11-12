@@ -12,9 +12,11 @@ const async: any = require('async'); // 异步抓取
 const eventproxy: any = require('eventproxy');  // 流程控制
 const ep: any = eventproxy();
 const baseUrl: string = 'http://www.dytt8.net';  // 迅雷首页链接
-const newMovieLinkArr: any = []; // 存放新电影的url
 const errLength: any = [];      // 统计出错的链接数
-const highScoreMovieArr: any = []; // 高评分电影
+
+
+
+
 
 charset(superagent);
 superagent.buffer['mime'] = false;
@@ -30,18 +32,36 @@ export async function movieReptile(): Promise<void> {
 
     const get2019moviesFun: any = new get2019movies;
 
-    get2019moviesFun.index();
+    const dyDLeiUrl: string[] = [
 
+        'https://www.dytt8.net/html/gndy/dyzz/index.html',
+        'https://www.dytt8.net/html/gndy/oumei/index.html',
+        'https://www.dytt8.net/html/gndy/china/index.html',
+        'https://www.dytt8.net/html/gndy/rihan/index.html',
+
+    ];
+
+    for (let i: number = 0; i < dyDLeiUrl.length; i++) {
+        setTimeout(() => {
+            get2019moviesFun.index(dyDLeiUrl[i]);
+        }, i * 1000);
+    }
+
+    setTimeout(() => {
+        get2019moviesFun.goGetMovieList();
+    }, 6000);
 }
 
-// 获取2019最新电影
 class get2019movies {
     baseUrl: string = 'https://www.dytt8.net/html/gndy/dyzz/index.html';
     errLength: string[] = [];
     urlList: string[] = [];
 
-    // 评分8分以上影片 200余部!，这里只是统计数据，不再进行抓取
-    async index(): Promise<void> {
+    async index(url: string): Promise<void> {
+        if (url) {
+            this.baseUrl = url;
+        }
+        console.log('抓取专题：' + this.baseUrl);
         superagent
             .get(this.baseUrl)
             .charset('gb2312')
@@ -53,22 +73,29 @@ class get2019movies {
                 const $: any = cheerio.load(sres && sres.text);
                 const elemPageList: any = $('.bd3r .co_content8 .x');
 
-                console.log('获取2019最新电影');
                 const allPages1: string = elemPageList[0].firstChild.data;
                 const allPages: string = allPages1.split('共')[1].split('页')[0];
-                const baseHref: string = $('.bd3r .co_content8 .x a').eq(1).attr('href');
+                const baseHref: string = url.split('index.html')[0];
+                const topicHref: string = $('.bd3r .co_content8 .x a').eq(1).attr('href');
+                const topicId: string = topicHref.split('_')[1];
 
                 this.getPageListArray($);
-                this.getPagesMovieList(Number(allPages), baseHref);
+                this.getPagesMovieList(Number(allPages), baseHref, topicId);
             });
     }
-    getPagesMovieList(allPages: number, baseHref: string): void {
+    getPagesMovieList(allPages: number, baseHref: string, topicId: string): void {
         console.log(allPages, baseHref);
         for (let i: number = 2; i < allPages + 1; i++) {
-            this.urlList.push(`https://www.dytt8.net/html/gndy/dyzz/list_23_${i}.html`);
+            this.urlList.push(baseHref + `list_${topicId}_${i}.html`);
+        }
+    }
+
+    goGetMovieList(): void {
+        console.log('需要抓取的页面数量为：' + this.urlList.length)
+        for (let i: number = 0; i < this.urlList.length; i++) {
             setTimeout(() => {
-                this.getPageList(`https://www.dytt8.net/html/gndy/dyzz/list_23_${i}.html`);
-            }, i * 1000);
+                this.getPageList(this.urlList[i]);
+            }, i * Math.ceil(Math.random() * 10) * 500);
         }
     }
 
@@ -93,6 +120,7 @@ class get2019movies {
     getPageListArray($: any): void {
 
         const movieArray: any = $('.bd3r .co_content8 ul table');
+        console.log('当前页面电影数量：' + movieArray.length);
 
         for (let i: number = 0; i < movieArray.length; i++) {
             const movieItem: any = {
@@ -104,17 +132,28 @@ class get2019movies {
                 years: 0,
             };
             const fonts: string = movieArray[i].lastChild.children[4].children[3].children[1].children[0].data || '';
-
-            movieItem.name = movieArray[i].lastChild.children[2].children[3].children[1].children[1].children[0].data || '';
-            movieItem.href = 'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[1].attribs.href || '';
-            movieItem.years = Number(movieItem.name.slice(0, 4)) || '';
-            movieItem.clickNum = Number(fonts.split('点击：')[1]) || '';
+            if (movieArray[i].lastChild.children[2].children[3].children[1].length < 3) {
+                movieItem.name = movieArray[i].lastChild.children[2].children[3].children[1].children[1] &&
+                    movieArray[i].lastChild.children[2].children[3].children[1].children[1].children[0].data || '';
+                movieItem.href = 'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[1].attribs.href || '';
+            } else {
+                movieItem.name = movieArray[i].lastChild.children[2].children[3].children[1].children[3] &&
+                    movieArray[i].lastChild.children[2].children[3].children[1].children[3].children[0].data || '';
+                movieItem.href = movieArray[i].lastChild.children[2].children[3].children[1].children[3] ?
+                    'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[3].attribs.href : '';
+            }
+            movieItem.clickNum = Number(fonts.split('点击：')[1]) || 0;
             movieItem.updateDate = fonts.split('点击：')[0].split('日期：')[1] || '';
             movieItem.sketch = (movieArray[i].lastChild.children[6].children[1] && movieArray[i].lastChild.children[6].children[1].lastChild &&
                 movieArray[i].lastChild.children[6].children[1].lastChild.data) || '';
+            movieItem.years = movieItem.sketch.split('◎年 代')[1] ? Number(movieItem.sketch.split('◎年 代')[1].slice(0, 5)) :
+                (Number(movieItem.name.slice(0, 4)) || '');
 
             // 获取到单个电影的信息;
-            this.insetMovieToDB(movieItem);
+            console.log(movieItem);
+            if (movieItem.name) {
+                this.insetMovieToDB(movieItem);
+            }
         }
 
     }
@@ -141,6 +180,7 @@ export async function getMovieDetail(): Promise<void> {
     console.log('开始抓取详情');
 
 }
+
 class getMovieDetailClass {
     errurlList: string[] = [];
 

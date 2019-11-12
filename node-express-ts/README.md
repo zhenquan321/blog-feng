@@ -1,8 +1,12 @@
 > Node.js Express API with TypeScript 3. Supports MongoDB
+
 ##### Session Storage:
+
 - MongoDB
 - Redis
+
 ##### Integration testing
+
 - mocha
 - chai
 - supertest
@@ -15,18 +19,22 @@
 - typescript >= 3.0
 
 ## Installation
+
 ```bash
 npm install -g yo
 npm install -g generator-node-express-typescript-api
 ```
 
 Then generate your new project:
+
 ```bash
 yo node-express-typescript-api
 ```
 
 ## Running the API
+
 ### Development
+
 To start the application in development mode, run:
 
 ```bash
@@ -35,21 +43,26 @@ npm install -g ts-node
 npm install -g typescript
 npm install
 ```
+
 ## Start the application in dev env:
+
 ```
 nodemon
 ```
+
 ## Start the application in production env:
 
 Install ts pm2 and typescript compiler:
+
 ```
 npm install -g pm2
 pm2 install typescript
 ```
 
 example start with scale on 2 core:
+
 ```
-pm2 start ./src/config/server/index.ts -i 2 --no-daemon 
+pm2 start ./src/config/server/index.ts -i 2 --no-daemon
 
 ## 运行打包后的
 pm2 start ./build/config/server/index.js
@@ -65,39 +78,59 @@ Express server listening on http://localhost:3000/, in development mode
 The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
 
 ### Testing
-To run integration tests: 
+
+To run integration tests:
+
 ```bash
 npm test
 ```
 
 ## Set up environment
+
 In root folder you can find `.env`. You can use this config or change it for your purposes.
 If you want to add some new variables, you also need to add them to interface and config object (Look `src/config/index.ts`)
 
 ## Usage as OAuth2.0 Server
+
 To use this generator as OAuth2.0 server you should implement client side, that will be handle your redirectUris and make requests to `/auth/token/` route. [Read more about OAuth2.0](https://alexbilbie.com/guide-to-oauth-2-grants/)
 
 ## Swagger
+
 ```bash
 npm install -g swagger-jsdoc
 swagger-jsdoc -d swaggerDef.js -o swagger.json
 ```
-Swagger documentation will be available on route: 
+
+Swagger documentation will be available on route:
+
 ```bash
 http://localhost:3000/docs
 ```
+
 ![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
 
+## Linux 下 mongodb 后台运行
 
-
-## Linux 下mongodb后台运行
 ./bin/mongod -f mongodb.conf --fork
 
-## Linux 下关闭mongodb
+## Linux 下关闭 mongodb
+
 ./bin/mongod -f mongodb.conf --shutdown
 
 ## 重启服务器
-./bin/mongod  --repair
+
+./bin/mongod --repair
 
 ## 个人服务器地址
+
 ssh fengzq@120.92.36.138
+
+## 启动爬虫
+
+#### 爬取列表
+
+/reptile/movieRt
+
+#### 爬取详情
+
+/reptile/getMvDetail
