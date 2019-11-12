@@ -110,16 +110,15 @@ function update(req, res, next) {
             const shData = (yield baiduSh_1.default.faceAudit([('http://' + req.host + query.picture)], 'url', 1)).result[0];
             const userInfoSh = userInfo.name + userInfo.location + userInfo.Occupation + userInfo.gender;
             const shDataNei = yield baiduSh_1.default.textCensorUserDefined(userInfoSh);
-            if ((!shData) || shData.error_msg || (shData.result && shData.result[0] && shData.result[0].res_code === 0)) {
-                console.log(shData, '头像审核通过');
-            }
-            else {
-                res.status(200).json({
-                    state: 1,
-                    msg: '头像违规,请再次上传',
-                    data: shData
-                });
-            }
+            // if ((!shData) || shData.error_msg || (shData.result && shData.result[0] && shData.result[0].res_code === 0)) {
+            //     console.log(shData, '头像审核通过');
+            // } else {
+            //     res.status(200).json({
+            //         state: 1,
+            //         msg: '头像违规,请再次上传',
+            //         data: shData
+            //     });
+            // }
             if (shDataNei.conclusionType === 1) {
                 console.log(shDataNei, '用户填写内容审核通过');
             }
