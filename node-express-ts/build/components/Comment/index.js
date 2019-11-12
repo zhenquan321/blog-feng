@@ -66,7 +66,7 @@ exports.findOne = findOne;
 function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // 文本审核案例
+            // 内容审核 textCensorUserDefined  文本审核antiSpam
             const shData = yield baiduSh_1.default.textCensorUserDefined(req.body.content);
             let data = {};
             let state = 0;

@@ -112,7 +112,6 @@ const BlogService = {
                 const BlogFind = yield model_1.default.updateOne({
                     _id: mongoose_1.Types.ObjectId(id)
                 }, updateInfo);
-                console.log(BlogFind, updateInfo);
                 return BlogFind;
             }
             catch (error) {

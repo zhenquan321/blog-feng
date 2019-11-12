@@ -108,8 +108,6 @@ const BlogService: IBlogService = {
                 _id: Types.ObjectId(id)
             }, updateInfo);
 
-            console.log(BlogFind, updateInfo);
-
             return BlogFind;
         } catch (error) {
             throw new Error(error.message);

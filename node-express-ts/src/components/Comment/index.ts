@@ -54,7 +54,7 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  */
 export async function create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        // 文本审核案例
+        // 内容审核 textCensorUserDefined  文本审核antiSpam
         const shData: any = await client.textCensorUserDefined(req.body.content);
         let data: any = {};
         let state: number = 0;
