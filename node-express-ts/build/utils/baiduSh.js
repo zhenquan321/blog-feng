@@ -32,5 +32,5 @@ exports.default = client;
 //     console.log('<textCensorUserDefined>: ' + JSON.stringify(data));
 // }, function (e) {
 //     console.log(e)
-// })
+// });
 //# sourceMappingURL=baiduSh.js.map
