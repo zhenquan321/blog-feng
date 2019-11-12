@@ -58,15 +58,7 @@ const MovieService = {
     findOne(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                // const validate: Joi.ValidationResult<{
-                //     id: string
-                // }> = UserValidation.getUser({
-                //     id
-                // });
-                // if (validate.error) {
-                //     throw new Error(validate.error.message);
-                // }
-                let Movie = yield model_1.default.findOne({
+                const Movie = yield model_1.default.findOne({
                     _id: mongoose_1.Types.ObjectId(id)
                 });
                 if (Movie) {
@@ -101,7 +93,7 @@ const MovieService = {
                 if (query && query.keyword) {
                     findKeyObj.name = { $regex: query.keyword, $options: 'i' };
                 }
-                const movieList = yield model_1.default.find(findKeyObj).limit(pageSize).skip(page * pageSize);
+                const movieList = yield model_1.default.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
                 return {
                     count,

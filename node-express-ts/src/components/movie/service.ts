@@ -48,16 +48,7 @@ const MovieService: MovieService = {
      */
     async findOne(id: string): Promise<IMovieModel | false> {
         try {
-            // const validate: Joi.ValidationResult<{
-            //     id: string
-            // }> = UserValidation.getUser({
-            //     id
-            // });
-
-            // if (validate.error) {
-            //     throw new Error(validate.error.message);
-            // }
-            let Movie: any = await MovieModel.findOne({
+            const Movie: any = await MovieModel.findOne({
                 _id: Types.ObjectId(id)
             });
             if (Movie) {
@@ -65,8 +56,8 @@ const MovieService: MovieService = {
                 return Movie;
 
             }
-            return false;
 
+            return false;
         } catch (error) {
             throw new Error(error.message);
         }
@@ -96,7 +87,7 @@ const MovieService: MovieService = {
                 findKeyObj.name = { $regex: query.keyword, $options: 'i' };
             }
 
-            const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).limit(pageSize).skip(page * pageSize);
+            const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
             const count: number = await MovieModel.find(findKeyObj).countDocuments();
 
             return {
