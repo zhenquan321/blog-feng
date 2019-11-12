@@ -2,6 +2,7 @@ import UserService from './service';
 import { HttpError } from '../../config/error';
 import { IUserModel } from './model';
 import { NextFunction, Request, Response } from 'express';
+import client from './../../utils/baiduSh';
 
 /**
  * @export
@@ -90,6 +91,32 @@ export async function update(req: Request, res: Response, next: NextFunction): P
             picture: query.picture
         };
 
+        // 用户头像审核；&& 用户填写内容审核；暂时不用
+        const shData: any = (await client.faceAudit([('http://' + req.host + query.picture)], 'url', 1)).result[0];
+        const userInfoSh: string = userInfo.name + userInfo.location + userInfo.Occupation + userInfo.gender;
+        const shDataNei: any = await client.textCensorUserDefined(userInfoSh);
+
+        if ((!shData) || shData.error_msg || (shData.result && shData.result[0] && shData.result[0].res_code === 0)) {
+            console.log(shData, '头像审核通过');
+        } else {
+            res.status(200).json({
+                state: 1,
+                msg: '头像违规,请再次上传'
+            });
+
+            return
+        }
+        if (shDataNei.conclusionType === 1) {
+            console.log(shDataNei, '用户填写内容审核通过');
+        } else {
+            res.status(200).json({
+                state: 1,
+                msg: shDataNei.data[0].msg
+            });
+
+            return
+        }
+
         const updateInfo: any = await UserService.update(query.id, userInfo);
         const user: any = await UserService.findOne(query.id);
 
@@ -110,7 +137,7 @@ export async function update(req: Request, res: Response, next: NextFunction): P
         } else {
             res.status(200).json({
                 updateInfo,
-                state: 0,
+                state: 1,
                 mag: '用户信息更新失败！'
             });
         }

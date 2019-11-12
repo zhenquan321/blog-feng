@@ -112,6 +112,8 @@
                 console.log(data);
                 if (data && data.state == 0) {
                     window.location.reload();
+                } else {
+                    alert(data.msg)
                 }
             },
             error: function (err) {
