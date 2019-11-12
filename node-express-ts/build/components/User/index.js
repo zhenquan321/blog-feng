@@ -116,7 +116,8 @@ function update(req, res, next) {
             else {
                 res.status(200).json({
                     state: 1,
-                    msg: '头像违规,请再次上传'
+                    msg: '头像违规,请再次上传',
+                    data: shData
                 });
                 return;
             }
@@ -126,7 +127,8 @@ function update(req, res, next) {
             else {
                 res.status(200).json({
                     state: 1,
-                    msg: shDataNei.data[0].msg
+                    msg: shDataNei.data[0].msg,
+                    data: shData
                 });
                 return;
             }
