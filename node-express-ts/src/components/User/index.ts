@@ -105,7 +105,6 @@ export async function update(req: Request, res: Response, next: NextFunction): P
                 data: shData
             });
 
-            return
         }
         if (shDataNei.conclusionType === 1) {
             console.log(shDataNei, '用户填写内容审核通过');

@@ -33,7 +33,6 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
 
     let baseUrl: string = req.path + '?';
 
-
     for (let key in query) {
         if (key !== 'page') {
             baseUrl = baseUrl + key + '=' + query[key] + '&';

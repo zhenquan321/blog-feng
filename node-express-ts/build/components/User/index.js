@@ -119,7 +119,6 @@ function update(req, res, next) {
                     msg: '头像违规,请再次上传',
                     data: shData
                 });
-                return;
             }
             if (shDataNei.conclusionType === 1) {
                 console.log(shDataNei, '用户填写内容审核通过');
