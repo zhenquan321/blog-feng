@@ -1,4 +1,8 @@
 "use strict";
+/*
+ * 百度内容审核
+ * npm install baidu-aip-sdk --save--dev
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const AipContentCensorClient = require('baidu-aip-sdk').contentCensor;
 // 设置APPID/AK/SK
@@ -28,5 +32,5 @@ exports.default = client;
 //     console.log('<textCensorUserDefined>: ' + JSON.stringify(data));
 // }, function (e) {
 //     console.log(e)
-// });
+// })
 //# sourceMappingURL=baiduSh.js.map

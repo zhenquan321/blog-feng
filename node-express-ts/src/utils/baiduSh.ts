@@ -1,3 +1,8 @@
+/*
+ * 百度内容审核
+ * npm install baidu-aip-sdk --save--dev
+ */
+
 const AipContentCensorClient: any = require('baidu-aip-sdk').contentCensor;
 
 // 设置APPID/AK/SK
