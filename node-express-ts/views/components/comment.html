@@ -70,7 +70,7 @@
 </div>
 <script>
     var subjectId = "<%= (blog&&blog._id)||'' %>";
-    let userId = "<%=req.session.user._id||''%>";
+    let userId = "<%=req.session.user&&req.session.user._id||''%>";
 
     function pushEmoji() {
         let emojiDom = ""
@@ -139,7 +139,7 @@
 
     //发布评论
     function publishComment() {
-        let userId = "<%=req.session.user._id||''%>";
+        let userId = "<%=req.session.user&&req.session.user._id||''%>";
         let content = $("#inputArea").val();
         if (!userId) {
             singIn();
