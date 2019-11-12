@@ -87,8 +87,10 @@ const MovieService: MovieService = {
                 findKeyObj.name = { $regex: query.keyword, $options: 'i' };
             }
 
+            // 电影按时间倒序
             const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
             const count: number = await MovieModel.find(findKeyObj).countDocuments();
+
 
             return {
                 count,
