@@ -163,6 +163,8 @@
                 if (res.state == 0) {
                     getComment();
                     $("#inputArea").val('');
+                } else {
+                    alert(res.msg)
                 }
             },
         });

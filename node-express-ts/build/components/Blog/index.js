@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("./service");
 const error_1 = require("../../config/error");
+const baiduSh_1 = require("./../../utils/baiduSh");
 /**
  * @export
  * @param {Request} req
@@ -59,19 +60,26 @@ exports.findOne = findOne;
 function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const Blog = yield service_1.default.insert(req.body);
-            if (Blog && Blog._id) {
-                res.status(200).json({
-                    Blog,
-                    state: 0
-                });
+            const shData = yield baiduSh_1.default.textCensorUserDefined(req.body.content + req.body.title);
+            let data = {};
+            let state = 0;
+            let msg = '';
+            if (shData.conclusionType === 1) {
+                data = yield service_1.default.insert(req.body);
             }
             else {
-                res.status(200).json({
-                    Blog,
-                    state: 1
-                });
+                data = shData.data;
+                state = 1;
+                msg = shData.data[0].msg;
             }
+            if (!data && !data._id) {
+                state = 1;
+            }
+            res.status(200).json({
+                msg,
+                state,
+                Blog: data,
+            });
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));

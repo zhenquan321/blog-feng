@@ -9,7 +9,8 @@
             <div class="col-sm-2 userInfoHeader">
                 <div class="headerImg" id="userInfoHeaderImg">
                     <% if(req.session.user&&req.session.user.profile&&req.session.user.profile.picture){%>
-                    <img src="<%= req.session.user&&req.session.user.profile&&req.session.user.profile.picture %>" alt="">
+                    <img src="<%= req.session.user&&req.session.user.profile&&req.session.user.profile.picture %>"
+                        alt="">
                     <% } else { %>
                     <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>
                     <% }%>

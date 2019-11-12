@@ -30,6 +30,7 @@
     "src"
   ],
   "dependencies": {
+    "baidu-aip-sdk": "^2.4.4",
     "bcrypt": "3.0.4",
     "body-parser": "1.18.2",
     "cheerio": "^1.0.0-rc.3",
