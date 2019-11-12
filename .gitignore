@@ -1,5 +1,6 @@
 .DS_Store
 */node_modules 
+node-express-ts/build
 # local env files
 .env
 .env.local
