@@ -106,6 +106,11 @@ const MovieService: MovieService = {
             const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
             const count: number = await MovieModel.find(findKeyObj).countDocuments();
 
+            console.log({
+                findKeyObj,
+                count,
+            });
+
             return {
                 count,
                 data: movieList,

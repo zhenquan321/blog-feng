@@ -77,7 +77,7 @@ function movie(req, res, next) {
                 baseUrl,
                 count: movieList.count,
                 currentPage: query.page + 1 || 0,
-                pageSize: query.pageSize || 20,
+                pageSize: query.pageSize || 12,
             };
             res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
         }

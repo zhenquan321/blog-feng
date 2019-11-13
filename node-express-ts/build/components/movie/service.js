@@ -112,6 +112,10 @@ const MovieService = {
                 // 电影按时间倒序
                 const movieList = yield model_1.default.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
+                console.log({
+                    findKeyObj,
+                    count,
+                });
                 return {
                     count,
                     data: movieList,
