@@ -2,7 +2,7 @@
 */node_modules 
 */build
 node-express-ts/public/img/upload
-
+node-express-ts/build/public/img/upload
 # local env files
 .env
 .env.local
