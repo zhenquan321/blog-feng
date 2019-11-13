@@ -155,10 +155,10 @@ class getMovieList {
 function getMovieDetail() {
     return __awaiter(this, void 0, void 0, function* () {
         const getMovieDetailFun = new getMovieDetailClass;
-        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true });
+        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true, findAll: true });
         let a = 1;
         for (let i = 0; i < movieList.data.length; i++) {
-            if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) { //&& movieList.data[i].details.detailDes
+            if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
                 a++;
                 setTimeout(() => {
                     getMovieDetailFun.fetchUrl(movieList.data[i]);
@@ -199,8 +199,7 @@ class getMovieDetailClass {
         newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
         newMovieOj.downLink = $('#Zoom table a').text() || '';
         const detailImg = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || ''; //.children[1].attr('src') || '';
-        const detailDom = $('#Zoom p');
-        const detailHtmlGet = $('#Zoom p')[0] || $('#Zoom p')[1] || { children: [] };
+        const detailHtmlGet = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] : $('#Zoom span')[0];
         let detailDes = '';
         for (let i = 0; i < detailHtmlGet.children.length; i++) {
             if (detailHtmlGet.children[i].data) {

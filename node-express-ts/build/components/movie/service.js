@@ -88,12 +88,17 @@ const MovieService = {
                     };
                 }
                 else {
-                    findKeyObj = {
-                        $or: [
-                            { imgUrl: { $in: [null, ''] } },
-                            { downLink: { $in: [null, ''] } },
-                        ]
-                    };
+                    if (query.findAll) {
+                        // 全部重新搜索
+                    }
+                    else {
+                        findKeyObj = {
+                            $or: [
+                                { imgUrl: { $in: [null, ''] } },
+                                { downLink: { $in: [null, ''] } },
+                            ]
+                        };
+                    }
                 }
                 if (query && query.year) {
                     findKeyObj.years = Number(query.year);
