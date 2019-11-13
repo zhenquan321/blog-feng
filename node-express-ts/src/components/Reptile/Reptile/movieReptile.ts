@@ -4,7 +4,6 @@ import { concat } from 'rxjs';
 import { string, any } from 'joi';
 import { Types } from 'mongoose';
 
-
 const superagent: any = require('superagent'); // 发起请求 
 const cheerio: any = require('cheerio'); // 可以像jquery一样操作界面
 const charset: any = require('superagent-charset'); // 解决乱码问题:
@@ -13,10 +12,6 @@ const eventproxy: any = require('eventproxy');  // 流程控制
 const ep: any = eventproxy();
 const baseUrl: string = 'http://www.dytt8.net';  // 迅雷首页链接
 const errLength: any = [];      // 统计出错的链接数
-
-
-
-
 
 charset(superagent);
 superagent.buffer['mime'] = false;
@@ -164,11 +159,11 @@ export async function getMovieDetail(): Promise<void> {
 
     const getMovieDetailFun: any = new getMovieDetailClass;
 
-    const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true });// findAll: true 
+    const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true, findAll: true });// findAll: true 
     let a = 1;
 
     for (let i = 0; i < movieList.data.length; i++) {
-        if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
+        if (!(movieList.data[i].details && movieList.data[i].details.detailDes&& movieList.data[i].details.detailDes!="暂无详情~")) {
             a++
             setTimeout(() => {
                 getMovieDetailFun.fetchUrl(movieList.data[i]);
