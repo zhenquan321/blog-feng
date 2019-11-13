@@ -132,6 +132,9 @@ router.delete('/:id', BlogComponent.remove);
 
 
 router.get('/remove/:id', BlogComponent.remove);
+
+router.post('/thumbsUp', BlogComponent.thumbsUp);
+
 /**
  * @export {express.Router}
  */

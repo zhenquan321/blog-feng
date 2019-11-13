@@ -1,0 +1,208 @@
+<div id="comment" class="comment">
+    <h3>评论</h3>
+    <div class="commentInput">
+        <div class="userHeader">
+            <div class="headerImg">
+                <% if(req.session.user&&req.session.user.profile&&req.session.user.profile.picture){%>
+                <img src="<%= req.session.user.profile.picture %>" alt="">
+                <% } else { %>
+                <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>
+                <% }%>
+            </div>
+        </div>
+        <div class="inputArea">
+            <textarea name="" id="inputArea" cols="30" rows="3"></textarea>
+        </div>
+        <div class="control">
+            <div class="emjo">
+                <i class="iconfont icon-biaoqing"></i>
+                <span>表情</span>
+                <div class="emjoArea"></div>
+            </div>
+            <div class="push">
+                <button class="btn btn-primary" onclick="publishComment()">发送</button>
+            </div>
+        </div>
+    </div>
+    <div id="commentList" class="commentList">
+        <!-- <div class="listCard">
+            <div class="userHeader">
+                <div class="headerImg">
+                    <% if(req.session.user&&req.session.user.profile&&req.session.user.profile.picture){%>
+                    <img src="<%= req.session.user.profile.picture %>" alt="">
+                    <% } else { %>
+                    <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>
+                    <% }%>
+                </div>
+            </div>
+            <div class="comment-right">
+                <div class="commentUserInfo">12312312纤维球</div>
+                <div class="comment-content">
+                    2222😕
+                </div>
+                <div class="control">
+                    <div class="time">222222</div>
+                    <div class="control-right">
+                        <span><i class="iconfont icon-dianzan"></i><%= blog.thumbsUp ||0 %></span>
+                        <span><i class="iconfont icon-pinglun"></i><%= blog.comments ||0 %></span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<div class="fixedCard">
+    <ul>
+        <li>
+            <a href="#comment">
+                <span id="commentNum"></span>
+                <i class="iconfont icon-pinglun"></i>
+            </a>
+        </li>
+        <li onclick="thumbsUp()">
+            <span id="thumbsUpNum"><%= (blog&&blog.thumbsUp)||0 %> </span>
+            <i class="iconfont icon-dianzan"></i>
+        </li>
+        <li>
+            <i class="iconfont icon-shoucang"></i>
+        </li>
+    </ul>
+</div>
+<script>
+    var subjectId = "<%= (blog&&blog._id)||'' %>";
+    let userId = "<%=req.session.user&&req.session.user._id||''%>";
+
+    function pushEmoji() {
+        let emojiDom = ""
+        for (let key in emoji) {
+            if (emoji[key]) {
+                emojiDom += `<span>${emoji[key]}</span>`
+            }
+        }
+        $(".emjoArea").append(emojiDom);
+
+        $('.emjoArea span').on('click', function () {
+            $("#inputArea").val($("#inputArea").val() + $(this).text());
+        });
+    }
+    pushEmoji();
+
+    //获取评论
+    function getComment() {
+        let data = {
+            page: 0,
+            pageSize: 100,
+            subjectId: subjectId,
+        }
+        $.ajax({
+            type: 'GET',
+            url: '/comment',
+            data: data,
+            success: (res) => {
+                console.log(res);
+                if (res.state == 0) {
+                    $("#commentNum").html(res.count);
+                    let commentDom = "";
+                    for (let i = 0; i < res.data.length; i++) {
+                        commentDom += `<div class="listCard">
+                            <div class="userHeader">
+                                <div class="headerImg"> ${res.data[i].author&&res.data[i].author.profile&&res.data[i].author.profile.picture?'<img src="'+res.data[i].author.profile.picture+'" alt="">':' <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>'}
+                                </div>
+                            </div>
+                            <div class="comment-right">
+                                <div class="commentUserInfo">${(res.data[i].author.profile&&res.data[i].author.profile.name)||res.data[i].author.email}</div>
+                                <div class="comment-content">
+                                    ${res.data[i].content}
+                                </div>
+                                <div class="control">
+                                    <div class="time"> ${res.data[i].updatedAt}</div>
+                                    <div class="control-right">
+                                        <span><i class="iconfont icon-dianzan"></i>${res.data[i].thumbsUp||0}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                        commentDom = userId == res.data[i].author._id ? commentDom +
+                            `<div class="removeBlog" onclick="removeBlog('${res.data[i]._id}')">
+                                    <i class="iconfont icon-shanchu"></i>
+                                </div>
+                            </div>` : "</div>";
+
+                    }
+                    $("#commentList").empty();
+                    $("#commentList").append(commentDom);
+                }
+            },
+        });
+    }
+    getComment();
+
+    //发布评论
+    function publishComment() {
+        let userId = "<%=req.session.user&&req.session.user._id||''%>";
+        let content = $("#inputArea").val();
+        if (!userId) {
+            singIn();
+        }
+        if (!content) {
+            alert('请输入评论内容~');
+            return
+        }
+        let data = {
+            userId: userId,
+            content: content,
+            subjectType: subjectType, //调用的页面设置此参数
+            subjectId: subjectId,
+            fatherCommentId: '',
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/comment',
+            data: data,
+            success: (res) => {
+                if (res.state == 0) {
+                    getComment();
+                    $("#inputArea").val('');
+                } else {
+                    alert(res.msg)
+                }
+            },
+        });
+    }
+
+
+
+    //删除评论
+    function removeBlog(id, name) {
+        if (confirm("确定删除该评论吗？")) {
+            $.ajax({
+                type: 'get',
+                url: '/comment/remove/' + id,
+                data: '',
+                success: (res) => {
+                    if (res.state == 0) {
+                        getComment();
+                    }
+                },
+            });
+        }
+    }
+
+
+    //点赞
+    function thumbsUp() {
+        let data = {
+            id: subjectId,
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/blog/thumbsUp',
+            data: data,
+            success: (res) => {
+                if (res.state == 0) {
+                    $("#thumbsUpNum").html(res.thumbsUp);
+                }
+            },
+        });
+    }
+</script>

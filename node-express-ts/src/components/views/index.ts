@@ -1,9 +1,9 @@
 import * as passport from 'passport';
 import AuthService from './service';
-import MovieService from '../Movie/service'; // 目录 Movie 大小写有疑问
-import BlogService from '../Blog/service'; // 目录 Movie 大小写有疑问
+import MovieService from '../Movie/service';
+import BlogService from '../Blog/service';
 
-import ClassificationService from '../Classification/service'; // 目录 Movie 大小写有疑问
+import ClassificationService from '../Classification/service';
 import HttpError from '../../config/error';
 import { NextFunction, Request, Response } from 'express';
 import Time from '../../utils/Time';
@@ -33,19 +33,6 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
 
     let baseUrl: string = req.path + '?';
 
-    blogArray.forEach((element: any) => {
-        element.createdAt = new Time().formatDate(element.createdAt);
-        if (element.pv > 50) {
-            element.isHeat = true;
-        }
-        if (element.pv > 100) {
-            element.isRecommend = '荐';
-        }
-        if (element.pv > 200) {
-            element.isRecommend = '榜';
-        }
-    })
-
     for (let key in query) {
         if (key !== 'page') {
             baseUrl = baseUrl + key + '=' + query[key] + '&';
@@ -60,6 +47,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
     };
 
     req.flash = { success: '欢迎光临~' };
+
     res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
 }
 
@@ -95,7 +83,7 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
             baseUrl,
             count: movieList.count,
             currentPage: query.page + 1 || 0,
-            pageSize: query.pageSize || 20,
+            pageSize: query.pageSize || 12,
         };
 
         res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
@@ -124,34 +112,45 @@ export async function movieItem(req: Request, res: Response, next: NextFunction)
 }
 
 export async function blog(req: Request, res: Response, next: NextFunction): Promise<void> {
-    try {
-        const query: any = req.query || req.body;
+    const query: any = req.query || req.body;
 
-        query.page = query.page >= 1 ? query.page - 1 : 0;
+    query.page = query.page >= 1 ? query.page - 1 : 0;
 
-        const movieList: any = await MovieService.findAll(query);//
-        const movieArray: any = movieList.data;
+    const blogList: any = await BlogService.findAll(query);
+    const classification: any = await ClassificationService.findAll();
 
-        let baseUrl: string = req.path + '?';
+    const blogArray: any = blogList.data || [];
 
+    let baseUrl: string = req.path + '?';
 
-        for (let key in query) {
-            if (key !== 'page') {
-                baseUrl = baseUrl + key + '=' + query[key] + '&';
-            }
+    blogArray.forEach((element: any) => {
+        element.createdAt = new Time().formatDate(element.createdAt);
+        if (element.pv > 50) {
+            element.isHot = true;
         }
+        if (element.pv > 100) {
+            element.isRecommend = '荐';
+        }
+        if (element.pv > 200) {
+            element.isRecommend = '榜';
+        }
+    });
 
-        const pageInfo: any = {
-            baseUrl,
-            count: movieList.count,
-            currentPage: query.page + 1 || 0,
-            pageSize: query.pageSize || 20,
-        };
-
-        res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: '/' });
-    } catch (error) {
-        next(new HttpError(error.message.status, error.message));
+    for (let key in query) {
+        if (key !== 'page') {
+            baseUrl = baseUrl + key + '=' + query[key] + '&';
+        }
     }
+
+    const pageInfo: any = {
+        baseUrl,
+        count: blogList.count,
+        currentPage: query.page + 1 || 0,
+        pageSize: query.pageSize || 20,
+    };
+
+    req.flash = { success: '欢迎光临~' };
+    res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
 }
 
 export async function blogItem(req: Request, res: Response, next: NextFunction): Promise<void> {

@@ -73,7 +73,7 @@ const ToolService = {
                             }
                         });
                     }
-                    // res.send({ url: '/upload/' + avatarName});
+                    // res.send({ url: 'http://localhost/upload/' + avatarName});
                 });
             }
             catch (error) {

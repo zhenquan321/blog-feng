@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("./service");
 const error_1 = require("../../config/error");
-const index_1 = require("../Views/index");
+const baiduSh_1 = require("./../../utils/baiduSh");
 /**
  * @export
  * @param {Request} req
@@ -24,7 +24,12 @@ function findAll(req, res, next) {
         try {
             const query = req.query || req.body;
             const Comments = yield service_1.default.findAll(query);
-            res.status(200).json(Comments);
+            res.status(200).json({
+                state: 0,
+                msg: '',
+                data: Comments.data,
+                count: Comments.count
+            });
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));
@@ -61,12 +66,24 @@ exports.findOne = findOne;
 function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const Comment = yield service_1.default.insert(req.body);
-            if (!Comment.name) {
-                req.flash = { warning: Comment.mag };
+            // 内容审核 textCensorUserDefined  文本审核antiSpam
+            const shData = yield baiduSh_1.default.textCensorUserDefined(req.body.content);
+            let data = {};
+            let state = 0;
+            let msg = '';
+            if (shData.conclusionType === 1) {
+                data = yield service_1.default.insert(req.body);
             }
-            index_1.blogCreate(req, res, next);
-            // res.status(200).json(Comment);
+            else {
+                data = shData.data;
+                state = 1;
+                msg = shData.data[0].msg;
+            }
+            res.status(200).json({
+                state,
+                msg,
+                data,
+            });
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));
@@ -84,8 +101,13 @@ exports.create = create;
 function remove(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const Comment = yield service_1.default.remove(req.params.id);
-            res.status(200).json(Comment);
+            const Blog = yield service_1.default.update(req.params.id, { deleted: true });
+            if (Blog) {
+                res.status(200).json({
+                    Blog,
+                    state: 0
+                });
+            }
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));

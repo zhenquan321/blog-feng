@@ -1,6 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/method.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css"/>
 
+
 <ol class="breadcrumb breadcrumbBlack">
     <li><a href="/">博客</a></li>
     <li><%- blog.title %></li>
@@ -26,9 +27,12 @@
         <div id="vditorCentent"></div>
         <textarea id="markdownText" class="preview" style="display:none;"><%-blog.content%></textarea>
     </div>
+    <%- include('./components/comment.html') %>
+    
 </div>
 
 <script>
+    var subjectType = 'blog'; //评论的类型
     Vditor.preview(document.getElementById('vditorCentent'),
         document.getElementById('markdownText').textContent, {
             className: 'preview vditor-reset',
@@ -40,6 +44,8 @@
                 enable: true,
             },
         });
+
+        
 </script>
 
 <style></style>

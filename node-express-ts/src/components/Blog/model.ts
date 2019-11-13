@@ -21,7 +21,7 @@ export interface IBlogModel extends Document {
     keyWords:string;
     published:boolean;
     isRecommend:string;
-    isHeat:boolean;
+    isHot:boolean;
     createdAt: Date;
     updatedAt: Date;
     comments:number;
@@ -67,7 +67,7 @@ const BlogSchema: Schema = new Schema({
         type: String,
         default: ''
     },
-    isHeat: {
+    isHot: {
         type: Boolean,
         default: false
     },

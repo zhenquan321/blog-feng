@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("./service");
 const error_1 = require("../../config/error");
+const baiduSh_1 = require("./../../utils/baiduSh");
 /**
  * @export
  * @param {Request} req
@@ -105,6 +106,30 @@ function update(req, res, next) {
                 Occupation: query.Occupation,
                 picture: query.picture
             };
+            // 用户头像审核；&& 用户填写内容审核；暂时不用
+            const shData = (yield baiduSh_1.default.faceAudit([('http://' + req.host + query.picture)], 'url', 1)).result[0];
+            const userInfoSh = userInfo.name + userInfo.location + userInfo.Occupation + userInfo.gender;
+            const shDataNei = yield baiduSh_1.default.textCensorUserDefined(userInfoSh);
+            // if ((!shData) || shData.error_msg || (shData.result && shData.result[0] && shData.result[0].res_code === 0)) {
+            //     console.log(shData, '头像审核通过');
+            // } else {
+            //     res.status(200).json({
+            //         state: 1,
+            //         msg: '头像违规,请再次上传',
+            //         data: shData
+            //     });
+            // }
+            if (shDataNei.conclusionType === 1) {
+                console.log(shDataNei, '用户填写内容审核通过');
+            }
+            else {
+                res.status(200).json({
+                    state: 1,
+                    msg: shDataNei.data[0].msg,
+                    data: shData
+                });
+                return;
+            }
             const updateInfo = yield service_1.default.update(query.id, userInfo);
             const user = yield service_1.default.findOne(query.id);
             req.session.user = {
@@ -123,7 +148,7 @@ function update(req, res, next) {
             else {
                 res.status(200).json({
                     updateInfo,
-                    state: 0,
+                    state: 1,
                     mag: '用户信息更新失败！'
                 });
             }

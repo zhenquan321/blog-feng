@@ -58,15 +58,7 @@ const MovieService = {
     findOne(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                // const validate: Joi.ValidationResult<{
-                //     id: string
-                // }> = UserValidation.getUser({
-                //     id
-                // });
-                // if (validate.error) {
-                //     throw new Error(validate.error.message);
-                // }
-                let Movie = yield model_1.default.findOne({
+                const Movie = yield model_1.default.findOne({
                     _id: mongoose_1.Types.ObjectId(id)
                 });
                 if (Movie) {
@@ -86,12 +78,28 @@ const MovieService = {
     findAll(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const page = query && query.page ? Number(query.page) : 0;
-            const pagesize = query && query.pagesize ? Number(query.pagesize) : 12;
+            const pageSize = query && query.pageSize ? Number(query.pageSize) : 12;
             try {
-                const findKeyObj = {
-                    downLink: { $ne: '' },
-                    imgUrl: { $ne: '' },
-                };
+                let findKeyObj = {};
+                if (!query.Reptile) {
+                    findKeyObj = {
+                        downLink: { $ne: '', $exists: true },
+                        imgUrl: { $ne: '', $exists: true },
+                    };
+                }
+                else {
+                    if (query.findAll) {
+                        // 全部重新搜索
+                    }
+                    else {
+                        findKeyObj = {
+                            $or: [
+                                { imgUrl: { $in: [null, ''] } },
+                                { downLink: { $in: [null, ''] } },
+                            ]
+                        };
+                    }
+                }
                 if (query && query.year) {
                     findKeyObj.years = Number(query.year);
                 }
@@ -101,8 +109,13 @@ const MovieService = {
                 if (query && query.keyword) {
                     findKeyObj.name = { $regex: query.keyword, $options: 'i' };
                 }
-                const movieList = yield model_1.default.find(findKeyObj).limit(pagesize).skip(page * pagesize);
+                // 电影按时间倒序
+                const movieList = yield model_1.default.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
+                console.log({
+                    findKeyObj,
+                    count,
+                });
                 return {
                     count,
                     data: movieList,

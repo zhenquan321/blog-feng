@@ -3,8 +3,12 @@ import BlogModel, { IBlogModel } from './model';
 import { IBlogService } from './interface';
 import { Types } from 'mongoose';
 
-import ClassificationService from '../Classification/service'; // 目录 Movie 大小写有疑问
-import UserService from '../User/service'; // 目录 Movie 大小写有疑问
+import ClassificationService from '../Classification/service';
+import UserService from '../User/service';
+import CommentService from '../Comment/service';
+
+import Time from './../../utils/Time';
+
 /**
  * @export
  * @implements {IBlogModelService}
@@ -17,7 +21,7 @@ const BlogService: IBlogService = {
     async findAll(pageQurey: any): Promise<IBlogModel[] | any> {
         try {
             const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
-            const pagesize: number = pageQurey && pageQurey.pagesize ? Number(pageQurey.pagesize) : 20;
+            const pageSize: number = pageQurey && pageQurey.pageSize ? Number(pageQurey.pageSize) : 20;
             let findKeyObj: any = { deleted: { $ne: true } };
             const sort: any = {};
 
@@ -42,14 +46,24 @@ const BlogService: IBlogService = {
                 findKeyObj.classifications = pageQurey.classifications;
             }
 
-            const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort(sort).limit(pagesize).skip(page * pagesize);
+            const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort(sort).limit(pageSize).skip(page * pageSize);
             const BlogList: any[] = JSON.parse(JSON.stringify(BlogListFind));
             const count: number = await BlogModel.find(findKeyObj).countDocuments();
-
 
             for (let i: number = 0; i < BlogList.length; i++) {
                 BlogList[i].author = await UserService.findOne(BlogList[i].author);
                 BlogList[i].classifications = await ClassificationService.findOne(BlogList[i].classifications);
+                BlogList[i].comments = await CommentService.count(BlogList[i]._id);
+                BlogList[i].createdAt = new Time().formatDate(BlogList[i].createdAt);
+                if (BlogList[i].pv > 100) {
+                    BlogList[i].isHot = true;
+                }
+                if (BlogList[i].pv > 100 && BlogList[i].thumbsUp > 10) {
+                    BlogList[i].isRecommend = '荐';
+                }
+                if (BlogList[i].pv > 100 && BlogList[i].comments > 10) {
+                    BlogList[i].isRecommend = '榜';
+                }
             }
 
             return {
@@ -93,8 +107,6 @@ const BlogService: IBlogService = {
             const BlogFind: IBlogModel = await BlogModel.updateOne({
                 _id: Types.ObjectId(id)
             }, updateInfo);
-
-            console.log(BlogFind, updateInfo);
 
             return BlogFind;
         } catch (error) {

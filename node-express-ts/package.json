@@ -30,6 +30,7 @@
     "src"
   ],
   "dependencies": {
+    "baidu-aip-sdk": "^2.4.4",
     "bcrypt": "3.0.4",
     "body-parser": "1.18.2",
     "cheerio": "^1.0.0-rc.3",
@@ -44,6 +45,7 @@
     "formidable": "^1.2.1",
     "helmet": "^3.21.2",
     "joi": "14.3.0",
+    "log4js": "^6.0.0",
     "marked": "^0.7.0",
     "mongoose": "^5.7.7",
     "passport": "0.4.0",

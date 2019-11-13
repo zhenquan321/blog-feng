@@ -1,8 +1,14 @@
 <div class="searchTop">
+
+    <% if(req.session.user && req.session.user.isAdmin){%>
+    <button type="submit" class="btn btn-default"><a href="/reptile/movieRt" target="_blank">更新电影</a> </button>
+    <button type="submit" class="btn btn-default"><a href="/reptile/getMvDetail" target="_blank">更新详情</a> </button>
+    <% }%>
+
     <form class="form-inline" action="/movie" method="get">
-        <div class="form-group" >
-            <input type="text" name="keyword" style="border-radius: 5px;" class="form-control" value="<%- req.query.keyword||'' %>"
-                id="exampleInputAmount" placeholder="请输入搜索关键词">
+        <div class="form-group">
+            <input type="text" name="keyword" style="border-radius: 5px;" class="form-control"
+                value="<%- req.query.keyword||'' %>" id="exampleInputAmount" placeholder="请输入搜索关键词">
             <button type="submit" class="btn btn-primary">搜索</button>
         </div>
     </form>
@@ -42,8 +48,8 @@
     <%- include('./components/pagination.html') %>
     </div>
 
-<style>
-    body {
-        background-color: #fff;
-    }
-</style>
+    <style>
+        body {
+            background-color: #fff;
+        }
+    </style>

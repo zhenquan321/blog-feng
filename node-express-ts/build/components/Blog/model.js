@@ -49,7 +49,7 @@ const BlogSchema = new mongoose_1.Schema({
         type: String,
         default: ''
     },
-    isHeat: {
+    isHot: {
         type: Boolean,
         default: false
     },

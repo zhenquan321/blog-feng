@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css" />
 <script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.min.js"></script>
+
 <%- include('./components/header_createBlog.html') %>
 
 <!-- vditor  上传图片有bug； -->
@@ -67,56 +68,7 @@
         hint: {
             emojiPath: 'https://cdn.jsdelivr.net/npm/vditor@latest/dist/images/emoji',
             // emojiTail: '<a href="https://hacpai.com/settings/function" target="_blank">设置常用表情</a>',
-            emoji: {
-                'sd': '💔',
-                "+1": "👍",
-                "-1": "👎",
-                "confounded": "😖",
-                "confused": "😕",
-                "yum": "😋",
-                "crossed_fingers": "🤞",
-                "disappointed": "😞",
-                "disappointed_relieved": "😥",
-                "expressionless": "😑",
-                "drooling_face": "🤤",
-                "face_with_head_bandage": "🤕",
-                "face_with_thermometer": "🤒",
-                "facepunch": "👊",
-                "fist": "✊",
-                "fist_left": "🤛",
-                "fist_oncoming": "👊",
-                "fist_raised": "✊",
-                "fist_right": "🤜",
-                "flushed": "😳",
-                "frowning": "😦",
-                "grimacing": "😬",
-                "grin": "😁",
-                "grinning": "😀",
-                "kissing_closed_eyes": "😚",
-                "kissing_heart": "😘",
-                "nerd_face": "🤓",
-                "kissing_smiling_eyes": "😙",
-                "relieved": "😌",
-                "rofl": "🤣",
-                "roll_eyes": "🙄",
-                "scream": "😱",
-                "sleeping": "😴",
-                "sleepy": "😪",
-                "slightly_frowning_face": "🙁",
-                "slightly_smiling_face": "🙂",
-                "smiley": "😃",
-                "sneezing_face": "🤧",
-                "smirk": "😏",
-                "stuck_out_tongue_closed_eyes": "😝",
-                "stuck_out_tongue_winking_eye": "😜",
-                "sweat": "😓",
-                "sweat_drops": "💦",
-                "sweat_smile": "😅",
-                "upside_down_face": "🙃",
-                "zipper_mouth_face": "🤐",
-                "unamused": "😒",
-                'j': 'https://unpkg.com/vditor@1.3.1/dist/images/emoji/j.png',
-            },
+            emoji: emoji,
         },
         tab: '\t',
         preview: {
@@ -209,6 +161,8 @@
                 if (res.state == 0) {
                     vditor.clearCache()
                     window.location.href = "/";
+                } else {
+                    alert(res.msg)
                 }
             },
         });

@@ -46,27 +46,18 @@ const MovieService: MovieService = {
      * @returns {Promise < IMovieModel >}
      * @memberof UserService
      */
-    async findOne(id: string): Promise<IMovieModel|false> {
+    async findOne(id: string): Promise<IMovieModel | false> {
         try {
-            // const validate: Joi.ValidationResult<{
-            //     id: string
-            // }> = UserValidation.getUser({
-            //     id
-            // });
-
-            // if (validate.error) {
-            //     throw new Error(validate.error.message);
-            // }
-            let Movie: any = await MovieModel.findOne({
+            const Movie: any = await MovieModel.findOne({
                 _id: Types.ObjectId(id)
             });
             if (Movie) {
 
                 return Movie;
 
-            } 
-            return false;
+            }
 
+            return false;
         } catch (error) {
             throw new Error(error.message);
         }
@@ -79,12 +70,27 @@ const MovieService: MovieService = {
     async findAll(query?: any): Promise<any> {
 
         const page: number = query && query.page ? Number(query.page) : 0;
-        const pagesize: number = query && query.pagesize ? Number(query.pagesize) : 12;
+        const pageSize: number = query && query.pageSize ? Number(query.pageSize) : 12;
         try {
-            const findKeyObj: any = {
-                downLink: { $ne: '' },
-                imgUrl: { $ne: '' },
-            };
+            let findKeyObj: any = {};
+            if (!query.Reptile) {
+                findKeyObj = {
+                    downLink: { $ne: '', $exists: true },
+                    imgUrl: { $ne: '', $exists: true },
+                };
+            } else {
+                if (query.findAll) {
+                    // 全部重新搜索
+                } else {
+                    findKeyObj = {
+                        $or: [
+                            { imgUrl: { $in: [null, ''] } },
+                            { downLink: { $in: [null, ''] } },
+                        ]
+                    };
+                }
+
+            }
 
             if (query && query.year) {
                 findKeyObj.years = Number(query.year);
@@ -96,8 +102,14 @@ const MovieService: MovieService = {
                 findKeyObj.name = { $regex: query.keyword, $options: 'i' };
             }
 
-            const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).limit(pagesize).skip(page * pagesize);
+            // 电影按时间倒序
+            const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
             const count: number = await MovieModel.find(findKeyObj).countDocuments();
+
+            console.log({
+                findKeyObj,
+                count,
+            });
 
             return {
                 count,

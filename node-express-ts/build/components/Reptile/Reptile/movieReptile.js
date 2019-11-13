@@ -18,9 +18,7 @@ const async = require('async'); // 异步抓取
 const eventproxy = require('eventproxy'); // 流程控制
 const ep = eventproxy();
 const baseUrl = 'http://www.dytt8.net'; // 迅雷首页链接
-const newMovieLinkArr = []; // 存放新电影的url
 const errLength = []; // 统计出错的链接数
-const highScoreMovieArr = []; // 高评分电影
 charset(superagent);
 superagent.buffer['mime'] = false;
 /**
@@ -31,21 +29,37 @@ superagent.buffer['mime'] = false;
  */
 function movieReptile() {
     return __awaiter(this, void 0, void 0, function* () {
-        const get2019moviesFun = new get2019movies;
-        get2019moviesFun.index();
+        const getMovieListFun = new getMovieList;
+        const dyDLeiUrl = [
+            'https://www.dytt8.net/html/gndy/dyzz/index.html',
+            'https://www.dytt8.net/html/gndy/oumei/index.html',
+            'https://www.dytt8.net/html/gndy/china/index.html',
+            'https://www.dytt8.net/html/gndy/rihan/index.html',
+        ];
+        let i = 0;
+        for (i < dyDLeiUrl.length; i++;) {
+            setTimeout(() => {
+                getMovieListFun.index(dyDLeiUrl[i]);
+            }, i * 1000);
+        }
+        setTimeout(() => {
+            getMovieListFun.goGetMovieList();
+        }, (i + 2) * 1000);
     });
 }
 exports.movieReptile = movieReptile;
-// 获取2019最新电影
-class get2019movies {
+class getMovieList {
     constructor() {
         this.baseUrl = 'https://www.dytt8.net/html/gndy/dyzz/index.html';
         this.errLength = [];
         this.urlList = [];
     }
-    // 评分8分以上影片 200余部!，这里只是统计数据，不再进行抓取
-    index() {
+    index(url) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (url) {
+                this.baseUrl = url;
+            }
+            console.log('抓取专题：' + this.baseUrl);
             superagent
                 .get(this.baseUrl)
                 .charset('gb2312')
@@ -56,22 +70,28 @@ class get2019movies {
                 }
                 const $ = cheerio.load(sres && sres.text);
                 const elemPageList = $('.bd3r .co_content8 .x');
-                console.log('获取2019最新电影');
                 const allPages1 = elemPageList[0].firstChild.data;
                 const allPages = allPages1.split('共')[1].split('页')[0];
-                const baseHref = $('.bd3r .co_content8 .x a').eq(1).attr('href');
+                const baseHref = url.split('index.html')[0];
+                const topicHref = $('.bd3r .co_content8 .x a').eq(1).attr('href');
+                const topicId = topicHref.split('_')[1];
                 this.getPageListArray($);
-                this.getPagesMovieList(Number(allPages), baseHref);
+                this.getPagesMovieList(Number(allPages), baseHref, topicId);
             });
         });
     }
-    getPagesMovieList(allPages, baseHref) {
+    getPagesMovieList(allPages, baseHref, topicId) {
         console.log(allPages, baseHref);
         for (let i = 2; i < allPages + 1; i++) {
-            this.urlList.push(`https://www.dytt8.net/html/gndy/dyzz/list_23_${i}.html`);
+            this.urlList.push(baseHref + `list_${topicId}_${i}.html`);
+        }
+    }
+    goGetMovieList() {
+        console.log('需要抓取的页面数量为：' + this.urlList.length);
+        for (let i = 0; i < this.urlList.length; i++) {
             setTimeout(() => {
-                this.getPageList(`https://www.dytt8.net/html/gndy/dyzz/list_23_${i}.html`);
-            }, i * 1000);
+                this.getPageList(this.urlList[i]);
+            }, i * Math.ceil(Math.random() * 10) * 500);
         }
     }
     getPageList(url) {
@@ -105,15 +125,27 @@ class get2019movies {
                 years: 0,
             };
             const fonts = movieArray[i].lastChild.children[4].children[3].children[1].children[0].data || '';
-            movieItem.name = movieArray[i].lastChild.children[2].children[3].children[1].children[1].children[0].data || '';
-            movieItem.href = 'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[1].attribs.href || '';
-            movieItem.years = Number(movieItem.name.slice(0, 4)) || '';
-            movieItem.clickNum = Number(fonts.split('点击：')[1]) || '';
+            if (movieArray[i].lastChild.children[2].children[3].children[1].length < 3) {
+                movieItem.name = movieArray[i].lastChild.children[2].children[3].children[1].children[1] &&
+                    movieArray[i].lastChild.children[2].children[3].children[1].children[1].children[0].data || '';
+                movieItem.href = 'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[1].attribs.href || '';
+            }
+            else {
+                movieItem.name = movieArray[i].lastChild.children[2].children[3].children[1].children[3] &&
+                    movieArray[i].lastChild.children[2].children[3].children[1].children[3].children[0].data || '';
+                movieItem.href = movieArray[i].lastChild.children[2].children[3].children[1].children[3] ?
+                    'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[3].attribs.href : '';
+            }
+            movieItem.clickNum = Number(fonts.split('点击：')[1]) || 0;
             movieItem.updateDate = fonts.split('点击：')[0].split('日期：')[1] || '';
             movieItem.sketch = (movieArray[i].lastChild.children[6].children[1] && movieArray[i].lastChild.children[6].children[1].lastChild &&
                 movieArray[i].lastChild.children[6].children[1].lastChild.data) || '';
+            movieItem.years = movieItem.sketch.split('◎年 代')[1] ? Number(movieItem.sketch.split('◎年 代')[1].slice(0, 5)) :
+                (Number(movieItem.name.slice(0, 4)) || '');
             // 获取到单个电影的信息;
-            this.insetMovieToDB(movieItem);
+            if (movieItem.name) {
+                this.insetMovieToDB(movieItem);
+            }
         }
     }
     insetMovieToDB(movieItem) {
@@ -123,17 +155,17 @@ class get2019movies {
 function getMovieDetail() {
     return __awaiter(this, void 0, void 0, function* () {
         const getMovieDetailFun = new getMovieDetailClass;
-        const movieList = yield service_1.default.findAll({ page: 0, pagesize: 10000 });
+        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true }); // findAll: true 
         let a = 1;
         for (let i = 0; i < movieList.data.length; i++) {
-            if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) { //&& movieList.data[i].details.detailDes
+            if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
                 a++;
                 setTimeout(() => {
                     getMovieDetailFun.fetchUrl(movieList.data[i]);
-                }, a * Math.ceil(Math.random() * 10) * 500);
+                }, a * Math.ceil(Math.random() * 10) * 1000);
             }
         }
-        console.log('开始抓取详情');
+        console.log('开始抓取详情需抓取链接数为：' + movieList.data.length);
     });
 }
 exports.getMovieDetail = getMovieDetail;
@@ -144,12 +176,12 @@ class getMovieDetailClass {
     fetchUrl(movieOj) {
         superagent
             .get(movieOj.href)
-            .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36')
             .charset('gb2312') // 解决编码问题
             .end((err, ssres) => {
             if (err) {
                 errLength.push(movieOj.href);
                 console.log('抓取失败：' + movieOj.href);
+                console.log(err, ssres);
             }
             else {
                 const $ = cheerio.load(ssres && ssres.text);
@@ -163,24 +195,24 @@ class getMovieDetailClass {
         const updateQurey = {
             _id: mongoose_1.Types.ObjectId(movieOj.id)
         };
-        let newMovieOj = JSON.parse(JSON.stringify(movieOj));
+        const newMovieOj = JSON.parse(JSON.stringify(movieOj));
         newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
         newMovieOj.downLink = $('#Zoom table a').text() || '';
-        const detailImg = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || ''; //.children[1].attr('src') || '';
-        const detailHtmlGet = $('#Zoom p')[0] || { children: [] };
+        const detailImg = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';
+        const detailHtmlGet = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] : $('#Zoom span')[0];
         let detailDes = '';
-        for (let i = 0; i < detailHtmlGet.children.length; i++) {
-            if (detailHtmlGet.children[i].data) {
-                detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes'; // detailDes 用于分割详情
-            }
-            else {
-                detailDes = '暂无详情~';
+        if (detailHtmlGet && detailHtmlGet.children && detailHtmlGet.children.length > 0) {
+            for (let i = 0; i < detailHtmlGet.children.length; i++) {
+                if (detailHtmlGet.children[i].data) {
+                    detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes'; // detailDes 用于分割详情
+                }
             }
         }
         newMovieOj.details = {
             detailImg,
             detailDes
         };
+        console.log(newMovieOj);
         service_1.default.update(updateQurey, newMovieOj);
     }
 }

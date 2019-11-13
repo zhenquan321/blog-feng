@@ -836,6 +836,7 @@ a.thumbnail:hover {
 .blogItem {
     background-color: #fff;
     padding: 20px;
+    margin-bottom: 30px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
     margin-bottom: 20px;
 
@@ -1030,5 +1031,235 @@ a.thumbnail:hover {
     }
 }
 
+.comment {
 
+    .userHeader {
+        width: 60px;
+        float: left;
 
+        .headerImg {
+            vertical-align: top;
+
+            img {
+                width: 40px;
+                height: 40px;
+                top: 4px;
+            }
+
+            span {
+                width: 40px;
+                height: 40px;
+                padding-top: 10px;
+
+                i {
+                    font-size: 35px;
+
+                }
+            }
+        }
+    }
+
+    .commentInput {
+        background-color: #fafbfc;
+        padding: 15px 15px 10px 15px;
+        margin-bottom: 30px;
+
+        .inputArea {
+            width: 100%;
+            padding-left: 60px;
+
+            textarea {
+                width: 100%;
+                border-radius: 5px;
+                border-color: #ccc;
+                padding: 10px;
+
+                &:focus {
+                    border-color: @mainColor;
+                }
+            }
+        }
+
+        .control {
+            width: 100%;
+            padding-left: 60px;
+            height: 40px;
+
+            .emjo {
+                color: #888;
+                float: left;
+                position: relative;
+
+                cursor: pointer;
+
+                &:hover {
+                    color: @mainColor;
+
+                    i {
+                        color: @mainColor;
+                    }
+
+                    .emjoArea {
+                        display: flex;
+                        display: -webkit-flex;
+                        /* Safari */
+                        flex-wrap: wrap;
+                    }
+                }
+
+                i {
+                    font-size: 24px;
+                    position: relative;
+                    top: 3px;
+                    color: #ffcd43;
+                }
+
+                .emjoArea {
+                    display: none;
+                    position: absolute;
+                    z-index: 5;
+                    width: 280px;
+                    padding: 10px;
+                    background-color: #fff;
+                    box-shadow: 0 5px 18px 0 rgba(0, 0, 0, .16);
+
+                    span {
+                        display: inline-block;
+                        height: 26px;
+                        width: 26px;
+                        line-height: 26px;
+                        text-align: center;
+                        font-size: 20px;
+
+                        &:hover {
+                            font-size: 24px;
+                        }
+                    }
+                }
+            }
+
+            .push {
+                float: right;
+                margin-top: 5px;
+            }
+        }
+    }
+
+    h3 {
+        text-align: center;
+        font-size: 18px;
+        color: #777;
+        margin: 40px 20px 20px;
+    }
+
+    .listCard {
+        padding: 10px 30px 10px 70px;
+        width: 100%;
+        position: relative;
+
+        &:hover {
+            .removeBlog {
+                display: block;
+            }
+        }
+
+        &:last-child {
+            .control {
+                border-bottom: 0;
+            }
+        }
+
+        .removeBlog {
+            display: none;
+            position: absolute;
+            color: red;
+            right: 40px;
+            top: 10px;
+            cursor: pointer;
+
+            i {
+                font-size: 30px;
+            }
+        }
+
+        .comment-right {
+            padding-left: 50px;
+
+            .commentUserInfo {
+                color: #666;
+            }
+
+            .comment-content {
+                margin: 10px 0;
+                color: #555;
+            }
+        }
+
+        .control {
+            padding: 0 10px;
+            height: 36px;
+            border-bottom: 1px solid #f1f1f1;
+            color: #999;
+
+            .time {
+                float: left;
+
+            }
+
+            .control-right {
+                float: right;
+
+            }
+        }
+    }
+}
+
+.fixedCard {
+    position: fixed;
+    margin-left: -10rem;
+    top: 24rem;
+
+    ul {
+        li {
+            list-style-type:none;
+            position: relative;
+            margin-bottom: .75rem;
+            width: 3rem;
+            height: 3rem;
+            line-height: 3rem;
+            background-color: #fff;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .04);
+            cursor: pointer;
+            text-align: center;
+            color: #777;
+            a{
+                color: #777;
+            }
+            &:hover{
+                color:@mainColor
+            }
+            span {
+                position: absolute;
+                top: 0;
+                left: 75%;
+                padding: .1rem .4rem;
+                font-size: 1rem;
+                text-align: center;
+                line-height: 1;
+                white-space: nowrap;
+                color: #fff;
+                background-color: #b2bac2;
+                border-radius: .7rem;
+                transform-origin: left top;
+                transform: scale(.75);
+            }
+
+            i {
+                font-size: 1.9rem;
+            }
+        }
+    }
+}
