@@ -164,7 +164,7 @@ export async function getMovieDetail(): Promise<void> {
 
     const getMovieDetailFun: any = new getMovieDetailClass;
 
-    const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true, findAll: true });
+    const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true });// findAll: true 
     let a = 1;
 
     for (let i = 0; i < movieList.data.length; i++) {

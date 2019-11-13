@@ -155,7 +155,7 @@ class getMovieList {
 function getMovieDetail() {
     return __awaiter(this, void 0, void 0, function* () {
         const getMovieDetailFun = new getMovieDetailClass;
-        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true, findAll: true });
+        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true }); // findAll: true 
         let a = 1;
         for (let i = 0; i < movieList.data.length; i++) {
             if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
