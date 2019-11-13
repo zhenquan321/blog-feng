@@ -29,25 +29,26 @@ superagent.buffer['mime'] = false;
  */
 function movieReptile() {
     return __awaiter(this, void 0, void 0, function* () {
-        const get2019moviesFun = new get2019movies;
+        const getMovieListFun = new getMovieList;
         const dyDLeiUrl = [
             'https://www.dytt8.net/html/gndy/dyzz/index.html',
             'https://www.dytt8.net/html/gndy/oumei/index.html',
             'https://www.dytt8.net/html/gndy/china/index.html',
             'https://www.dytt8.net/html/gndy/rihan/index.html',
         ];
-        for (let i = 0; i < dyDLeiUrl.length; i++) {
+        let i = 0;
+        for (i < dyDLeiUrl.length; i++;) {
             setTimeout(() => {
-                get2019moviesFun.index(dyDLeiUrl[i]);
+                getMovieListFun.index(dyDLeiUrl[i]);
             }, i * 1000);
         }
         setTimeout(() => {
-            get2019moviesFun.goGetMovieList();
-        }, 6000);
+            getMovieListFun.goGetMovieList();
+        }, (i + 2) * 1000);
     });
 }
 exports.movieReptile = movieReptile;
-class get2019movies {
+class getMovieList {
     constructor() {
         this.baseUrl = 'https://www.dytt8.net/html/gndy/dyzz/index.html';
         this.errLength = [];
@@ -114,7 +115,6 @@ class get2019movies {
     }
     getPageListArray($) {
         const movieArray = $('.bd3r .co_content8 ul table');
-        console.log('当前页面电影数量：' + movieArray.length);
         for (let i = 0; i < movieArray.length; i++) {
             const movieItem = {
                 name: '',
@@ -155,17 +155,17 @@ class get2019movies {
 function getMovieDetail() {
     return __awaiter(this, void 0, void 0, function* () {
         const getMovieDetailFun = new getMovieDetailClass;
-        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 10000 });
+        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true });
         let a = 1;
         for (let i = 0; i < movieList.data.length; i++) {
             if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) { //&& movieList.data[i].details.detailDes
                 a++;
                 setTimeout(() => {
                     getMovieDetailFun.fetchUrl(movieList.data[i]);
-                }, a * Math.ceil(Math.random() * 10) * 500);
+                }, a * Math.ceil(Math.random() * 10) * 1000);
             }
         }
-        console.log('开始抓取详情');
+        console.log('开始抓取详情需抓取链接数为：' + movieList.data.length);
     });
 }
 exports.getMovieDetail = getMovieDetail;
@@ -176,12 +176,12 @@ class getMovieDetailClass {
     fetchUrl(movieOj) {
         superagent
             .get(movieOj.href)
-            .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36')
             .charset('gb2312') // 解决编码问题
             .end((err, ssres) => {
             if (err) {
                 errLength.push(movieOj.href);
                 console.log('抓取失败：' + movieOj.href);
+                console.log(err, ssres);
             }
             else {
                 const $ = cheerio.load(ssres && ssres.text);
@@ -195,24 +195,23 @@ class getMovieDetailClass {
         const updateQurey = {
             _id: mongoose_1.Types.ObjectId(movieOj.id)
         };
-        let newMovieOj = JSON.parse(JSON.stringify(movieOj));
+        const newMovieOj = JSON.parse(JSON.stringify(movieOj));
         newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
         newMovieOj.downLink = $('#Zoom table a').text() || '';
         const detailImg = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || ''; //.children[1].attr('src') || '';
-        const detailHtmlGet = $('#Zoom p')[0] || { children: [] };
+        const detailDom = $('#Zoom p');
+        const detailHtmlGet = $('#Zoom p')[0] || $('#Zoom p')[1] || { children: [] };
         let detailDes = '';
         for (let i = 0; i < detailHtmlGet.children.length; i++) {
             if (detailHtmlGet.children[i].data) {
                 detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes'; // detailDes 用于分割详情
-            }
-            else {
-                detailDes = '暂无详情~';
             }
         }
         newMovieOj.details = {
             detailImg,
             detailDes
         };
+        console.log(newMovieOj);
         service_1.default.update(updateQurey, newMovieOj);
     }
 }

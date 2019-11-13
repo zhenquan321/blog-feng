@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const movieReptile_1 = require("./Reptile/movieReptile");
 const jobReptile_1 = require("./Reptile/jobReptile");
+const service_1 = require("./../Movie/service");
 /**
  * @export
  * @param {Response} res
@@ -30,9 +31,10 @@ exports.movieRt = movieRt;
 function getMvDetail(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         movieReptile_1.getMovieDetail();
+        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true });
         res.status(200).json({
             status: 200,
-            message: '已开始抓取电影详情~'
+            msg: '开始抓取详情需抓取链接数为：' + movieList.data.length
         });
     });
 }

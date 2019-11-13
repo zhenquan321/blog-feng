@@ -30,7 +30,7 @@ superagent.buffer['mime'] = false;
 
 export async function movieReptile(): Promise<void> {
 
-    const get2019moviesFun: any = new get2019movies;
+    const getMovieListFun: any = new getMovieList;
 
     const dyDLeiUrl: string[] = [
         'https://www.dytt8.net/html/gndy/dyzz/index.html',
@@ -42,16 +42,16 @@ export async function movieReptile(): Promise<void> {
 
     for (i < dyDLeiUrl.length; i++;) {
         setTimeout(() => {
-            get2019moviesFun.index(dyDLeiUrl[i]);
+            getMovieListFun.index(dyDLeiUrl[i]);
         }, i * 1000);
     }
 
     setTimeout(() => {
-        get2019moviesFun.goGetMovieList();
+        getMovieListFun.goGetMovieList();
     }, (i + 2) * 1000);
 }
 
-class get2019movies {
+class getMovieList {
     baseUrl: string = 'https://www.dytt8.net/html/gndy/dyzz/index.html';
     errLength: string[] = [];
     urlList: string[] = [];
@@ -166,15 +166,16 @@ export async function getMovieDetail(): Promise<void> {
 
     const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true });
     let a = 1;
+
     for (let i = 0; i < movieList.data.length; i++) {
         if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {  //&& movieList.data[i].details.detailDes
             a++
             setTimeout(() => {
                 getMovieDetailFun.fetchUrl(movieList.data[i]);
-            }, a * Math.ceil(Math.random() * 10) * 500);
+            }, a * Math.ceil(Math.random() * 10) * 1000);
         }
     }
-    console.log('开始抓取详情');
+    console.log('开始抓取详情需抓取链接数为：' + movieList.data.length);
 
 }
 
@@ -184,12 +185,12 @@ class getMovieDetailClass {
     fetchUrl(movieOj: any): void {
         superagent
             .get(movieOj.href)
-            .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36')
             .charset('gb2312') // 解决编码问题
             .end((err: any, ssres: any) => {
                 if (err) {
                     errLength.push(movieOj.href);
                     console.log('抓取失败：' + movieOj.href);
+                    console.log(err, ssres);
                 } else {
                     const $: any = cheerio.load(ssres && ssres.text);
 
@@ -203,25 +204,26 @@ class getMovieDetailClass {
         const updateQurey: any = {
             _id: Types.ObjectId(movieOj.id)
         };
-        let newMovieOj: any = JSON.parse(JSON.stringify(movieOj));
+        const newMovieOj: any = JSON.parse(JSON.stringify(movieOj));
 
         newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
         newMovieOj.downLink = $('#Zoom table a').text() || '';
         const detailImg: any = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';//.children[1].attr('src') || '';
-        const detailHtmlGet: any = $('#Zoom p')[0] || { children: [] };
+        const detailDom: any = $('#Zoom p');
+
+        const detailHtmlGet: any = $('#Zoom p')[0] || $('#Zoom p')[1] || { children: [] };
         let detailDes: string = '';
 
         for (let i = 0; i < detailHtmlGet.children.length; i++) {
             if (detailHtmlGet.children[i].data) {
                 detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes';// detailDes 用于分割详情
-            } else {
-                detailDes = '暂无详情~';
             }
         }
         newMovieOj.details = {
             detailImg,
             detailDes
         };
+        console.log(newMovieOj);
         MovieService.update(updateQurey, newMovieOj);
 
     }

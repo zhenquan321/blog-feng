@@ -11,7 +11,7 @@ import * as mongo from 'connect-mongo';
 import * as path from 'path';
 import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
-const ejs:any = require('ejs');
+const ejs: any = require('ejs');
 import { flash } from './flash';
 
 const MongoStore: mongo.MongoStoreFactory = mongo(session);
@@ -61,7 +61,7 @@ export function configure(app: express.Application): void {
     app.use(sendHttpErrorModule);
 
     // cors
-    app.use((req:any, res:any, next:any) => {
+    app.use((req: any, res: any, next: any) => {
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS ');
         res.header(
             'Access-Control-Allow-Headers',
@@ -73,10 +73,10 @@ export function configure(app: express.Application): void {
         res.header('Access-Control-Allow-Credentials', 'true');
         next();
     });
-    
+
     app.use(flash());
 
-    app.set('view engine','ejs');
+    app.set('view engine', 'ejs');
     app.set('view engine', 'html');
     app.engine('html', require('ejs-mate'));
     app.locals._layoutFile = 'layout.html';
@@ -85,7 +85,7 @@ export function configure(app: express.Application): void {
 }
 
 interface CustomResponse extends express.Response {
-    sendHttpError: (error: HttpError | Error, message ? : string) => void;
+    sendHttpError: (error: HttpError | Error, message?: string) => void;
 }
 
 /**

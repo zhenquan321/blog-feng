@@ -80,10 +80,21 @@ const MovieService = {
             const page = query && query.page ? Number(query.page) : 0;
             const pageSize = query && query.pageSize ? Number(query.pageSize) : 12;
             try {
-                const findKeyObj = {
-                    downLink: { $ne: '' },
-                    imgUrl: { $ne: '' },
-                };
+                let findKeyObj = {};
+                if (!query.Reptile) {
+                    findKeyObj = {
+                        downLink: { $ne: '', $exists: true },
+                        imgUrl: { $ne: '', $exists: true },
+                    };
+                }
+                else {
+                    findKeyObj = {
+                        $or: [
+                            { imgUrl: { $in: [null, ''] } },
+                            { downLink: { $in: [null, ''] } },
+                        ]
+                    };
+                }
                 if (query && query.year) {
                     findKeyObj.years = Number(query.year);
                 }
