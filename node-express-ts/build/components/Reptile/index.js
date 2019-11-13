@@ -30,12 +30,12 @@ function movieRt(req, res, next) {
 exports.movieRt = movieRt;
 function getMvDetail(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        movieReptile_1.getMovieDetail();
         const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true });
         res.status(200).json({
             status: 200,
             msg: '开始抓取详情需抓取链接数为：' + movieList.data.length
         });
+        movieReptile_1.getMovieDetail();
     });
 }
 exports.getMvDetail = getMvDetail;

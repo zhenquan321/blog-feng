@@ -20,13 +20,14 @@ export async function movieRt(req: Request, res: Response, next: NextFunction): 
 
 }
 export async function getMvDetail(req: Request, res: Response, next: NextFunction): Promise<void> {
-    getMovieDetail();
     const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true });
     res.status(200).json(
         {
             status: 200,
             msg: '开始抓取详情需抓取链接数为：' + movieList.data.length
         });
+
+    getMovieDetail();
 
 }
 
