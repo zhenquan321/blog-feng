@@ -32,6 +32,7 @@ export async function movieReptile(): Promise<void> {
         'https://www.dytt8.net/html/gndy/oumei/index.html',
         'https://www.dytt8.net/html/gndy/china/index.html',
         'https://www.dytt8.net/html/gndy/rihan/index.html',
+        'https://www.dytt8.net/html/gndy/jddy/index.html'
     ];
     let i: number = 0;
 
@@ -79,6 +80,9 @@ class getMovieList {
     }
     getPagesMovieList(allPages: number, baseHref: string, topicId: string): void {
         console.log(allPages, baseHref);
+
+        //后面更新只更前10页
+        allPages=10;
         for (let i: number = 2; i < allPages + 1; i++) {
             this.urlList.push(baseHref + `list_${topicId}_${i}.html`);
         }
