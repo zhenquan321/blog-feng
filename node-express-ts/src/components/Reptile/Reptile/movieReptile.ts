@@ -208,16 +208,18 @@ class getMovieDetailClass {
 
         newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
         newMovieOj.downLink = $('#Zoom table a').text() || '';
-        const detailImg: any = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';//.children[1].attr('src') || '';
-
+        const detailImg: any = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';
         const detailHtmlGet: any = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] : $('#Zoom span')[0];
         let detailDes: string = '';
 
-        for (let i = 0; i < detailHtmlGet.children.length; i++) {
-            if (detailHtmlGet.children[i].data) {
-                detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes';// detailDes 用于分割详情
+        if (detailHtmlGet && detailHtmlGet.children && detailHtmlGet.children.length > 0) {
+            for (let i = 0; i < detailHtmlGet.children.length; i++) {
+                if (detailHtmlGet.children[i].data) {
+                    detailDes = detailDes + detailHtmlGet.children[i].data + 'detailDes';// detailDes 用于分割详情
+                }
             }
         }
+
         newMovieOj.details = {
             detailImg,
             detailDes
