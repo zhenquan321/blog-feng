@@ -72,10 +72,20 @@ const MovieService: MovieService = {
         const page: number = query && query.page ? Number(query.page) : 0;
         const pageSize: number = query && query.pageSize ? Number(query.pageSize) : 12;
         try {
-            const findKeyObj: any = {
-                downLink: { $ne: '' },
-                imgUrl: { $ne: '' },
-            };
+            let findKeyObj: any = {};
+            if (!query.Reptile) {
+                findKeyObj = {
+                    downLink: { $ne: '', $exists: true },
+                    imgUrl: { $ne: '', $exists: true },
+                };
+            } else {
+                findKeyObj = {
+                    $or: [
+                        { imgUrl: { $in: [null, ''] } },
+                        { downLink: { $in: [null, ''] } },
+                    ]
+                };
+            }
 
             if (query && query.year) {
                 findKeyObj.years = Number(query.year);
@@ -90,7 +100,6 @@ const MovieService: MovieService = {
             // 电影按时间倒序
             const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
             const count: number = await MovieModel.find(findKeyObj).countDocuments();
-
 
             return {
                 count,

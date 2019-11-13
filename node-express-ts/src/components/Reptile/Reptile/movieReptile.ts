@@ -33,15 +33,14 @@ export async function movieReptile(): Promise<void> {
     const get2019moviesFun: any = new get2019movies;
 
     const dyDLeiUrl: string[] = [
-
         'https://www.dytt8.net/html/gndy/dyzz/index.html',
         'https://www.dytt8.net/html/gndy/oumei/index.html',
         'https://www.dytt8.net/html/gndy/china/index.html',
         'https://www.dytt8.net/html/gndy/rihan/index.html',
-
     ];
+    let i: number = 0;
 
-    for (let i: number = 0; i < dyDLeiUrl.length; i++) {
+    for (i < dyDLeiUrl.length; i++;) {
         setTimeout(() => {
             get2019moviesFun.index(dyDLeiUrl[i]);
         }, i * 1000);
@@ -49,7 +48,7 @@ export async function movieReptile(): Promise<void> {
 
     setTimeout(() => {
         get2019moviesFun.goGetMovieList();
-    }, 6000);
+    }, (i + 2) * 1000);
 }
 
 class get2019movies {
@@ -120,7 +119,6 @@ class get2019movies {
     getPageListArray($: any): void {
 
         const movieArray: any = $('.bd3r .co_content8 ul table');
-        console.log('当前页面电影数量：' + movieArray.length);
 
         for (let i: number = 0; i < movieArray.length; i++) {
             const movieItem: any = {
@@ -166,7 +164,7 @@ export async function getMovieDetail(): Promise<void> {
 
     const getMovieDetailFun: any = new getMovieDetailClass;
 
-    const movieList: any = await MovieService.findAll({ page: 0, pageSize: 10000 });
+    const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true });
     let a = 1;
     for (let i = 0; i < movieList.data.length; i++) {
         if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {  //&& movieList.data[i].details.detailDes
