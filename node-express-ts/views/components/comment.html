@@ -115,6 +115,10 @@
     //发布评论
     function publishComment() {
         let userId = "<%=req.session.user&&req.session.user._id||''%>";
+        if(!userId){
+            singIn();
+            return
+        }
         let content = $("#inputArea").val();
         if (!userId) {
             singIn();
