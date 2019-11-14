@@ -111,6 +111,7 @@
             contentType: contentType,
             classifications:classificationsId,
         }
+        showSh()
         $.ajax({
             type: 'POST',
             url: '/blog',
@@ -119,6 +120,7 @@
                 if(res.state==0){
                     window.location.href="/";
                 }
+                hideSh()
             },
         });
     }

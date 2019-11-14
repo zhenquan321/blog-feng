@@ -24,32 +24,7 @@
             </div>
         </div>
     </div>
-    <div id="commentList" class="commentList">
-        <!-- <div class="listCard">
-            <div class="userHeader">
-                <div class="headerImg">
-                    <% if(req.session.user&&req.session.user.profile&&req.session.user.profile.picture){%>
-                    <img src="<%= req.session.user.profile.picture %>" alt="">
-                    <% } else { %>
-                    <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>
-                    <% }%>
-                </div>
-            </div>
-            <div class="comment-right">
-                <div class="commentUserInfo">12312312纤维球</div>
-                <div class="comment-content">
-                    2222😕
-                </div>
-                <div class="control">
-                    <div class="time">222222</div>
-                    <div class="control-right">
-                        <span><i class="iconfont icon-dianzan"></i><%= blog.thumbsUp ||0 %></span>
-                        <span><i class="iconfont icon-pinglun"></i><%= blog.comments ||0 %></span>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-    </div>
+    <div id="commentList" class="commentList"></div>
 </div>
 <div class="fixedCard">
     <ul>
@@ -60,7 +35,7 @@
             </a>
         </li>
         <li onclick="thumbsUp()">
-            <span id="thumbsUpNum"><%= (blog&&blog.thumbsUp)||0 %> </span>
+            <span id="thumbsUpNum"><%= (subject&&subject.thumbsUp)||0 %> </span>
             <i class="iconfont icon-dianzan"></i>
         </li>
         <li>
@@ -69,7 +44,7 @@
     </ul>
 </div>
 <script>
-    var subjectId = "<%= (blog&&blog._id)||'' %>";
+    var subjectId = "<%= (subject&&subject._id)||'' %>";
     let userId = "<%=req.session.user&&req.session.user._id||''%>";
 
     function pushEmoji() {
@@ -123,7 +98,7 @@
                             </div>
                             `
                         commentDom = userId == res.data[i].author._id ? commentDom +
-                            `<div class="removeBlog" onclick="removeBlog('${res.data[i]._id}')">
+                            `<div class="removeBlog" onclick="removeComment('${res.data[i]._id}')">
                                     <i class="iconfont icon-shanchu"></i>
                                 </div>
                             </div>` : "</div>";
@@ -155,11 +130,13 @@
             subjectId: subjectId,
             fatherCommentId: '',
         }
+        showSh()
         $.ajax({
             type: 'POST',
             url: '/comment',
             data: data,
             success: (res) => {
+                hideSh()
                 if (res.state == 0) {
                     getComment();
                     $("#inputArea").val('');
@@ -173,7 +150,7 @@
 
 
     //删除评论
-    function removeBlog(id, name) {
+    function removeComment(id, name) {
         if (confirm("确定删除该评论吗？")) {
             $.ajax({
                 type: 'get',
@@ -196,7 +173,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/blog/thumbsUp',
+            url: `/${subjectType}/thumbsUp`,
             data: data,
             success: (res) => {
                 if (res.state == 0) {

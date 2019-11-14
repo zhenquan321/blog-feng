@@ -3,7 +3,6 @@
     <li><%- movie.name %></li>
 </ol>
 <div class="movieDetail">
-    <hr />
     <div class="imgCard">
         <div class="row baseDiv">
             <div class="col-xs-12 col-md-4">
@@ -29,11 +28,14 @@
             <img src="<%- movie.details.detailImg %>" alt="">
         </div>
     </div>
-
+    <%- include('./components/comment.html') %>
 </div>
-
+<script>
+    var subjectType = 'movie'; //评论的类型
+</script>
 <style>
-    body {
-        background-color: #fff;
+    .breadcrumb {
+        background-color: #f4f5f5;
     }
+
 </style>

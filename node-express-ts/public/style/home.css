@@ -317,6 +317,8 @@ a.thumbnail:hover {
 }
 .movieDetail {
   margin-bottom: 20px;
+  padding: 25px;
+  background-color: #fff;
 }
 .movieDetail hr {
   margin-top: 0px;
@@ -331,6 +333,7 @@ a.thumbnail:hover {
 .movieDetail .movieJj {
   bottom: 10px;
   width: 100%;
+  padding-left: 20px;
 }
 .movieDetail .movieJj h3 {
   color: #e59233;

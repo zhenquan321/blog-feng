@@ -71,3 +71,26 @@ export async function remove(req: Request, res: Response, next: NextFunction): P
         next(new HttpError(error.message.status, error.message));
     }
 }
+
+
+
+export async function thumbsUp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        const MovieFid: any = await MovieService.findOne(req.params.id || req.body.id);
+        const thumbsUp: number = MovieFid.thumbsUp + 1;
+        const Movie: any = await MovieService.update(req.params.id || req.body.id, {
+            thumbsUp
+        });
+
+        if (Movie) {
+            res.status(200).json({
+                thumbsUp,
+                Movie,
+                state: 0
+            });
+        }
+
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+    }
+}

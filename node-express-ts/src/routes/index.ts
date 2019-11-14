@@ -10,7 +10,7 @@ import ToolRouter from './ToolRouter';
 import BlogRouter from './BlogRouter';
 import CommentRouter from './CommentRouter';
 import ClassificationRouter from './ClassificationRouter';
-
+import MovieRouter from './MovieRouter';
 
 let swaggerDoc: Object;
 
@@ -74,6 +74,11 @@ export function init(app: express.Application): void {
      * 工具类接口
      */
     app.use('/tool', ToolRouter);
+
+     /**
+     * 电影接口
+     */
+    app.use('/movie', MovieRouter);
 
 
     /**

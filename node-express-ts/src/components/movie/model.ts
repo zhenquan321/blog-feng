@@ -19,6 +19,8 @@ export interface IMovieModel extends Document {
     downLink?: string;
     years?: number;
     type?: string;
+    comments: number,
+    thumbsUp: number,
     details?:{
         detailImg:string,
         detailDes:string,
@@ -35,6 +37,14 @@ const MovieSchema: Schema = new Schema({
     downLink: String,
     years: Number,
     type: String,
+    comments: {
+        type: Number,
+        default: 0
+    },
+    thumbsUp: {
+        type: Number,
+        default: 0
+    },
     details:{
         detailImg:String,
         detailDes:String,

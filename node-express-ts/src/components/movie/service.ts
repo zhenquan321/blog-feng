@@ -2,6 +2,7 @@ import * as Joi from 'joi';
 import MovieModel, { IMovieModel } from './model';
 import { MovieService } from './interface';
 import { Types } from 'mongoose';
+import CommentService from '../Comment/service';
 
 /**
  * @export
@@ -106,10 +107,11 @@ const MovieService: MovieService = {
             const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
             const count: number = await MovieModel.find(findKeyObj).countDocuments();
 
-            console.log({
-                findKeyObj,
-                count,
-            });
+            if (!query.Reptile) {
+                for (let i = 0; i < movieList.length; i++) {
+                    movieList[i].comments = await CommentService.count(movieList[i]._id);
+                }
+            }
 
             return {
                 count,
@@ -120,14 +122,23 @@ const MovieService: MovieService = {
         }
     },
 
-    async update(query: any, body: any): Promise<void> {
+    async update(id: any, body: any): Promise<void> {
         try {
-            const updateInfo: any = await MovieModel.updateOne(query, { $set: body });
+            const updateInfo: any = await MovieModel.updateOne({
+                _id: Types.ObjectId(id)
+            }, { $set: body });
+            return updateInfo
         } catch (error) {
             throw new Error(error.message);
         }
     },
 
+    /**
+    * @param {string} id
+    * @returns {Promise < IBlogModel >}
+    * @memberof BlogService
+    */
+ 
 
     async getCount(): Promise<number> {
         try {

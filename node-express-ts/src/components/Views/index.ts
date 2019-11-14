@@ -98,9 +98,10 @@ export async function movieItem(req: Request, res: Response, next: NextFunction)
 
         if (getMovie) {
             const movie: any = JSON.parse(JSON.stringify(getMovie));
-
+            MovieService.update(req.params.id, { $set: { clickNum: (getMovie.clickNum + Math.round(Math.random() * 10)) } });
             movie.details.detailDes = movie.details.detailDes.split('detailDes');
-            res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
+            res.render('movieItem', { req, movie,subject: movie, title: '电影', path: 'movie' });
+            
         } else {
             res.render('404', { req, title: '未找到资源', path: 'movie' });
         }
@@ -160,13 +161,11 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
 
         if (getBlog) {
             const blog: any = JSON.parse(JSON.stringify(getBlog));
-            const marked: any = require('marked');
-
+            //const marked: any = require('marked');
+            // blog.content = marked(blog.content);
             // 增加阅读数
             BlogService.update(req.params.id, { $set: { pv: (getBlog.pv + Math.round(Math.random() * 10)) } });
-            // blog.content = marked(blog.content);
-            console.log(blog);
-            res.render('blogItem', { req, blog, title: blog.title, path: '/' });
+            res.render('blogItem', { req, blog, subject: blog, title: blog.title, path: '/' });
         } else {
             res.render('404', { req, title: '未找到资源', path: '/' });
         }
