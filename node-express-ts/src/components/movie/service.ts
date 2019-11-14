@@ -123,10 +123,12 @@ const MovieService: MovieService = {
     },
 
     async update(id: any, body: any): Promise<void> {
+        console.log(body);
         try {
             const updateInfo: any = await MovieModel.updateOne({
                 _id: Types.ObjectId(id)
-            }, { $set: body });
+            }, body);
+            
             return updateInfo
         } catch (error) {
             throw new Error(error.message);

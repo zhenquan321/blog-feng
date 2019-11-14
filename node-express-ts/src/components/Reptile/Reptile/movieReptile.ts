@@ -203,7 +203,7 @@ class getMovieDetailClass {
             });
     }
     getDetail($: any, movieOj: any): void {
-       
+
         const newMovieOj: any = JSON.parse(JSON.stringify(movieOj));
         const detailImg: any = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';
         const detailHtmlGet: any = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] : $('#Zoom span')[0];
@@ -225,7 +225,7 @@ class getMovieDetailClass {
             detailDes
         };
         console.log(newMovieOj);
-        MovieService.update(movieOj.id, newMovieOj);
+        MovieService.update(movieOj.id, { $set: newMovieOj });
 
     }
 

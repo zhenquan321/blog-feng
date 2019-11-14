@@ -4,7 +4,7 @@
         <button type="submit" class="btn btn-default"><a href="/reptile/movieRt" target="_blank">更新电影</a> </button>
         <button type="submit" class="btn btn-default"><a href="/reptile/getMvDetail" target="_blank">更新详情</a> </button>
         <% }%>
-        <div  class="allCount">
+        <div class="allCount">
             共<span> <%- AllCount %></span> 部电影
         </div>
         <form class="form-inline" action="/movie" method="get">
@@ -25,9 +25,9 @@
                         href="<%- '/movie?year=' + y %>"><%- y %></a></li>
                 <% } %>
             </ul>
-          
+
         </div>
-        
+
     </div>
 </div>
 
@@ -38,6 +38,11 @@
         <div class="col-xs-6 col-md-3 movieCard">
             <a href="/movieItem/<%- movie.id%>" class="thumbnail">
                 <img src="<%- movie.imgUrl %>" alt="">
+                <div class="dzBtnGroup movieRd">
+                    <span><i class="iconfont icon-guankan"></i><%= movie.clickNum ||0 %></span>
+                    <span><i class="iconfont icon-dianzan"></i><%= movie.thumbsUp ||0 %></span>
+                    <span><i class="iconfont icon-pinglun"></i><%= movie.comments ||0 %></span>
+                </div>
                 <div class="movieHeader">
                     <h4><%-  movie.name %></h4>
                     <h6><%-  movie.sketch %></h6>
