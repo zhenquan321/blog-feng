@@ -32,19 +32,21 @@ export async function movieReptile(): Promise<void> {
         'https://www.dytt8.net/html/gndy/oumei/index.html',
         'https://www.dytt8.net/html/gndy/china/index.html',
         'https://www.dytt8.net/html/gndy/rihan/index.html',
-        'https://www.dytt8.net/html/gndy/jddy/index.html'
+        'https://www.dytt8.net/html/gndy/jddy/index.html',
     ];
-    let i: number = 0;
 
-    for (i < dyDLeiUrl.length; i++;) {
+
+    for (let i: number = 0; i < dyDLeiUrl.length; i++) {
         setTimeout(() => {
             getMovieListFun.index(dyDLeiUrl[i]);
-        }, i * 1000);
+        }, i * Math.ceil(Math.random() * 10) * 500);
     }
 
     setTimeout(() => {
+
         getMovieListFun.goGetMovieList();
-    }, (i + 2) * 1000);
+    }, 20000);
+
 }
 
 class getMovieList {
@@ -56,11 +58,12 @@ class getMovieList {
         if (url) {
             this.baseUrl = url;
         }
-        console.log('抓取专题：' + this.baseUrl);
+        console.log('开始抓取专题：' + this.baseUrl);
         superagent
             .get(this.baseUrl)
             .charset('gb2312')
             .end((err: any, sres: any) => {
+                console.log('已抓取专题：' + this.baseUrl);
                 // 常规的错误处理
                 if (err) {
                     console.log('抓取' + this.baseUrl + '这条信息的时候出错了', err);
@@ -81,8 +84,8 @@ class getMovieList {
     getPagesMovieList(allPages: number, baseHref: string, topicId: string): void {
         console.log(allPages, baseHref);
 
-        //后面更新只更前10页
-        allPages=10;
+        //后面更新只更前5页
+        allPages = 8;
         for (let i: number = 2; i < allPages + 1; i++) {
             this.urlList.push(baseHref + `list_${topicId}_${i}.html`);
         }
@@ -167,7 +170,7 @@ export async function getMovieDetail(): Promise<void> {
     let a = 1;
 
     for (let i = 0; i < movieList.data.length; i++) {
-        if (!(movieList.data[i].details && movieList.data[i].details.detailDes&& movieList.data[i].details.detailDes!="暂无详情~")) {
+        if (!(movieList.data[i].details && movieList.data[i].details.detailDes && movieList.data[i].details.detailDes != "暂无详情~")) {
             a++
             setTimeout(() => {
                 getMovieDetailFun.fetchUrl(movieList.data[i]);
@@ -204,12 +207,12 @@ class getMovieDetailClass {
             _id: Types.ObjectId(movieOj.id)
         };
         const newMovieOj: any = JSON.parse(JSON.stringify(movieOj));
-
-        newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
-        newMovieOj.downLink = $('#Zoom table a').text() || '';
         const detailImg: any = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';
         const detailHtmlGet: any = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] : $('#Zoom span')[0];
         let detailDes: string = '';
+
+        newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
+        newMovieOj.downLink = $('#Zoom table a').text() || '';
 
         if (detailHtmlGet && detailHtmlGet.children && detailHtmlGet.children.length > 0) {
             for (let i = 0; i < detailHtmlGet.children.length; i++) {
