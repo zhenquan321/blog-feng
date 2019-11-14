@@ -1,31 +1,36 @@
-<div class="searchTop">
-
-    <% if(req.session.user && req.session.user.isAdmin){%>
-    <button type="submit" class="btn btn-default"><a href="/reptile/movieRt" target="_blank">更新电影</a> </button>
-    <button type="submit" class="btn btn-default"><a href="/reptile/getMvDetail" target="_blank">更新详情</a> </button>
-    <% }%>
-
-    <form class="form-inline" action="/movie" method="get">
-        <div class="form-group">
-            <input type="text" name="keyword" style="border-radius: 5px;" class="form-control"
-                value="<%- req.query.keyword||'' %>" id="exampleInputAmount" placeholder="请输入搜索关键词">
-            <button type="submit" class="btn btn-primary">搜索</button>
+<div class="topDiv">
+    <div class="searchTop">
+        <% if(req.session.user && req.session.user.isAdmin){%>
+        <button type="submit" class="btn btn-default"><a href="/reptile/movieRt" target="_blank">更新电影</a> </button>
+        <button type="submit" class="btn btn-default"><a href="/reptile/getMvDetail" target="_blank">更新详情</a> </button>
+        <% }%>
+        <div  class="allCount">
+            共<span> <%- AllCount %></span> 部电影
         </div>
-    </form>
-</div>
-<div class="selectHeader">
-    <h4>年份</h4>
-    <div>
-        <ul>
-            <li><a <% if(!req.query||!req.query.year){%> class="active" <% }%> href="<%- '/movie?' %>">全部</a></li>
-            <% for (let y=2019;y>2008;y--){%>
-            <li><a <% if(req.query&&req.query.year==y){%> class="active" <% }%>
-                    href="<%- '/movie?year=' + y %>"><%- y %></a></li>
-            <% } %>
-        </ul>
+        <form class="form-inline" action="/movie" method="get">
+            <div class="form-group">
+                <input type="text" name="keyword" style="border-radius: 5px;" class="form-control"
+                    value="<%- req.query.keyword||'' %>" id="exampleInputAmount" placeholder="请输入搜索关键词">
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </div>
+        </form>
     </div>
-    <!-- <h5>共：<%- pageInfo.count %> 部电影</h5> -->
+    <div class="selectHeader">
+        <h4>年份</h4>
+        <div>
+            <ul>
+                <li><a <% if(!req.query||!req.query.year){%> class="active" <% }%> href="<%- '/movie?' %>">全部</a></li>
+                <% for (let y=2019;y>2008;y--){%>
+                <li><a <% if(req.query&&req.query.year==y){%> class="active" <% }%>
+                        href="<%- '/movie?year=' + y %>"><%- y %></a></li>
+                <% } %>
+            </ul>
+          
+        </div>
+        
+    </div>
 </div>
+
 
 <div class="movieList">
     <div class="row mb20">
@@ -47,9 +52,3 @@
     </div>
     <%- include('./components/pagination.html') %>
     </div>
-
-    <style>
-        body {
-            background-color: #fff;
-        }
-    </style>

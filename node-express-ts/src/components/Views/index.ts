@@ -68,6 +68,7 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
         query.page = query.page >= 1 ? query.page - 1 : 0;
 
         const movieList: any = await MovieService.findAll(query);//
+        const AllCount: number = await MovieService.getCount();
         const movieArray: any = movieList.data;
 
         let baseUrl: string = req.path + '?';
@@ -86,7 +87,7 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
             pageSize: query.pageSize || 12,
         };
 
-        res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
+        res.render('movie', { pageInfo, req, AllCount, movieList: movieArray, title: '电影', path: 'movie' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -100,8 +101,8 @@ export async function movieItem(req: Request, res: Response, next: NextFunction)
             const movie: any = JSON.parse(JSON.stringify(getMovie));
             MovieService.update(req.params.id, { $set: { clickNum: (getMovie.clickNum + Math.round(Math.random() * 10)) } });
             movie.details.detailDes = movie.details.detailDes.split('detailDes');
-            res.render('movieItem', { req, movie,subject: movie, title: '电影', path: 'movie' });
-            
+            res.render('movieItem', { req, movie, subject: movie, title: '电影', path: 'movie' });
+
         } else {
             res.render('404', { req, title: '未找到资源', path: 'movie' });
         }
