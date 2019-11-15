@@ -126,7 +126,6 @@ class getMovieList {
             const movieItem: any = {
                 name: '',
                 updateDate: '',
-                clickNum: 0,
                 href: '',
                 sketch: '',
                 years: 0,
@@ -142,7 +141,6 @@ class getMovieList {
                 movieItem.href = movieArray[i].lastChild.children[2].children[3].children[1].children[3] ?
                     'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[3].attribs.href : '';
             }
-            movieItem.clickNum = Number(fonts.split('点击：')[1]) || 0;
             movieItem.updateDate = fonts.split('点击：')[0].split('日期：')[1] || '';
             movieItem.sketch = (movieArray[i].lastChild.children[6].children[1] && movieArray[i].lastChild.children[6].children[1].lastChild &&
                 movieArray[i].lastChild.children[6].children[1].lastChild.data) || '';
