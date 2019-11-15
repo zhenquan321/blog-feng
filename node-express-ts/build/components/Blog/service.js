@@ -88,6 +88,9 @@ const BlogService = {
     findOne(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                if (!id) {
+                    return {};
+                }
                 const BlogFind = yield model_1.default.findOne({
                     _id: mongoose_1.Types.ObjectId(id)
                 });

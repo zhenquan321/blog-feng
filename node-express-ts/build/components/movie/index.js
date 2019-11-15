@@ -88,4 +88,26 @@ function remove(req, res, next) {
     });
 }
 exports.remove = remove;
+function thumbsUp(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const MovieFid = yield service_1.default.findOne(req.params.id || req.body.id);
+            const thumbsUp = MovieFid.thumbsUp + 1;
+            const Movie = yield service_1.default.update(req.params.id || req.body.id, {
+                thumbsUp
+            });
+            if (Movie) {
+                res.status(200).json({
+                    thumbsUp,
+                    Movie,
+                    state: 0
+                });
+            }
+        }
+        catch (error) {
+            next(new error_1.HttpError(error.message.status, error.message));
+        }
+    });
+}
+exports.thumbsUp = thumbsUp;
 //# sourceMappingURL=index.js.map

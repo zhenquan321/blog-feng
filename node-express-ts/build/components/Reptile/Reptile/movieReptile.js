@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = require("./../../Movie/service");
-const mongoose_1 = require("mongoose");
 const superagent = require('superagent'); // 发起请求 
 const cheerio = require('cheerio'); // 可以像jquery一样操作界面
 const charset = require('superagent-charset'); // 解决乱码问题:
@@ -35,16 +34,16 @@ function movieReptile() {
             'https://www.dytt8.net/html/gndy/oumei/index.html',
             'https://www.dytt8.net/html/gndy/china/index.html',
             'https://www.dytt8.net/html/gndy/rihan/index.html',
+            'https://www.dytt8.net/html/gndy/jddy/index.html',
         ];
-        let i = 0;
-        for (i < dyDLeiUrl.length; i++;) {
+        for (let i = 0; i < dyDLeiUrl.length; i++) {
             setTimeout(() => {
                 getMovieListFun.index(dyDLeiUrl[i]);
-            }, i * 1000);
+            }, i * Math.ceil(Math.random() * 10) * 500);
         }
         setTimeout(() => {
             getMovieListFun.goGetMovieList();
-        }, (i + 2) * 1000);
+        }, 20000);
     });
 }
 exports.movieReptile = movieReptile;
@@ -59,11 +58,12 @@ class getMovieList {
             if (url) {
                 this.baseUrl = url;
             }
-            console.log('抓取专题：' + this.baseUrl);
+            console.log('开始抓取专题：' + this.baseUrl);
             superagent
                 .get(this.baseUrl)
                 .charset('gb2312')
                 .end((err, sres) => {
+                console.log('已抓取专题：' + this.baseUrl);
                 // 常规的错误处理
                 if (err) {
                     console.log('抓取' + this.baseUrl + '这条信息的时候出错了', err);
@@ -82,6 +82,8 @@ class getMovieList {
     }
     getPagesMovieList(allPages, baseHref, topicId) {
         console.log(allPages, baseHref);
+        //后面更新只更前5页
+        allPages = 8;
         for (let i = 2; i < allPages + 1; i++) {
             this.urlList.push(baseHref + `list_${topicId}_${i}.html`);
         }
@@ -155,10 +157,10 @@ class getMovieList {
 function getMovieDetail() {
     return __awaiter(this, void 0, void 0, function* () {
         const getMovieDetailFun = new getMovieDetailClass;
-        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true }); // findAll: true 
+        const movieList = yield service_1.default.findAll({ page: 0, pageSize: 100000, Reptile: true, findAll: true }); // findAll: true 
         let a = 1;
         for (let i = 0; i < movieList.data.length; i++) {
-            if (!(movieList.data[i].details && movieList.data[i].details.detailDes)) {
+            if (!(movieList.data[i].details && movieList.data[i].details.detailDes && movieList.data[i].details.detailDes != "暂无详情~")) {
                 a++;
                 setTimeout(() => {
                     getMovieDetailFun.fetchUrl(movieList.data[i]);
@@ -192,15 +194,12 @@ class getMovieDetailClass {
         });
     }
     getDetail($, movieOj) {
-        const updateQurey = {
-            _id: mongoose_1.Types.ObjectId(movieOj.id)
-        };
         const newMovieOj = JSON.parse(JSON.stringify(movieOj));
-        newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
-        newMovieOj.downLink = $('#Zoom table a').text() || '';
         const detailImg = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';
         const detailHtmlGet = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] : $('#Zoom span')[0];
         let detailDes = '';
+        newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
+        newMovieOj.downLink = $('#Zoom table a').text() || '';
         if (detailHtmlGet && detailHtmlGet.children && detailHtmlGet.children.length > 0) {
             for (let i = 0; i < detailHtmlGet.children.length; i++) {
                 if (detailHtmlGet.children[i].data) {
@@ -213,7 +212,7 @@ class getMovieDetailClass {
             detailDes
         };
         console.log(newMovieOj);
-        service_1.default.update(updateQurey, newMovieOj);
+        service_1.default.update(movieOj.id, { $set: newMovieOj });
     }
 }
 //# sourceMappingURL=movieReptile.js.map

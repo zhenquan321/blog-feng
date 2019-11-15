@@ -112,7 +112,7 @@ const CommentService: ICommentService = {
     async count(id: string): Promise<number> {
         try {
 
-            return await CommentModel.find({ subjectId: id }).count();
+            return await CommentModel.find({ subjectId: id }).countDocuments();
 
         } catch (error) {
             throw new Error(error.message);

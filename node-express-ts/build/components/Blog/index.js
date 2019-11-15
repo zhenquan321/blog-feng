@@ -133,4 +133,25 @@ function thumbsUp(req, res, next) {
     });
 }
 exports.thumbsUp = thumbsUp;
+function update(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let id = req.params._id || req.body._id;
+            let updateInfo = req.params._id ? req.params : req.body;
+            delete updateInfo._id;
+            const Blog = yield service_1.default.update(id, { $set: updateInfo });
+            if (Blog) {
+                res.status(200).json({
+                    Blog,
+                    msg: "修改成功",
+                    state: 0
+                });
+            }
+        }
+        catch (error) {
+            next(new error_1.HttpError(error.message.status, error.message));
+        }
+    });
+}
+exports.update = update;
 //# sourceMappingURL=index.js.map

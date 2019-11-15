@@ -12,6 +12,7 @@ const ToolRouter_1 = require("./ToolRouter");
 const BlogRouter_1 = require("./BlogRouter");
 const CommentRouter_1 = require("./CommentRouter");
 const ClassificationRouter_1 = require("./ClassificationRouter");
+const MovieRouter_1 = require("./MovieRouter");
 let swaggerDoc;
 try {
     swaggerDoc = require('../../swagger.json');
@@ -64,6 +65,10 @@ function init(app) {
     * 工具类接口
     */
     app.use('/tool', ToolRouter_1.default);
+    /**
+    * 电影接口
+    */
+    app.use('/movie', MovieRouter_1.default);
     /**
      * @description
      *  If swagger.json file exists in root folder, shows swagger api description

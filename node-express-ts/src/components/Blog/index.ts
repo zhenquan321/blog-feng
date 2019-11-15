@@ -30,6 +30,7 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
  */
 export async function findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+
         const Blog: IBlogModel = await BlogService.findOne(req.params.id);
 
         res.status(200).json(Blog);
@@ -112,6 +113,28 @@ export async function thumbsUp(req: Request, res: Response, next: NextFunction):
             res.status(200).json({
                 thumbsUp,
                 Blog,
+                state: 0
+            });
+        }
+
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+    }
+}
+
+
+export async function update(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        let id = req.params._id || req.body._id;
+        let updateInfo = req.params._id ? req.params : req.body;
+        delete updateInfo._id;
+
+        const Blog: IBlogModel = await BlogService.update(id, { $set: updateInfo });
+
+        if (Blog) {
+            res.status(200).json({
+                Blog,
+                msg: "修改成功",
                 state: 0
             });
         }

@@ -66,6 +66,7 @@ function movie(req, res, next) {
             const query = req.query || req.body;
             query.page = query.page >= 1 ? query.page - 1 : 0;
             const movieList = yield service_1.default.findAll(query); //
+            const AllCount = yield service_1.default.getCount();
             const movieArray = movieList.data;
             let baseUrl = req.path + '?';
             for (let key in query) {
@@ -79,7 +80,7 @@ function movie(req, res, next) {
                 currentPage: query.page + 1 || 0,
                 pageSize: query.pageSize || 12,
             };
-            res.render('movie', { pageInfo, req, movieList: movieArray, title: '电影', path: 'movie' });
+            res.render('movie', { pageInfo, req, AllCount, movieList: movieArray, title: '电影', path: 'movie' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));
@@ -93,8 +94,9 @@ function movieItem(req, res, next) {
             const getMovie = yield service_1.default.findOne(req.params.id);
             if (getMovie) {
                 const movie = JSON.parse(JSON.stringify(getMovie));
+                service_1.default.update(req.params.id, { $set: { clickNum: (getMovie.clickNum + Math.round(Math.random() * 10)) } });
                 movie.details.detailDes = movie.details.detailDes.split('detailDes');
-                res.render('movieItem', { req, movie, title: '电影', path: 'movie' });
+                res.render('movieItem', { req, movie, subject: movie, title: '电影', path: 'movie' });
             }
             else {
                 res.render('404', { req, title: '未找到资源', path: 'movie' });
@@ -149,12 +151,11 @@ function blogItem(req, res, next) {
             const getBlog = yield service_2.default.findOne(req.params.id);
             if (getBlog) {
                 const blog = JSON.parse(JSON.stringify(getBlog));
-                const marked = require('marked');
+                //const marked: any = require('marked');
+                // blog.content = marked(blog.content);
                 // 增加阅读数
                 service_2.default.update(req.params.id, { $set: { pv: (getBlog.pv + Math.round(Math.random() * 10)) } });
-                // blog.content = marked(blog.content);
-                console.log(blog);
-                res.render('blogItem', { req, blog, title: blog.title, path: '/' });
+                res.render('blogItem', { req, blog, subject: blog, title: blog.title, path: '/' });
             }
             else {
                 res.render('404', { req, title: '未找到资源', path: '/' });
@@ -172,7 +173,14 @@ function blogCreate(req, res, next) {
         try {
             const editor = 'markDown';
             const classifications = yield service_3.default.findAll();
-            res.render('blogCreateVditor', { req, editor, classifications, title: '发布博客', path: 'blogCreate' });
+            const mbId = req.hostname != "localhost" ? "5dce479b9e1565fbe48666b" : "";
+            let blogId = (req.query && req.query.blogId) || mbId;
+            const blog = yield service_2.default.findOne(blogId);
+            if (req.hostname != "localhost") {
+                blog.isMb = true;
+            }
+            console.log(blog);
+            res.render('blogCreateVditor', { req, editor, blog, classifications, title: '发布博客', path: 'blogCreate' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));

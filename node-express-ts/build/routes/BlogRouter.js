@@ -126,6 +126,7 @@ router.get('/:id', components_1.BlogComponent.findOne);
  *                - $ref: '#/components/schemas/BlogSchema'
  */
 router.delete('/:id', components_1.BlogComponent.remove);
+router.post('/update', components_1.BlogComponent.update);
 router.get('/remove/:id', components_1.BlogComponent.remove);
 router.post('/thumbsUp', components_1.BlogComponent.thumbsUp);
 /**

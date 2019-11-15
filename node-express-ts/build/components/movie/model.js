@@ -21,6 +21,14 @@ const MovieSchema = new mongoose_1.Schema({
     downLink: String,
     years: Number,
     type: String,
+    comments: {
+        type: Number,
+        default: 0
+    },
+    thumbsUp: {
+        type: Number,
+        default: 0
+    },
     details: {
         detailImg: String,
         detailDes: String,

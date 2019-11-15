@@ -8,13 +8,13 @@
                 <% }%>
            
             <div class="btn-group selectedEditor" role="group">
-                    <%= req.session.user && req.session.user.profile && req.session.user.profile.name %>
+                    <%= (req.session.user && req.session.user.profile && req.session.user.profile.name) || req.session.user.email %>
                 <!-- <input type="button" class="btn btn-default active" placeholder="" value="MarkDown & 富文本编辑器"></button> -->
                 <!-- <input type="button" class="btn btn-default " placeholder="" value=""></button> -->
             </div>
         </div>
         <div class="nav-right">
-            <a class="sxBtn" onclick="publishBlog(false)"><i class="iconfont icon-zhangdan"></i>暂存</a>
+            <a class="sxBtn" ><i class="iconfont icon-zhangdan"></i>自动暂存</a>
             <span class="shuxian"></span>
             <a class="sxBtn" onclick="publishBlog(true)"><i class="iconfont icon-fenxiang1"></i>发布</a>
         </div>

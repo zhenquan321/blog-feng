@@ -83,6 +83,9 @@ const BlogService: IBlogService = {
      */
     async findOne(id: string): Promise<IBlogModel | any> {
         try {
+            if(!id){
+                return {};
+            }
             const BlogFind: IBlogModel = await BlogModel.findOne({
                 _id: Types.ObjectId(id)
             });

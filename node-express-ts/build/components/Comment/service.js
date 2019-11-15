@@ -119,7 +119,7 @@ const CommentService = {
     count(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model_1.default.find({ subjectId: id }).count();
+                return yield model_1.default.find({ subjectId: id }).countDocuments();
             }
             catch (error) {
                 throw new Error(error.message);

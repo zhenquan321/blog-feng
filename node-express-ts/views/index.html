@@ -44,8 +44,10 @@
                 </div>
             </a>
             <% if (req.session.user && blog.author.id == req.session.user._id){%>
-            <div class="removeBlog" onclick="removeBlog('<%= blog._id %>','<%= blog.title %>')">
-                <i class="iconfont icon-shanchu"></i>
+           
+            <div class="removeBlog" >
+                <a href="/blogCreate?blogId=<%= blog._id %>" target="_blank"><i class="iconfont icon-bianji"></i></a> 
+                <i onclick="removeBlog('<%= blog._id %>','<%= blog.title %>')" class="iconfont icon-shanchu"></i>
             </div>
             <% } %>
         </div>

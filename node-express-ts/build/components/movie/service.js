@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_1 = require("./model");
 const mongoose_1 = require("mongoose");
+const service_1 = require("../Comment/service");
 /**
  * @export
  * @implements {IMovieModelService}
@@ -112,10 +113,11 @@ const MovieService = {
                 // 电影按时间倒序
                 const movieList = yield model_1.default.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
                 const count = yield model_1.default.find(findKeyObj).countDocuments();
-                console.log({
-                    findKeyObj,
-                    count,
-                });
+                if (!query.Reptile) {
+                    for (let i = 0; i < movieList.length; i++) {
+                        movieList[i].comments = yield service_1.default.count(movieList[i]._id);
+                    }
+                }
                 return {
                     count,
                     data: movieList,
@@ -126,20 +128,29 @@ const MovieService = {
             }
         });
     },
-    update(query, body) {
+    update(id, body) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(body);
             try {
-                const updateInfo = yield model_1.default.updateOne(query, { $set: body });
+                const updateInfo = yield model_1.default.updateOne({
+                    _id: mongoose_1.Types.ObjectId(id)
+                }, body);
+                return updateInfo;
             }
             catch (error) {
                 throw new Error(error.message);
             }
         });
     },
+    /**
+    * @param {string} id
+    * @returns {Promise < IBlogModel >}
+    * @memberof BlogService
+    */
     getCount() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model_1.default.find().countDocuments();
+                return yield model_1.default.find().count();
             }
             catch (error) {
                 throw new Error(error.message);

@@ -130,6 +130,7 @@ router.get('/:id', BlogComponent.findOne);
  */
 router.delete('/:id', BlogComponent.remove);
 
+router.post('/update', BlogComponent.update);
 
 router.get('/remove/:id', BlogComponent.remove);
 
