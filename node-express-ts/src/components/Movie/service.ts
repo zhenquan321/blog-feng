@@ -144,7 +144,7 @@ const MovieService: MovieService = {
 
     async getCount(): Promise<number> {
         try {
-            return await MovieModel.find().count();
+            return await MovieModel.find().countDocuments();
         } catch (error) {
             throw new Error(error.message);
         }

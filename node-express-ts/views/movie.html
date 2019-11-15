@@ -10,7 +10,7 @@
         <form class="form-inline" action="/movie" method="get">
             <div class="form-group">
                 <input type="text" name="keyword" style="border-radius: 5px;" class="form-control"
-                    value="<%- req.query.keyword||'' %>" id="exampleInputAmount" placeholder="请输入搜索关键词">
+                    value="<%= req.query.keyword||'' %>" id="exampleInputAmount" placeholder="请输入搜索关键词">
                 <button type="submit" class="btn btn-primary">搜索</button>
             </div>
         </form>
@@ -27,10 +27,29 @@
             </ul>
 
         </div>
-
+    </div>
+    <div class="selectHeader">
+        <h4>类别</h4>
+        <div>
+            <ul>
+                <li><a  <% let searchTypeStr='科幻奇幻动作枪战犯罪战争爱情青春动画喜剧悬疑惊悚恐怖剧情'; if (!req.query.keyword||!searchTypeStr.includes(req.query.keyword)){%> class="active" <% }%> href="/movie">全部</a></li>
+                <li><a  <% if( req.query.keyword == '剧情'){%> class="active" <% }%> href="/movie?keyword=剧情">剧情</a></li>
+                <li><a  <% if( req.query.keyword == '科幻'){%> class="active" <% }%> href="/movie?keyword=科幻">科幻</a></li>
+                <li><a  <% if( req.query.keyword == '动作'){%> class="active" <% }%> href="/movie?keyword=动作">动作</a></li>
+                <li><a  <% if( req.query.keyword == '枪战'){%> class="active" <% }%> href="/movie?keyword=枪战">枪战</a></li>
+                <li><a  <% if( req.query.keyword == '犯罪'){%> class="active" <% }%> href="/movie?keyword=犯罪">犯罪</a></li>
+                <li><a  <% if( req.query.keyword == '战争'){%> class="active" <% }%> href="/movie?keyword=战争">战争</a></li>
+                <li><a  <% if( req.query.keyword == '爱情'){%> class="active" <% }%> href="/movie?keyword=爱情">爱情</a></li>
+                <li><a  <% if( req.query.keyword == '青春'){%> class="active" <% }%> href="/movie?keyword=青春">青春</a></li>
+                <li><a  <% if( req.query.keyword == '动画'){%> class="active" <% }%> href="/movie?keyword=动画">动画</a></li>
+                <li><a  <% if( req.query.keyword == '喜剧'){%> class="active" <% }%> href="/movie?keyword=喜剧">喜剧</a></li>
+                <li><a  <% if( req.query.keyword == '悬疑'){%> class="active" <% }%> href="/movie?keyword=悬疑">悬疑</a></li>
+                <li><a  <% if( req.query.keyword == '惊悚'){%> class="active" <% }%> href="/movie?keyword=惊悚">惊悚</a></li>
+                <li><a  <% if( req.query.keyword == '恐怖'){%> class="active" <% }%> href="/movie?keyword=恐怖">恐怖</a></li>
+            </ul>
+        </div>
     </div>
 </div>
-
 
 <div class="movieList">
     <div class="row mb20">
