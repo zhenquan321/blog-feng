@@ -181,7 +181,7 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
     try {
         const editor: string = 'markDown';
         const classifications: any = await ClassificationService.findAll();
-        const mbId: string = req.hostname != "localhost" ? "5dce479b9e1565fbe48666b" : "";
+        const mbId: string = req.hostname != "localhost" ? "5dc7e479b9e1565fbe48666b" : "";
         let blogId: string = (req.query && req.query.blogId) || mbId;
         if(blogId){
             const blog: any = await BlogService.findOne(blogId);

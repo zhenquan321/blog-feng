@@ -173,7 +173,7 @@ function blogCreate(req, res, next) {
         try {
             const editor = 'markDown';
             const classifications = yield service_3.default.findAll();
-            const mbId = req.hostname != "localhost" ? "5dce479b9e1565fbe48666b" : "";
+            const mbId = req.hostname != "localhost" ? "5dc7e479b9e1565fbe48666b" : "";
             let blogId = (req.query && req.query.blogId) || mbId;
             if (blogId) {
                 const blog = yield service_2.default.findOne(blogId);
