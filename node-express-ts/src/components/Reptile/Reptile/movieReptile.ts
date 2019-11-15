@@ -206,7 +206,8 @@ class getMovieDetailClass {
 
         const newMovieOj: any = JSON.parse(JSON.stringify(movieOj));
         const detailImg: any = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';
-        const detailHtmlGet: any = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] : $('#Zoom span')[0];
+        const detailHtmlGet: any = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] :
+            ($('#Zoom span')[0] && $('#Zoom span')[0].children.length > 3)?$('#Zoom span')[0]:$('#Zoom span p')[0];
         let detailDes: string = '';
 
         newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';

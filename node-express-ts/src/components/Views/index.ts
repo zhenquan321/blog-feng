@@ -46,6 +46,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
         pageSize: query.pageSize || 20,
     };
 
+    console.log(blogArray);
     req.flash = { success: '欢迎光临~' };
 
     res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
