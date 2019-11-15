@@ -175,11 +175,13 @@ function blogCreate(req, res, next) {
             const classifications = yield service_3.default.findAll();
             const mbId = req.hostname != "localhost" ? "5dce479b9e1565fbe48666b" : "";
             let blogId = (req.query && req.query.blogId) || mbId;
-            const blog = yield service_2.default.findOne(blogId);
-            if (req.hostname != "localhost") {
-                blog.isMb = true;
+            if (blogId) {
+                const blog = yield service_2.default.findOne(blogId);
+                if (req.hostname != "localhost") {
+                    blog.isMb = true;
+                }
             }
-            console.log(blog);
+            console.log(blogId, blog);
             res.render('blogCreateVditor', { req, editor, blog, classifications, title: '发布博客', path: 'blogCreate' });
         }
         catch (error) {
