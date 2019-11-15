@@ -1,6 +1,15 @@
 import * as http from 'http';
+import * as https from 'https';
+import * as fs from 'fs';
 import * as serverHandlers from './serverHandlers';
 import server from './server';
+
+
+const httpsOption = {
+    key : fs.readFileSync("./https/3094015_lmongo.com.key"),
+    cert: fs.readFileSync("./https/3094015_lmongo.com.pem")
+}
+
 
 const Server: http.Server = http.createServer(server);
 
@@ -8,6 +17,7 @@ const Server: http.Server = http.createServer(server);
  * Binds and listens for connections on the specified host
  */
 Server.listen(server.get('port'));
+https.createServer(httpsOption, server).listen(443);
 
 /**
  * Server Events
