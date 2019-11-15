@@ -181,17 +181,22 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
     try {
         const editor: string = 'markDown';
         const classifications: any = await ClassificationService.findAll();
-        const mbId: string = req.hostname != "localhost" ? "5dc7e479b9e1565fbe48666b" : "";
+        const mbId: string = req.hostname != "localhost" ? "5dc7e479b9e1565fbe48666b" : "5dce44e5f7f5b78972a15f57";
         let blogId: string = (req.query && req.query.blogId) || mbId;
-        if(blogId){
-            const blog: any = await BlogService.findOne(blogId);
-            if (req.hostname != "localhost") {
-                blog.isMb = true;
+        let rtNlog: any = {};
+        let mbBlog: any = {};
+
+        if (blogId) {
+            let findBlog: any = await BlogService.findOne(blogId);
+            if (req.query && req.query.blogId) {
+                rtNlog = findBlog;
+            } else {
+                mbBlog = findBlog;
             }
         }
-        
-        console.log(blogId,blog);
-        res.render('blogCreateVditor', { req, editor, blog, classifications, title: '发布博客', path: 'blogCreate' });
+
+     
+        res.render('blogCreateVditor', { req, editor, classifications, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));

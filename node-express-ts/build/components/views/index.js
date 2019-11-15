@@ -173,16 +173,20 @@ function blogCreate(req, res, next) {
         try {
             const editor = 'markDown';
             const classifications = yield service_3.default.findAll();
-            const mbId = req.hostname != "localhost" ? "5dc7e479b9e1565fbe48666b" : "";
+            const mbId = req.hostname != "localhost" ? "5dc7e479b9e1565fbe48666b" : "5dce44e5f7f5b78972a15f57";
             let blogId = (req.query && req.query.blogId) || mbId;
+            let rtNlog = {};
+            let mbBlog = {};
             if (blogId) {
-                const blog = yield service_2.default.findOne(blogId);
-                if (req.hostname != "localhost") {
-                    blog.isMb = true;
+                let findBlog = yield service_2.default.findOne(blogId);
+                if (req.query && req.query.blogId) {
+                    rtNlog = findBlog;
+                }
+                else {
+                    mbBlog = findBlog;
                 }
             }
-            console.log(blogId, blog);
-            res.render('blogCreateVditor', { req, editor, blog, classifications, title: '发布博客', path: 'blogCreate' });
+            res.render('blogCreateVditor', { req, editor, classifications, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
         }
         catch (error) {
             next(new error_1.default(error.message.status, error.message));

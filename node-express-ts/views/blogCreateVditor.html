@@ -35,7 +35,7 @@
     </div>
     <div class="createBlog">
         <div id="vditor"></div>
-        <textarea id="blogContent" style="display: none;"><%= blog.content %></textarea>
+        <textarea id="blogContent" style="display: none;"><%= blog.content||mbBlog.content %></textarea>
     </div>
 </form>
 
@@ -156,7 +156,7 @@
         let blogId = "<%= blog._id %>";
         let url = '/blog'
         if (blogId) {
-            data._id = blogId;
+            data.blogId = blogId;
             url='/blog/update'
         }
         $.ajax({
