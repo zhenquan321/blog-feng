@@ -109,6 +109,9 @@ http://localhost:3000/docs
 
 ![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
 
+## 查看端口
+netstat -lnp|grep 80
+
 ## Linux 下 mongodb 后台运行
 
 mongod -f mongodb.conf  --bind_ip_all
