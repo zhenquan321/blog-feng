@@ -10,9 +10,6 @@ import './user.less'
 import request from '../../api/request'
 
 
-
-
-
 type PageStateProps = {
   counter: {
     orderList: any

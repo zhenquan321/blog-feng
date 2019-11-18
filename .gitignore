@@ -1,6 +1,7 @@
 .DS_Store
 */node_modules 
 */build
+*/dist
 node-express-ts/public/img/upload
 node-express-ts/build/public/img/upload
 # local env files

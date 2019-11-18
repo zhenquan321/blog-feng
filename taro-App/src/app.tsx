@@ -28,10 +28,9 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      'pages/home/home',
+      'pages/index/index',
       'pages/login/login',
       'pages/user/user',
-      'pages/index/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -47,14 +46,14 @@ class App extends Component {
       custom:false,
       list: [
         {
-          pagePath: "pages/home/home",
-          text: "商品列表",
+          pagePath: "pages/index/index",
+          text: "博客",
           iconPath: "./assets/images/menus/tab-goods.png",
           selectedIconPath: "./assets/images/menus/tab-goods-selected.png"
         },
         {
           pagePath: "pages/user/user",
-          text: "我的免单",
+          text: "我的",
           iconPath: "./assets/images/menus/tab-user.png",
           selectedIconPath: "./assets/images/menus/tab-user-selected.png"
         },
