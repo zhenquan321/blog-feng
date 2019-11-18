@@ -28,7 +28,8 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      'pages/index/index',
+      'pages/blog/index',
+      'pages/movie/index',
       'pages/login/login',
       'pages/user/user',
     ],
@@ -40,24 +41,29 @@ class App extends Component {
     },
     tabBar: {
       color: "#666",
-      selectedColor: "#ff4b39",
+      selectedColor: "#e59233",
       backgroundColor: "#fff",
       borderStyle: "black",
       custom:false,
       list: [
         {
-          pagePath: "pages/index/index",
+          pagePath: "pages/blog/index",
           text: "博客",
-          iconPath: "./assets/images/menus/tab-goods.png",
-          selectedIconPath: "./assets/images/menus/tab-goods-selected.png"
+          iconPath: "./assets/images/menus/blog.png",
+          selectedIconPath: "./assets/images/menus/blog-act.png"
+        },
+        {
+          pagePath: "pages/movie/index",
+          text: "电影",
+          iconPath: "./assets/images/menus/movie.png",
+          selectedIconPath: "./assets/images/menus/movie-act.png"
         },
         {
           pagePath: "pages/user/user",
           text: "我的",
-          iconPath: "./assets/images/menus/tab-user.png",
-          selectedIconPath: "./assets/images/menus/tab-user-selected.png"
+          iconPath: "./assets/images/menus/user.png",
+          selectedIconPath: "./assets/images/menus/user-act.png"
         },
-
       ]
     }
   }
