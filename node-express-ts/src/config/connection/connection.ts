@@ -5,8 +5,8 @@ interface IConnectOptions {
     autoReconnect: boolean;
     reconnectTries: number; // Never stop trying to reconnect
     reconnectInterval: number;
-    loggerLevel ? : string;
-    useNewUrlParser ? : boolean;
+    loggerLevel?: string;
+    useNewUrlParser?: boolean;
 }
 
 const connectOptions: IConnectOptions = {
@@ -27,7 +27,7 @@ db.on('connecting', () => {
     console.log('\x1b[32m', 'MongoDB :: connecting');
 });
 
-db.on('error', (error:any) => {
+db.on('error', (error: any) => {
     console.log('\x1b[31m', `MongoDB :: connection ${error}`);
     mongoose.disconnect();
 });
@@ -55,3 +55,4 @@ db.on('disconnected', () => {
 db.on('fullsetup', () => {
     console.log('\x1b[33m"', 'MongoDB :: reconnecting... %d');
 });
+
