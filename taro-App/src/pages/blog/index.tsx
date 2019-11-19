@@ -1,7 +1,8 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { View, Button, Text ,Image} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import { AtList, AtListItem } from "taro-ui"
 
 import { add, minus, asyncAdd } from '../../actions/counter'
 
@@ -43,67 +44,75 @@ interface Index {
 @connect(({ counter }) => ({
   counter
 }), (dispatch) => ({
-  add () {
+  add() {
     dispatch(add())
   },
-  dec () {
+  dec() {
     dispatch(minus())
   },
-  asyncAdd () {
+  asyncAdd() {
     dispatch(asyncAdd())
   }
 }))
 class Index extends Component {
 
-    /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
+  /**
+ * 指定config的类型声明为: Taro.Config
+ *
+ * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
+ * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
+ * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
+ */
   config: Config = {
-    navigationBarTitleText: '豆花好卷'
+    navigationBarTitleText: '溜忙'
   }
-  constructor(prop){
+  constructor(prop) {
     super(prop)
-    this.state={
-      data:"ss"
+    this.state = {
+      data: ""
     }
   }
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
-  ssdaw = ()=>{
-    console.log(this.state.data);
 
-  }
-  componentWillUnmount () {
+  componentWillUnmount() {
 
   }
 
-  componentDidShow () {
-    console.log(this.state.data);
+  componentDidShow() {
 
-   }
+  }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
-  render () {
-    const { percentage } = this.state
+  render() {
     return (
       <View className='index'>
+        <View className="blogList">
+          <View className="blogCard">
+            <View className="userInfo">
+              <View className="left">
+                <Image src="https://lmongo.com/img/logo/logo.png"></Image>
+                <View>南易</View>
+              </View>
+              <View className="right">
+               <View className="iconfont icon-remen"></View> <View>热</View> · 后端
+              </View>
+            </View>
+            <View className="title">
+              爱爱丸大多阿萨德阿瓦达
+            </View>
+            <View className="card-bottom">
+              <View className="left">
 
-        <Button className='add_btn' onClick={this.props.add}>+ {this.state.data}</Button>
-        <Button className='dec_btn' onClick={this.props.dec}>-</Button>
-        <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-        <View><Text>{this.props.counter.num}</Text></View>
-        <View><Text>Hello, World</Text></View>
-        <AtFab >
-          <Text className='at-fab__icon at-icon at-icon-menu'></Text>
-        </AtFab>
-        <Button className='dec_btn' onClick={this.ssdaw}>async</Button>
-
+              </View>
+              <View className="right">
+                2019-26-20  11:22:22
+              </View>
+            </View>
+          </View>
+        </View>
       </View>
     )
   }

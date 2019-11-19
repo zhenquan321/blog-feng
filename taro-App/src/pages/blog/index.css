@@ -1,0 +1,9 @@
+page {
+  background-color: #fafafa;
+}
+.blogList .blogCard {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #fff;
+  padding: 10px;
+}
