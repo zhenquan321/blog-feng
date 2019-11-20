@@ -150,7 +150,7 @@ const MovieService = {
     getCount() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model_1.default.find().count();
+                return yield model_1.default.find().countDocuments();
             }
             catch (error) {
                 throw new Error(error.message);

@@ -1,18 +1,20 @@
-import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Image, Button, Text } from '@tarojs/components'
+import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import request from "../../api/request";
+import { AtNoticebar, AtSearchBar, AtGrid } from 'taro-ui'
 import { add, minus, asyncAdd } from '../../actions/counter'
-import { formatDate,getUserInfo } from '../../utils/publicFun'
-import statistics from "../../utils/statistics";
 
 import './user.less'
-import request from '../../api/request'
+import "taro-ui/dist/style/components/icon.scss";
+import "taro-ui/dist/style/components/search-bar.scss";
+import "taro-ui/dist/style/components/button.scss";
+
 
 
 type PageStateProps = {
   counter: {
-    orderList: any
+    num: number
   }
 }
 
@@ -24,13 +26,18 @@ type PageDispatchProps = {
 
 type PageOwnProps = {}
 
-type PageState = {}
+type PageState = {
+  blogList: any;
+  value: string;
+}
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
-
 interface Index {
+  state: PageState,
   props: IProps;
 }
+
+
 
 @connect(({ counter }) => ({
   counter
@@ -45,7 +52,10 @@ interface Index {
     dispatch(asyncAdd())
   }
 }))
+
+
 class Index extends Component {
+
   /**
  * 指定config的类型声明为: Taro.Config
  *
@@ -54,118 +64,147 @@ class Index extends Component {
  * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
  */
   config: Config = {
-    navigationBarTitleText: '我的免单',
-    enablePullDownRefresh: true,
+    navigationBarTitleText: '溜忙'
   }
-  constructor(prop:any) {
+  constructor(prop) {
     super(prop)
     this.state = {
-      orderList:[]
+      blogList: [],
+      value: ''
     }
-  }
-  goPage() {
-    Taro.navigateTo({ url: '/pages/login/login'})
-  }
-  goBuy=()=>{
-    Taro.switchTab({url: '/pages/home/home'})
   }
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
-   componentDidMount(){
-    console.log(1111)
-    this.getOrderList();
-  }
+
   componentWillUnmount() {
 
   }
-  componentDidShow() { }
+
+  //获取验证码
+  getBlogs = () => {
+
+    request
+      .request({
+        apiUrl: "/blog",
+        method: "get",
+        data: {}
+      })
+      .then((res: any) => {
+        console.log(res);
+
+        if (res.data.state == 0) {
+          this.setState({
+            blogList: res.data.data.data,
+            value: ''
+          })
+        }
+      });
+  };
+  onChange(value) {
+    this.setState({
+      value: value
+    })
+  }
+  onActionClick() {
+    console.log('开始搜索')
+  }
+  componentDidMount() {
+    this.getBlogs();
+  }
+  componentDidShow() {
+
+  }
 
   componentDidHide() { }
-  goDownLoad=()=>{
-    statistics("userPage","goDownLoadApp");
-    window.location.href="https://activity.duojoy.cn/#/downLoadApp?channelPort=wallet"
-  }
-  getOrderList =()=> {
-    let uid = getUserInfo()?getUserInfo().uid:"";
-    if(!uid){
-      return
-    }
-    let data = {
-      userId:uid,
-      orderState:"",
-      page:0,
-      type:"",
-      md:1,
-    }
-    let parmas = {
-      data: data, // 查询条件；
-      cacheTime: "", //缓存时间 day，week，month ；
-      method: "get", //请求方式
-      apiUrl: "/api/order/queryOrder", //接口地址
-      baseUrl: ""
-    };
-    request.request(parmas).then(res => {
-      let data: any = res.data.data.cnt.data.list;
-      let newData: any = [];
-      data.forEach((currentValue: any, index: number) => {
-        newData.push({
-          id: currentValue._id,
-          orderId: currentValue.orderId || '',
-          orderTime: formatDate(currentValue.orderTime),
-          orderTimeGettime: currentValue.orderTime,
-          validCode: currentValue.validText,
-          type: currentValue.type,
-          commissionReal: currentValue.commissionReal,
-          goods_thumbnail_url: currentValue.goods_thumbnail_url,
-          goods_name: currentValue.goods_name,
-          goodsPrice: currentValue.goodsPrice,
-          orderAmount: currentValue.orderAmount,
-          mdamount: currentValue.mdamount
-        })
-      })
-      this.setState({
-        orderList:newData[0]
-      })
-      console.log(newData)
-    });
-  }
+
   render() {
-    const { orderList } = this.state;
-    console.log(this.state.orderList)
+    const { blogList } = this.state;
+    console.log(blogList);
     return (
-      <View className='user'>
-        <Image className="bgImg" src={user_bg} />
-        <View className='older-card'>
+      <View className='index'>
+        <AtSearchBar
+          actionName='搜索'
+          value={this.state.value}
+          onChange={this.onChange.bind(this)}
+          onActionClick={this.onActionClick.bind(this)}
+        />
+        <Swiper
+          className='swiper'
+          indicatorColor='rgba(115, 109, 102, 0.66)'
+          indicatorActiveColor='rgba(229, 146, 51, 0.83)'
+          circular
+          indicatorDots
+          autoplay>
+          <SwiperItem>
+            <Image src="http://img4.imgtn.bdimg.com/it/u=1936271708,2299077308&fm=26&gp=0.jpg"></Image>
+          </SwiperItem>
+        </Swiper>
+        <View className="AtNoticebar">
+          <AtNoticebar marquee icon='volume-plus'>
+            欢迎加入“溜忙”😊😊😊，我们的官网是：lmongo.com。在这里，你除了会找到各种教程外，也可以发布教程和文档，大家携手共建美好家园。🤒🤒🤒
+          </AtNoticebar>
+        </View>
 
+        {/* <View className="AtGrid">
+          <AtGrid data={
+            [
+              {
+                image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
+                value: '领取中心'
+              },
+              {
+                image: 'https://img20.360buyimg.com/jdphoto/s72x72_jfs/t15151/308/1012305375/2300/536ee6ef/5a411466N040a074b.png',
+                value: '找折扣'
+              },
+              {
+                image: 'https://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png',
+                value: '领会员'
+              },
+            ]
+          } />
+        </View> */}
+
+        <View className="blogList">
           {
-            orderList.orderId?
-            <View>
-              <View className="header">
-
-                <View className="cjsj">创建时间：{orderList.orderTime}</View>
-                <View className="zfzt">{orderList.validCode}</View>
-              </View>
-              <View className="card-body">
-                <View className="left-img">
-                  <Image className="header-icom" src={orderList.goods_thumbnail_url} />
-                </View>
-                <View className="right">
-                  <View className="right-title">{orderList.goods_name}</View>
-                  <View className="fandan">
-                    <View className="xiaofei">消费金额 ¥{orderList.orderAmount}</View>
-                    <View className="fanxian">返现：<View className="fanxianjine">￥{orderList.commissionReal||0}</View></View>
-                    {orderList.mdamount? <View className="miandan">免单</View>:""}
+            blogList.map((item: any) => {
+              return <View className="blogCard" key={item._id}>
+                <View className="userInfo">
+                  <View className="left">
+                    <Image className="img" src={item.author.profile.picture}></Image>
+                    <View className="name">{item.author.profile.name || item.author.email}</View>
                   </View>
-                  <View className="dingdan">订单号 <View className="dingdanhao">{orderList.orderId}</View></View>
+                  <View className="right">
+                    {item.isHot ?
+                      <View>
+                        <View className="re">热</View>
+                        <View className="dian"> · </View>
+                      </View> : ""
+                    }
+                    {item.isRecommend ?
+                      <View>
+                        <View className="jian">{item.isRecommend}</View>
+                        <View className="dian"> · </View>
+                      </View> : ""
+                    }
+                    <View className="lei">{item.classifications.name}</View>
+                  </View>
+                </View>
+                <View className="title">
+                  {item.title}
+                </View>
+                <View className="card-bottom">
+                  <View className="left">
+                    <View className='at-icon at-icon-eye'></View><View className="number">{item.pv}</View>
+                    <View className='at-icon at-icon-message'> </View><View className="number">{item.comments}</View>
+                    <View className='at-icon at-icon-heart'> </View><View className="number">{item.thumbsUp}</View>
+                  </View>
+                  <View className="right">
+                    {item.createdAt}
+                  </View>
                 </View>
               </View>
-            </View>:
-            <View >
-              <View className="noOlder">
-                <View className="title">您还没有领取免单哦，快去领取吧~</View>
-              </View>
-            </View>
+            })
           }
         </View>
       </View>
@@ -173,4 +212,11 @@ class Index extends Component {
   }
 }
 
-export default Index as ComponentClass<PageOwnProps, PageState>
+// #region 导出注意
+//
+// 经过上面的声明后需要将导出的 Taro.Component 子类修改为子类本身的 props 属性
+// 这样在使用这个子类时 Ts 才不会提示缺少 JSX 类型参数错误
+//
+// #endregion
+
+export default Index;

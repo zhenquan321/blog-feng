@@ -83,7 +83,7 @@ class getMovieList {
     getPagesMovieList(allPages, baseHref, topicId) {
         console.log(allPages, baseHref);
         //后面更新只更前5页
-        allPages = 8;
+        allPages = 5;
         for (let i = 2; i < allPages + 1; i++) {
             this.urlList.push(baseHref + `list_${topicId}_${i}.html`);
         }
@@ -121,7 +121,6 @@ class getMovieList {
             const movieItem = {
                 name: '',
                 updateDate: '',
-                clickNum: 0,
                 href: '',
                 sketch: '',
                 years: 0,
@@ -138,7 +137,6 @@ class getMovieList {
                 movieItem.href = movieArray[i].lastChild.children[2].children[3].children[1].children[3] ?
                     'https://www.dytt8.net' + movieArray[i].lastChild.children[2].children[3].children[1].children[3].attribs.href : '';
             }
-            movieItem.clickNum = Number(fonts.split('点击：')[1]) || 0;
             movieItem.updateDate = fonts.split('点击：')[0].split('日期：')[1] || '';
             movieItem.sketch = (movieArray[i].lastChild.children[6].children[1] && movieArray[i].lastChild.children[6].children[1].lastChild &&
                 movieArray[i].lastChild.children[6].children[1].lastChild.data) || '';
@@ -196,7 +194,8 @@ class getMovieDetailClass {
     getDetail($, movieOj) {
         const newMovieOj = JSON.parse(JSON.stringify(movieOj));
         const detailImg = ($('#Zoom p img')[1] && $('#Zoom p img')[1].attribs.src) || '';
-        const detailHtmlGet = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] : $('#Zoom span')[0];
+        const detailHtmlGet = ($('#Zoom p')[0] && $('#Zoom p')[0].children.length) > 1 ? $('#Zoom p')[0] :
+            ($('#Zoom span')[0] && $('#Zoom span')[0].children.length > 3) ? $('#Zoom span')[0] : $('#Zoom span p')[0];
         let detailDes = '';
         newMovieOj.imgUrl = $('#Zoom p img').attr('src') || '';
         newMovieOj.downLink = $('#Zoom table a').text() || '';

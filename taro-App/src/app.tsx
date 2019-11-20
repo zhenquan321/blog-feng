@@ -29,7 +29,7 @@ class App extends Component {
   config: Config = {
     pages: [
       'pages/blog/index',
-      'pages/movie/index',
+      'pages/movie/movie',
       'pages/login/login',
       'pages/user/user',
     ],
@@ -53,17 +53,17 @@ class App extends Component {
           selectedIconPath: "./assets/images/menus/blog-act.png"
         },
         {
-          pagePath: "pages/movie/index",
+          pagePath: "pages/movie/movie",
           text: "电影",
           iconPath: "./assets/images/menus/movie.png",
           selectedIconPath: "./assets/images/menus/movie-act.png"
         },
-        {
-          pagePath: "pages/user/user",
-          text: "我的",
-          iconPath: "./assets/images/menus/user.png",
-          selectedIconPath: "./assets/images/menus/user-act.png"
-        },
+        // {
+        //   pagePath: "pages/user/user",
+        //   text: "我的",
+        //   iconPath: "./assets/images/menus/user.png",
+        //   selectedIconPath: "./assets/images/menus/user-act.png"
+        // },
       ]
     }
   }

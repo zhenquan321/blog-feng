@@ -1,13 +1,24 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "dh.taroAppTs",
+  "projectname": "溜忙手厕",
   "description": "douhua",
   "appid": "wx9e37ee2a4170666d",
   "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
   "compileType": "miniprogram"
 }

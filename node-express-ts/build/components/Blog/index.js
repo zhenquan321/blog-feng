@@ -23,7 +23,11 @@ function findAll(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const Blogs = yield service_1.default.findAll();
-            res.status(200).json(Blogs);
+            res.status(200).json({
+                state: 0,
+                data: Blogs,
+                msg: ''
+            });
         }
         catch (error) {
             next(new error_1.HttpError(error.message.status, error.message));

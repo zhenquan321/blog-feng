@@ -15,7 +15,11 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
     try {
         const Blogs: IBlogModel[] = await BlogService.findAll();
 
-        res.status(200).json(Blogs);
+        res.status(200).json({
+            state:0,
+            data:Blogs,
+            msg:''
+        });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

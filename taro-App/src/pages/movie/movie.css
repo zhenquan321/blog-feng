@@ -1,0 +1,72 @@
+page {
+  background-color: #fafafa;
+}
+.search-bar {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+.at-search-bar::after {
+  border-bottom-width: 0px;
+  box-shadow: 0 0 6px rgba(187, 187, 187, 0.5);
+}
+.movieList {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.movieList .movieCard {
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  width: 47%;
+  background-color: #fff;
+  border-radius: 20px ;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.movieList .movieCard .card-bottom {
+  background-color: #fafafa;
+  border-top: 1px dashed #eee;
+  height: 52px;
+  line-height: 48px;
+  font-size: 22px;
+  color: #888;
+  display: flex;
+}
+.movieList .movieCard .card-bottom .left .number {
+  display: inline;
+  margin-right: 20px;
+  font-size: 24px;
+}
+.movieList .movieCard .card-bottom .left .at-icon {
+  font-size: 28px;
+  margin-right: 10px;
+}
+.movieList .movieCard .moviePic {
+  width: 100%;
+  height: auto;
+  min-height: 270px;
+}
+.movieList .movieCard .concent {
+  padding: 20px;
+}
+.movieList .movieCard .concent .name {
+  font-size: 28px;
+  font-weight: 600;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.movieList .movieCard .concent .sketch {
+  font-size: 24px;
+  color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

@@ -1,23 +1,16 @@
-import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button, Text ,Image} from '@tarojs/components'
+import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtList, AtListItem } from "taro-ui"
-
+import request from "../../api/request";
+import { AtNoticebar, AtSearchBar, AtGrid } from 'taro-ui'
 import { add, minus, asyncAdd } from '../../actions/counter'
 
 import './index.less'
+import "taro-ui/dist/style/components/icon.scss";
+import "taro-ui/dist/style/components/search-bar.scss";
+import "taro-ui/dist/style/components/button.scss";
 
-import { AtFab } from 'taro-ui'
-// #region 书写注意
-//
-// 目前 typescript 版本还无法在装饰器模式下将 Props 注入到 Taro.Component 中的 props 属性
-// 需要显示声明 connect 的参数类型并通过 interface 的方式指定 Taro.Component 子类的 props
-// 这样才能完成类型检查和 IDE 的自动提示
-// 使用函数模式则无此限制
-// ref: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
-//
-// #endregion
+
 
 type PageStateProps = {
   counter: {
@@ -33,13 +26,18 @@ type PageDispatchProps = {
 
 type PageOwnProps = {}
 
-type PageState = {}
+type PageState = {
+  blogList: any;
+  value: string;
+}
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
-
 interface Index {
+  state: PageState,
   props: IProps;
 }
+
+
 
 @connect(({ counter }) => ({
   counter
@@ -54,6 +52,8 @@ interface Index {
     dispatch(asyncAdd())
   }
 }))
+
+
 class Index extends Component {
 
   /**
@@ -69,7 +69,8 @@ class Index extends Component {
   constructor(prop) {
     super(prop)
     this.state = {
-      data: ""
+      blogList: [],
+      value: ''
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -80,6 +81,37 @@ class Index extends Component {
 
   }
 
+  //获取验证码
+  getBlogs = () => {
+
+    request
+      .request({
+        apiUrl: "/blog",
+        method: "get",
+        data: {}
+      })
+      .then((res: any) => {
+        console.log(res);
+
+        if (res.data.state == 0) {
+          this.setState({
+            blogList: res.data.data.data,
+            value: ''
+          })
+        }
+      });
+  };
+  onChange(value) {
+    this.setState({
+      value: value
+    })
+  }
+  onActionClick() {
+    console.log('开始搜索')
+  }
+  componentDidMount() {
+    this.getBlogs();
+  }
   componentDidShow() {
 
   }
@@ -87,31 +119,95 @@ class Index extends Component {
   componentDidHide() { }
 
   render() {
+    const { blogList } = this.state;
+    console.log(blogList);
     return (
       <View className='index'>
-        <View className="blogList">
-          <View className="blogCard">
-            <View className="userInfo">
-              <View className="left">
-                <Image src="https://lmongo.com/img/logo/logo.png"></Image>
-                <View>南易</View>
-              </View>
-              <View className="right">
-               <View className="iconfont icon-remen"></View> <View>热</View> · 后端
-              </View>
-            </View>
-            <View className="title">
-              爱爱丸大多阿萨德阿瓦达
-            </View>
-            <View className="card-bottom">
-              <View className="left">
+        <View className="search-bar">
+          <AtSearchBar
+            actionName='搜索'
+            value={this.state.value}
+            onChange={this.onChange.bind(this)}
+            onActionClick={this.onActionClick.bind(this)}
+          />
+        </View>
+        <Swiper
+          className='swiper'
+          indicatorColor='rgba(115, 109, 102, 0.66)'
+          indicatorActiveColor='rgba(229, 146, 51, 0.83)'
+          circular
+          indicatorDots
+          autoplay>
+          <SwiperItem>
+            <Image src="http://img4.imgtn.bdimg.com/it/u=1936271708,2299077308&fm=26&gp=0.jpg"></Image>
+          </SwiperItem>
+        </Swiper>
+        <View className="AtNoticebar">
+          <AtNoticebar marquee icon='volume-plus'>
+            欢迎加入“溜忙”😊😊😊，我们的官网是：lmongo.com。在这里，你除了会找到各种教程外，也可以发布教程和文档，大家携手共建美好家园。🤒🤒🤒
+          </AtNoticebar>
+        </View>
 
+        {/* <View className="AtGrid">
+          <AtGrid data={
+            [
+              {
+                image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
+                value: '领取中心'
+              },
+              {
+                image: 'https://img20.360buyimg.com/jdphoto/s72x72_jfs/t15151/308/1012305375/2300/536ee6ef/5a411466N040a074b.png',
+                value: '找折扣'
+              },
+              {
+                image: 'https://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png',
+                value: '领会员'
+              },
+            ]
+          } />
+        </View> */}
+
+        <View className="blogList">
+          {
+            blogList.map((item: any) => {
+              return <View className="blogCard" key={item._id}>
+                <View className="userInfo">
+                  <View className="left">
+                    <Image className="img" src={item.author.profile.picture}></Image>
+                    <View className="name">{item.author.profile.name || item.author.email}</View>
+                  </View>
+                  <View className="right">
+                    {item.isHot ?
+                      <View>
+                        <View className="re">热</View>
+                        <View className="dian"> · </View>
+                      </View> : ""
+                    }
+                    {item.isRecommend ?
+                      <View>
+                        <View className="jian">{item.isRecommend}</View>
+                        <View className="dian"> · </View>
+                      </View> : ""
+                    }
+                    <View className="lei">{item.classifications.name}</View>
+                  </View>
+                </View>
+                <View className="title">
+                  {item.title}
+                </View>
+                <View className="card-bottom">
+                  <View className="left">
+                    <View className='at-icon at-icon-eye'></View><View className="number">{item.pv}</View>
+                    <View className='at-icon at-icon-message'> </View><View className="number">{item.comments}</View>
+                    <View className='at-icon at-icon-heart'> </View><View className="number">{item.thumbsUp}</View>
+                  </View>
+                  <View className="right">
+                    {item.createdAt}
+                  </View>
+                </View>
               </View>
-              <View className="right">
-                2019-26-20  11:22:22
-              </View>
-            </View>
-          </View>
+            })
+          }
         </View>
       </View>
     )
@@ -125,4 +221,4 @@ class Index extends Component {
 //
 // #endregion
 
-export default Index as ComponentClass<PageOwnProps, PageState>
+export default Index;

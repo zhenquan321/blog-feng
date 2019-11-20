@@ -2,8 +2,123 @@ page {
   background-color: #fafafa;
 }
 .blogList .blogCard {
-  width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   background-color: #fff;
-  padding: 10px;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  overflow: hidden;
+}
+.blogList .blogCard .userInfo {
+  height: 40px;
+}
+.blogList .blogCard .userInfo .left {
+  float: left;
+  display: flex;
+}
+.blogList .blogCard .userInfo .left .img {
+  width: 40px;
+  height: 40px;
+}
+.blogList .blogCard .userInfo .left .name {
+  font-size: 26px;
+  color: #777;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+}
+.blogList .blogCard .userInfo .right {
+  font-weight: 600;
+  float: right;
+  border-radius: 20px;
+  padding: 0 20px;
+  background-color: #fafafa;
+  height: 40px;
+  line-height: 36px;
+}
+.blogList .blogCard .userInfo .right View {
+  display: inline;
+  font-size: 20px;
+  color: #888;
+}
+.blogList .blogCard .userInfo .right .dian {
+  padding: 0 6px;
+}
+.blogList .blogCard .userInfo .right .re {
+  color: red;
+}
+.blogList .blogCard .userInfo .right .jian {
+  color: #b71ed7;
+}
+.blogList .blogCard .userInfo .right .lei {
+  color: #f70;
+}
+.blogList .blogCard .title {
+  font-size: 32px;
+  padding: 20px 0;
+  color: #444;
+}
+.blogList .blogCard .card-bottom {
+  background-color: #fafafa;
+  border-top: 1px dashed #eee;
+  height: 52px;
+  line-height: 48px;
+  margin: 0 -20px -22px;
+  padding: 0px 20px;
+  font-size: 22px;
+  color: #888;
+  display: flex;
+}
+.blogList .blogCard .card-bottom .left {
+  width: 50%;
+}
+.blogList .blogCard .card-bottom .left .number {
+  display: inline;
+  margin-right: 20px;
+  font-size: 24px;
+}
+.blogList .blogCard .card-bottom .left .at-icon {
+  font-size: 28px;
+  margin-right: 10px;
+}
+.blogList .blogCard .card-bottom .right {
+  color: #999;
+  width: 50%;
+  text-align: right;
+}
+.swiper {
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  overflow: hidden;
+  margin-top: 100px;
+}
+.swiper image {
+  width: 100%;
+  height: 100%;
+}
+.at-search-bar::after {
+  border-bottom-width: 0px;
+  box-shadow: 0 0 6px rgba(187, 187, 187, 0.5);
+}
+.AtNoticebar {
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  margin: 20px;
+  border-radius: 20px ;
+  background-color: #fff;
+}
+.AtGrid {
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  margin: 20px;
+  border-radius: 20px ;
+  background-color: #fff;
+}
+.search-bar {
+  position: fixed!important;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 }

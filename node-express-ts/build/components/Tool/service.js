@@ -53,7 +53,7 @@ const ToolService = {
                             const newPath = form.uploadDir + '/' + avatarName;
                             fs.renameSync(file.path, newPath); // 重命名
                             succMap[file.name] = '/upload/' + avatarName;
-                            normalMap.push('/upload/' + avatarName);
+                            normalMap.push(req.protocol + "://" + req.host + '/upload/' + avatarName);
                         }
                     }
                     if (fields && fields.useWhere && fields.useWhere == 'normal') {

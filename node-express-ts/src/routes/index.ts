@@ -78,7 +78,7 @@ export function init(app: express.Application): void {
      /**
      * 电影接口
      */
-    app.use('/movie', MovieRouter);
+    app.use('/api/movie', MovieRouter);
 
 
     /**
