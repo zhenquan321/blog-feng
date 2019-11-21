@@ -83,9 +83,8 @@ class getMovieList {
     }
     getPagesMovieList(allPages: number, baseHref: string, topicId: string): void {
         console.log(allPages, baseHref);
-
         //后面更新只更前5页
-        allPages = 5;
+        allPages = 3;
         for (let i: number = 2; i < allPages + 1; i++) {
             this.urlList.push(baseHref + `list_${topicId}_${i}.html`);
         }

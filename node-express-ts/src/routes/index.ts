@@ -83,6 +83,7 @@ export function init(app: express.Application): void {
 
      /**
      * 小程序使用
+     * movie web 接口地址冲突
      */
     app.use('/api/movie', MovieRouter);
 
