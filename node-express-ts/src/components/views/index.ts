@@ -96,10 +96,10 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
 export async function movieItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const getMovie: any = await MovieService.findOne(req.params.id);
-
+        console.log(getMovie);
         if (getMovie) {
             const movie: any = JSON.parse(JSON.stringify(getMovie));
-            MovieService.update(req.params.id, { $set: { clickNum: (getMovie.clickNum + Math.round(Math.random() * 10)) } });
+            MovieService.update(req.params.id, { $set: { clickNum: ((getMovie.clickNum?getMovie.clickNum:0)+ Math.round(Math.random() * 10)) } });
             movie.details.detailDes = movie.details.detailDes.split('detailDes');
             res.render('movieItem', { req, movie, subject: movie, title: '电影', path: 'movie' });
 

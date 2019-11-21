@@ -30,7 +30,10 @@ export interface IMovieModel extends Document {
 const MovieSchema: Schema = new Schema({
     name: String,
     updateDate:String,
-    clickNum:Number,
+    clickNum: {
+        type: Number,
+        default: 0
+    },
     href: String,
     sketch:String,
     imgUrl: String,

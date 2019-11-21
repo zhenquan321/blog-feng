@@ -20,7 +20,7 @@
         <div>
             <ul>
                 <li><a <% if(!req.query||!req.query.year){%> class="active" <% }%> href="<%- '/movie?' %>">全部</a></li>
-                <% for (let y=2019;y>2008;y--){%>
+                <% for (let y=2019;y>2007;y--){%>
                 <li><a <% if(req.query&&req.query.year==y){%> class="active" <% }%>
                         href="<%- '/movie?year=' + y %>"><%- y %></a></li>
                 <% } %>

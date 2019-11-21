@@ -29,6 +29,8 @@ type PageOwnProps = {}
 type PageState = {
   blogList: any;
   value: string;
+  page:number,
+  pagesize:number,
 }
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
@@ -63,6 +65,8 @@ class Index extends Component {
     super(prop)
     this.state = {
       blogList: [],
+      page:0,
+      pagesize:20,
       value: ''
     }
   }
@@ -81,7 +85,9 @@ class Index extends Component {
       .request({
         apiUrl: "/api/movie",
         method: "get",
-        data: {}
+        data: {
+          page:this.state.page,
+        }
       })
       .then((res: any) => {
         console.log(res);
@@ -110,6 +116,9 @@ class Index extends Component {
   }
 
   componentDidHide() { }
+  onReachBottom(){
+
+  }
 
   render() {
     const { blogList } = this.state;
@@ -122,7 +131,7 @@ class Index extends Component {
           onChange={this.onChange.bind(this)}
           onActionClick={this.onActionClick.bind(this)}
         />
-
+       
         <View className="movieList">
           {
             blogList.map((item: any) => {
@@ -134,9 +143,9 @@ class Index extends Component {
                 </View>
                 <View className="card-bottom">
                   <View className="left">
-                    <View className='at-icon at-icon-eye'></View><View className="number">{item.clickNum}</View>
-                    <View className='at-icon at-icon-message'></View><View className="number">{item.comments}</View>
-                    <View className='at-icon at-icon-heart'></View><View className="number">{item.thumbsUp}</View>
+                    <View className='at-icon at-icon-eye'></View><View className="number">{item.clickNum?item.clickNum:0}</View>
+                    <View className='at-icon at-icon-message'></View><View className="number">{item.comments||0}</View>
+                    <View className='at-icon at-icon-heart'></View><View className="number">{item.thumbsUp||0}</View>
                   </View>
                 </View>
               </View>

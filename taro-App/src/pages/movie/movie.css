@@ -36,6 +36,9 @@ page {
   color: #888;
   display: flex;
 }
+.movieList .movieCard .card-bottom .left {
+  padding-left: 20px;
+}
 .movieList .movieCard .card-bottom .left .number {
   display: inline;
   margin-right: 20px;
@@ -47,11 +50,11 @@ page {
 }
 .movieList .movieCard .moviePic {
   width: 100%;
-  height: auto;
-  min-height: 270px;
+  height: 540px;
 }
 .movieList .movieCard .concent {
   padding: 20px;
+  padding-top: 4px;
 }
 .movieList .movieCard .concent .name {
   font-size: 28px;
