@@ -85,7 +85,7 @@ const MovieService: MovieService = {
                 } else {
                     findKeyObj = {
                         $or: [
-                            { imgUrl: { $in: [null, ''] } },
+                            // { imgUrl: { $in: [null, ''] } },
                             { downLink: { $in: [null, ''] } },
                         ]
                     };

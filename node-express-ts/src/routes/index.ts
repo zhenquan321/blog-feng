@@ -78,8 +78,13 @@ export function init(app: express.Application): void {
      /**
      * 电影接口
      */
-    app.use('/api/movie', MovieRouter);
+    app.use('/movie', MovieRouter);
 
+
+     /**
+     * 小程序使用
+     */
+    app.use('/api/movie', MovieRouter);
 
     /**
      * @description
