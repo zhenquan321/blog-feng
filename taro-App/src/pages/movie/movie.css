@@ -17,7 +17,8 @@ page {
   justify-content: space-around;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 10px;
+  padding: 0 10px;
 }
 .movieList .movieCard {
   box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
@@ -72,4 +73,32 @@ page {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+.fenLei {
+  padding: 10px;
+  margin-top: 76px;
+}
+.fenLei .flCard {
+  width: 100%;
+  overflow-x: scroll ;
+}
+.fenLei .flCard .flType {
+  display: flex;
+}
+.fenLei .flCard .flType .typeItem {
+  padding: 10px 20px;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin: 10px 10px;
+}
+.fenLei .flCard .flType .active {
+  background-color: #eee;
+  color: #e59233;
+}
+.search-bar {
+  position: fixed!important;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
 }

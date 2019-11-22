@@ -32,6 +32,8 @@ class App extends Component {
       'pages/movie/movie',
       'pages/login/login',
       'pages/user/user',
+      'pages/blogItem/blogItem',
+      'pages/movieItem/movieItem',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -43,7 +45,7 @@ class App extends Component {
       color: "#bfbfbf",
       selectedColor: "#e59233",
       backgroundColor: "#fff",
-      borderStyle: "white",
+      borderStyle: "black",
       custom:false,
       list: [
         {

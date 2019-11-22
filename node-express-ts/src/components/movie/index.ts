@@ -12,8 +12,11 @@ import { NextFunction, Request, Response } from 'express';
  */
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise < IMovieModel[] > {
     try {
-        const movies: IMovieModel[] = await MovieService.findAll(req);
-        
+        const query: any = req.query || req.body;
+        query.page = query.page >= 1 ? query.page - 1 : 0;
+
+        const movies: IMovieModel[] = await MovieService.findAll(query);
+
         res.status(200).json({
             state:0,
             data:movies,
@@ -34,9 +37,17 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
  */
 export async function findOne(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const movie: IMovieModel|false = await MovieService.findOne(req.params.id);
+        const getMovie: any = await MovieService.findOne(req.params.id);
+        
+        const movie: any = JSON.parse(JSON.stringify(getMovie));
+        MovieService.update(req.params.id, { $set: { clickNum: ((getMovie.clickNum?getMovie.clickNum:0)+ Math.round(Math.random() * 10)) } });
+        movie.details.detailDes = movie.details.detailDes.split('detailDes');
 
-        res.status(200).json(movie);
+        res.status(200).json({
+            state:0,
+            data:movie,
+            msg:''
+        });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

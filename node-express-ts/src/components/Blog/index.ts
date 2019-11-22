@@ -13,7 +13,11 @@ import client from './../../utils/baiduSh';
  */
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const Blogs: IBlogModel[] = await BlogService.findAll();
+        const query: any = req.query || req.body;
+
+        query.page = query.page >= 1 ? query.page - 1 : 0;
+
+        const Blogs: any = await BlogService.findAll(query);//
 
         res.status(200).json({
             state:0,
@@ -35,9 +39,18 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
 export async function findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
 
-        const Blog: IBlogModel = await BlogService.findOne(req.params.id);
+        const getBlog: IBlogModel = await BlogService.findOne(req.params.id);
+        const blog: any = JSON.parse(JSON.stringify(getBlog));
+        // const marked: any = require('marked');
+        // blog.content = marked(blog.content);
 
-        res.status(200).json(Blog);
+        // 增加阅读数
+        BlogService.update(req.params.id, { $set: { pv: (blog.pv + Math.round(Math.random() * 10)) } });
+        res.status(200).json({
+            state:0,
+            data:blog,
+            msg:''
+        });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

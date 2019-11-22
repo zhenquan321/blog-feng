@@ -17,6 +17,6 @@ export const version: string = "V1.0.1"
 
 //常量
 export const environmentData:any = {
-	BaseEnUrl: BASE_URL.stage, //修改环境默认接口
+	BaseEnUrl: BASE_URL.formal, //修改环境默认接口
 }
 

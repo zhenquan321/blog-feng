@@ -1,0 +1,71 @@
+page {
+  background-color: #fafafa;
+  color: #666;
+}
+.movieDetail {
+  margin-bottom: 20px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+}
+.movieDetail .hr {
+  margin-top: 0px;
+}
+.movieDetail .imgCard .img {
+  width: 100%;
+}
+.movieDetail .baseDiv {
+  position: relative;
+  margin-bottom: 40px;
+}
+.movieDetail .movieJj {
+  bottom: 20px;
+  width: 100%;
+}
+.movieDetail .movieJj .h3 {
+  color: #e59233;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.movieDetail .movieJj .h5 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #999;
+}
+.movieDetail .movieJj .p {
+  margin-top: 20px;
+  font-size: 28px;
+  color: #666;
+}
+.movieDetail .movieJj .p .span {
+  color: #333;
+  font-weight: 600;
+}
+.movieDetail .movieJj .downLoadCard {
+  background: #efefef;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px dashed #e59233;
+  margin: 20px 0;
+}
+.movieDetail .movieJj .downLoadCard .h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #e59233;
+  font-size: 28px;
+}
+.movieDetail .movieJj .downLoadCard .p {
+  margin: 0;
+  padding: 12px 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+.movieDetail .detailCard {
+  font-size: 24px;
+}
+.movieDetail .detailCard .p:first-child {
+  font-weight: 600;
+  font-size: 36px;
+}

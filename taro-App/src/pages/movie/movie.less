@@ -1,4 +1,5 @@
 @boxShow: 0 0 12px  rgba(187, 187, 187, 0.3);
+@mainColor:#e59233;
 page {
     background-color: #fafafa;
 }
@@ -18,7 +19,8 @@ page {
     justify-content: space-around;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 10px;
+    padding:0 10px;
     .movieCard{
         box-shadow: @boxShow;
         width: 47%;
@@ -77,3 +79,35 @@ page {
         }
     }
 }
+
+.fenLei{
+    padding: 10px;
+    margin-top: 76px;
+    .flCard{
+       width: 100%;
+       overflow-x:scroll ;
+        .flType{
+            display: flex;
+            .typeItem{
+                padding: 10px 20px;
+                border-radius:6px;
+                white-space:nowrap;
+                margin: 10px 10px;
+            }
+            .active{
+                background-color: #eee;
+                color:@mainColor;
+            }
+        }
+           
+    }
+}
+
+
+.search-bar{
+    position: fixed!important;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    box-shadow: @boxShow;
+  }

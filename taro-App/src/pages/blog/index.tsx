@@ -2,7 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import request from "../../api/request";
-import { AtNoticebar, AtSearchBar, AtGrid } from 'taro-ui'
+import { AtNoticebar, AtSearchBar, AtGrid,AtDivider } from 'taro-ui'
 import { add, minus, asyncAdd } from '../../actions/counter'
 
 import './index.less'
@@ -29,6 +29,9 @@ type PageOwnProps = {}
 type PageState = {
   blogList: any;
   value: string;
+  page:number,
+  pagesize:number,
+  noMore:boolean
 }
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
@@ -70,7 +73,10 @@ class Index extends Component {
     super(prop)
     this.state = {
       blogList: [],
-      value: ''
+      value: '',
+      page:1,
+      pagesize:20,
+      noMore:false
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -81,34 +87,57 @@ class Index extends Component {
 
   }
 
-  //获取验证码
   getBlogs = () => {
-
     request
       .request({
         apiUrl: "/blog",
         method: "get",
-        data: {}
+        data: {
+          blogSearch: this.state.value,
+          page: this.state.page
+        }
       })
       .then((res: any) => {
         console.log(res);
-
         if (res.data.state == 0) {
+          let noMore: boolean = res.data.data.data < this.state.pagesize;
+          let blogListGet: any[] = this.state.page == 1 ? [] : this.state.blogList;
+          blogListGet = blogListGet.concat(res.data.data.data)
           this.setState({
-            blogList: res.data.data.data,
-            value: ''
+            noMore: noMore,
+            blogList: blogListGet,
           })
         }
       });
   };
   onChange(value) {
+    console.log(value);
+  }
+  onActionClick(e) {
+    let value:string = e.detail.value;
     this.setState({
-      value: value
+      page: 1,
+      value: value,
+    }, () => {
+      this.getBlogs();
     })
   }
-  onActionClick() {
-    console.log('开始搜索')
+
+
+  onReachBottom() {
+    let page: number = this.state.page + 1;
+    this.setState({
+      page: page,
+    }, () => {
+      this.getBlogs();
+    })
   }
+  goDetail(id:string){
+    Taro.navigateTo({
+      url:"/pages/blogItem/blogItem?blogId="+id,
+    })
+  }
+
   componentDidMount() {
     this.getBlogs();
   }
@@ -128,10 +157,10 @@ class Index extends Component {
             actionName='搜索'
             value={this.state.value}
             onChange={this.onChange.bind(this)}
-            onActionClick={this.onActionClick.bind(this)}
+            onBlur={this.onActionClick.bind(this)}
           />
         </View>
-        <Swiper
+        {/* <Swiper
           className='swiper'
           indicatorColor='rgba(115, 109, 102, 0.66)'
           indicatorActiveColor='rgba(229, 146, 51, 0.83)'
@@ -141,10 +170,11 @@ class Index extends Component {
           <SwiperItem>
             <Image src="http://img4.imgtn.bdimg.com/it/u=1936271708,2299077308&fm=26&gp=0.jpg"></Image>
           </SwiperItem>
-        </Swiper>
+        </Swiper> */}
+
         <View className="AtNoticebar">
           <AtNoticebar marquee icon='volume-plus'>
-            欢迎加入“溜忙”😊😊😊，我们的官网是：lmongo.com。在这里，你除了会找到各种教程外，也可以发布教程和文档，大家携手共建美好家园。🤒🤒🤒
+            诚邀您加入“溜忙”😊😊😊，我们的官网是：lmongo.com，期望与您共建美好家园。🤒🤒🤒
           </AtNoticebar>
         </View>
 
@@ -170,7 +200,7 @@ class Index extends Component {
         <View className="blogList">
           {
             blogList.map((item: any) => {
-              return <View className="blogCard" key={item._id}>
+              return <View className="blogCard" key={item._id} onClick={this.goDetail.bind(this,item._id)}>
                 <View className="userInfo">
                   <View className="left">
                     <Image className="img" src={item.author.profile.picture}></Image>
@@ -208,6 +238,9 @@ class Index extends Component {
               </View>
             })
           }
+        </View>
+        <View style="margin:20px">
+          {this.state.noMore ? <AtDivider content='没有更多了' fontColor='#aaa' lineColor='#aaa' /> : ''}
         </View>
       </View>
     )

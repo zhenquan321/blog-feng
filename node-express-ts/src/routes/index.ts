@@ -86,7 +86,7 @@ export function init(app: express.Application): void {
      * movie web 接口地址冲突
      */
     app.use('/api/movie', MovieRouter);
-
+    app.use('/api/blog', BlogRouter);
     /**
      * @description
      *  If swagger.json file exists in root folder, shows swagger api description

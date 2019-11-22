@@ -28,6 +28,10 @@ const config = {
   },
   copy: {
     patterns: [
+      {
+        from: 'src/wemark',
+        to: 'dist/wemark',
+      },
     ],
     options: {
     }
@@ -65,6 +69,11 @@ const config = {
           }
         }
       }
+    },
+    compile: {
+      exclude: [
+        'src/wemark/remarkable.js',
+      ]
     }
   },
   h5: {
