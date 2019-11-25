@@ -4,6 +4,7 @@ import { connect } from '@tarojs/redux'
 import request from "../../api/request";
 import { AtNoticebar, AtSearchBar, AtGrid,AtDivider } from 'taro-ui'
 import { add, minus, asyncAdd } from '../../actions/counter'
+import Share from "../../utils/share/share"
 
 import './index.less'
 import "taro-ui/dist/style/components/icon.scss";
@@ -56,6 +57,11 @@ interface Index {
   }
 }))
 
+@Share({
+  title: '溜忙 · 技术博文',
+  imageUrl: '',
+  path: 'pages/blog/index?shareMag=66666'
+})
 
 class Index extends Component {
 
@@ -136,6 +142,18 @@ class Index extends Component {
     Taro.navigateTo({
       url:"/pages/blogItem/blogItem?blogId="+id,
     })
+  }
+
+  componentWillMount() {
+    if (this.$router.params.blogId) {
+      Taro.navigateTo({
+        url:"/pages/blogItem/blogItem?blogId="+this.$router.params.blogId,
+      })
+    }else if(this.$router.params.movieId){
+      Taro.navigateTo({
+        url:"/pages/movieItem/movieItem?movieId="+this.$router.params.movieId,
+      })
+    }
   }
 
   componentDidMount() {

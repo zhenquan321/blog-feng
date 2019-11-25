@@ -24,9 +24,10 @@ page {
 }
 .movieDetail .movieJj .h3 {
   color: #e59233;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 600;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 .movieDetail .movieJj .h5 {
   font-size: 24px;
@@ -35,10 +36,13 @@ page {
 }
 .movieDetail .movieJj .p {
   margin-top: 20px;
-  font-size: 28px;
+  font-size: 24px;
   color: #666;
+  text-align: justify;
 }
 .movieDetail .movieJj .p .span {
+  font-size: 28px;
+  display: inline;
   color: #333;
   font-weight: 600;
 }
@@ -48,6 +52,7 @@ page {
   border-radius: 20px;
   border: 1px dashed #e59233;
   margin: 20px 0;
+  padding-bottom: 12px;
 }
 .movieDetail .movieJj .downLoadCard .h6 {
   margin: 0;
@@ -68,4 +73,31 @@ page {
 .movieDetail .detailCard .p:first-child {
   font-weight: 600;
   font-size: 36px;
+}
+.copy {
+  margin-top: 20px;
+  text-align: center;
+}
+.copy button {
+  background-color: #e59233;
+}
+.shareBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 150px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #e59233;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  text-align: center;
+  line-height: 32px;
+  padding-top: 16px;
+}
+.shareBtn .wz {
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 24px;
 }

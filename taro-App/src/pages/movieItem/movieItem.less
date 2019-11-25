@@ -1,5 +1,6 @@
-@boxShow: 0 0 12px  rgba(187, 187, 187, 0.3);
-@mainColor:#e59233;
+@boxShow: 0 0 12px rgba(187, 187, 187, 0.3);
+@mainColor: #e59233;
+
 page {
   background-color: #fafafa;
   color: #666;
@@ -10,78 +11,114 @@ page {
   margin: 20px;
   padding: 20px;
   background-color: #fff;
-  
+
   .hr {
-      margin-top: 0px;
+    margin-top: 0px;
   }
 
   .imgCard {
-      .img {
-          width: 100%;
-      }
+    .img {
+      width: 100%;
+    }
   }
 
   .baseDiv {
-      position: relative;
-      margin-bottom: 40px;
+    position: relative;
+    margin-bottom: 40px;
   }
 
   .movieJj {
-      bottom: 20px;
-      width: 100%;
+    bottom: 20px;
+    width: 100%;
 
-      .h3 {
-          color: @mainColor;
-          font-size: 32px;
-          font-weight: 600;
-          margin-bottom: 10px;
+    .h3 {
+      color: @mainColor;
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    .h5 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #999;
+    }
+
+    .p {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #666;
+      text-align: justify;
+      .span {
+        font-size: 28px;
+        display: inline;
+        color: #333;
+        font-weight: 600;
       }
+    }
 
-      .h5 {
-          font-size: 24px;
-          margin-bottom: 10px;
-          color: #999;
+    .downLoadCard {
+      background: #efefef;
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px dashed @mainColor;
+      margin: 20px 0;
+      padding-bottom: 12px;
+      .h6 {
+        margin: 0;
+        font-weight: 600;
+        color: @mainColor;
+        font-size: 28px;
       }
 
       .p {
-          margin-top: 20px;
-          font-size: 28px;
-          color: #666;
-          .span {
-              color: #333;
-              font-weight: 600;
-          }
+        margin: 0;
+        padding: 12px 20px;
+        background-color: #fff;
+        border-radius: 12px;
+        margin-top: 20px;
       }
-
-      .downLoadCard {
-          background: #efefef;
-          padding: 20px;
-          border-radius: 20px;
-          border: 1px dashed @mainColor;
-          margin: 20px 0;
-
-          .h6 {
-              margin: 0;
-              font-weight: 600;
-              color: @mainColor;
-              font-size: 28px;
-          }
-
-          .p {
-              margin: 0;
-              padding: 12px 20px;
-              background-color: #fff;
-              border-radius: 12px;
-              margin-top: 20px;
-          }
-      }
+    }
   }
 
   .detailCard {
     font-size: 24px;
-      .p:first-child {
-          font-weight: 600;
-          font-size: 36px;
-      }
+
+    .p:first-child {
+      font-weight: 600;
+      font-size: 36px;
+    }
+  }
+}
+
+.copy {
+  margin-top: 20px;
+  text-align: center;
+
+  button {
+    background-color: @mainColor;
+  }
+}
+
+
+.shareBtn{
+  position: fixed;
+  right: 20px;
+  bottom: 150px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: @mainColor;
+  color: #fff;
+  box-shadow: @boxShow;
+  text-align: center;
+  line-height: 32px;
+  padding-top: 16px;
+  .wz{
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    font-size: 24px;
   }
 }

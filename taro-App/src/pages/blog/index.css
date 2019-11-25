@@ -31,16 +31,17 @@ page {
   padding: 0 10px;
 }
 .blogList .blogCard .userInfo .right {
-  font-weight: 600;
+  font-weight: bold;
   float: right;
   border-radius: 20px;
   padding: 0 20px;
   background-color: #fafafa;
   height: 40px;
-  line-height: 36px;
+  line-height: 40px;
+  display: flex;
 }
 .blogList .blogCard .userInfo .right View {
-  display: inline;
+  display: inline-block;
   font-size: 20px;
   color: #888;
 }
@@ -123,4 +124,7 @@ page {
   width: 100%;
   z-index: 100;
   box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+}
+.at-divider__content {
+  background-color: #fafafa;
 }

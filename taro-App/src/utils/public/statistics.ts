@@ -1,5 +1,5 @@
 // 友盟埋点
-class statistics {
+class statisticsClass {
     // 参数	   必填/选填	 类型	 功能	
     // category   必填	       string	表示事件发生在谁身上，如“视频”、“小说”、“轮显层”等等。	 
     // action	   必填	       string	表示访客跟元素交互的行为动作，如"播放"、"收藏"、"翻层"等等。	 
@@ -12,4 +12,4 @@ class statistics {
     }
 }
 
-export default new statistics().statistics
+export const statistics= new statisticsClass().statistics

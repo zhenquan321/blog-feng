@@ -97,8 +97,11 @@ page {
 }
 .search-bar {
   position: fixed!important;
-  top: 0;
+  top: -2px;
   width: 100%;
   z-index: 100;
   box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+}
+.at-divider__content {
+  background-color: #fafafa;
 }

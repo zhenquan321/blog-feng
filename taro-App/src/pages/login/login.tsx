@@ -8,7 +8,6 @@ import bgImgBottom from "../../assets/images/h5Active/login_bg_down.png";
 import inputPhoneIcon from "../../assets/images/h5Active/inputPhoneIcon.png";
 import inputYZMIcon from "../../assets/images/h5Active/inputYZMIcon.png";
 import { PhoneAlert } from "../../components";
-import statistics from "../../utils/statistics";
 
 interface IndexSate {
   pwd: string | undefined;
@@ -130,7 +129,6 @@ export default class Login extends Component<{}, IndexSate> {
     }).then((res:any)=>{
       console.log(res)
       if(res.data.status=='1'){
-        statistics("user","phoneLogin");
          //保存token
          Taro.setStorageSync('userInfo',res.data.data)
          Taro.switchTab({url: '/pages/home/home'})

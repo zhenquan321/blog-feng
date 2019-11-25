@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro"
 import {BASE_URL,methodList,environmentData} from './../config/apiCfg';
-import HashStorage from '../utils/hashStorage';
+import HashStorage from '../utils/public';
 
 interface QueryData{
 	data?:any,// 查询条件；

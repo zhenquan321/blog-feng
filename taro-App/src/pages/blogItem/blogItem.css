@@ -19,3 +19,23 @@ page {
   color: #555;
   font-size: 24px;
 }
+.shareBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 150px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #e59233;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  text-align: center;
+  line-height: 32px;
+  padding-top: 16px;
+}
+.shareBtn .wz {
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 24px;
+}

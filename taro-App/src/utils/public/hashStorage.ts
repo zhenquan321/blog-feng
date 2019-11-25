@@ -11,7 +11,7 @@ import { Base64 } from 'js-base64';
 import { QueryData, HashStorageInf} from "./hashStorage.inf";
 import md5 from "ts-md5"
 
-const HashStorage: HashStorageInf={
+export const HashStorage: HashStorageInf={
 	getWeekd(): number{
 		let d1:any = new Date();
 		let d2:any = new Date();
@@ -60,5 +60,3 @@ const HashStorage: HashStorageInf={
 	}
 	
 }
-
-export default HashStorage;

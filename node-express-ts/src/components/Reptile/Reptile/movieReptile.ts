@@ -10,8 +10,7 @@ const charset: any = require('superagent-charset'); // 解决乱码问题:
 const async: any = require('async'); // 异步抓取
 const eventproxy: any = require('eventproxy');  // 流程控制
 const ep: any = eventproxy();
-const baseUrl: string = 'http://www.dytt8.net';  // 迅雷首页链接
-const errLength: any = [];      // 统计出错的链接数
+
 
 charset(superagent);
 superagent.buffer['mime'] = false;
@@ -67,6 +66,7 @@ class getMovieList {
                 // 常规的错误处理
                 if (err) {
                     console.log('抓取' + this.baseUrl + '这条信息的时候出错了', err);
+                    return
                 }
                 const $: any = cheerio.load(sres && sres.text);
                 const elemPageList: any = $('.bd3r .co_content8 .x');
@@ -187,7 +187,7 @@ class getMovieDetailClass {
             .charset('gb2312') // 解决编码问题
             .end((err: any, ssres: any) => {
                 if (err) {
-                    errLength.push(movieOj.href);
+                    this.errurlList.push(movieOj.href);
                     console.log('抓取失败：' + movieOj.href);
                     console.log(err, ssres);
                 } else {

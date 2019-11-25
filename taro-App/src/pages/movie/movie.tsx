@@ -1,9 +1,8 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
 import request from "../../api/request";
 import { AtSearchBar, AtDivider } from 'taro-ui'
-import { add, minus, asyncAdd } from '../../actions/counter'
+import Share from "../../utils/share/share"
 
 import './movie.less'
 import "taro-ui/dist/style/components/icon.scss";
@@ -12,18 +11,6 @@ import "taro-ui/dist/style/components/divider.scss";
 import "taro-ui/dist/style/components/button.scss";
 
 
-
-type PageStateProps = {
-  counter: {
-    num: number
-  }
-}
-
-type PageDispatchProps = {
-  add: () => void
-  dec: () => void
-  asyncAdd: () => any
-}
 
 type PageOwnProps = {}
 
@@ -40,7 +27,7 @@ type PageState = {
   typeList: string[],
 }
 
-type IProps = PageStateProps & PageDispatchProps & PageOwnProps
+type IProps = PageOwnProps
 interface Index {
   state: PageState,
   props: IProps;
@@ -48,20 +35,13 @@ interface Index {
 
 
 
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
-}))
 
+
+@Share({
+  title: '溜忙 · 电影',
+  imageUrl: '',
+  path: 'pages/blogItem/blogItem'
+})
 
 class Index extends Component {
 

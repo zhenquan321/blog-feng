@@ -38,17 +38,18 @@ page {
       }
 
       .right {
-        font-weight: 600;
+        font-weight: bold;
         float: right;
         // border: 1px solid #ccc;
         border-radius: 20px;
         padding: 0 20px;
         background-color: #fafafa;
         height: 40px;
-        line-height: 36px;
+        line-height: 40px;
+        display: flex;
 
         View {
-          display: inline;
+          display: inline-block;
           font-size: 20px;
           color: #888;
         }
@@ -157,4 +158,9 @@ page {
     width: 100%;
     z-index: 100;
     box-shadow: @boxShow;
+}
+
+
+.at-divider__content{
+  background-color: #fafafa;
 }

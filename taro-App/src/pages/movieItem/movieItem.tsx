@@ -1,6 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
 import request from "../../api/request";
+import Share from "../../utils/share/share"
 
 import './movieItem.less';
 
@@ -16,6 +17,12 @@ interface Index {
   state: PageState,
   props: IProps;
 }
+
+@Share({
+  title: '溜忙',
+  imageUrl: '',
+  path: 'pages/blogItem/blogItem'
+})
 
 class Index extends Component {
   config: Config = {
@@ -65,6 +72,18 @@ class Index extends Component {
     //   // this.getmovies();
     // })
   }
+  setClipboardData(data) {
+    Taro.setClipboardData({ data: data }).then(() => {
+      Taro.showToast({
+        title: '已复制到剪切板',
+        icon: 'success',
+        duration: 2000
+      })
+    })
+  }
+
+  $setShareTitle = () => this.state.movie.name;
+  $setSharePath = () => 'pages/blog/index?movieId=' + this.state.movieId;
 
   componentWillMount() {
     console.log(this.$router.params)
@@ -104,6 +123,9 @@ class Index extends Component {
                     <View className="p">
                       {movie.downLink}
                     </View>
+                    <View className="copy" onClick={this.setClipboardData.bind(this, movie.downLink)}>
+                      <Button type='primary' size='mini'>点击复制下载链接</Button>
+                    </View>
                   </View>
                 </View>
               </View>
@@ -116,6 +138,10 @@ class Index extends Component {
             </View>
           </View>
         </View>
+        <Button className="shareBtn" open-type="share">
+          <View className='at-icon at-icon-share'></View>
+          <View className="wz">分享</View>
+        </Button>
       </View>
     )
   }
