@@ -38,13 +38,13 @@ export async function movieReptile(): Promise<void> {
     for (let i: number = 0; i < dyDLeiUrl.length; i++) {
         setTimeout(() => {
             getMovieListFun.index(dyDLeiUrl[i]);
-        }, i * Math.ceil(Math.random() * 10) * 500);
+        }, i * Math.ceil(Math.random() * 10) * 20000);
     }
 
     setTimeout(() => {
 
         getMovieListFun.goGetMovieList();
-    }, 20000);
+    }, 200000);
 
 }
 
@@ -162,7 +162,6 @@ class getMovieList {
 export async function getMovieDetail(): Promise<void> {
 
     const getMovieDetailFun: any = new getMovieDetailClass;
-
     const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true });// findAll: true 
     let a = 1;
 
@@ -171,7 +170,7 @@ export async function getMovieDetail(): Promise<void> {
             a++
             setTimeout(() => {
                 getMovieDetailFun.fetchUrl(movieList.data[i]);
-            }, a * Math.ceil(Math.random() * 10) * 1000);
+            }, a * Math.ceil(Math.random() * 10) * 3000);
         }
     }
     console.log('开始抓取详情需抓取链接数为：' + movieList.data.length);
@@ -217,16 +216,12 @@ class getMovieDetailClass {
                 }
             }
         }
-
         newMovieOj.details = {
             detailImg,
             detailDes
         };
-        console.log(newMovieOj);
         MovieService.update(movieOj.id, { $set: newMovieOj });
-
     }
-
 }
 
 
