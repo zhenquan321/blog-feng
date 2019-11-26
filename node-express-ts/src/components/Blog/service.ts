@@ -56,13 +56,13 @@ const BlogService: IBlogService = {
                 BlogList[i].createType = await ClassificationService.findOne(BlogList[i].createType);
                 BlogList[i].comments = await CommentService.count(BlogList[i]._id);
                 BlogList[i].createdAt = new Time().formatDate(BlogList[i].createdAt);
-                if (BlogList[i].pv > 100) {
+                if (BlogList[i].pv > 200) {
                     BlogList[i].isHot = true;
                 }
-                if (BlogList[i].pv > 100 && BlogList[i].thumbsUp > 10) {
+                if (BlogList[i].pv > 200 && BlogList[i].thumbsUp > 10||BlogList[i].thumbsUp > 10) {
                     BlogList[i].isRecommend = '荐';
                 }
-                if (BlogList[i].pv > 100 && BlogList[i].comments > 10) {
+                if (BlogList[i].pv > 400 && (BlogList[i].comments > 10||BlogList[i].thumbsUp > 10)) {
                     BlogList[i].isRecommend = '榜';
                 }
             }
