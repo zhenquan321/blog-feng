@@ -31,8 +31,8 @@ router.get('/movie', ViewsComponent.movie);
 router.get('/movieItem/:id', ViewsComponent.movieItem);
 
 
-router.get('/careerInformation', ViewsComponent.careerInformation);
-
+router.get('/handBook', ViewsComponent.handBook);
+router.get('/createHandBook', ViewsComponent.createHandBook);
 
 /**
  * @export {express.Router}

@@ -48,14 +48,14 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
 
     req.flash = { success: '欢迎光临~' };
 
-    res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
+    res.render('blog/index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
 }
 
 export async function userInfo(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const user: IUserModel = await UserService.findOne(req.params.id);
 
-        res.render('userInfo', { req, user, title: '个人中心', path: 'userInfo' });
+        res.render('user/userInfo', { req, user, title: '个人中心', path: 'userInfo' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -87,7 +87,7 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
             pageSize: query.pageSize || 12,
         };
 
-        res.render('movie', { pageInfo, req, AllCount, movieList: movieArray, title: '电影', path: 'movie' });
+        res.render('movie/movie', { pageInfo, req, AllCount, movieList: movieArray, title: '电影', path: 'movie' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -101,7 +101,7 @@ export async function movieItem(req: Request, res: Response, next: NextFunction)
             const movie: any = JSON.parse(JSON.stringify(getMovie));
             MovieService.update(req.params.id, { $set: { clickNum: ((getMovie.clickNum?getMovie.clickNum:0)+ Math.round(Math.random() * 10)) } });
             movie.details.detailDes = movie.details.detailDes.split('detailDes');
-            res.render('movieItem', { req, movie, subject: movie, title: '电影', path: 'movie' });
+            res.render('movie/movieItem', { req, movie, subject: movie, title: '电影', path: 'movie' });
 
         } else {
             res.render('404', { req, title: '未找到资源', path: 'movie' });
@@ -152,7 +152,7 @@ export async function blog(req: Request, res: Response, next: NextFunction): Pro
     };
 
     req.flash = { success: '欢迎光临~' };
-    res.render('index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
+    res.render('blog/index', { req, pageInfo, classification, blogArray, title: '溜忙之道', path: '/' });
 }
 
 export async function blogItem(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -166,9 +166,9 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
             // blog.content = marked(blog.content);
             // 增加阅读数
             BlogService.update(req.params.id, { $set: { pv: (getBlog.pv + Math.round(Math.random() * 10)) } });
-            res.render('blogItem', { req, blog, subject: blog, title: blog.title, path: '/' });
+            res.render('blog/blogItem', { req, blog, subject: blog, title: blog.title, path: '/' });
         } else {
-            res.render('404', { req, title: '未找到资源', path: '/' });
+            res.render('404', { req, title: '未找到资源', path: '/blog' });
         }
 
     } catch (error) {
@@ -196,7 +196,7 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
         }
 
      
-        res.render('blogCreateVditor', { req, editor, classifications, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
+        res.render('blog/blogCreateVditor', { req, editor, classifications, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
@@ -207,10 +207,18 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
 
 
 
-export async function careerInformation(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function handBook(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+        res.render('handBook/handBook', { req, title: '溜忙手册', path: 'handBook' });
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+    }
+}
 
-        res.render('careerInformation', { req, title: '职业讯息', path: 'careerInformation' });
+
+export async function createHandBook(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        res.render('handBook/createHandBook', { req, title: '创建溜忙手厕', path: 'handBook' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

@@ -8,6 +8,7 @@ import { NextFunction } from 'express';
 export interface IClassificationModel extends Document {
     name: string;
     describe: string;
+    type:string;
     meta: {
         createdAt: Date,
         updatedAt: Date,
@@ -21,6 +22,10 @@ const ClassificatSchema: Schema = new Schema({
         default: ''
     },
     describe: {
+        type: String,
+        default: ''
+    },
+    type: {
         type: String,
         default: ''
     },
