@@ -116,6 +116,7 @@ netstat -lnp|grep 80
 
 mongod -f mongodb.conf  --bind_ip_all
 
+
 #### 百度云服务器配置的mongo启动方式
 mongod --config /etc/mongod.conf  --bind_ip_all
 
