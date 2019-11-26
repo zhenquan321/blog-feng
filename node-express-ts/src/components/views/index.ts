@@ -180,8 +180,9 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
 export async function blogCreate(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const editor: string = 'markDown';
-        const classifications: any = await ClassificationService.findAll();
-        const mbId: string = req.hostname != "localhost" ? "5dc7e479b9e1565fbe48666b" : "5dce44e5f7f5b78972a15f57";
+        const classifications: any = await ClassificationService.findAll({type:'classification'});
+        const createType: any = await ClassificationService.findAll({type:'createType'});
+        const mbId: string =  "5dc7e479b9e1565fbe48666b";
         let blogId: string = (req.query && req.query.blogId) || mbId;
         let rtNlog: any = {};
         let mbBlog: any = {};
@@ -196,7 +197,7 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
         }
 
      
-        res.render('blog/blogCreateVditor', { req, editor, classifications, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
+        res.render('blog/blogCreateVditor', { req, editor, classifications,createType, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));

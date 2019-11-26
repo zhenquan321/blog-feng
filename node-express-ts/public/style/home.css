@@ -488,6 +488,9 @@ a.thumbnail:hover {
   top: 1px;
   right: -4px;
 }
+.blogCreate .header-left .selTypes .dropdown-toggle i:hover {
+  color: #e59233;
+}
 .blogCreate .header-left .selTypes:hover {
   color: #555;
 }
@@ -648,6 +651,9 @@ a.thumbnail:hover {
 .blogList .blogCard .re {
   color: #b71ed7;
   font-weight: 600;
+}
+.blogList .blogCard .createType {
+  color: #4e87dc;
 }
 .blogList .blogCard .lei {
   color: #f70;

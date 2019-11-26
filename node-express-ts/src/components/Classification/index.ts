@@ -12,7 +12,8 @@ import { blogCreate } from '../Views/index';
  */
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const Classifications: IClassificationModel[] = await ClassificationService.findAll();
+        const query: any = req.query || req.body;
+        const Classifications: IClassificationModel[] = await ClassificationService.findAll(query);
 
         res.status(200).json(Classifications);
     } catch (error) {

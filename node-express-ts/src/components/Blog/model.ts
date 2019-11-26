@@ -18,15 +18,16 @@ export interface IBlogModel extends Document {
     classifications: string;
     pv: Number;
     contentType: string;
-    keyWords:string;
-    published:boolean;
-    isRecommend:string;
-    isHot:boolean;
+    keyWords: string;
+    published: boolean;
+    isRecommend: string;
+    isHot: boolean;
+    createType: string;
     createdAt: Date;
     updatedAt: Date;
-    comments:number;
-    thumbsUp:number;
-    deleted:boolean;
+    comments: number;
+    thumbsUp: number;
+    deleted: boolean;
 }
 
 const BlogSchema: Schema = new Schema({
@@ -50,6 +51,14 @@ const BlogSchema: Schema = new Schema({
     classifications: {
         type: Schema.Types.ObjectId,
         ref: 'classifications'
+    },
+    createType: {
+        type: Schema.Types.ObjectId,
+        ref: 'classifications'
+    },
+    contentType: {
+        type: String,
+        default: 'Markdown'
     },
     pv: {
         type: Number,
@@ -79,10 +88,7 @@ const BlogSchema: Schema = new Schema({
         type: Boolean,
         default: false
     },
-    contentType: {
-        type: String,
-        default: 'Markdown'
-    },
+
     createdAt: {
         type: Date,
         default: new Date().getTime()

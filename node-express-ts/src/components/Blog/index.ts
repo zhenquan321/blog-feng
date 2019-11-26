@@ -142,9 +142,9 @@ export async function thumbsUp(req: Request, res: Response, next: NextFunction):
 
 export async function update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        let id = req.params._id || req.body._id;
-        let updateInfo = req.params._id ? req.params : req.body;
-        delete updateInfo._id;
+        let id = req.params.blogId || req.body.blogId;
+        let updateInfo = req.params.blogId ? req.params : req.body;
+        delete updateInfo.blogId;
 
         const Blog: IBlogModel = await BlogService.update(id, { $set: updateInfo });
 

@@ -8,9 +8,13 @@ const ClassificationService: IClassificationService = {
      * @returns {Promise < IClassificationModel[] >}
      * @memberof ClassificationService
      */
-    async findAll(): Promise<IClassificationModel[]> {
+    async findAll(query?: any): Promise<IClassificationModel[]> {
         try {
-            return await ClassificationModel.find({});
+            let findQuery:any = {};
+            if (query&&query.type) {
+                findQuery.type=query.type;
+            }
+            return await ClassificationModel.find(findQuery);
         } catch (error) {
             throw new Error(error.message);
         }

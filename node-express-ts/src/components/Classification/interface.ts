@@ -10,7 +10,7 @@ export interface IClassificationService {
      * @returns {Promise<IClassificationModel[]>}
      * @memberof IClassificationService
      */
-    findAll(): Promise<IClassificationModel[]>;
+    findAll(query?:any): Promise<IClassificationModel[]>;
 
     /**
      * @param {string} code

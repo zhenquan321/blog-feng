@@ -33,6 +33,7 @@
                     <% if(blog.isHot){ %><span class="jian"><i class="iconfont icon-remen "></i>热</span> · <% } %>
                     <% if(blog.isRecommend){ %><span class="re"> <%= blog.isRecommend %> </span> · <% } %>
                     <span class="lei"><%= blog.classifications.name %></span> ·
+                    <% if(blog.createType&&blog.createType.name){ %> <span class="createType"><%= blog.createType.name %></span> · <% } %>
                     <%= ((blog.author.profile && blog.author.profile.name)||blog.author.email) %> ·
                     <%= blog.createdAt %>
                 </h6>

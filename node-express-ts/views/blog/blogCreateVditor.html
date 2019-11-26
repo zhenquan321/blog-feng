@@ -11,9 +11,9 @@
             <input id="blogCreate-title" type="text" class="form-control" placeholder="请输入文章标题"
                 value="<%- blog.title ||'' %>">
             <hr />
-            <div class="btn-group selTypes">
+            <div class="btn-group selTypes" style="right:200px">
                 <div class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="iconfont icon-cecenidechenggongshuai"></i>
+                    <i class="iconfont icon-fenlei"></i>
                     <input type="text" id="classificationsName" name=""
                         value="<%- (blog.classifications&&blog.classifications.name) ||'' %>" placeholder="选择分类"
                         style="width: 100px;font-size: 18px;" disabled>
@@ -27,7 +27,26 @@
                     
                     <% if(req.session.user && req.session.user.isAdmin){%>
                     <li role="separator" class="divider"></li>
-                    <li onclick="openAddClassification()"><a>添加分类</a></li>
+                    <li onclick="openAddClassification('classification')"><a>添加分类</a></li>
+                    <% }%>
+                </ul>
+            </div>
+            <div class="btn-group selTypes" >
+                <div class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="iconfont icon-cecenidechenggongshuai"></i>
+                    <input type="text" id="createTypeName" name=""
+                        value="<%- (blog.createType&&blog.createType.name) ||'' %>" placeholder="创作类型"
+                        style="width: 100px;font-size: 18px;" disabled>
+                </div>
+                <ul class="dropdown-menu">
+                    <% for(let i =0 ; i< createType.length; i++){%>
+                    <li onclick="selCreateTypeName('<%= createType[i].name %>','<%= createType[i]._id %>')">
+                        <%= createType[i].name%>
+                    </li>
+                    <%}%>
+                    <% if(req.session.user && req.session.user.isAdmin){%>
+                    <li role="separator" class="divider"></li>
+                    <li onclick="openAddClassification('createType')"><a>添加分类</a></li>
                     <% }%>
                 </ul>
             </div>
@@ -45,6 +64,9 @@
         <h4>添加分类</h4>
         <div class="input-group">
             <input type="text" class="form-control" name="name" placeholder="请输入分类名称">
+        </div>
+        <div class="input-group">
+            <input type="text" id="classificationType" class="form-control" name="type" placeholder="分类类别">
         </div>
         <div class="input-group">
             <textarea style="width:280px;margin-top:10px" class="form-control" name="describe" placeholder="请输入分类描述"
@@ -103,7 +125,8 @@
 
 <script>
     let classificationsId = '<%- (blog.classifications&&blog.classifications._id) %>' ||'';
-
+    let createTypeId = '<%- (blog.createType&&blog.createType._id) %>' ||'';
+    
     function mdSwitch() {
         var mdValue = document.getElementById("md-area").value;
         var converter = new showdown.Converter();
@@ -117,7 +140,8 @@
         })
     }
 
-    function openAddClassification() {
+    function openAddClassification(type) {
+        $("#classificationType").val(type);
         $(".addClassification").css({
             "display": "block"
         })
@@ -126,6 +150,11 @@
     function selClassifications(name, id) {
         $("#classificationsName").val(name);
         classificationsId = id;
+    }
+
+    function selCreateTypeName(name, id) {
+        $("#createTypeName").val(name);
+        createTypeId = id;
     }
 
     //发布文章
@@ -145,12 +174,17 @@
             alert('请选择分类');
             return
         }
+        if (!createTypeId) {
+            alert('请选择创作类型');
+            return
+        }
         let data = {
             published,
             author: userId,
             title: $('#blogCreate-title').val(),
             content: contert,
             contentType: contentType,
+            createType:createTypeId,
             classifications: classificationsId,
         }
         let blogId = "<%= blog._id %>";

@@ -588,7 +588,7 @@ a.thumbnail:hover {
             top: 4px;
             color: #888;
             cursor: pointer;
-
+           
             .dropdown-toggle {
                 font-size: 18px;
 
@@ -597,6 +597,9 @@ a.thumbnail:hover {
                     position: relative;
                     top: 1px;
                     right: -4px;
+                    &:hover{
+                        color:@mainColor;
+                    }
                 }
             }
 
@@ -805,6 +808,10 @@ a.thumbnail:hover {
         .re {
             color: #b71ed7;
             font-weight: 600;
+        }   
+
+        .createType{
+            color: #4e87dc;
         }
 
         .lei {
@@ -815,7 +822,6 @@ a.thumbnail:hover {
         h6 {
             color: #888;
             font-size: 12px;
-
             i {
                 font-size: 12px;
             }
@@ -829,12 +835,9 @@ a.thumbnail:hover {
             color: #777;
 
             span {
-
                 display: inline-block;
                 padding: 2px 7px 2px 3px;
-                // border: 1px solid #ccc;
                 margin-right: -5px;
-
                 i {
                     font-size: 14px;
                 }

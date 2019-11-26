@@ -53,6 +53,7 @@ const BlogService: IBlogService = {
             for (let i: number = 0; i < BlogList.length; i++) {
                 BlogList[i].author = await UserService.findOne(BlogList[i].author);
                 BlogList[i].classifications = await ClassificationService.findOne(BlogList[i].classifications);
+                BlogList[i].createType = await ClassificationService.findOne(BlogList[i].createType);
                 BlogList[i].comments = await CommentService.count(BlogList[i]._id);
                 BlogList[i].createdAt = new Time().formatDate(BlogList[i].createdAt);
                 if (BlogList[i].pv > 100) {
@@ -93,6 +94,8 @@ const BlogService: IBlogService = {
 
             Blog.author = await UserService.findOne(Blog.author);
             Blog.classifications = await ClassificationService.findOne(Blog.classifications);
+            Blog.createType = await ClassificationService.findOne(Blog.createType);
+            
 
             return Blog;
         } catch (error) {
@@ -110,7 +113,7 @@ const BlogService: IBlogService = {
             const BlogFind: IBlogModel = await BlogModel.updateOne({
                 _id: Types.ObjectId(id)
             }, updateInfo);
-
+            console.log(updateInfo,BlogFind);
             return BlogFind;
         } catch (error) {
             throw new Error(error.message);
