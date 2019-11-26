@@ -27,7 +27,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
     query.page = query.page >= 1 ? query.page - 1 : 0;
 
     const blogList: any = await BlogService.findAll(query);
-    const classification: any = await ClassificationService.findAll();
+    const classification: any = await ClassificationService.findAll({type:'classification'});
 
     const blogArray: any = blogList.data || [];
 
