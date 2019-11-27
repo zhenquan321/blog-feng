@@ -11,6 +11,9 @@ import BlogRouter from './BlogRouter';
 import CommentRouter from './CommentRouter';
 import ClassificationRouter from './ClassificationRouter';
 import MovieRouter from './MovieRouter';
+import HandBookRouter from './HandBookRouter';
+
+
 
 let swaggerDoc: Object;
 
@@ -80,6 +83,7 @@ export function init(app: express.Application): void {
      */
     app.use('/movie', MovieRouter);
 
+    app.use('/api/handBook', HandBookRouter);
 
      /**
      * 小程序使用

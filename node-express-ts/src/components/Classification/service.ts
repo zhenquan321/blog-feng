@@ -10,9 +10,9 @@ const ClassificationService: IClassificationService = {
      */
     async findAll(query?: any): Promise<IClassificationModel[]> {
         try {
-            let findQuery:any = {};
-            if (query&&query.type) {
-                findQuery.type=query.type;
+            let findQuery: any = {};
+            if (query && query.type) {
+                findQuery.type = query.type;
             }
             return await ClassificationModel.find(findQuery);
         } catch (error) {
@@ -42,7 +42,7 @@ const ClassificationService: IClassificationService = {
      */
     async insert(body: IClassificationModel): Promise<IClassificationModel | any> {
         try {
-            const hasClassification: IClassificationModel = await ClassificationModel.findOne({ name: body.name });
+            const hasClassification: IClassificationModel = await ClassificationModel.findOne({ name: body.name, type: body.type });
 
             if (hasClassification) {
 

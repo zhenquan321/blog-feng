@@ -24,6 +24,7 @@ export async function movieRt(req: Request, res: Response, next: NextFunction): 
         console.log("movieRtJob",new Date());
         movieReptile();
     });
+    movieReptile();
     res.status(200).json(
         {
             status: 200,
@@ -41,13 +42,12 @@ export async function getMvDetail(req: Request, res: Response, next: NextFunctio
         console.log("getMvDetailsJob",new Date());
         getMovieDetail();
     });
-
+    getMovieDetail();
     res.status(200).json(
         {
             status: 200,
             msg: '已开启定时抓取详情，现需抓取链接数为：' + movieList.data.length
         });
-
 }
 
 

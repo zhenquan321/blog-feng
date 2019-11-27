@@ -1,1 +1,285 @@
-溜忙手册
+<div class="classificationHeader">
+    <div class="container">
+        <ul>
+            <li <% if(!req.query.classifications){ %> class="active" <% }%>> <a href="/"> 推荐 </a></li>
+            <% classifications.forEach(function(item){ %>
+            <li <% if(req.query.classifications==item._id){ %> class="active" <% }%>> <a
+                    href="/?classifications=<%= item._id %>"> <%= item.name %> </a></li>
+            <% }) %>
+        </ul>
+        <div class="searchTop blogSearch">
+            <form class="form-inline" action="/handBook" method="get">
+                <input type="text" name="blogSearch" class="form-control" value="<%- req.query.blogSearch || '' %>"
+                    placeholder="请输入搜索关键词">
+                <i class="iconfont icon-faxianchaxun1"></i>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="blogList">
+    <div class="blogList-header">
+        <ul>
+            <li <% if(!req.query.sort || req.query.sort=='createdAt'){ %>class="active" <% }%>> <a
+                    href="/handBook/?sort=createdAt"> 最新 </a></li>
+            <li <% if(req.query.sort=='pv'){ %>class="active" <% }%>> <a href="/handBook/?&sort=pv"> 热门 </a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <% handBookArray.forEach(function(handBook){ %>
+        <div class="blogCard handBookCard">
+            <div class="photoCard">
+                <img src="<%= handBook.coverPhoto %>" alt="">
+            </div>
+            <a href="/createHandBook?handBookId=<%=handBook._id %>">
+                <h4><%= handBook.title %></h4>
+                <h6>
+                    <% if(handBook.isHot){ %><span class="jian"><i class="iconfont icon-remen "></i>热</span> · <% } %>
+                    <% if(handBook.isRecommend){ %><span class="re"> <%= handBook.isRecommend %> </span> · <% } %>
+                    <span class="lei"><%= handBook.classifications.name %></span> ·
+                    <% if(handBook.createType && handBook.createType.name){ %> <span
+                        class="createType"><%= handBook.createType.name %></span> · <% } %>
+                    <%= ((handBook.author.profile && handBook.author.profile.name)||handBook.author.email) %> ·
+                    <%= handBook.createdAt %>
+                </h6>
+                <p><%= handBook.describe %></p>
+
+                <div class="dzBtnGroup">
+                    <span><i class="iconfont icon-guankan"></i><%= handBook.pv||0 %></span>
+                    <span><i class="iconfont icon-dianzan"></i><%= handBook.thumbsUp ||0 %></span>
+                    <span><i class="iconfont icon-pinglun"></i><%= handBook.comments ||0 %></span>
+                </div>
+            </a>
+            <% if (req.session.user && handBook.author.id == req.session.user._id){%>
+
+            <div class="removeBlog">
+                <a href="/createHandBook?handBookId=<%= handBook._id %>" target="_blank"><i
+                        class="iconfont icon-bianji"></i></a>
+                <i onclick="removeBlog('<%= handBook._id %>','<%= handBook.title %>')"
+                    class="iconfont icon-shanchu"></i>
+            </div>
+            <% } %>
+        </div>
+        <% }); %>
+
+        <% if(!(handBookArray&&handBookArray.length>0)){%>
+        <p style="margin: 20px; text-align: center;">抱歉，没有更多博文了~；欢迎加入，一同创造为技术的海洋舔砖加瓦~</p>
+        <%}%>
+        </div>
+    </div>
+
+
+
+    <div class="HandBookCreateModel" style="display: none;">
+        <form class="body">
+            <i class="iconfont icon-guanbi1 close" onclick="closeHandBookCreateModel()"></i>
+            <h4>创建手册</h4>
+            <div class="input-group">
+                <input type="text" id="handBookTitle" class="form-control" name="title" placeholder="请输入手册名称">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">封面</label>
+                <div class="col-sm-4 userInfoHeader">
+                    <div class="headerImg" id="userInfoHeaderImg">
+                        <img src="" style="display: none;" alt="封面">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <a href="javascript:;" class="a-upload">
+                        <input class="btn btn-default" type="file" id="uploadImgInput" onchange="uploadImg()">上传封面
+                    </a>
+                </div>
+            </div>
+            <div class="btn-group selTypes">
+                <div class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="iconfont icon-fenlei"></i>
+                    <input type="text" id="classificationsName" name="" value="" placeholder="选择分类" disabled>
+                </div>
+                <ul class="dropdown-menu">
+                    <% for(let i =0 ; i< classifications.length; i++){%>
+        <li onclick="selClassifications('<%= classifications[i].name %>','<%= classifications[i]._id %>')">
+            <%= classifications[i].name%>
+        </li>
+        <%}%>
+        <% if(req.session.user && req.session.user.isAdmin){%>
+        <li role="separator" class="divider"></li>
+        <li onclick="openAddClassification('handBookClassification')"><a>添加分类</a></li>
+        <% }%>
+        </ul>
+    </div>
+    <div class="btn-group selTypes">
+        <div class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="iconfont icon-cecenidechenggongshuai"></i>
+            <input type="text" id="createTypeName" name="" value="" placeholder="创作类型" disabled>
+        </div>
+        <ul class="dropdown-menu">
+            <% for(let i =0 ; i< createType.length; i++){%>
+            <li onclick="selCreateTypeName('<%= createType[i].name %>','<%= createType[i]._id %>')">
+                <%= createType[i].name%>
+            </li>
+            <%}%>
+                    <% if(req.session.user && req.session.user.isAdmin){%>
+            <li role="separator" class="divider"></li>
+            <li onclick="openAddClassification('handBookCreateType')"><a>添加分类</a></li>
+            <% }%>
+        </ul>
+    </div>
+    <div class="input-group">
+        <textarea class="form-control" id="handBookDescribe" name="describe" placeholder="请输入手册简介" rows="4"></textarea>
+    </div>
+    <input class="btn btn-primary" onclick="publishHandBook()" value="创建" />
+    </form>
+</div>
+
+<div class="addClassification" style="display: none;">
+    <form class="loginBody singinBody" action="/Classification" method="post">
+        <i class="iconfont icon-guanbi1 closeLogin" onclick="closeAddClassification()"></i>
+        <h4>添加分类</h4>
+        <div class="input-group">
+            <input type="text" class="form-control" name="name" placeholder="请输入分类名称">
+        </div>
+        <div class="input-group">
+            <input type="text" id="classificationType" class="form-control" name="type" placeholder="分类类别">
+        </div>
+        <div class="input-group">
+            <textarea style="width:280px;margin-top:10px" class="form-control" name="describe" placeholder="请输入分类描述"
+                rows="3"></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="添加" />
+    </form>
+</div>
+
+
+<script>
+    let classificationsId = '';
+    let createTypeId = '';
+    let coverPhoto = '';
+
+    function closeAddClassification() {
+        $(".addClassification").css({
+            "display": "none"
+        })
+    }
+
+    function openAddClassification(type) {
+        $("#classificationType").val(type);
+        $(".addClassification").css({
+            "display": "block"
+        })
+    }
+
+    function selClassifications(name, id) {
+        $("#classificationsName").val(name);
+        classificationsId = id;
+    }
+
+    function selCreateTypeName(name, id) {
+        $("#createTypeName").val(name);
+        createTypeId = id;
+    }
+
+    function closeHandBookCreateModel() {
+        $(".HandBookCreateModel").css({ "display": "none" })
+    }
+
+    $("#openHandBookCreateModel").click(function () {
+        console.log("openHandBookCreateModel")
+        $(".HandBookCreateModel").css({ "display": "block" })
+    });
+
+    //上传图片
+    function uploadImg() {
+        var formData = new FormData();
+        var file = $('#uploadImgInput')[0].files[0];
+        formData.append("file", file); //传给后台的file的key值是可以自己定义的
+        formData.append('useWhere', 'normal');
+
+        $.ajax({
+            url: '/tool/upload',
+            type: 'post',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                console.log(data);
+                if (data.data && data.data.length > 0) {
+                    $("#userInfoHeaderImg").empty();
+                    $("#userInfoHeaderImg").append("<img src='" + data.data[0] + "'>");
+                    coverPhoto = data.data[0];
+                }
+            },
+            error: function (err) {
+
+            }
+        })
+    };
+    //创建手册
+    function publishHandBook() {
+        let userId = "<%=req.session.user&&req.session.user._id||''%>";
+        let title = $("#handBookTitle").val() || "";
+        let describe = $("#handBookDescribe").val() || "";
+        if (!userId) {
+            singIn();
+            return
+        }
+        if (!title) {
+            alert('请输入手册名称~');
+            return
+        }
+        if (!describe) {
+            alert('请输入手册简介~');
+            return
+        }
+        if (!classificationsId) {
+            alert('请选择手册分类~');
+            return
+        }
+        if (!createTypeId) {
+            alert('请选择创作类型~');
+            return
+        }
+        let data = {
+            author: userId,
+            title: title,
+            describe: describe,
+            // chapter:string[];
+            coverPhoto: coverPhoto,
+            // keyWords:string,
+            classifications: classificationsId,
+            createType: createTypeId,
+        }
+        showSh()
+        $.ajax({
+            type: 'POST',
+            url: '/api/handBook',
+            data: data,
+            success: (res) => {
+                hideSh()
+                if (res.state == 0) {
+                    window.location.href = window.location.origin + '/createHandBook?handBookId=' + res.data._id;
+                } else {
+                    alert(res.msg)
+                }
+            },
+        });
+    }
+    //删除手册
+    function removeBlog(id, name) {
+        if (confirm("确定删除手册《" + name + "》吗？")) {
+            $.ajax({
+                type: 'get',
+                url: '/api/handBook/remove/' + id,
+                data: '',
+                success: (res) => {
+                    if (res.state == 0) {
+                        window.location.href = "/handBook";
+                    }
+                },
+            });
+        }
+    }
+
+
+
+</script>

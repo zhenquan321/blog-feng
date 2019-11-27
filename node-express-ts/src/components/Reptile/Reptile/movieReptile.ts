@@ -34,7 +34,6 @@ export async function movieReptile(): Promise<void> {
         'https://www.dytt8.net/html/gndy/jddy/index.html',
     ];
 
-
     for (let i: number = 0; i < dyDLeiUrl.length; i++) {
         setTimeout(() => {
             getMovieListFun.index(dyDLeiUrl[i]);

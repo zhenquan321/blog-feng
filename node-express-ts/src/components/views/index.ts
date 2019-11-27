@@ -1,17 +1,19 @@
 import * as passport from 'passport';
+import HttpError from '../../config/error';
+import { NextFunction, Request, Response } from 'express';
+
+import { IUserModel } from './../User/model';
+import Time from '../../utils/Time';
+
 import AuthService from './service';
 import MovieService from '../Movie/service';
 import BlogService from '../Blog/service';
-
-import ClassificationService from '../Classification/service';
-import HttpError from '../../config/error';
-import { NextFunction, Request, Response } from 'express';
-import Time from '../../utils/Time';
-
-// 用户信息
+import HandBookService from './../HandBook/service';
 import UserService from './../User/service';
-import { IUserModel } from './../User/model';
-import { connect } from 'http2';
+import ClassificationService from '../Classification/service';
+
+
+
 /**
  * 
  * @param {Request} req 
@@ -27,7 +29,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
     query.page = query.page >= 1 ? query.page - 1 : 0;
 
     const blogList: any = await BlogService.findAll(query);
-    const classification: any = await ClassificationService.findAll({type:'classification'});
+    const classification: any = await ClassificationService.findAll({ type: 'classification' });
 
     const blogArray: any = blogList.data || [];
 
@@ -99,7 +101,7 @@ export async function movieItem(req: Request, res: Response, next: NextFunction)
         console.log(getMovie);
         if (getMovie) {
             const movie: any = JSON.parse(JSON.stringify(getMovie));
-            MovieService.update(req.params.id, { $set: { clickNum: ((getMovie.clickNum?getMovie.clickNum:0)+ Math.round(Math.random() * 10)) } });
+            MovieService.update(req.params.id, { $set: { clickNum: ((getMovie.clickNum ? getMovie.clickNum : 0) + Math.round(Math.random() * 10)) } });
             movie.details.detailDes = movie.details.detailDes.split('detailDes');
             res.render('movie/movieItem', { req, movie, subject: movie, title: '电影', path: 'movie' });
 
@@ -180,9 +182,9 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
 export async function blogCreate(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const editor: string = 'markDown';
-        const classifications: any = await ClassificationService.findAll({type:'classification'});
-        const createType: any = await ClassificationService.findAll({type:'createType'});
-        const mbId: string =  "5dc7e479b9e1565fbe48666b";
+        const classifications: any = await ClassificationService.findAll({ type: 'classification' });
+        const createType: any = await ClassificationService.findAll({ type: 'createType' });
+        const mbId: string = "5dc7e479b9e1565fbe48666b";
         let blogId: string = (req.query && req.query.blogId) || mbId;
         let rtNlog: any = {};
         let mbBlog: any = {};
@@ -196,8 +198,8 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
             }
         }
 
-     
-        res.render('blog/blogCreateVditor', { req, editor, classifications,createType, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
+
+        res.render('blog/blogCreateVditor', { req, editor, classifications, createType, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
@@ -210,7 +212,11 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
 
 export async function handBook(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        res.render('handBook/handBook', { req, title: '溜忙手册', path: 'handBook' });
+        const classifications: any = await ClassificationService.findAll({ type: 'handBookClassification' });
+        const createType: any = await ClassificationService.findAll({ type: 'handBookCreateType' });
+        const handBookArray: any = await HandBookService.findAll({});
+        
+        res.render('handBook/handBook', { req, classifications, createType, handBookArray:handBookArray.data, title: '溜忙手册', path: 'handBook' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -218,9 +224,28 @@ export async function handBook(req: Request, res: Response, next: NextFunction):
 
 
 export async function createHandBook(req: Request, res: Response, next: NextFunction): Promise<void> {
+
     try {
-        res.render('handBook/createHandBook', { req, title: '创建溜忙手厕', path: 'handBook' });
+        const editor: string = 'markDown';
+        const mbId: string = "";
+        let handBookId: string = (req.query && req.query.handBookId) || mbId;
+        let rtHandBook: any = {};
+        let mbHandBook: any = {};
+
+        if (handBookId) {
+            let findHandBook: any = await HandBookService.findOne(handBookId);
+            if (req.query && req.query.handBookId) {
+                rtHandBook = findHandBook;
+            } else {
+                mbHandBook = findHandBook;
+            }
+        }
+
+        res.render('handBook/createHandBook', { req, editor, handBook: rtHandBook, mbHandBook, title: '创建溜忙手厕', path: 'createHandBook' });
+
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
+        res.render('404', { req, title: '未找到资源', path: '/' });
     }
+
 }

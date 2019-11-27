@@ -66,7 +66,7 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
 export async function create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
 
-        const shData: any = await client.textCensorUserDefined(req.body.content + req.body.title);
+        const shData: any = await client.textCensorUserDefined(req.body.describe + req.body.title);
         let data: any = {};
         let state: number = 0;
         let msg: string = '';
@@ -86,7 +86,7 @@ export async function create(req: Request, res: Response, next: NextFunction): P
         res.status(200).json({
             msg,
             state,
-            HandBook: data,
+            data: data,
         });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));

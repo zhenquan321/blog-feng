@@ -19,6 +19,7 @@ export interface IHandBookModel extends Document {
     coverPhoto:string;
     keyWords:string;
     classifications: string;
+    createType:string;
     published:boolean;
     isRecommend:string;
     isHot:boolean;
@@ -61,6 +62,10 @@ const HandBookSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'classifications'
     },
+    createType:{
+        type: Schema.Types.ObjectId,
+        ref: 'classifications'
+    },
     pv: {
         type: Number,
         default: 0
@@ -87,7 +92,7 @@ const HandBookSchema: Schema = new Schema({
     },
     published: {
         type: Boolean,
-        default: false
+        default: true
     },
     deleted: {
         type: Boolean,

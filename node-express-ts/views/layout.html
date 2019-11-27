@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/style/app.css">
     <link rel="stylesheet" href="/style/home.css">
     <link rel="stylesheet" href="/style/mobile.css">
+    <link rel="stylesheet" href="/style/handBookCreate.css">
     <link rel="icon" href="/img/logo/favicon_64.ico">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="/js/emoji.js"></script>
@@ -17,7 +18,7 @@
     <%- include('./components/examine.html') %>
     <%- include('./components/header.html') %>
     <%- include('./components/notification.html') %>
-    <div <% if(path =='blogCreate'){ %> class="main-body" <% }else{ %> class="main-body container" <%}%> >
+    <div <% if(path =='blogCreate'||path =='createHandBook'){ %> class="main-body" <% }else{ %> class="main-body container" <%}%> >
       <%- body %>
     </div>
   </body>

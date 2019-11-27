@@ -8,7 +8,7 @@ import * as JobComponent from './Job';
 import * as ToolComponent from './Tool';
 import * as ClassificationComponent from './Classification';
 import * as CommentComponent from './Comment';
-
+import * as HandBookComponent from './HandBook';
 
 export {
     AuthComponent, 
@@ -20,5 +20,6 @@ export {
     JobComponent,
     ToolComponent,
     ClassificationComponent,
+    HandBookComponent,
     CommentComponent
 };

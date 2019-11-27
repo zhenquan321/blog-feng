@@ -72,6 +72,11 @@
   border-radius: 5px;
   padding-right: 8px;
 }
+.nav-right .zcBtn {
+  border: 1px solid #888;
+  cursor: default;
+  color: #888;
+}
 .nav-right a {
   color: #e59233;
   text-decoration: none;
@@ -183,6 +188,9 @@ a {
 #login .loginHref,
 .addClassification .loginHref {
   cursor: pointer;
+}
+.addClassification .loginBody {
+  height: 330px;
 }
 .notifications {
   position: fixed;
