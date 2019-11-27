@@ -3,7 +3,6 @@
 */build/
 */dist/
 */public/upload/
-*/https/
 node-express-ts/build/public/upload/
 # local env files
 */.env
