@@ -1,13 +1,15 @@
 .DS_Store
-*/node_modules 
-*/build
-*/dist
-node-express-ts/public/img/upload
-node-express-ts/build/public/img/upload
+*/node_modules/
+*/build/
+*/dist/
+*/public/upload/
+*/https/
+node-express-ts/build/public/upload/
 # local env files
-.env
-.env.local
-.env.*.local
+*/.env
+
+*/.env.local
+*/.env.*.local
 
 # Editor directories and files
 .idea
