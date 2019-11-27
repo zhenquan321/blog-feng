@@ -1,11 +1,11 @@
 .DS_Store
 node_modules 
-build
-public/upload
-node-express-ts/build/public/upload
+build/
+https/
+public/upload/
+node-express-ts/build/public/upload/
 # local env files
 .env
-https
 .env.local
 .env.*.local
 
