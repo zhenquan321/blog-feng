@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css" />
-<script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@1.10.2/dist/index.classic.css" />
+<script src="https://cdn.jsdelivr.net/npm/vditor@1.10.2/dist/index.min.js"></script>
 
 <%- include('./../components/header_createBlog.html') %>
 
@@ -100,19 +100,11 @@
             url: '/tool/upload',
             max: "3 * 1024 * 1024",
             linkToImgUrl: '/tool/upload',
-            format: (files, responseText) => {
-                console.log(files, responseText);
-            },
-            success: (res) => {
-                console.log(res);
-            },
-
             filename: (name) => {
                 return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5\.)]/g, '').
                     replace(/[\?\\/:|<>\*\[\]\(\)\$%\{\}@~]/g, '').
                     replace('/\\s/g', '')
             },
-
         }
     });
 

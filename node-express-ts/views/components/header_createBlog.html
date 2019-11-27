@@ -8,7 +8,7 @@
                 <% }%>
            
             <div class="btn-group selectedEditor" role="group">
-                    <%= (req.session.user && req.session.user.profile && req.session.user.profile.name) || req.session.user.email %>
+                    <%= (req.session.user && req.session.user.profile && req.session.user.profile.name) || (req.session.user&&req.session.user.email)||'溜忙之道' %>
                 <!-- <input type="button" class="btn btn-default active" placeholder="" value="MarkDown & 富文本编辑器"></button> -->
                 <!-- <input type="button" class="btn btn-default " placeholder="" value=""></button> -->
             </div>
