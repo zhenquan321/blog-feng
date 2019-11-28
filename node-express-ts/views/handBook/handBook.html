@@ -31,6 +31,7 @@
                 <img src="<%= handBook.coverPhoto %>" alt="">
             </div>
             <a href="/viewHandBook?handBookId=<%=handBook._id %>">
+                <h4>  《<%= handBook.title %>》</h4>
                 <h6>
                     <% if(handBook.isHot){ %><span class="jian"><i class="iconfont icon-remen "></i>热</span> · <% } %>
                     <% if(handBook.isRecommend){ %><span class="re"> <%= handBook.isRecommend %> </span> · <% } %>
@@ -61,7 +62,7 @@
         <% }); %>
 
         <% if(!(handBookArray&&handBookArray.length>0)){%>
-        <p style="margin: 20px; text-align: center;">抱歉，没有更多博文了~；欢迎加入，一同创造为技术的海洋舔砖加瓦~</p>
+        <p style="margin: 20px; text-align: center;">抱歉，暂时还有手册~；欢迎加入，一同创造为技术的海洋舔砖加瓦~</p>
         <%}%>
         </div>
     </div>
