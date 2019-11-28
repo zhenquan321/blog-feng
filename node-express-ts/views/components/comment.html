@@ -44,7 +44,7 @@
     </ul>
 </div>
 <script>
-    var subjectId = "<%= (subject&&subject._id)||'' %>";
+    var subjectId = "<%= (subject&&subject._id)||'' %>"  ;
     let userId = "<%=req.session.user&&req.session.user._id||''%>";
 
     function pushEmoji() {
@@ -102,7 +102,6 @@
                                     <i class="iconfont icon-shanchu"></i>
                                 </div>
                             </div>` : "</div>";
-
                     }
                     $("#commentList").empty();
                     $("#commentList").append(commentDom);
@@ -110,8 +109,7 @@
             },
         });
     }
-    getComment();
-
+   
     //发布评论
     function publishComment() {
         let userId = "<%=req.session.user&&req.session.user._id||''%>";
@@ -172,8 +170,12 @@
 
     //点赞
     function thumbsUp() {
+        
         let data = {
             id: subjectId,
+        }
+        if(subjectType=='handBookPart'){
+            subjectType='api/blog'
         }
         $.ajax({
             type: 'POST',
@@ -186,4 +188,11 @@
             },
         });
     }
+
+    setTimeout(()=>{
+        getComment();
+        thumbsUp();
+    },50)
+
+
 </script>

@@ -251,7 +251,7 @@ export async function viewHandBook(req: Request, res: Response, next: NextFuncti
         let title: string = '溜忙手厕';
         let handBookJson:string=encodeURIComponent(JSON.stringify(rtHandBook)) ;
 
-        res.render('handBook/viewHandBook', { req, editor, title:rtHandBook.title||title,handBookJson,  handBook: rtHandBook, path: 'createHandBook' });
+        res.render('handBook/viewHandBook', { req, editor, title:rtHandBook.title||title,handBookJson, subject:{}, handBook: rtHandBook, path: 'createHandBook' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));

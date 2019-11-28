@@ -24,14 +24,15 @@
     <div class="concent handBookPartView" >
         <div id="handBookPart">
             <div id="handBookPartView"></div>
+            <%- include('./../components/comment.html') %>
         </div>
     </div>
 </div>
 
 <script>
-    var subjectType = 'handBook'; //评论的类型
+    var subjectType = 'handBookPart'; //评论的类型
     let handBook = JSON.parse(decodeURIComponent("<%= handBookJson %>"));
-    let blogId = "";
+    var blogId = "";
     let blog = {};
 
     $('.addPartBtn').click(function () {
@@ -69,6 +70,7 @@
     //选择章节
     async function selPart(index) {
         blogId = handBook.chapter[index].id;
+        subjectId = blogId;
         $.ajax({
             type: 'GET',
             url: '/api/blog/' + blogId,
