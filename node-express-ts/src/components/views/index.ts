@@ -199,7 +199,7 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
         }
 
 
-        res.render('blog/blogCreateVditor', { req, editor, classifications, createType, blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
+        res.render('blog/blogCreateVditor', { req, editor, classifications, createType,blog: rtNlog, mbBlog, title: '发布博客', path: 'blogCreate' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
@@ -215,8 +215,8 @@ export async function handBook(req: Request, res: Response, next: NextFunction):
         const classifications: any = await ClassificationService.findAll({ type: 'handBookClassification' });
         const createType: any = await ClassificationService.findAll({ type: 'handBookCreateType' });
         const handBookArray: any = await HandBookService.findAll({});
-        
-        res.render('handBook/handBook', { req, classifications, createType, handBookArray:handBookArray.data, title: '溜忙手册', path: 'handBook' });
+
+        res.render('handBook/handBook', { req, classifications, createType, handBookArray: handBookArray.data, title: '溜忙手册', path: 'handBook' });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -227,21 +227,13 @@ export async function createHandBook(req: Request, res: Response, next: NextFunc
 
     try {
         const editor: string = 'markDown';
-        const mbId: string = "";
+        const mbId: string = '';
         let handBookId: string = (req.query && req.query.handBookId) || mbId;
-        let rtHandBook: any = {};
-        let mbHandBook: any = {};
+        let rtHandBook: any = handBookId ? await HandBookService.findOne(handBookId) : {};
+        let title: string = '创建溜忙手厕';
+        let handBookJson:string=encodeURIComponent(JSON.stringify(rtHandBook)) ;
 
-        if (handBookId) {
-            let findHandBook: any = await HandBookService.findOne(handBookId);
-            if (req.query && req.query.handBookId) {
-                rtHandBook = findHandBook;
-            } else {
-                mbHandBook = findHandBook;
-            }
-        }
-
-        res.render('handBook/createHandBook', { req, editor, handBook: rtHandBook, mbHandBook, title: '创建溜忙手厕', path: 'createHandBook' });
+        res.render('handBook/createHandBook', { req, editor, title:rtHandBook.title||title,handBookJson,  handBook: rtHandBook, path: 'createHandBook' });
 
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
@@ -249,3 +241,22 @@ export async function createHandBook(req: Request, res: Response, next: NextFunc
     }
 
 }
+export async function viewHandBook(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+    try {
+        const editor: string = 'markDown';
+        const mbId: string = '';
+        let handBookId: string = (req.query && req.query.handBookId) || mbId;
+        let rtHandBook: any = handBookId ? await HandBookService.findOne(handBookId) : {};
+        let title: string = '溜忙手厕';
+        let handBookJson:string=encodeURIComponent(JSON.stringify(rtHandBook)) ;
+
+        res.render('handBook/viewHandBook', { req, editor, title:rtHandBook.title||title,handBookJson,  handBook: rtHandBook, path: 'createHandBook' });
+
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+        res.render('404', { req, title: '未找到资源', path: '/' });
+    }
+
+}
+

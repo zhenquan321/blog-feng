@@ -1,0 +1,357 @@
+@import "./config.less";
+
+
+.HandBookCreateModel {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+
+    .form-group {
+        height: 130px;
+        margin-top: 20px;
+        margin-bottom: 0px;
+
+        .headerImg {
+            height: 120px;
+            width: 90px;
+            border: 1px solid #ccc;
+
+            img {
+                width: 88px;
+                height: 118px;
+                margin-top: 2px;
+            }
+        }
+
+        .a-upload {
+            top: 44px;
+
+            input {
+                margin-top: 0px;
+            }
+        }
+    }
+
+    .body {
+        width: 400px;
+        height: 540px;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+
+        h4 {
+            color: @mainColor;
+        }
+
+        input {
+            width: 360px;
+            height: 40px;
+            margin-top: 12px;
+        }
+
+        textarea {
+            width: 360px;
+            margin-top: 10px;
+        }
+
+        .selTypes {
+            color: #888;
+            cursor: pointer;
+            display: block;
+            height: 40px;
+            line-height: 40px;
+
+            input {
+                margin-top: 0px;
+                border: 0px;
+                width: 324px;
+            }
+
+            .dropdown-toggle {
+                font-size: 18px;
+                box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0) !important;
+
+                i {
+                    font-size: 20px;
+                    position: relative;
+                    top: 1px;
+                    right: -4px;
+
+                    &:hover {
+                        color: @mainColor;
+                    }
+                }
+            }
+
+            &:hover {
+                color: #555
+            }
+        }
+
+
+        .btn {
+            margin-top: 20px;
+            height: 50px;
+            font-size: 22px;
+        }
+
+        .close {
+            position: fixed;
+            top: 10px;
+            right: 5px;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+        }
+    }
+
+    .divider {
+        margin: 0;
+    }
+
+    ul {
+        padding-left: 0;
+        text-align: center;
+
+        li {
+            padding: 0;
+            display: block;
+        }
+    }
+
+}
+
+.handBookCard {
+    position: relative;
+
+    .photoCard {
+        position: absolute;
+        left: 40px;
+        top: 20px;
+
+        img {
+            width: 90px;
+            height: 120px;
+        }
+
+    }
+
+    a h4 {
+        font-size: 18px !important;
+    }
+
+    .removeBlog {
+        top: 58px !important;
+
+        a {
+
+            padding: 0px;
+        }
+    }
+
+    a {
+        padding: 0 130px;
+        display: inline-block;
+        min-height: 140px;
+
+        p {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            height: 46px;
+            padding-top: 4px;
+            color: #777;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.handBookCreate {
+    width: 100%;
+    position: relative;
+    display: flex;
+
+    .partList {
+        width: 20%;
+        box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 50px;
+        height: 100%;
+        overflow-y: auto;
+        z-index: 1;
+        background-color: #fff;
+        .title {
+            font-size: 18px;
+            text-align: center;
+            border-bottom: 1px dashed #ccc;
+            padding: 15px;
+            color: #e59133;
+            font-size: 26px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .listBody {
+            padding: 10px 0;
+
+            .listCard {
+                padding: 15px 20px;
+                display: flex;
+                cursor: pointer;
+
+                &:last-child .step .step-btn:after {
+                    height: 0;
+                }
+
+                &:first-child .step .step-btn:before {
+                    height: 0;
+                }
+
+                &:hover {
+                    background-color: #ebebeb;
+
+                    .step .step-btn {
+                        border-color: @mainColor;
+                        color: @mainColor;
+
+                        &:before {
+                            background-color: @mainColor
+                        }
+
+                        &:after {
+                            background-color: @mainColor
+                        }
+                    }
+                }
+
+                .step {
+                    position: relative;
+                    margin: -20px 0;
+
+                    .step-btn {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        text-align: center;
+                        line-height: 36px;
+                        border: 2px solid #b5b7ba;
+                        font-size: 22px;
+                        margin-top: 20px;
+                        background-color: #fff;
+                        z-index: 1;
+                        position: relative;
+                        color: #b5b7ba;
+
+                        &:before {
+                            z-index: 0;
+                            position: absolute;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 2px;
+                            background-color: #b5b7ba;
+                            height: 50%;
+                            content: "";
+                            top: -50%;
+                        }
+
+                        &:after {
+                            z-index: 0;
+                            position: absolute;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 2px;
+                            background-color: #b5b7ba;
+                            height: 50%;
+                            content: "";
+                            top: 100%;
+                        }
+                    }
+                }
+
+                .center {
+                    flex: 1;
+                    height: 40px;
+                    line-height: 40px;
+                    padding-left: 20px;
+                    font-size: 16px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+
+            .active {
+                background-color: #ebebeb;
+
+                .step .step-btn {
+                    border-color: @mainColor;
+                    color: @mainColor;
+
+                    &:before {
+                        background-color: @mainColor
+                    }
+
+                    &:after {
+                        background-color: @mainColor
+                    }
+                }
+            }
+        }
+
+        .btn {
+            width: 80%;
+            height: 44px;
+            margin-left: 10%;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    }
+
+    .concent {
+        flex: 1;
+        padding-left: 20%;
+    }
+
+    .addPart {
+        display: none;
+        padding: 0 20px;
+
+        .btn {
+            width: 30%;
+            height: 40px;
+            font-size: 16px;
+            display: inline-block;
+        }
+    }
+}
+
+#handBookPart {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 60px 40px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, .15);
+    background-color: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.handBookPartView {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 80px 0 40px;
+    overflow-y: auto;
+}

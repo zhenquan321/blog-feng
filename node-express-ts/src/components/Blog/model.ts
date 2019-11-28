@@ -3,6 +3,7 @@ import * as connections from '../../config/connection/connection';
 import * as crypto from 'crypto';
 import { Document, Schema } from 'mongoose';
 import { NextFunction } from 'express';
+import { string } from 'joi';
 
 
 /**
@@ -20,6 +21,7 @@ export interface IBlogModel extends Document {
     contentType: string;
     keyWords: string;
     published: boolean;
+    publishForm: string;
     isRecommend: string;
     isHot: boolean;
     createType: string;
@@ -83,6 +85,10 @@ const BlogSchema: Schema = new Schema({
     published: {
         type: Boolean,
         default: false
+    },
+    publishForm:{
+        type: String,
+        default: ''
     },
     deleted: {
         type: Boolean,

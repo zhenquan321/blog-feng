@@ -143,14 +143,16 @@ export async function thumbsUp(req: Request, res: Response, next: NextFunction):
 export async function update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         let id = req.params._id || req.body._id;
-        let updateInfo = req.params._id ? req.params : req.body;
+        let updateInfo = req.params._id ? req.params.handBookData : req.body.handBookData;
+        updateInfo = JSON.parse(decodeURIComponent(updateInfo));
         delete updateInfo._id;
 
         const HandBook: IHandBookModel = await HandBookService.update(id, { $set: updateInfo });
-
+        const rtHandBook: IHandBookModel = await HandBookService.findOne(id);
+        
         if (HandBook) {
             res.status(200).json({
-                HandBook,
+                data: rtHandBook,
                 msg: "修改成功",
                 state: 0
             });

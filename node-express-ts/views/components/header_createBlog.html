@@ -16,7 +16,11 @@
         <div class="nav-right">
             <a class="sxBtn zcBtn" ><i class="iconfont icon-zhangdan"></i>自动暂存</a>
             <span class="shuxian"></span>
-            <a class="sxBtn" onclick="publishBlog(true)"><i class="iconfont icon-fenxiang1"></i>发布</a>
+            <% if (path !='createHandBook'){ %>
+                <a class="sxBtn" onclick="publishBlog(true)"><i class="iconfont icon-fenxiang1"></i>发布</a>
+            <% } else { %>
+                <a class="sxBtn" onclick="saveBook()"><i class="iconfont icon-fenxiang1"></i>完成</a>
+            <% } %>
         </div>
     </div>
 </nav>

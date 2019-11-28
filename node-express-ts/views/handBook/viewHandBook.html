@@ -1,0 +1,105 @@
+<script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/method.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css"/>
+
+<%- include('./../components/header_ViewHandBook.html') %>
+
+<div class="handBookCreate">
+    <div class="partList">
+        <div class="title">
+           《<%= handBook.title %>》
+        </div>
+        <div class="listBody">
+            <div class="listCard">
+                <div class="step">
+                    <div class="step-btn">
+                        1
+                    </div>
+                </div>
+                <div class="center">
+                    前言
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="concent handBookPartView" >
+        <div id="handBookPart">
+            <div id="handBookPartView"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var subjectType = 'handBook'; //评论的类型
+    let handBook = JSON.parse(decodeURIComponent("<%= handBookJson %>"));
+    let blogId = "";
+    let blog = {};
+
+    $('.addPartBtn').click(function () {
+        $(".addPart").css({ "display": "block" });
+        $(".addPartBtn").css({ "display": "none" });
+    })
+    $('.addPartBtnOk').click(function () {
+        createPart()
+    })
+    $('.addPartBtnCl').click(function () {
+        $(".addPart").css({ "display": "none" });
+        $(".addPartBtn").css({ "display": "block" });
+    })
+
+    //渲染章节列表
+    function xrPart() {
+        $(".listBody").empty();
+        let partList = "";
+        for (let i = 0; i < handBook.chapter.length; i++) {
+            partList = partList +
+                `<div class="listCard">
+                    <div class="step">
+                        <div class="step-btn">
+                            ${i + 1}
+                        </div>
+                    </div>
+                    <div class="center">
+                        ${handBook.chapter[i].title}
+                    </div>
+                </div>`;
+        }
+        $(".listBody").html(partList);
+    }
+    xrPart();
+    //选择章节
+    async function selPart(index) {
+        blogId = handBook.chapter[index].id;
+        $.ajax({
+            type: 'GET',
+            url: '/api/blog/' + blogId,
+            success: (res) => {
+                if (res.state == 0) {
+                    blog = res.data;
+                    Vditor.preview( document.getElementById('handBookPartView'),res.data.content, {
+                        className: 'preview vditor-reset',
+                        speech: {
+                            enable: true,
+                        },
+                    });
+                } else {
+                    alert(res.msg)
+                }
+            },
+        });
+    }
+
+    $(".listBody .listCard").click(function (event) {
+        var index = $(".listBody .listCard").index(this);
+        $(".listBody").children(".listCard").removeClass("active");
+        $(".listBody").children(".listCard").eq(index).addClass("active");
+        selPart(index);
+    });
+
+    if (handBook.chapter.length > 0) {
+        selPart(0);
+        $(".listBody").children(".listCard").eq(0).addClass("active");
+    } else {
+        $(".blogCreate").css({ "display": "none" })
+    }
+
+</script>

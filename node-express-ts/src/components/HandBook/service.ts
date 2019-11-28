@@ -53,6 +53,7 @@ const HandBookService: IHandBookService = {
             for (let i: number = 0; i < HandBookList.length; i++) {
                 HandBookList[i].author = await UserService.findOne(HandBookList[i].author);
                 HandBookList[i].classifications = await ClassificationService.findOne(HandBookList[i].classifications);
+                HandBookList[i].createType = await ClassificationService.findOne(HandBookList[i].createType);
                 HandBookList[i].comments = await CommentService.count(HandBookList[i]._id);
                 HandBookList[i].createdAt = new Time().formatDate(HandBookList[i].createdAt);
                 if (HandBookList[i].pv > 100) {
@@ -93,7 +94,8 @@ const HandBookService: IHandBookService = {
 
             HandBook.author = await UserService.findOne(HandBook.author);
             HandBook.classifications = await ClassificationService.findOne(HandBook.classifications);
-
+            HandBook.createType = await ClassificationService.findOne(HandBook.createType);
+            
             return HandBook;
         } catch (error) {
             throw new Error(error.message);
@@ -110,7 +112,6 @@ const HandBookService: IHandBookService = {
             const HandBookFind: IHandBookModel = await HandBookModel.updateOne({
                 _id: Types.ObjectId(id)
             }, updateInfo);
-
             return HandBookFind;
         } catch (error) {
             throw new Error(error.message);

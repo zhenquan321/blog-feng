@@ -5,15 +5,35 @@
 
 <div class="handBookCreate">
     <div class="partList">
+        <div class="title">
+           《<%= handBook.title %>》
+        </div>
+        <div class="listBody">
+            <div class="listCard">
+                <div class="step">
+                    <div class="step-btn">
+                        1
+                    </div>
+                </div>
+                <div class="center">
+                    前言
+                </div>
+            </div>
 
-        
+        </div>
+        <div class="addPart">
+            <input type="text" id="partTitle" class="form-control" placeholder="输入章节名称">
+            <button class="btn btn-primary addPartBtnOk">确定</button>
+            <button class="btn btn-default addPartBtnCl">取消</button>
+        </div>
+        <button class="btn btn-primary addPartBtn">添加章节</button>
+
     </div>
     <div class="concent">
         <form class="blogCreate">
-         
             <div class="createBlog">
                 <div id="vditor"></div>
-                <textarea id="blogContent" style="display: none;"><%= handBook.content||mbHandBook.content %></textarea>
+                <textarea id="blogContent" style="display: none;"><%= handBook.content %></textarea>
             </div>
         </form>
     </div>
@@ -25,7 +45,7 @@
 <script>
     const vditor = new Vditor('vditor', {
         typewriterMode: true,
-        height: 800,
+        height: 1000,
         width: "100%",
         placeholder: "请输入博客正文",
         hint: {
@@ -70,37 +90,68 @@
 
 
 <script>
+    let handBook = JSON.parse(decodeURIComponent("<%= handBookJson %>"));
+    let partTitle = '';
+    let userId = "<%=req.session.user._id||''%>";
+    let contentType = '<%=editor %>';
+    let blogId = "";
+    let blog = {};
+    let firstShow = true;
+    console.log(handBook);
+
+    $('.addPartBtn').click(function () {
+        $(".addPart").css({ "display": "block" });
+        $(".addPartBtn").css({ "display": "none" });
+    })
+    $('.addPartBtnOk').click(function () {
+        createPart()
+    })
+    $('.addPartBtnCl').click(function () {
+        $(".addPart").css({ "display": "none" });
+        $(".addPartBtn").css({ "display": "block" });
+    })
+
+    //渲染章节
+    function xrPart() {
+        $(".listBody").empty();
+        let partList = "";
+        for (let i = 0; i < handBook.chapter.length; i++) {
+            partList = partList +
+                `<div class="listCard">
+                    <div class="step">
+                        <div class="step-btn">
+                            ${i + 1}
+                        </div>
+                    </div>
+                    <div class="center">
+                        ${handBook.chapter[i].title}
+                    </div>
+                </div>`;
+        }
+        $(".listBody").html(partList);
+    }
+    xrPart();
     //发布文章
-    function publishBlog(published) {
-        let userId = "<%=req.session.user._id||''%>";
-        let contentType = '<%=editor %>';
-        let contert = vditor.getValue();
-        if (!$('#blogCreate-title').val()) {
-            alert("博文标题不能为空");
+    function createPart(id, title) {
+        let contert = vditor.getValue() || '章节正文';
+        let useTitle = title || $("#partTitle").val();
+        if (contert == blog.content) {
+            return
+        };
+        if (!useTitle) {
+            alert("章节标题不能为空");
             return
         }
-        if (!contert) {
-            alert("内容不能为空");
-            return
-        }
-        // if (!classificationsId) {
-        //     alert('请选择分类');
-        //     return
-        // }
-        // if (!createTypeId) {
-        //     alert('请选择创作类型');
-        //     return
-        // }
         let data = {
-            published,
+            publishForm: 'handBook',
             author: userId,
-            title: $('#blogCreate-title').val(),
+            title: useTitle,
             content: contert,
             contentType: contentType,
-            createType: createTypeId,
-            classifications: classificationsId,
+            createType: handBook.createType._id,
+            classifications: handBook.classifications._id,
         }
-        let blogId = "<%= handBook._id %>";
+
         let url = '/blog'
         if (blogId) {
             data.blogId = blogId;
@@ -114,13 +165,97 @@
             success: (res) => {
                 hideSh();
                 if (res.state == 0) {
-                    vditor.clearCache()
-                    window.location.href = "/";
+                    updatePart(res.data || res.Blog);
+                    $(".addPart").css({ "display": "none" });
+                    $(".addPartBtn").css({ "display": "block" });
+
                 } else {
                     alert(res.msg)
                 }
             },
         });
+    }
+    //更新手册章节信息
+    async function updatePart(data) {
+        let ifUpdate = true;
+        for (let i = 0; i < handBook.chapter.length; i++) {
+            if (handBook.chapter[i].id == data.id) {
+                handBook.chapter[i] = {
+                    id: data._id,
+                    title: data.title,
+                }
+            }
+        }
+        if (ifUpdate) {
+            handBook.chapter.push({
+                id: data._id,
+                title: data.title,
+            })
+        }
+        xrPart();
+        return new Promise(function (res, rej) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/handBook/update',
+                data: {
+                    _id: handBook._id,
+                    handBookData: encodeURIComponent(JSON.stringify(handBook)),
+                },
+                success: (res) => {
+                    if (res.state == 0) {
+                        handBook = res.data;
+                        xrPart();
+                        selPart(handBook.chapter.length - 1);
+                        $(".listBody").children(".listCard").eq(handBook.chapter.length - 1).addClass("active");
+                        res()
+                    } else {
+                        alert(res.msg);
+                        rej();
+                    }
+                },
+            });
+        })
+
+    }
+    //选择章节
+    async function selPart(index) {
+        blogId = handBook.chapter[index].id;
+        if (!firstShow) {
+            await createPart(blogId, handBook.chapter[index].title);
+        } else {
+            firstShow = false;
+        }
+        $.ajax({
+            type: 'GET',
+            url: '/api/blog/' + blogId,
+            success: (res) => {
+                if (res.state == 0) {
+                    blog = res.data;
+                    vditor.setValue(res.data.content);
+                } else {
+                    alert(res.msg)
+                }
+            },
+        });
+    }
+
+    $(".listBody .listCard").click(function (event) {
+        var index = $(".listBody .listCard").index(this);
+        $(".listBody").children(".listCard").removeClass("active");
+        $(".listBody").children(".listCard").eq(index).addClass("active");
+        selPart(index);
+    });
+
+    if (handBook.chapter.length > 0) {
+        selPart(0);
+        $(".listBody").children(".listCard").eq(0).addClass("active");
+    } else {
+        $(".blogCreate").css({ "display": "none" })
+    }
+
+    async function saveBook() {
+        await createPart();
+        window.location.href = "/handBook";
     }
 </script>
 
