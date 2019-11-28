@@ -6,7 +6,7 @@
 <div class="handBookCreate">
     <div class="partList">
         <div class="title">
-           《<%= handBook.title %>》
+            《<%= handBook.title %>》
         </div>
         <div class="listBody">
             <div class="listCard">
@@ -95,6 +95,7 @@
     let userId = "<%=req.session.user._id||''%>";
     let contentType = '<%=editor %>';
     let blogId = "";
+    let blogTitle = "";
     let blog = {};
     let firstShow = true;
     console.log(handBook);
@@ -104,7 +105,7 @@
         $(".addPartBtn").css({ "display": "none" });
     })
     $('.addPartBtnOk').click(function () {
-        createPart()
+        createPart(true);
     })
     $('.addPartBtnCl').click(function () {
         $(".addPart").css({ "display": "none" });
@@ -132,10 +133,10 @@
     }
     xrPart();
     //发布文章
-    function createPart(id, title) {
-        let contert = vditor.getValue() || '章节正文';
-        let useTitle = title || $("#partTitle").val();
-        if (contert == blog.content) {
+    function createPart(createNew) {
+        let contert = createNew ? '章节正文' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
+        let useTitle =createNew? $("#partTitle").val():blogTitle;
+        if (!createNew&&contert == blog.content) {
             return
         };
         if (!useTitle) {
@@ -153,7 +154,8 @@
         }
 
         let url = '/blog'
-        if (blogId) {
+
+        if (!createNew && blogId) {
             data.blogId = blogId;
             url = '/blog/update'
         }
@@ -168,7 +170,7 @@
                     updatePart(res.data || res.Blog);
                     $(".addPart").css({ "display": "none" });
                     $(".addPartBtn").css({ "display": "block" });
-
+                    $("#partTitle").val('')
                 } else {
                     alert(res.msg)
                 }
@@ -179,11 +181,12 @@
     async function updatePart(data) {
         let ifUpdate = true;
         for (let i = 0; i < handBook.chapter.length; i++) {
-            if (handBook.chapter[i].id == data.id) {
+            if (handBook.chapter[i].id == data._id) {
                 handBook.chapter[i] = {
                     id: data._id,
                     title: data.title,
                 }
+                ifUpdate = false;
             }
         }
         if (ifUpdate) {
@@ -193,7 +196,7 @@
             })
         }
         xrPart();
-        return new Promise(function (res, rej) {
+        return new Promise(function (resFun, rejFun) {
             $.ajax({
                 type: 'POST',
                 url: '/api/handBook/update',
@@ -219,9 +222,12 @@
     }
     //选择章节
     async function selPart(index) {
+
         blogId = handBook.chapter[index].id;
+        blogTitle = handBook.chapter[index].title;
+
         if (!firstShow) {
-            await createPart(blogId, handBook.chapter[index].title);
+            await createPart();
         } else {
             firstShow = false;
         }

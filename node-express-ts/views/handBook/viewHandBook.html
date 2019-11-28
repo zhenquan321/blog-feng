@@ -71,6 +71,9 @@
     async function selPart(index) {
         blogId = handBook.chapter[index].id;
         subjectId = blogId;
+        getComment();
+        thumbsUp();
+        
         $.ajax({
             type: 'GET',
             url: '/api/blog/' + blogId,

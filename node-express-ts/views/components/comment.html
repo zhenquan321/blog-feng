@@ -109,7 +109,7 @@
             },
         });
     }
-   
+    getComment();
     //发布评论
     function publishComment() {
         let userId = "<%=req.session.user&&req.session.user._id||''%>";
@@ -189,10 +189,7 @@
         });
     }
 
-    setTimeout(()=>{
-        getComment();
-        thumbsUp();
-    },50)
+  
 
 
 </script>
