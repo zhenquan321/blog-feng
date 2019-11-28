@@ -210,10 +210,10 @@
                         xrPart();
                         selPart(handBook.chapter.length - 1);
                         $(".listBody").children(".listCard").eq(handBook.chapter.length - 1).addClass("active");
-                        res()
+                        resFun()
                     } else {
                         alert(res.msg);
-                        rej();
+                        rejFun();
                     }
                 },
             });
