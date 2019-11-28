@@ -114,6 +114,11 @@
 
     //渲染章节
     function xrPart() {
+        if (handBook.chapter.length > 0) {
+            $(".blogCreate").css({ "display": "block" });
+        } else {
+            $(".blogCreate").css({ "display": "none" });
+        }
         $(".listBody").empty();
         let partList = "";
         for (let i = 0; i < handBook.chapter.length; i++) {
@@ -130,13 +135,19 @@
                 </div>`;
         }
         $(".listBody").html(partList);
+        $(".listBody .listCard").click(function (event) {
+            var index = $(".listBody .listCard").index(this);
+            $(".listBody").children(".listCard").removeClass("active");
+            $(".listBody").children(".listCard").eq(index).addClass("active");
+            selPart(index);
+        });
     }
     xrPart();
     //发布文章
     function createPart(createNew) {
         let contert = createNew ? '章节正文' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
-        let useTitle =createNew? $("#partTitle").val():blogTitle;
-        if (!createNew&&contert == blog.content) {
+        let useTitle = createNew ? $("#partTitle").val() : blogTitle;
+        if (!createNew && contert == blog.content) {
             return
         };
         if (!useTitle) {
@@ -160,26 +171,33 @@
             url = '/blog/update'
         }
         showSh()
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            success: (res) => {
-                hideSh();
-                if (res.state == 0) {
-                    updatePart(res.data || res.Blog);
-                    $(".addPart").css({ "display": "none" });
-                    $(".addPartBtn").css({ "display": "block" });
-                    $("#partTitle").val('')
-                } else {
-                    alert(res.msg)
-                }
-            },
+        return new Promise(function (resFun, rejFun) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: (res) => {
+                    hideSh();
+                    if (res.state == 0) {
+                        updatePart(res.data || res.Blog);
+                        $(".addPart").css({ "display": "none" });
+                        $(".addPartBtn").css({ "display": "block" });
+                        $("#partTitle").val('');
+                        resFun();
+                    } else {
+                        alert(res.msg)
+                        rejFun();
+                    }
+                },
+            });
         });
     }
     //更新手册章节信息
-    async function updatePart(data) {
+    function updatePart(data) {
         let ifUpdate = true;
+        if (!data._id) {
+            return
+        }
         for (let i = 0; i < handBook.chapter.length; i++) {
             if (handBook.chapter[i].id == data._id) {
                 handBook.chapter[i] = {
@@ -196,41 +214,36 @@
             })
         }
         xrPart();
-        return new Promise(function (resFun, rejFun) {
-            $.ajax({
-                type: 'POST',
-                url: '/api/handBook/update',
-                data: {
-                    _id: handBook._id,
-                    handBookData: encodeURIComponent(JSON.stringify(handBook)),
-                },
-                success: (res) => {
-                    if (res.state == 0) {
-                        handBook = res.data;
-                        xrPart();
-                        selPart(handBook.chapter.length - 1);
-                        $(".listBody").children(".listCard").eq(handBook.chapter.length - 1).addClass("active");
-                        resFun()
-                    } else {
-                        alert(res.msg);
-                        rejFun();
-                    }
-                },
-            });
-        })
-
+        $.ajax({
+            type: 'POST',
+            url: '/api/handBook/update',
+            data: {
+                _id: handBook._id,
+                handBookData: encodeURIComponent(JSON.stringify(handBook)),
+            },
+            success: (res) => {
+                if (res.state == 0) {
+                    handBook = res.data;
+                    xrPart();
+                    selPart(handBook.chapter.length - 1);
+                    $(".listBody").children(".listCard").eq(handBook.chapter.length - 1).addClass("active");
+                    resFun()
+                } else {
+                    alert(res.msg);
+                    rejFun();
+                }
+            },
+        });
     }
     //选择章节
     async function selPart(index) {
-
-        blogId = handBook.chapter[index].id;
-        blogTitle = handBook.chapter[index].title;
-
         if (!firstShow) {
             await createPart();
         } else {
             firstShow = false;
         }
+        blogId = handBook.chapter[index].id;
+        blogTitle = handBook.chapter[index].title;
         $.ajax({
             type: 'GET',
             url: '/api/blog/' + blogId,
@@ -245,12 +258,6 @@
         });
     }
 
-    $(".listBody .listCard").click(function (event) {
-        var index = $(".listBody .listCard").index(this);
-        $(".listBody").children(".listCard").removeClass("active");
-        $(".listBody").children(".listCard").eq(index).addClass("active");
-        selPart(index);
-    });
 
     if (handBook.chapter.length > 0) {
         selPart(0);
