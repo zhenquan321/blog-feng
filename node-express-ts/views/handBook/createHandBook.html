@@ -64,13 +64,6 @@
             url: '/tool/upload',
             max: "3 * 1024 * 1024",
             linkToImgUrl: '/tool/upload',
-            format: (files, responseText) => {
-                console.log(files, responseText);
-            },
-            success: (res) => {
-                console.log(res);
-            },
-
             filename: (name) => {
                 return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5\.)]/g, '').
                     replace(/[\?\\/:|<>\*\[\]\(\)\$%\{\}@~]/g, '').
