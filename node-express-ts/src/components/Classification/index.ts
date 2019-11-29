@@ -52,9 +52,12 @@ export async function create(req: Request, res: Response, next: NextFunction): P
         if (!Classification.name) {
             req.flash = { warning: Classification.mag };
         }
-        blogCreate(req, res, next);
-
-        // res.status(200).json(Classification);
+        
+        res.status(200).json({
+            state:Classification.state||0,
+            data:Classification,
+            msg:Classification.msg||""
+        });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

@@ -20,9 +20,9 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
         const Blogs: any = await BlogService.findAll(query);//
 
         res.status(200).json({
-            state:0,
-            data:Blogs,
-            msg:''
+            state: 0,
+            data: Blogs,
+            msg: ''
         });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
@@ -47,9 +47,9 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
         // 增加阅读数
         BlogService.update(req.params.id, { $set: { pv: (blog.pv + Math.round(Math.random() * 10)) } });
         res.status(200).json({
-            state:0,
-            data:blog,
-            msg:''
+            state: 0,
+            data: blog,
+            msg: ''
         });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
@@ -120,8 +120,9 @@ export async function remove(req: Request, res: Response, next: NextFunction): P
 
 export async function thumbsUp(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const BlogFid: IBlogModel = await BlogService.findOne(req.params.id || req.body.id);
-        const thumbsUp: number = BlogFid.thumbsUp + 1;
+        const qurey = req.body;
+        const BlogFid: IBlogModel = await BlogService.findOne(qurey.id);
+        const thumbsUp: number = BlogFid.thumbsUp + Number(qurey.num);
         const Blog: IBlogModel = await BlogService.update(req.params.id || req.body.id, {
             thumbsUp
         });

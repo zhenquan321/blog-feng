@@ -131,42 +131,12 @@
     </form>
 </div>
 
-<div class="addClassification" style="display: none;">
-    <form class="loginBody singinBody" action="/Classification" method="post">
-        <i class="iconfont icon-guanbi1 closeLogin" onclick="closeAddClassification()"></i>
-        <h4>添加分类</h4>
-        <div class="input-group">
-            <input type="text" class="form-control" name="name" placeholder="请输入分类名称">
-        </div>
-        <div class="input-group">
-            <input type="text" id="classificationType" class="form-control" name="type" placeholder="分类类别">
-        </div>
-        <div class="input-group">
-            <textarea style="width:280px;margin-top:10px" class="form-control" name="describe" placeholder="请输入分类描述"
-                rows="3"></textarea>
-        </div>
-        <input class="btn btn-primary" type="submit" value="添加" />
-    </form>
-</div>
-
+<%- include('./../components/classification.html') %>
 
 <script>
     let classificationsId = '';
     let createTypeId = '';
     let coverPhoto = '';
-
-    function closeAddClassification() {
-        $(".addClassification").css({
-            "display": "none"
-        })
-    }
-
-    function openAddClassification(type) {
-        $("#classificationType").val(type);
-        $(".addClassification").css({
-            "display": "block"
-        })
-    }
 
     function selClassifications(name, id) {
         $("#classificationsName").val(name);

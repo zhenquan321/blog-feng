@@ -120,8 +120,9 @@ export async function remove(req: Request, res: Response, next: NextFunction): P
 
 export async function thumbsUp(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const HandBookFid: IHandBookModel = await HandBookService.findOne(req.params.id || req.body.id);
-        const thumbsUp: number = HandBookFid.thumbsUp + 1;
+        const qurey = req.body;
+        const HandBookFid: IHandBookModel = await HandBookService.findOne(qurey.id);
+        const thumbsUp: number = HandBookFid.thumbsUp + Number(qurey.num) ;
         const HandBook: IHandBookModel = await HandBookService.update(req.params.id || req.body.id, {
             thumbsUp
         });

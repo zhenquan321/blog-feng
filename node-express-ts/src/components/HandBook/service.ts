@@ -8,6 +8,7 @@ import UserService from '../User/service';
 import CommentService from '../Comment/service';
 
 import Time from './../../utils/Time';
+import BlogService from '../Blog/service';
 
 /**
  * @export
@@ -54,8 +55,15 @@ const HandBookService: IHandBookService = {
                 HandBookList[i].author = await UserService.findOne(HandBookList[i].author);
                 HandBookList[i].classifications = await ClassificationService.findOne(HandBookList[i].classifications);
                 HandBookList[i].createType = await ClassificationService.findOne(HandBookList[i].createType);
-                HandBookList[i].comments = await CommentService.count(HandBookList[i]._id);
+                // HandBookList[i].comments = await CommentService.count(HandBookList[i]._id);
                 HandBookList[i].createdAt = new Time().formatDate(HandBookList[i].createdAt);
+                for (let a = 0; a < HandBookList[i].chapter.length; a++) {
+                    let handBookPart = await BlogService.findOne(HandBookList[i].chapter[a].id);
+                    HandBookList[i].comments+=handBookPart.comments;
+                    HandBookList[i].thumbsUp+=handBookPart.thumbsUp;
+                    HandBookList[i].pv+=handBookPart.pv;
+                }
+
                 if (HandBookList[i].pv > 100) {
                     HandBookList[i].isHot = true;
                 }
@@ -84,7 +92,7 @@ const HandBookService: IHandBookService = {
      */
     async findOne(id: string): Promise<IHandBookModel | any> {
         try {
-            if(!id){
+            if (!id) {
                 return {};
             }
             const HandBookFind: IHandBookModel = await HandBookModel.findOne({
@@ -95,7 +103,7 @@ const HandBookService: IHandBookService = {
             HandBook.author = await UserService.findOne(HandBook.author);
             HandBook.classifications = await ClassificationService.findOne(HandBook.classifications);
             HandBook.createType = await ClassificationService.findOne(HandBook.createType);
-            
+
             return HandBook;
         } catch (error) {
             throw new Error(error.message);

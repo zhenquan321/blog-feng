@@ -34,7 +34,7 @@
                 <i class="iconfont icon-pinglun"></i>
             </a>
         </li>
-        <li onclick="thumbsUp()">
+        <li onclick="thumbsUp(1)">
             <span id="thumbsUpNum"><%= (subject&&subject.thumbsUp)||0 %> </span>
             <i class="iconfont icon-dianzan"></i>
         </li>
@@ -44,7 +44,7 @@
     </ul>
 </div>
 <script>
-    var subjectId = "<%= (subject&&subject._id)||'' %>"  ;
+    var subjectId = "<%= (subject&&subject._id)||'' %>";
     let userId = "<%=req.session.user&&req.session.user._id||''%>";
 
     function pushEmoji() {
@@ -81,18 +81,18 @@
                     for (let i = 0; i < res.data.length; i++) {
                         commentDom += `<div class="listCard">
                             <div class="userHeader">
-                                <div class="headerImg"> ${res.data[i].author&&res.data[i].author.profile&&res.data[i].author.profile.picture?'<img src="'+res.data[i].author.profile.picture+'" alt="">':' <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>'}
+                                <div class="headerImg"> ${res.data[i].author && res.data[i].author.profile && res.data[i].author.profile.picture ? '<img src="' + res.data[i].author.profile.picture + '" alt="">' : ' <span><i class="iconfont icon-shenfenrenzheng-zhiye"></i></span>'}
                                 </div>
                             </div>
                             <div class="comment-right">
-                                <div class="commentUserInfo">${(res.data[i].author.profile&&res.data[i].author.profile.name)||res.data[i].author.email}</div>
+                                <div class="commentUserInfo">${(res.data[i].author.profile && res.data[i].author.profile.name) || res.data[i].author.email}</div>
                                 <div class="comment-content">
                                     ${res.data[i].content}
                                 </div>
                                 <div class="control">
                                     <div class="time"> ${res.data[i].updatedAt}</div>
                                     <div class="control-right">
-                                        <span><i class="iconfont icon-dianzan"></i>${res.data[i].thumbsUp||0}</span>
+                                        <span><i class="iconfont icon-dianzan"></i>${res.data[i].thumbsUp || 0}</span>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
     //发布评论
     function publishComment() {
         let userId = "<%=req.session.user&&req.session.user._id||''%>";
-        if(!userId){
+        if (!userId) {
             singIn();
             return
         }
@@ -169,13 +169,14 @@
 
 
     //点赞
-    function thumbsUp() {
-        
+    function thumbsUp(num=1) {
+
         let data = {
             id: subjectId,
+            num:num
         }
-        if(subjectType=='handBookPart'){
-            subjectType='api/blog'
+        if (subjectType == 'handBookPart') {
+            subjectType = 'api/blog'
         }
         $.ajax({
             type: 'POST',
@@ -184,12 +185,14 @@
             success: (res) => {
                 if (res.state == 0) {
                     $("#thumbsUpNum").html(res.thumbsUp);
+                }else{
+                    alert(res.msg)
                 }
             },
         });
     }
 
-  
+
 
 
 </script>

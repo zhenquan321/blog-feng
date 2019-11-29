@@ -91,8 +91,8 @@ export async function remove(req: Request, res: Response, next: NextFunction): P
 
 export async function thumbsUp(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const MovieFid: any = await MovieService.findOne(req.params.id || req.body.id);
-        const thumbsUp: number = MovieFid.thumbsUp + 1;
+        const MovieFid: any = await MovieService.findOne(req.body.id);
+        const thumbsUp: number = MovieFid.thumbsUp + Number(req.body.num||1);
         const Movie: any = await MovieService.update(req.params.id || req.body.id, {
             thumbsUp
         });

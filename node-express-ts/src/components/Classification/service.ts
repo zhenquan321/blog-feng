@@ -46,7 +46,7 @@ const ClassificationService: IClassificationService = {
 
             if (hasClassification) {
 
-                return { mag: '该分类已存在' };
+                return { state:1,msg: '该分类已存在' };
 
             } else {
 

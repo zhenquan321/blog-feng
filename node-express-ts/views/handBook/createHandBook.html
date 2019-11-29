@@ -40,8 +40,6 @@
 </div>
 
 
-
-
 <script>
     const vditor = new Vditor('vditor', {
         typewriterMode: true,
@@ -137,15 +135,13 @@
         $(".listBody").html(partList);
         $(".listBody .listCard").click(function (event) {
             var index = $(".listBody .listCard").index(this);
-            $(".listBody").children(".listCard").removeClass("active");
-            $(".listBody").children(".listCard").eq(index).addClass("active");
             selPart(index);
         });
     }
     xrPart();
     //发布文章
     function createPart(createNew) {
-        let contert = createNew ? '章节正文' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
+        let contert = createNew ? '章节亲在这里填写章节正文哦😯~' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
         let useTitle = createNew ? $("#partTitle").val() : blogTitle;
         if (!createNew && contert == blog.content) {
             return
@@ -226,7 +222,6 @@
                     handBook = res.data;
                     xrPart();
                     selPart(handBook.chapter.length - 1);
-                    $(".listBody").children(".listCard").eq(handBook.chapter.length - 1).addClass("active");
                     resFun()
                 } else {
                     alert(res.msg);
@@ -237,6 +232,8 @@
     }
     //选择章节
     async function selPart(index) {
+        $(".listBody").children(".listCard").removeClass("active");
+        $(".listBody").children(".listCard").eq(index).addClass("active");
         if (!firstShow) {
             await createPart();
         } else {
@@ -261,7 +258,6 @@
 
     if (handBook.chapter.length > 0) {
         selPart(0);
-        $(".listBody").children(".listCard").eq(0).addClass("active");
     } else {
         $(".blogCreate").css({ "display": "none" })
     }

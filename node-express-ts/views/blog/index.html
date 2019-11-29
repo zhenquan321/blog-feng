@@ -44,12 +44,18 @@
                     <span><i class="iconfont icon-pinglun"></i><%= blog.comments ||0 %></span>
                 </div>
             </a>
-            <% if (req.session.user && blog.author.id == req.session.user._id){%>
-           
-            <div class="removeBlog" >
-                <a href="/blogCreate?blogId=<%= blog._id %>" target="_blank"><i class="iconfont icon-bianji"></i></a> 
-                <i onclick="removeBlog('<%= blog._id %>','<%= blog.title %>')" class="iconfont icon-shanchu"></i>
-            </div>
+            <% if (req.session.user && blog.author.id == req.session.user._id ){%>
+                <% if (blog.publishForm != 'handBook'){%>
+                <div class="removeBlog" >
+                    <a href="/blogCreate?blogId=<%= blog._id %>" target="_blank"><i class="iconfont icon-bianji"></i></a> 
+                    <i onclick="removeBlog('<%= blog._id %>','<%= blog.title %>')" class="iconfont icon-shanchu"></i>
+                </div>
+                <% } else {%>
+                    <div class="removeBlog" >
+                        该篇博文属于手册，<br />
+                        请在手册中修改。     
+                    </div>
+                <% } %>
             <% } %>
         </div>
         <% }); %>

@@ -72,8 +72,8 @@
         blogId = handBook.chapter[index].id;
         subjectId = blogId;
         getComment();
-        thumbsUp();
-        
+        thumbsUp(0);
+
         $.ajax({
             type: 'GET',
             url: '/api/blog/' + blogId,
