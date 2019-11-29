@@ -1,12 +1,12 @@
 <script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/method.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css" />
 
 <%- include('./../components/header_ViewHandBook.html') %>
 
 <div class="handBookCreate">
     <div class="partList">
         <div class="title">
-           《<%= handBook.title %>》
+            《<%= handBook.title %>》
         </div>
         <div class="listBody">
             <div class="listCard">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="concent handBookPartView" >
+    <div class="concent handBookPartView">
         <div id="handBookPart">
             <div id="handBookPartView"></div>
             <%- include('./../components/comment.html') %>
@@ -80,10 +80,16 @@
             success: (res) => {
                 if (res.state == 0) {
                     blog = res.data;
-                    Vditor.preview( document.getElementById('handBookPartView'),res.data.content, {
+                    Vditor.preview(document.getElementById('handBookPartView'), res.data.content, {
                         className: 'preview vditor-reset',
                         speech: {
                             enable: true,
+                        },
+                        preview: {
+                            delay: 500,
+                            hljs: {
+                                lineNumber: true
+                            }
                         },
                     });
                 } else {
