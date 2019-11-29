@@ -153,6 +153,7 @@
   overflow-y: auto;
   z-index: 1;
   background-color: #fff;
+  padding-bottom: 100px;
 }
 .handBookCreate .partList .title {
   font-size: 18px;
