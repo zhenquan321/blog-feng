@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@1.10.2/dist/index.classic.css" />
-<script src="https://cdn.jsdelivr.net/npm/vditor@1.10.2/dist/index.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css" />
+<script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.min.js"></script>
 
 <%- include('./../components/header_createBlog.html') %>
 
@@ -31,7 +31,7 @@
                     <% }%>
                 </ul>
             </div>
-            <div class="btn-group selTypes" >
+            <div class="btn-group selTypes">
                 <div class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="iconfont icon-cecenidechenggongshuai"></i>
                     <input type="text" id="createTypeName" name=""
@@ -100,9 +100,9 @@
 
 
 <script>
-    let classificationsId = '<%- (blog.classifications&&blog.classifications._id) %>' ||'';
-    let createTypeId = '<%- (blog.createType&&blog.createType._id) %>' ||'';
-    
+    let classificationsId = '<%- (blog.classifications&&blog.classifications._id) %>' || '';
+    let createTypeId = '<%- (blog.createType&&blog.createType._id) %>' || '';
+
     function mdSwitch() {
         var mdValue = document.getElementById("md-area").value;
         var converter = new showdown.Converter();
@@ -147,14 +147,14 @@
             title: $('#blogCreate-title').val(),
             content: contert,
             contentType: contentType,
-            createType:createTypeId,
+            createType: createTypeId,
             classifications: classificationsId,
         }
         let blogId = "<%= blog._id %>";
         let url = '/blog'
         if (blogId) {
             data.blogId = blogId;
-            url='/blog/update'
+            url = '/blog/update'
         }
         showSh()
         $.ajax({

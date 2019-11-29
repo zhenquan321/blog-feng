@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="concent handBookPartView">
+    <div class="concent handBookPartView" id= "handBookPartViewScroll">
         <div id="handBookPart">
             <div id="handBookPartView"></div>
             <%- include('./../components/comment.html') %>
@@ -92,12 +92,15 @@
                             }
                         },
                     });
+                    document.getElementById("handBookPartViewScroll").scrollTop = 0;
                 } else {
                     alert(res.msg)
                 }
             },
         });
     }
+
+   
 
     $(".listBody .listCard").click(function (event) {
         var index = $(".listBody .listCard").index(this);

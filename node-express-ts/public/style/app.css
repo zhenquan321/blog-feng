@@ -59,6 +59,14 @@ textarea:focus {
   border-color: #ccc;
   text-decoration: none;
 }
+.vditor-toolbar label input {
+  width: 26px;
+  height: 26px;
+  opacity: 0.001;
+  overflow: hidden;
+  top: -5px;
+  left: -5px;
+}
 .navbar-default {
   background-color: #ffffff;
   border-color: #e7e7e7;
@@ -96,6 +104,10 @@ textarea:focus {
   color: #b71ed7 !important;
   font-weight: 600;
 }
+.sepcaliColor-red {
+  color: red !important;
+  font-weight: 600;
+}
 .navbar {
   font-size: 16px;
   z-index: 10;
@@ -128,6 +140,11 @@ textarea:focus {
   padding: 2px;
   border-radius: 5px;
   padding-right: 8px;
+}
+.nav-right .zcBtn {
+  border: 1px solid #888;
+  cursor: default;
+  color: #888;
 }
 .nav-right a {
   color: #e59233;
@@ -241,6 +258,9 @@ a {
 .addClassification .loginHref {
   cursor: pointer;
 }
+.addClassification .loginBody {
+  height: 330px;
+}
 .notifications {
   position: fixed;
   top: 60px;
@@ -284,18 +304,29 @@ a.thumbnail:hover {
   border-color: #e59233;
   box-shadow: 0px 0px 6px #e59233;
 }
+.movieRd {
+  background-color: rgba(199, 162, 119, 0.78039216);
+  position: absolute;
+  bottom: 95px;
+  padding: 5px 10px 5px 5px;
+  color: #fff !important;
+  margin: 0px;
+}
 .thumbnail {
   border: 0;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   border-radius: 0;
+  padding: 8px;
+  position: relative;
 }
 .topDiv {
   background-color: #fff;
-  padding: 10px 20px 2px;
+  padding: 10px 15px 10px;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 .movieList {
-  padding: 0 5px ;
+  padding: 0 5px;
 }
 .movieCard {
   padding: 0 10px;
@@ -343,6 +374,13 @@ a.thumbnail:hover {
   line-height: 36px;
   display: inline-block;
   margin: 0 10px;
+}
+.allCount {
+  display: inline-block;
+  padding: 10px;
+}
+.allCount span {
+  color: #e59233;
 }
 .selectHeader {
   padding: 0 10px;
@@ -410,7 +448,6 @@ a.thumbnail:hover {
 .movieDetail .movieJj {
   bottom: 10px;
   width: 100%;
-  padding-left: 20px;
 }
 .movieDetail .movieJj h3 {
   color: #e59233;
@@ -457,7 +494,7 @@ a.thumbnail:hover {
 }
 .searchTop {
   height: 40px;
-  margin: 5px 0;
+  margin: 4px 0;
 }
 .searchTop .form-inline {
   width: 300px;
@@ -527,6 +564,9 @@ a.thumbnail:hover {
   position: relative;
   top: 1px;
   right: -4px;
+}
+.blogCreate .header-left .selTypes .dropdown-toggle i:hover {
+  color: #e59233;
 }
 .blogCreate .header-left .selTypes:hover {
   color: #555;
@@ -603,7 +643,7 @@ a.thumbnail:hover {
   top: 50px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   border-top: 1px solid #e6e6e6;
-  z-index: 12;
+  z-index: 9;
 }
 .classificationHeader ul li {
   display: inline-block;
@@ -688,6 +728,9 @@ a.thumbnail:hover {
 .blogList .blogCard .re {
   color: #b71ed7;
   font-weight: 600;
+}
+.blogList .blogCard .createType {
+  color: #4e87dc;
 }
 .blogList .blogCard .lei {
   color: #f70;
@@ -1154,6 +1197,9 @@ a.thumbnail:hover {
   .row {
     margin: 0;
   }
+  .allCount {
+    display: none;
+  }
   .navbar {
     padding: 0!important;
     margin: 0!important;
@@ -1168,6 +1214,10 @@ a.thumbnail:hover {
     padding-right: 8px;
     padding-left: 8px;
   }
+  .movieList {
+    padding: 0;
+    margin: 0 -5px;
+  }
   .movieList .movieCard {
     padding: 5px;
   }
@@ -1180,9 +1230,14 @@ a.thumbnail:hover {
   .breadcrumb {
     background-color: #f4f5f5 !important;
   }
+  .topDiv {
+    margin-bottom: 10px;
+    margin-top: 6px;
+    padding: 8px 15px 4px;
+  }
   .selectHeader {
     height: 38px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     background-color: #fff;
     border-radius: 5px;
   }

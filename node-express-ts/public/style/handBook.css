@@ -296,3 +296,13 @@
   padding: 80px 0 40px;
   overflow-y: auto;
 }
+.main-body .vditor-toolbar label input {
+  width: 32px;
+  height: 32px;
+  opacity: 0.001;
+  overflow: hidden;
+  top: -8px;
+  left: -10px;
+  cursor: pointer;
+  z-index: 3;
+}
