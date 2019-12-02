@@ -94,8 +94,6 @@
     let blogTitle = "";
     let blog = {};
     let firstShow = true;
-    console.log(handBook);
-
     $('.addPartBtn').click(function () {
         $(".addPart").css({ "display": "block" });
         $(".addPartBtn").css({ "display": "none" });
@@ -108,7 +106,6 @@
         $(".addPart").css({ "display": "none" });
         $(".addPartBtn").css({ "display": "block" });
     })
-
     //渲染章节
     function xrPart() {
         if (handBook.chapter.length > 0) {

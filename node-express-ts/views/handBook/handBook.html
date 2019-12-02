@@ -31,7 +31,7 @@
                 <img src="<%= handBook.coverPhoto %>" alt="">
             </div>
             <a href="/viewHandBook?handBookId=<%=handBook._id %>">
-                <h4>  《<%= handBook.title %>》</h4>
+                <h4> 《<%= handBook.title %>》</h4>
                 <h6>
                     <% if(handBook.isHot){ %><span class="jian"><i class="iconfont icon-remen "></i>热</span> · <% } %>
                     <% if(handBook.isRecommend){ %><span class="re"> <%= handBook.isRecommend %> </span> · <% } %>
@@ -52,8 +52,9 @@
             <% if (req.session.user && handBook.author.id == req.session.user._id){%>
 
             <div class="removeBlog">
+                <i class="iconfont icon-bianji" onclick="editorBook('<%- handBook._id %>')"></i>
                 <a href="/createHandBook?handBookId=<%= handBook._id %>" target="_blank"><i
-                        class="iconfont icon-bianji"></i></a>
+                        class="iconfont icon-shoujianludan"></i></a>
                 <i onclick="removeBlog('<%= handBook._id %>','<%= handBook.title %>')"
                     class="iconfont icon-shanchu"></i>
             </div>
@@ -66,8 +67,6 @@
         <%}%>
         </div>
     </div>
-
-
 
     <div class="HandBookCreateModel" style="display: none;">
         <form class="body">
@@ -127,7 +126,7 @@
     <div class="input-group">
         <textarea class="form-control" id="handBookDescribe" name="describe" placeholder="请输入手册简介" rows="4"></textarea>
     </div>
-    <input class="btn btn-primary" onclick="publishHandBook()" value="创建" />
+    <input class="btn btn-primary" id="saveHandBook" onclick="publishHandBook()" value="创建" />
     </form>
 </div>
 
@@ -137,7 +136,7 @@
     let classificationsId = '';
     let createTypeId = '';
     let coverPhoto = '';
-
+    let handBookId = '';
     function selClassifications(name, id) {
         $("#classificationsName").val(name);
         classificationsId = id;
@@ -149,7 +148,13 @@
     }
 
     function closeHandBookCreateModel() {
-        $(".HandBookCreateModel").css({ "display": "none" })
+        $(".HandBookCreateModel").css({ "display": "none" });
+        handBookId="";
+        $("#handBookDescribe").val(res.data.describe);
+        $("#handBookTitle").val("");
+        selClassifications("", "")
+        selCreateTypeName("", "")
+        $("#userInfoHeaderImg").empty();
     }
 
     $("#openHandBookCreateModel").click(function () {
@@ -209,7 +214,7 @@
             alert('请选择创作类型~');
             return
         }
-        let data = {
+        let dataInfo = {
             author: userId,
             title: title,
             describe: describe,
@@ -219,15 +224,29 @@
             classifications: classificationsId,
             createType: createTypeId,
         }
+        let url = '/api/handBook'
+        let data = {};
+        if (handBookId) {
+            data._id = handBookId;
+            data.handBookData = encodeURIComponent(JSON.stringify(dataInfo));
+            url = '/api/handBook/update'
+        }else{
+            data = dataInfo
+        }
         showSh()
         $.ajax({
             type: 'POST',
-            url: '/api/handBook',
+            url: url,
             data: data,
             success: (res) => {
                 hideSh()
                 if (res.state == 0) {
-                    window.location.href = window.location.origin + '/createHandBook?handBookId=' + res.data._id;
+                    if(handBookId){
+                        handBookId = "";
+                        window.location.reload();
+                    }else{
+                        window.location.href = window.location.origin + '/createHandBook?handBookId=' + res.data._id;
+                    }
                 } else {
                     alert(res.msg)
                 }
@@ -249,7 +268,31 @@
             });
         }
     }
+    //修改手册
+    function editorBook(id) {
+        $.ajax({
+            type: 'get',
+            url: '/api/handBook/' + id,
+            data: '',
+            success: (res) => {
+                if (res.state == 0) {
+                    console.log(res);
+                    $(".HandBookCreateModel").css({ "display": "block" });
+                    $("#handBookDescribe").val(res.data.describe);
+                    $("#handBookTitle").val(res.data.title);
+                    selClassifications(res.data.classifications.name, res.data.classifications._id)
+                    selCreateTypeName(res.data.createType.name, res.data.createType._id)
+                    $("#userInfoHeaderImg").empty();
+                    $("#userInfoHeaderImg").append("<img src='" + res.data.coverPhoto + "'>");
 
-
+                    handBookId = res.data._id;
+                    coverPhoto = res.data.coverPhoto;
+                    $("#saveHandBook").val("修改");
+                } else {
+                    alert(res.msg)
+                }
+            },
+        });
+    }
 
 </script>
