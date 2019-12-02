@@ -99,6 +99,7 @@
     $('.addPartBtn').click(function () {
         $(".addPart").css({ "display": "block" });
         $(".addPartBtn").css({ "display": "none" });
+        savePart();
     })
     $('.addPartBtnOk').click(function () {
         savePart(true);
