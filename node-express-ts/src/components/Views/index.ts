@@ -212,9 +212,12 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
 
 export async function handBook(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+        const query: any = req.query || req.body;
+        query.page = query.page >= 1 ? query.page - 1 : 0;
+
         const classifications: any = await ClassificationService.findAll({ type: 'handBookClassification' });
         const createType: any = await ClassificationService.findAll({ type: 'handBookCreateType' });
-        const handBookArray: any = await HandBookService.findAll({});
+        const handBookArray: any = await HandBookService.findAll({query});
 
         res.render('handBook/handBook', { req, classifications, createType, handBookArray: handBookArray.data, title: '溜忙手册', path: 'handBook' });
     } catch (error) {

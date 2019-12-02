@@ -1,7 +1,7 @@
 <div class="classificationHeader">
     <div class="container">
         <ul>
-            <li <% if(!req.query.classifications){ %> class="active" <% }%>> <a href="/"> 推荐 </a></li>
+            <li <% if(!req.query.classifications){ %> class="active" <% }%>> <a href="/handBook"> 推荐 </a></li>
             <% classifications.forEach(function(item){ %>
             <li <% if(req.query.classifications==item._id){ %> class="active" <% }%>> <a
                     href="/handBook?classifications=<%= item._id %>"> <%= item.name %> </a></li>
