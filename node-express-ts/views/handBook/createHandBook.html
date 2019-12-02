@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.classic.css" />
 <script src="https://cdn.jsdelivr.net/npm/vditor@latest/dist/index.min.js"></script>
+<script src="https://cdn.bootcss.com/Sortable/1.10.1/Sortable.js"></script>
 
 <%- include('./../components/header_createBlog.html') %>
 
@@ -8,7 +9,7 @@
         <div class="title">
             《<%= handBook.title %>》
         </div>
-        <div class="listBody">
+        <div class="listBody" id="sortPart">
             <div class="listCard">
                 <div class="step">
                     <div class="step-btn">
@@ -17,6 +18,9 @@
                 </div>
                 <div class="center">
                     前言
+                </div>
+                <div class="moveBtn">
+                    <i class="iconfont icon-yidong"></i>
                 </div>
             </div>
 
@@ -80,6 +84,7 @@
 </script>
 
 
+
 <script>
     let handBook = JSON.parse(decodeURIComponent("<%= handBookJson %>"));
     let partTitle = '';
@@ -96,7 +101,7 @@
         $(".addPartBtn").css({ "display": "none" });
     })
     $('.addPartBtnOk').click(function () {
-        createPart(true);
+        savePart(true);
     })
     $('.addPartBtnCl').click(function () {
         $(".addPart").css({ "display": "none" });
@@ -123,18 +128,35 @@
                     <div class="center">
                         ${handBook.chapter[i].title}
                     </div>
+                    <div class="moveBtn">
+                        <i class="iconfont icon-yidong"></i>
+                    </div>
                 </div>`;
         }
         $(".listBody").html(partList);
         $(".listBody .listCard").click(function (event) {
             var index = $(".listBody .listCard").index(this);
-            selPart(index);
+            selPart(index,true);
+        });
+
+        var elm = document.getElementById("sortPart");
+        var sortable = Sortable.create(elm, {
+            handle: ".moveBtn",
+            onEnd: function (/**Event*/evt) {
+                let itemEl = evt.item;  // dragged HTMLElement
+                let oldIndex = evt.oldIndex;  // element's old index within old parent
+                let newIndex = evt.newIndex;  // element's new index within new parent
+                let oldItem = handBook.chapter[oldIndex];
+                handBook.chapter[oldIndex] = handBook.chapter[newIndex];
+                handBook.chapter[newIndex] = oldItem;
+                updatePart({}, newIndex);
+            },
         });
     }
     xrPart();
     //发布文章
-    function createPart(createNew) {
-        let contert = createNew ? '章节亲在这里填写章节正文哦😯~' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
+    function savePart(createNew) {
+        let contert = createNew ? '亲在这里填写章节正文哦😯~' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
         let useTitle = createNew ? $("#partTitle").val() : blogTitle;
         if (!createNew && contert == blog.content) {
             return
@@ -160,7 +182,7 @@
             url = '/blog/update'
         }
         showSh()
-        return new Promise(function (resFun, rejFun) {
+        return new Promise(function (resolve, reject) {
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -172,37 +194,39 @@
                         $(".addPart").css({ "display": "none" });
                         $(".addPartBtn").css({ "display": "block" });
                         $("#partTitle").val('');
-                        resFun();
+                        resolve("成功~");
                     } else {
                         alert(res.msg)
-                        rejFun();
+                        rejFun("失败~");
                     }
                 },
             });
         });
     }
     //更新手册章节信息
-    function updatePart(data) {
+    function updatePart(data, updateIndex) {
         let ifUpdate = true;
-        if (!data._id) {
-            return
-        }
-        for (let i = 0; i < handBook.chapter.length; i++) {
-            if (handBook.chapter[i].id == data._id) {
-                handBook.chapter[i] = {
+        if (data && data._id) {
+            for (let i = 0; i < handBook.chapter.length; i++) {
+                if (handBook.chapter[i].id == data._id) {
+                    handBook.chapter[i] = {
+                        id: data._id,
+                        title: data.title,
+                    }
+                    ifUpdate = false;
+                }
+            }
+            if (ifUpdate) {
+                handBook.chapter.push({
                     id: data._id,
                     title: data.title,
-                }
-                ifUpdate = false;
+                })
             }
+        } else if (updateIndex != undefined && updateIndex != null) {
+            console.log("更新排序~")
+        } else {
+            return
         }
-        if (ifUpdate) {
-            handBook.chapter.push({
-                id: data._id,
-                title: data.title,
-            })
-        }
-        xrPart();
         $.ajax({
             type: 'POST',
             url: '/api/handBook/update',
@@ -214,24 +238,24 @@
                 if (res.state == 0) {
                     handBook = res.data;
                     xrPart();
-                    selPart(handBook.chapter.length - 1);
-                    resFun()
+                    if (updateIndex != undefined && updateIndex != null) {
+                        selPart(updateIndex);
+                    }else{
+                        selPart(handBook.chapter.length - 1);
+                    }
                 } else {
                     alert(res.msg);
-                    rejFun();
                 }
             },
         });
     }
     //选择章节
-    async function selPart(index) {
+    async function selPart(index,ifSavePart) {
         $(".listBody").children(".listCard").removeClass("active");
         $(".listBody").children(".listCard").eq(index).addClass("active");
-        if (!firstShow) {
-            await createPart();
-        } else {
-            firstShow = false;
-        }
+        if (ifSavePart) {
+            await savePart();
+        } 
         blogId = handBook.chapter[index].id;
         blogTitle = handBook.chapter[index].title;
         $.ajax({
@@ -255,7 +279,7 @@
     }
 
     async function saveBook() {
-        await createPart();
+        await savePart();
         window.location.href = "/handBook";
     }
 </script>

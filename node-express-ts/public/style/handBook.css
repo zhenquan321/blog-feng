@@ -306,3 +306,16 @@
   cursor: pointer;
   z-index: 3;
 }
+.moveBtn {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  height: 40px;
+  line-height: 40px;
+  color: #888;
+}
+.moveBtn i {
+  font-size: 20px;
+}
+.moveBtn:hover i {
+  color: red;
+}
