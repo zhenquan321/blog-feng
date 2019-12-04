@@ -97,7 +97,7 @@
     $('.addPartBtn').click(function () {
         $(".addPart").css({ "display": "block" });
         $(".addPartBtn").css({ "display": "none" });
-        savePart();
+        savePart(false,true);
     })
     $('.addPartBtnOk').click(function () {
         savePart(true);
@@ -153,16 +153,23 @@
     }
     xrPart();
     //发布文章
-    function savePart(createNew) {
-        let contert = createNew ? '亲在这里填写章节正文哦😯~' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
-        let useTitle = createNew ? $("#partTitle").val() : blogTitle;
-        if (!createNew && contert == blog.content) {
-            return
-        };
-        if (!useTitle) {
-            alert("章节标题不能为空");
-            return
+    function savePart(createNew,addPart) {
+        if(!createNew&&addPart){
+            if(!blogId){
+                return
+            }
+        }else{
+            let contert = createNew ? '亲在这里填写章节正文哦😯~' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
+            let useTitle = createNew ? $("#partTitle").val() : blogTitle;
+            if (!createNew && contert == blog.content) {
+                return
+            };
+            if (!useTitle) {
+                alert("章节标题不能为空");
+                return
+            }
         }
+
         let data = {
             publishForm: 'handBook',
             author: userId,
