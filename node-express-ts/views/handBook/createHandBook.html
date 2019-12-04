@@ -154,13 +154,15 @@
     xrPart();
     //发布文章
     function savePart(createNew,addPart) {
+        let contert = "";
+        let useTitle = "";
+        contert = createNew ? '亲在这里填写章节正文哦😯~' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
+        useTitle = createNew ? $("#partTitle").val() : blogTitle;
         if(!createNew&&addPart){
             if(!blogId){
                 return
             }
         }else{
-            let contert = createNew ? '亲在这里填写章节正文哦😯~' : (vditor.getValue() || '亲在这里填写章节正文哦😯~');
-            let useTitle = createNew ? $("#partTitle").val() : blogTitle;
             if (!createNew && contert == blog.content) {
                 return
             };
@@ -195,11 +197,13 @@
                 success: (res) => {
                     hideSh();
                     if (res.state == 0) {
-                        updatePart(res.data || res.Blog);
-                        $(".addPart").css({ "display": "none" });
-                        $(".addPartBtn").css({ "display": "block" });
-                        $("#partTitle").val('');
-                        resolve("成功~");
+                        if(!addPart){
+                            updatePart(res.data || res.Blog);
+                            $(".addPart").css({ "display": "none" });
+                            $(".addPartBtn").css({ "display": "block" });
+                            $("#partTitle").val('');
+                            resolve("成功~");
+                        }
                     } else {
                         alert(res.msg)
                         rejFun("失败~");
