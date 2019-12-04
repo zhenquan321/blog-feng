@@ -19,9 +19,9 @@
 <div class="blogList">
     <div class="blogList-header">
         <ul>
-            <li <% if(!req.query.sort || req.query.sort=='createdAt'){ %>class="active" <% }%>> <a
-                    href="/handBook/?sort=createdAt"> 最新 </a></li>
-            <li <% if(req.query.sort=='pv'){ %>class="active" <% }%>> <a href="/handBook/?&sort=pv"> 热门 </a></li>
+            <li <% if(!req.query.sort || req.query.sort==' pv '){ %>class="active" <% }%>> <a
+                    href="/handBook?sort=createdAt">  热门  </a></li>
+            <li <% if(req.query.sort==''){ %>class="active" <% }%>> <a href="/handBook?sort=pv"> 最新 </a></li>
         </ul>
     </div>
     <div class="row">

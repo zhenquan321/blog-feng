@@ -24,12 +24,12 @@ const HandBookService: IHandBookService = {
             const page: number = pageQurey && pageQurey.page ? Number(pageQurey.page) : 0;
             const pageSize: number = pageQurey && pageQurey.pageSize ? Number(pageQurey.pageSize) : 20;
             let findKeyObj: any = { deleted: { $ne: true } };
-            const sort: any = {};
+            let sort: any = {};
 
             if (pageQurey && pageQurey.sort) {
                 sort[pageQurey.sort] = -1;
             } else {
-                sort.createdAt = -1;
+                sort.pv = -1;
             }
             if (pageQurey && pageQurey.HandBookSearch) {
                 const HandBookSearchKeyWords: any = { $regex: pageQurey.HandBookSearch, $options: 'i' };
@@ -46,6 +46,7 @@ const HandBookService: IHandBookService = {
             if (pageQurey && pageQurey.classifications) {
                 findKeyObj.classifications = pageQurey.classifications;
             }
+            console.log(sort);
 
             const HandBookListFind: any[] = await HandBookModel.find(findKeyObj).sort(sort).limit(pageSize).skip(page * pageSize);
             const HandBookList: any[] = JSON.parse(JSON.stringify(HandBookListFind));
@@ -55,13 +56,13 @@ const HandBookService: IHandBookService = {
                 HandBookList[i].author = await UserService.findOne(HandBookList[i].author);
                 HandBookList[i].classifications = await ClassificationService.findOne(HandBookList[i].classifications);
                 HandBookList[i].createType = await ClassificationService.findOne(HandBookList[i].createType);
-                // HandBookList[i].comments = await CommentService.count(HandBookList[i]._id);
                 HandBookList[i].createdAt = new Time().formatDate(HandBookList[i].createdAt);
+                let comments:number = 0, thumbsUp:number = 0, pv:number = 0;
                 for (let a = 0; a < HandBookList[i].chapter.length; a++) {
-                    let handBookPart = await BlogService.findOne(HandBookList[i].chapter[a].id);
-                    HandBookList[i].comments+=handBookPart.comments;
-                    HandBookList[i].thumbsUp+=handBookPart.thumbsUp;
-                    HandBookList[i].pv+=handBookPart.pv;
+                    let handBookPart:any = await BlogService.findOne(HandBookList[i].chapter[a].id);
+                    comments += handBookPart.comments;
+                    thumbsUp += handBookPart.thumbsUp;
+                    pv +=  handBookPart.pv;
                 }
 
                 if (HandBookList[i].pv > 100) {
@@ -73,6 +74,10 @@ const HandBookService: IHandBookService = {
                 if (HandBookList[i].pv > 100 && HandBookList[i].comments > 10) {
                     HandBookList[i].isRecommend = '榜';
                 }
+                HandBookList[i].comments = comments;
+                HandBookList[i].thumbsUp = thumbsUp;
+                HandBookList[i].pv = pv;
+                this.update(HandBookList[i]._id, HandBookList[i]);
             }
 
             return {

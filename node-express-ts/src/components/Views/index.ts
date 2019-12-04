@@ -217,7 +217,7 @@ export async function handBook(req: Request, res: Response, next: NextFunction):
 
         const classifications: any = await ClassificationService.findAll({ type: 'handBookClassification' });
         const createType: any = await ClassificationService.findAll({ type: 'handBookCreateType' });
-        const handBookArray: any = await HandBookService.findAll({query});
+        const handBookArray: any = await HandBookService.findAll(query);
 
         res.render('handBook/handBook', { req, classifications, createType, handBookArray: handBookArray.data, title: '溜忙手册', path: 'handBook' });
     } catch (error) {
