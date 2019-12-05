@@ -38,8 +38,8 @@
                     <span class="lei"><%= handBook.classifications.name %></span> ·
                     <% if(handBook.createType && handBook.createType.name){ %> <span
                         class="createType"><%= handBook.createType.name %></span> · <% } %>
-                    <%= ((handBook.author.profile && handBook.author.profile.name)||handBook.author.email) %> ·
-                    <%= handBook.createdAt %>
+                    <%= ((handBook.author.profile && handBook.author.profile.name)||handBook.author.email) %>
+                   <span class="createdAt"> · <%= handBook.createdAt %></span>
                 </h6>
                 <p><%= handBook.describe %></p>
 

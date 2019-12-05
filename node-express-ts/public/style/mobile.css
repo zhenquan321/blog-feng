@@ -101,7 +101,7 @@
     padding: 8px 15px 4px;
   }
   .selectHeader {
-    height: 38px;
+    height: 34px;
     margin-bottom: 0px;
     background-color: #fff;
     border-radius: 5px;
@@ -113,13 +113,14 @@
     width: 15%;
     vertical-align: middle;
     float: left;
+    margin: 4px 0;
   }
   .selectHeader div {
     width: 85%;
     overflow-x: auto;
     vertical-align: middle;
     float: right;
-    margin-top: 4px;
+    margin: 4px 0;
   }
   .selectHeader ul {
     width: 1000px;
@@ -127,9 +128,12 @@
   .logoDiv {
     margin-right: 10px;
   }
+  .logoDiv span {
+    display: none;
+  }
   .nav-left .pingpu li {
     padding: 0 5px;
-    font-size: 14px;
+    font-size: 15px;
   }
   .nav-right {
     display: none;
@@ -142,5 +146,56 @@
     display: block;
     overflow: hidden;
     white-space: nowrap;
+  }
+  .handBookCard a {
+    padding: 0 10px;
+  }
+  .handBookCard .photoCard {
+    left: 0;
+    padding-left: 10px;
+  }
+  .blogList .blogCard {
+    padding: 10px 0px;
+  }
+  .blogList .handBookCard {
+    margin-right: 0;
+    padding-right: 0;
+    padding-left: 100px;
+  }
+  .blogList .handBookCard a {
+    width: 100%;
+  }
+  .blogList .handBookCard .createdAt {
+    display: none;
+  }
+  .classificationHeader ul li a {
+    font-size: 14px;
+  }
+  .topDiv .searchTop .btn-default {
+    display: none;
+  }
+  .blogList .blogCard .removeBlog {
+    display: none!important;
+  }
+  .blogList .blogCard .removeBlog a {
+    display: inline;
+  }
+  .handBookCreate .partList {
+    width: 16%;
+  }
+  .handBookCreate .partList .title {
+    display: none;
+  }
+  .handBookCreate .partList .listBody .listCard {
+    padding: 10px;
+  }
+  .handBookPartView {
+    padding: 55px 5px 40px 65px!important;
+  }
+  #handBookPart {
+    padding: 10px;
+  }
+  .comment .listCard {
+    padding: 10px;
   }
 }
