@@ -233,7 +233,7 @@ export async function createHandBook(req: Request, res: Response, next: NextFunc
         const mbId: string = '';
         let handBookId: string = (req.query && req.query.handBookId) || mbId;
         let rtHandBook: any = handBookId ? await HandBookService.findOne(handBookId) : {};
-        let title: string = '创建溜忙手厕';
+        let title: string = '创建溜忙手册';
         let handBookJson:string=encodeURIComponent(JSON.stringify(rtHandBook)) ;
 
         res.render('handBook/createHandBook', { req, editor, title:rtHandBook.title||title,handBookJson,  handBook: rtHandBook, path: 'createHandBook' });
@@ -251,7 +251,7 @@ export async function viewHandBook(req: Request, res: Response, next: NextFuncti
         const mbId: string = '';
         let handBookId: string = (req.query && req.query.handBookId) || mbId;
         let rtHandBook: any = handBookId ? await HandBookService.findOne(handBookId) : {};
-        let title: string = '溜忙手厕';
+        let title: string = '溜忙手册';
         let handBookJson:string=encodeURIComponent(JSON.stringify(rtHandBook)) ;
 
         res.render('handBook/viewHandBook', { req, editor, title:rtHandBook.title||title,handBookJson, subject:{}, handBook: rtHandBook, path: 'createHandBook' });
