@@ -198,4 +198,7 @@
   .comment .listCard {
     padding: 10px;
   }
+  .logoDiv img {
+    margin-left: 10px;
+  }
 }
