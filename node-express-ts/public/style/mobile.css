@@ -182,6 +182,7 @@
   }
   .handBookCreate .partList {
     width: 60px;
+    overflow-x: hidden;
   }
   .handBookCreate .partList .title {
     display: none;
