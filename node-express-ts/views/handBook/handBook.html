@@ -27,10 +27,11 @@
     <div class="row">
         <% handBookArray.forEach(function(handBook){ %>
         <div class="blogCard handBookCard">
-            <div class="photoCard">
-                <img src="<%= handBook.coverPhoto %>" alt="">
-            </div>
+           
             <a href="/viewHandBook?handBookId=<%=handBook._id %>">
+                <div class="photoCard">
+                    <img src="<%= handBook.coverPhoto %>" alt="">
+                </div>
                 <h4> 《<%= handBook.title %>》</h4>
                 <h6>
                     <% if(handBook.isHot){ %><span class="jian"><i class="iconfont icon-remen "></i>热</span> · <% } %>
