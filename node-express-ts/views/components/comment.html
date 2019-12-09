@@ -97,19 +97,22 @@
                                 </div>
                             </div>
                             `
-                        commentDom = userId == res.data[i].author._id ? commentDom +
+                        commentDom = (userId == res.data[i].author._id)? commentDom +
                             `<div class="removeBlog" onclick="removeComment('${res.data[i]._id}')">
                                     <i class="iconfont icon-shanchu"></i>
                                 </div>
-                            </div>` : "</div>";
+                            </div>` :commentDom + "</div>";
                     }
                     $("#commentList").empty();
+                    console.log(commentDom);
                     $("#commentList").append(commentDom);
                 }
             },
         });
     }
-    getComment();
+    setTimeout(()=>{
+        getComment();
+    },100)
     //发布评论
     function publishComment() {
         let userId = "<%=req.session.user&&req.session.user._id||''%>";
