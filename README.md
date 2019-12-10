@@ -24,10 +24,14 @@
 
 
 ## 小程序截图
-![m1.png](./doc/img/m1.jpg)
-![m2.png](./doc/img/m2.jpg)
+
+
+<img src="./doc/img/m1.jpg" width="300" hegiht="600" align=center />
+<img src="./doc/img/m3.jpg" width="300" hegiht="600" align=center />
+
 
 ## 移动web
 
-![wm1.png](./doc/img/wm1.jpg)
-![wm2.png](./doc/img/wm2.jpg)
+
+<img src="./doc/img/wm1.jpg" width="300" hegiht="600" align=center />
+<img src="./doc/img/wm2.jpg" width="300" hegiht="600" align=center />
