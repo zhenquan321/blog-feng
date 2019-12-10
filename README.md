@@ -7,9 +7,8 @@
 ![min-program.png](./doc/img/min-program.png)
 
 ## pc网站截图
-#### 首页
-![1.png](./doc/img/1.png)
-#### 手册模块
+
+![1.png](doc/img/1.png)
 ![2.png](./doc/img/2.png)
 #### 手册内容
 ![3.png](./doc/img/3.png)
