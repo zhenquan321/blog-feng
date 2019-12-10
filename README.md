@@ -5,7 +5,7 @@
 
 ## pc网站截图
 
-![1.png](./doc/img/1.png)
+![1.png](doc/img/1.png)
 ![2.png](./doc/img/2.png)
 ![3.png](./doc/img/3.png)
 ![4.png](./doc/img/4.png)
