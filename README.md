@@ -4,7 +4,7 @@
 
 ## 访问域名：https://fengzq.cn  或  https://lmongo.com/
 ## 小程序二维码
-![min-program.png](./doc/img/min-program.png)
+![min-program.png](doc/img/min-program.png)
 
 ## pc网站截图
 
