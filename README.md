@@ -1,6 +1,10 @@
-# blog-feng
-🔥node-express-MongoDB-typescript（后端与pcweb），taro（小程序），react全家桶（管理后台）；主要功能模块：博客，教程手册，电影等。
-其中有简单的电影爬虫，用于定时抓取电影天堂数据；
+# [🔥溜忙之道 ]!https://fengzq.cn
+
+基于 Node.js express 实战开发的一套完整的博客项目网站，使用 express 二次开发一套适合多端的 RESTful API，前端展示既有基于 ejs 服务端渲染，也有基于 Taro 开发的前后端分离的小程序。
+## 主要功能模块：
+* 博客
+* 教程手册（仿掘金小册）
+* 电影（爬虫，抓取电影天堂）。
 
 ## 访问域名：https://fengzq.cn  或  https://lmongo.com/
 ## 小程序二维码
