@@ -6,7 +6,11 @@
 * 教程手册（仿掘金小册）
 * 电影（爬虫，抓取电影天堂）。
 
-## 访问域名：https://fengzq.cn  或  https://lmongo.com/
+## 访问域名：
+* https://fengzq.cn 
+* https://lmongo.com/
+
+
 ## 小程序二维码
 ![min-program.png](doc/img/min-program.png)
 
