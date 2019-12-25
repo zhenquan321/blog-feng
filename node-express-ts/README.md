@@ -50,10 +50,6 @@ npm install
 nodemon
 ```
 
-## 根据报错信息修改 TS 包
-
-增加 req.flash //flash:any
-
 ## Start the application in production env:
 
 Install ts pm2 and typescript compiler:
@@ -114,16 +110,15 @@ http://localhost:3000/docs
 ![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
 
 ## 查看端口
-
 netstat -lnp|grep 80
 
 ## Linux 下 mongodb 后台运行
 
-mongod -f mongodb.conf --bind_ip_all
+mongod -f mongodb.conf  --bind_ip_all
 
-#### 百度云服务器配置的 mongo 启动方式
 
-mongod --config /etc/mongod.conf --bind_ip_all
+#### 百度云服务器配置的mongo启动方式
+mongod --config /etc/mongod.conf  --bind_ip_all
 
 ## Linux 下关闭 mongodb
 
@@ -133,12 +128,19 @@ mongod -f mongodb.conf --shutdown
 
 ./bin/mongod --repair
 
-## 启动爬虫
+## 个人服务器地址
 
-#### 接口爬取列表
+ssh fengzq@120.92.36.138
+
+## 启动爬虫 true
+
+#### 爬取列表
 
 /reptile/movieRt
 
 #### 爬取详情
 
 /reptile/getMvDetail
+
+
+	
