@@ -90,16 +90,6 @@ http://localhost:3000/docs
 - 爬取列表 /reptile/movieRt
 - 爬取详情 /reptile/getMvDetail
 
-## 个人记录服务端操作命令
-
-#### 查看端口
-
-netstat -lnp|grep 80
-
-## Linux 下 mongodb 后台运行
-
-mongod -f mongodb.conf --bind_ip_all
-
 ## 小程序
 
 #### 小程序二维码
