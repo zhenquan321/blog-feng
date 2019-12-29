@@ -11,7 +11,6 @@
 #### 访问域名
 
 - https://fengzq.cn
-- https://lmongo.com/
 
 ## 服务端
 
