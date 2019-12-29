@@ -15,17 +15,6 @@
 
 ## 服务端
 
-#### 数据存储:
-
-- MongoDB
-- Redis
-
-#### 测试模块：
-
-- mocha
-- chai
-- supertest
-
 #### 软件要求
 
 - node >= 10
