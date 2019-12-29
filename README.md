@@ -15,14 +15,12 @@
 
 ## 服务端
 
-Node.js Express API with TypeScript 3. Supports MongoDB
-
-##### 数据存储:
+#### 数据存储:
 
 - MongoDB
 - Redis
 
-##### 测试模块：
+#### 测试模块：
 
 - mocha
 - chai
@@ -37,7 +35,7 @@ Node.js Express API with TypeScript 3. Supports MongoDB
 
 #### 启动项目
 
-#### 测试环境
+##### 测试环境
 
 - 安装相关包
 
@@ -54,16 +52,16 @@ npm install
 nodemon
 ```
 
-#### 正式环境
+##### 正式环境
 
-1. 安装`pm2`、 `typescript`
+- 安装`pm2`、 `typescript`
 
 ```
 npm install -g pm2
 pm2 install typescript
 ```
 
-2. 运行
+- 运行
 
 ```
 ## 运行打包后的
@@ -74,7 +72,7 @@ pm2 start ./src/config/server/index.ts --watch     当文件变化时自动重�
 $ pm2 delete all               关闭并删除所有应用
 ```
 
-### 测试
+#### 测试
 
 ```bash
 npm test
