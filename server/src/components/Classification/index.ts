@@ -2,7 +2,9 @@ import ClassificationService from './service';
 import { HttpError } from '../../config/error';
 import { IClassificationModel } from './model';
 import { NextFunction, Request, Response } from 'express';
-import { blogCreate } from '../Views/index';
+interface RequestEd extends Request{
+    flash:any;
+}
 /**
  * @export
  * @param {Request} req
@@ -45,7 +47,7 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function create(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function create(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     try {
         const Classification: IClassificationModel | any = await ClassificationService.insert(req.body);
         
