@@ -9,7 +9,8 @@ type PageOwnProps = {}
 
 type PageState = {
   movie: any;
-  movieId: string
+  movieId: string,
+  showDownload: boolean
 }
 
 type IProps = PageOwnProps
@@ -32,8 +33,8 @@ class Index extends Component {
     super(prop)
     this.state = {
       movie: {},
-      movieId: ""
-
+      movieId: "",
+      showDownload: false
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -92,6 +93,12 @@ class Index extends Component {
     }, () => {
       this.getmovieDetail();
     })
+    let timestamp = new Date().getTime();
+    if (timestamp > 1579505369489) {
+      this.setState({
+        showDownload: false
+      })
+    }
   }
 
   componentDidMount() {
@@ -104,7 +111,7 @@ class Index extends Component {
   componentDidHide() { }
 
   render() {
-    let { movie } = this.state;
+    let { movie, showDownload } = this.state;
     return (
       <View className='index'>
         <View className="movieDetail">
@@ -113,22 +120,24 @@ class Index extends Component {
               <View className="">
                 <Image className="img" src={movie.imgUrl} mode="widthFix" ></Image>
               </View>
-              <View className="h100">
-                <View className="movieJj">
-                  <View className="h3">{movie.name}</View>
-                  <View className="h5">更新时间：{movie.updateDate}</View>
-                  <View className="p"><View className="span">简介：</View>{movie.sketch}</View>
-                  <View className="downLoadCard">
-                    <View className="h6">迅雷 => 下载链接</View>
-                    <View className="p">
-                      {movie.downLink}
-                    </View>
-                    <View className="copy" onClick={this.setClipboardData.bind(this, movie.downLink)}>
-                      <Button type='primary' size='mini'>点击复制下载链接</Button>
+              {
+                showDownload ? <View className="h100">
+                  <View className="movieJj">
+                    <View className="h3">{movie.name}</View>
+                    <View className="h5">更新时间：{movie.updateDate}</View>
+                    <View className="p"><View className="span">简介：</View>{movie.sketch}</View>
+                    <View className="downLoadCard">
+                      <View className="h6">迅雷 => 下载链接</View>
+                      <View className="p">
+                        {movie.downLink}
+                      </View>
+                      <View className="copy" onClick={this.setClipboardData.bind(this, movie.downLink)}>
+                        <Button type='primary' size='mini'>点击复制下载链接</Button>
+                      </View>
                     </View>
                   </View>
-                </View>
-              </View>
+                </View> : ""
+              }
             </View>
             <View className="detailCard">
               {movie.details && movie.details.detailDes.map((item: string) => {

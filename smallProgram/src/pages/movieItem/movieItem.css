@@ -72,7 +72,8 @@ page {
 }
 .movieDetail .detailCard .p:first-child {
   font-weight: 600;
-  font-size: 36px;
+  font-size: 32px;
+  color: #444;
 }
 .copy {
   margin-top: 20px;
