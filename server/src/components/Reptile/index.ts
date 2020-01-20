@@ -6,8 +6,8 @@ import { jobReptile } from './Reptile/jobReptile';
 import MovieService from './../Movie/service';
 
 // 定时执行
-const schedule:any = require('node-schedule');
-let rule:any = new schedule.RecurrenceRule();
+const schedule: any = require('node-schedule');
+let rule: any = new schedule.RecurrenceRule();
 
 /**
  * @export
@@ -16,15 +16,19 @@ let rule:any = new schedule.RecurrenceRule();
  * @returns {Promise < void >}
  */
 export async function movieRt(req: Request, res: Response, next: NextFunction): Promise<void> {
-    //每天0点开始执行
-    rule.hour =0;
-    rule.minute =0;
-    rule.second =0;
-    let movieRtJob = schedule.scheduleJob(rule, () => {
-        console.log("movieRtJob",new Date());
-        movieReptile();
-    });
+    //先立即执行 
     movieReptile();
+    //每天0点开始执行
+    rule.hour = 0;
+    rule.minute = 0;
+    rule.second = 0;
+    let movieRtJob = () => {
+        schedule.scheduleJob(rule, () => {
+            console.log("movieRtJob", new Date());
+            movieReptile();
+        });
+    }
+    movieRtJob();
     res.status(200).json(
         {
             status: 200,
@@ -34,15 +38,19 @@ export async function movieRt(req: Request, res: Response, next: NextFunction): 
 }
 export async function getMvDetail(req: Request, res: Response, next: NextFunction): Promise<void> {
     const movieList: any = await MovieService.findAll({ page: 0, pageSize: 100000, Reptile: true });
-    //每天1点开始执行
-    rule.hour =1;
-    rule.minute =0;
-    rule.second =0;
-    let getMvDetailsJob = schedule.scheduleJob(rule, () => {
-        console.log("getMvDetailsJob",new Date());
-        getMovieDetail();
-    });
+    //先立即执行
     getMovieDetail();
+    //每天1点开始执行
+    rule.hour = 1;
+    rule.minute = 0;
+    rule.second = 0;
+    let getMvDetailsJob = () => {
+        schedule.scheduleJob(rule, () => {
+            console.log("getMvDetailsJob", new Date());
+            getMovieDetail();
+        });
+    }
+    getMvDetailsJob();
     res.status(200).json(
         {
             status: 200,
