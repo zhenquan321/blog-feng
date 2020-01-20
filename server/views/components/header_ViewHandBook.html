@@ -10,7 +10,7 @@
         </div>
         <div class="nav-right">
                 <% if (req.session.user){ %>
-                <a class="sxBtn" id="openHandBookCreateModel"><i class="iconfont icon-shoujianludan"></i>写小册</a>
+                <a class="sxBtn" href="/handBook" id="openHandBookCreateModel"><i class="iconfont icon-shoujianludan"></i>写小册</a>
                 <% } else { %>
                 <a class="sxBtn" onclick="singIn()"><i class="iconfont icon-bianji"></i>写小册</a>
                 <% } %>
