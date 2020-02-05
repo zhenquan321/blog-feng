@@ -23,8 +23,8 @@ export async function movieRt(req: Request, res: Response, next: NextFunction): 
     rule.minute = 0;
     rule.second = 0;
     let movieRtJob = () => {
+        console.log("movieRtJob", new Date());
         schedule.scheduleJob(rule, () => {
-            console.log("movieRtJob", new Date());
             movieReptile();
         });
     }
@@ -45,8 +45,8 @@ export async function getMvDetail(req: Request, res: Response, next: NextFunctio
     rule.minute = 0;
     rule.second = 0;
     let getMvDetailsJob = () => {
+        console.log("getMvDetailsJob", new Date());
         schedule.scheduleJob(rule, () => {
-            console.log("getMvDetailsJob", new Date());
             getMovieDetail();
         });
     }

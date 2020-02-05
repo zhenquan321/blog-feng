@@ -37,14 +37,11 @@ export async function movieReptile(): Promise<void> {
     for (let i: number = 0; i < dyDLeiUrl.length; i++) {
         setTimeout(() => {
             getMovieListFun.index(dyDLeiUrl[i]);
-        }, i * Math.ceil(Math.random() * 10) * 20000);
+        }, i * Math.ceil(Math.random() * 10) * 3000);
     }
-
     setTimeout(() => {
-
         getMovieListFun.goGetMovieList();
-    }, 200000);
-
+    },30000);
 }
 
 class getMovieList {
@@ -83,7 +80,7 @@ class getMovieList {
     getPagesMovieList(allPages: number, baseHref: string, topicId: string): void {
         console.log(allPages, baseHref);
         //后面更新只更前5页
-        allPages = 3;
+        allPages = 5;
         for (let i: number = 2; i < allPages + 1; i++) {
             this.urlList.push(baseHref + `list_${topicId}_${i}.html`);
         }
@@ -146,6 +143,7 @@ class getMovieList {
                 (Number(movieItem.name.slice(0, 4)) || '');
 
             // 获取到单个电影的信息;
+            console.log(movieItem.name);
             if (movieItem.name) {
                 this.insetMovieToDB(movieItem);
             }
@@ -169,7 +167,7 @@ export async function getMovieDetail(): Promise<void> {
             a++
             setTimeout(() => {
                 getMovieDetailFun.fetchUrl(movieList.data[i]);
-            }, a * Math.ceil(Math.random() * 10) * 3000);
+            }, a * Math.ceil(Math.random() * 10) * 300);
         }
     }
     console.log('开始抓取详情需抓取链接数为：' + movieList.data.length);
@@ -180,6 +178,7 @@ class getMovieDetailClass {
     errurlList: string[] = [];
 
     fetchUrl(movieOj: any): void {
+        if(!(movieOj&&typeof movieOj.href=="string"&&movieOj.href!="")){return}
         superagent
             .get(movieOj.href)
             .charset('gb2312') // 解决编码问题
