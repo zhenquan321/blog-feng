@@ -1,0 +1,122 @@
+.wemark_wrapper{
+	font-size:28rpx;
+	line-height: 1.8em;
+	color: #545454;
+}
+.wemark_block_h1{
+	font-size:40rpx;
+	margin-top:1em;
+	margin-bottom:1em;
+	padding-left:.5em;
+	border-left:8px solid #39c5bb;
+	color: #333;
+}
+.wemark_block_h2{
+	font-size:36rpx;
+	margin-top:1em;
+	margin-bottom:1em;
+}
+.wemark_block_h3{
+	font-size:32rpx;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.wemark_block_h4,
+.wemark_block_h5,
+.wemark_block_h6{
+	font-weight: bold;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.wemark_block_p{
+	margin-bottom:.75em;
+}
+.wemark_block_video{
+	margin-bottom:.75em;
+	width:100%;
+}
+.wemark_block_blockquote_p{
+	margin-bottom:.75em;
+	padding:10px 20px;
+	font-size:28rpx;
+	background:#f4f4f4;
+	border-left:8px solid #39c5bb;
+}
+.wemark_block_blockquote_ul_li_p{
+	padding: 10px 20px;
+	font-size:28rpx;
+	background:#f4f4f4;
+	border-left:8px solid #39c5bb;	
+	line-height: 1.5em;
+}
+.wemark_block_ul_li_p::before,
+.wemark_block_blockquote_ul_li_p::before{
+	content:'•';
+	margin-right: 10px;
+}
+.wemark_block_ul_li_ul_li_p::before,
+.wemark_block_ol_li_ul_li_p::before{
+	content:'◦ ';
+}
+.wemark_block_ul_li_p,
+.wemark_block_ol_li_p,
+.wemark_block_ol_li_ul_li_p,
+.wemark_block_ol_li_ol_li_p{
+	padding-left: 1em;
+	line-height: 1.5em;
+	margin-bottom:.75em;
+}
+.wemark_block_code{
+	margin-bottom:.75em;
+	padding:10px;
+	font-size:24rpx;
+	line-height: 1.5em;
+	border:1px solid #f0f0f0;
+	white-space: pre;
+	overflow: auto;
+	background: #f4f4f4;
+}
+.wemark_block_table_tr{
+	display: flex;
+	border-right:1px solid #e0e0e0;
+	border-bottom:1px solid #e0e0e0;
+}
+.wemark_inline_table_th,
+.wemark_inline_table_td{
+	flex:1;
+	padding:5px;
+	font-size:24rpx;
+	border-left:1px solid #e0e0e0;
+	word-break: break-all;
+}
+.wemark_inline_table_td:last{
+	border-top:1px solid #e0e0e0;
+}
+.wemark_inline_table_th{
+	background:#f0f0f0;
+	border-top:1px solid #e0e0e0;
+}
+.wemark_inline_strong{
+	font-weight: bold;
+	padding:0 5px;
+	word-wrap:break-word;
+}
+.wemark_inline_em{
+	font-style: italic;
+	padding:0 5px;
+	word-wrap:break-word;
+}
+.wemark_inline_deleted{
+	text-decoration: line-through;
+	padding:0 5px;
+	word-wrap:break-word;
+}
+.wemark_inline_image{
+	display: block;
+	max-width:100%;
+	margin: 10px auto;
+	height:auto;
+}
+.wemark_inline_text{
+	word-wrap:break-word;
+}

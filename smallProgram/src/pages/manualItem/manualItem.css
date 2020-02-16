@@ -1,0 +1,83 @@
+page {
+  background-color: #fafafa;
+}
+.blogDetail {
+  margin-bottom: 20px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+}
+.blogDetail .h2 {
+  font-size: 32px;
+  text-align: center;
+  color: #e59233;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.blogDetail .content {
+  color: #555;
+  font-size: 24px;
+}
+.shareBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 150px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #e59233;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  text-align: center;
+  line-height: 32px;
+  padding-top: 16px;
+}
+.shareBtn .wz {
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 24px;
+}
+.AtPagination {
+  position: fixed;
+  height: 80px;
+  bottom: 0;
+  background-color: #fff;
+  width: 100%;
+  line-height: 80px;
+  display: flex;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+}
+.AtPagination .wenan {
+  width: 25%;
+  text-align: center;
+  color: #666;
+}
+.AtPagination .zjjh {
+  width: 50%;
+}
+.AtPagination .quanbu {
+  width: 25%;
+  text-align: center;
+}
+.AtPagination .quanbu .btn {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  border-color: #e59233;
+  color: #e59233;
+  font-size: 24px;
+}
+.at-list__item {
+  font-size: 26px;
+}
+.active {
+  color: #e59233;
+}
+.at-pagination__number-current {
+  color: #e59233;
+  font-weight: 600;
+}

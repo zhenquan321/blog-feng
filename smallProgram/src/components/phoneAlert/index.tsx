@@ -15,7 +15,6 @@ export default class PhoneAlert extends Component<{}, IndexSate> {
     }
   }
   render() {
-    console.log(this.state)
     return (
       <View className='PhoneAlert'>
         <View className="Alert1" >

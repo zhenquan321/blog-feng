@@ -2,7 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import request from "../../api/request";
-import { AtNoticebar, AtSearchBar, AtGrid,AtDivider } from 'taro-ui'
+import { AtNoticebar, AtSearchBar,AtDivider } from 'taro-ui'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import Share from "../../utils/share/share"
 
@@ -192,7 +192,7 @@ class Index extends Component {
 
         <View className="AtNoticebar">
           <AtNoticebar marquee icon='volume-plus'>
-            诚邀您加入“溜忙”😊😊😊，我们的官网是：lmongo.com，期望与您共建美好家园。🤒🤒🤒
+            诚邀您加入“溜忙”😊😊😊，我们的官网是：fengzq.cn，期望与您共建美好家园。🤒🤒🤒
           </AtNoticebar>
         </View>
 

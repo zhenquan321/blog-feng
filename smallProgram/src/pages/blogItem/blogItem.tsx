@@ -2,6 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button, Text, Image, Swiper, SwiperItem, RichText } from '@tarojs/components'
 import request from "../../api/request"
 import Share from "../../utils/share/share"
+import TaroWemark from '../../components/taro-wemark/taro-wemark'
 
 import "./blogItem.less";
 
@@ -34,7 +35,9 @@ class Index extends Component {
   constructor(prop) {
     super(prop)
     this.state = {
-      blog: {},
+      blog: {
+        content:"# hjhashj"
+      },
       blogId: "",
     }
   }
@@ -80,17 +83,16 @@ class Index extends Component {
     // })
   }
   componentWillMount() {
-    console.log(this.$router.params)
+    
+  }
+
+
+  componentDidMount() {
     this.setState({
       blogId: this.$router.params.blogId
     }, () => {
       this.getBlogDetail();
     })
-  }
-
-
-  componentDidMount() {
-    this.getBlogDetail();
   }
   componentDidShow() {
 
@@ -107,7 +109,7 @@ class Index extends Component {
             {blog.title}
           </View>
           <View className="content">
-            <wemark md={blog.content} link highlight type='wemark' />
+            <TaroWemark md={blog.content} link highlight type='wemark'></TaroWemark> 
           </View>
         </View>
         <Button className="shareBtn" open-type="share">

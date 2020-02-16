@@ -1,0 +1,153 @@
+page {
+  background-color: #fafafa;
+  padding-top: 80px;
+}
+.blogList .blogCard {
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+.blogList .blogCard .leftImage {
+  display: inline-block;
+  width: 200px;
+  vertical-align: text-top;
+}
+.blogList .blogCard .rightNr {
+  display: inline-block;
+  width: 470px;
+  vertical-align: text-top;
+  height: 250px;
+  position: relative;
+}
+.blogList .blogCard .userInfo {
+  height: 120px;
+}
+.blogList .blogCard .userInfo .left {
+  float: left;
+  display: flex;
+}
+.blogList .blogCard .userInfo .left .img {
+  width: 40px;
+  height: 40px;
+}
+.blogList .blogCard .userInfo .left .name {
+  font-size: 26px;
+  color: #777;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+}
+.blogList .blogCard .userInfo .right {
+  font-weight: bold;
+  float: right;
+  border-radius: 20px;
+  padding: 0 20px;
+  background-color: #fafafa;
+  height: 40px;
+  line-height: 40px;
+  display: flex;
+}
+.blogList .blogCard .userInfo .right View {
+  display: inline-block;
+  font-size: 20px;
+  color: #888;
+}
+.blogList .blogCard .userInfo .right .dian {
+  padding: 0 6px;
+}
+.blogList .blogCard .userInfo .right .re {
+  color: red;
+}
+.blogList .blogCard .userInfo .right .jian {
+  color: #b71ed7;
+}
+.blogList .blogCard .userInfo .right .lei {
+  color: #f70;
+}
+.blogList .blogCard .title {
+  font-size: 36px;
+  padding: 10px 0;
+  color: #555;
+}
+.blogList .blogCard .describe {
+  font-size: 24px;
+  height: 70px;
+  color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 100%;
+}
+.blogList .blogCard .card-bottom {
+  border-top: 1px dashed #eee;
+  height: 52px;
+  line-height: 48px;
+  margin: 0px;
+  padding: 6px 20px;
+  font-size: 22px;
+  color: #888;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  bottom: -12px;
+}
+.blogList .blogCard .card-bottom .left .number {
+  display: inline;
+  margin-right: 50px;
+  font-size: 24px;
+}
+.blogList .blogCard .card-bottom .left .at-icon {
+  font-size: 28px;
+  margin-right: 10px;
+}
+.blogList .blogCard .card-bottom .right {
+  color: #999;
+  width: 50%;
+  text-align: right;
+}
+.swiper {
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  overflow: hidden;
+  margin-top: 100px;
+}
+.swiper image {
+  width: 100%;
+  height: 100%;
+}
+.at-search-bar::after {
+  border-bottom-width: 0px;
+  box-shadow: 0 0 6px rgba(187, 187, 187, 0.5);
+}
+.AtNoticebar {
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  margin: 20px;
+  border-radius: 20px ;
+  background-color: #fff;
+}
+.AtGrid {
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  margin: 20px;
+  border-radius: 20px ;
+  background-color: #fff;
+}
+.search-bar {
+  position: fixed!important;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+}
+.at-divider__content {
+  background-color: #fafafa;
+}
