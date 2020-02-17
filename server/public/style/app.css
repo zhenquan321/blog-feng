@@ -59,13 +59,10 @@ textarea:focus {
   border-color: #ccc;
   text-decoration: none;
 }
-.vditor-toolbar label input {
-  width: 26px;
-  height: 26px;
-  opacity: 0.001;
-  overflow: hidden;
-  top: -5px;
-  left: -5px;
+.vditor-wysiwyg {
+  border: 0;
+  background-color: #fff;
+  padding: 30px 50px!important;
 }
 .navbar-default {
   background-color: #ffffff;
@@ -508,6 +505,7 @@ a.thumbnail:hover {
   border-radius: 20px;
   float: left;
   margin-right: 5px;
+  padding-right: 34px;
 }
 .searchTop .form-inline button {
   float: right;
@@ -1090,7 +1088,7 @@ a.thumbnail:hover {
 }
 .fixedCard {
   position: fixed;
-  margin-left: -10rem;
+  margin-left: -12rem;
   top: 24rem;
 }
 .fixedCard ul li {
@@ -1231,15 +1229,16 @@ a.thumbnail:hover {
     background-color: #f4f5f5 !important;
   }
   .topDiv {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-top: 6px;
     padding: 8px 15px 4px;
   }
   .selectHeader {
-    height: 38px;
+    height: 30px;
     margin-bottom: 0px;
     background-color: #fff;
     border-radius: 5px;
+    padding: 0;
   }
   .selectHeader ul {
     padding-left: 0 ;
@@ -1248,13 +1247,17 @@ a.thumbnail:hover {
     width: 15%;
     vertical-align: middle;
     float: left;
+    margin: 0px 0;
+    padding: 3px 0;
   }
   .selectHeader div {
     width: 85%;
     overflow-x: auto;
     vertical-align: middle;
     float: right;
-    margin-top: 4px;
+    margin: 0px 0;
+    padding: 3px;
+    background-color: #fafafa;
   }
   .selectHeader ul {
     width: 1000px;
@@ -1262,9 +1265,12 @@ a.thumbnail:hover {
   .logoDiv {
     margin-right: 10px;
   }
+  .logoDiv span {
+    display: none;
+  }
   .nav-left .pingpu li {
     padding: 0 5px;
-    font-size: 14px;
+    font-size: 15px;
   }
   .nav-right {
     display: none;
@@ -1277,5 +1283,66 @@ a.thumbnail:hover {
     display: block;
     overflow: hidden;
     white-space: nowrap;
+  }
+  .handBookCard a {
+    padding: 0 10px;
+  }
+  .handBookCard .photoCard {
+    left: 0;
+    padding-left: 10px;
+  }
+  .blogList .blogCard {
+    padding: 10px 0px;
+  }
+  .blogList .handBookCard {
+    margin-right: 0;
+    padding-right: 0;
+    padding-left: 100px;
+  }
+  .blogList .handBookCard a {
+    width: 100%;
+  }
+  .blogList .handBookCard .createdAt {
+    display: none;
+  }
+  .classificationHeader ul li a {
+    font-size: 14px;
+  }
+  .topDiv .searchTop .btn-default {
+    display: none;
+  }
+  .blogList .blogCard .removeBlog {
+    display: none!important;
+  }
+  .blogList .blogCard .removeBlog a {
+    display: inline;
+  }
+  .handBookCreate .partList {
+    width: 60px;
+    overflow-x: hidden;
+  }
+  .handBookCreate .partList .title {
+    display: none;
+  }
+  .handBookCreate .partList .listBody .listCard {
+    padding: 10px;
+  }
+  .handBookPartView {
+    padding: 55px 5px 40px 65px!important;
+  }
+  #handBookPart {
+    padding: 10px;
+  }
+  .comment .listCard {
+    padding: 10px;
+  }
+  .logoDiv img {
+    margin-left: 10px;
+  }
+  .blogList {
+    margin-top: 43px;
+  }
+  .searchTop .form-inline {
+    height: 40px;
   }
 }

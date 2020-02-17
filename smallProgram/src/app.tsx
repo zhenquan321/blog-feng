@@ -1,19 +1,14 @@
-import '@tarojs/async-await'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
-
-import Index from './pages/index'
-
 import configStore from './store'
 
 import 'taro-ui/dist/style/index.scss' // 全局引入一次即可
 import './app.less'
 
-// 如果需要在 h5 环境中开启 React Devtools
-// 取消以下注释：
-// if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
-//   require('nerv-devtools')
-// }
+if (process.env.TARO_ENV !== 'alipay') {
+  require('@tarojs/async-await')
+}
+
 
 const store = configStore()
 
@@ -34,6 +29,9 @@ class App extends Component {
       'pages/user/user',
       'pages/blogItem/blogItem',
       'pages/movieItem/movieItem',
+      'pages/manual/manual',
+      'pages/manualItem/manualItem',
+      
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -55,11 +53,17 @@ class App extends Component {
           selectedIconPath: "./assets/images/menus/blog-act.png"
         },
         {
+          pagePath: "pages/manual/manual",
+          text: "手册",
+          iconPath: "./assets/images/menus/shouce.png",
+          selectedIconPath: "./assets/images/menus/shouce-act.png"
+        },
+        {
           pagePath: "pages/movie/movie",
           text: "电影",
           iconPath: "./assets/images/menus/movie.png",
           selectedIconPath: "./assets/images/menus/movie-act.png"
-        },
+        }
         // {
         //   pagePath: "pages/user/user",
         //   text: "我的",
@@ -83,7 +87,7 @@ class App extends Component {
   render () {
     return (
       <Provider store={store}>
-        <Index />
+
       </Provider>
     )
   }

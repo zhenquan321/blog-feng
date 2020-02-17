@@ -13,17 +13,19 @@ import HandBookService from './../HandBook/service';
 import UserService from './../User/service';
 import ClassificationService from '../Classification/service';
 
-
+interface RequestEd extends Request{
+    flash:any;
+}
 
 /**
  * 
- * @param {Request} req 
+ * @param {RequeRequestEdst} req 
  * @param {Response} res 
  * @param {NextFunction}next 
  * @param {IUserModel} user 
  * @param {string} resMessage 
  */
-export async function index(req: Request, res: Response, next: NextFunction): Promise<any> {
+export async function index(req: RequestEd, res: Response, next: NextFunction): Promise<any> {
    
     req.query = new Filter().excludeSpecial(req.query);
     let query: any = req.query || req.body;
@@ -54,7 +56,7 @@ export async function index(req: Request, res: Response, next: NextFunction): Pr
 }
 
 
-export async function movieItem(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function movieItem(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     try {
         const getMovie: any = await MovieService.findOne(req.params.id);
         if (getMovie) {
@@ -73,7 +75,7 @@ export async function movieItem(req: Request, res: Response, next: NextFunction)
     }
 }
 
-export async function blogItem(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function blogItem(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     try {
         const getBlog: any = await BlogService.findOne(req.params.id);
 
@@ -94,7 +96,7 @@ export async function blogItem(req: Request, res: Response, next: NextFunction):
     }
 }
 
-export async function blogCreate(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function blogCreate(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     try {
         const editor: string = 'markDown';
         const classifications: any = await ClassificationService.findAll({ type: 'classification' });
@@ -122,7 +124,7 @@ export async function blogCreate(req: Request, res: Response, next: NextFunction
 }
 
 
-export async function userInfo(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function userInfo(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     try {
         const user: IUserModel = await UserService.findOne(req.params.id);
 
@@ -132,7 +134,7 @@ export async function userInfo(req: Request, res: Response, next: NextFunction):
     }
 }
 
-export async function movie(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function movie(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     try {
         req.query = new Filter().excludeSpecial(req.query);
         let query: any = req.query || req.body;
@@ -166,7 +168,7 @@ export async function movie(req: Request, res: Response, next: NextFunction): Pr
 
 
 
-export async function handBook(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function handBook(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     try {
         req.query = new Filter().excludeSpecial(req.query);
         let query: any = req.query || req.body;
@@ -182,7 +184,7 @@ export async function handBook(req: Request, res: Response, next: NextFunction):
 }
 
 
-export async function createHandBook(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function createHandBook(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
 
     try {
         const editor: string = 'markDown';
@@ -200,7 +202,7 @@ export async function createHandBook(req: Request, res: Response, next: NextFunc
     }
 
 }
-export async function viewHandBook(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function viewHandBook(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
 
     try {
         const editor: string = 'markDown';

@@ -1,5 +1,5 @@
 export const BASE_URL:any = {
-	formal: "https://lmongo.com",
+	formal: "https://fengzq.cn",
 	stage: "http://localhost"
 }
 export const methodList:any = {

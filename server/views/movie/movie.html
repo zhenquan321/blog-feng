@@ -20,12 +20,11 @@
         <div>
             <ul>
                 <li><a <% if(!req.query||!req.query.year){%> class="active" <% }%> href="<%- '/movie?'+'keyword='+(req.query.keyword||"") %>">全部</a></li>
-                <% for (let y=2019;y>2007;y--){%>
+                <% for (let y=2020;y>2008;y--){%>
                 <li><a <% if(req.query&&req.query.year==y){%> class="active" <% }%>
                         href="<%- '/movie?year=' + y + '&keyword='+(req.query.keyword||"") %>"><%- y %></a></li>
                 <% } %>
             </ul>
-
         </div>
     </div>
     <div class="selectHeader">

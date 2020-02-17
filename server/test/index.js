@@ -1,2 +1,2 @@
-require('./authentication');
+// require('./authentication');
 require('./api');

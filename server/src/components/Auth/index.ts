@@ -3,15 +3,19 @@ import AuthService from './service';
 import HttpError from '../../config/error';
 import { IUserModel } from '../User/model';
 import { NextFunction, Request, Response } from 'express';
+
+interface RequestEd extends Request{
+    flash:any;
+}
 /**
  * 
- * @param {Request} req 
+ * @param {RequestEd} req 
  * @param {Response} res 
  * @param {NextFunction}next 
  * @param {IUserModel} user 
  * @param {string} resMessage 
  */
-function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel, resMessage: string): void {
+function passportRequestLogin(req: RequestEd, res: Response, next: NextFunction, user: IUserModel, resMessage: string): void {
     return req.logIn(user, (err: any) => {
         if (err) return next(new HttpError(err));
         // res.json({
@@ -32,12 +36,12 @@ function passportRequestLogin(req: Request, res: Response, next: NextFunction, u
 
 /**
  * @export
- * @param {Request} req 
+ * @param {RequestEd} req 
  * @param {Response} res 
  * @param {NextFunction} next 
  * @returns {Promise < void >}
  */
-export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function signup(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     try {
         const user: IUserModel = await AuthService.createUser(req.body);
 
@@ -55,12 +59,12 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
 
 /**
  * @export
- * @param {Request} req
+ * @param {RequestEd} req
  * @param {Response} res
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function login(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
     passport.authenticate('local', (err: Error, user: IUserModel) => {
         if (err) {
             return next(new HttpError(400, err.message));
@@ -78,12 +82,12 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
 }
 /**
  * @export
- * @param {Request} req 
+ * @param {RequestEd} req 
  * @param {Response} res 
  * @param {NextFunction} next
  * @returns {Promise < void >} 
  */
-export async function signout(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function signout(req: RequestEd, res: Response, next: NextFunction): Promise<void> {
 
     if (!req.user) {
         res.json({
