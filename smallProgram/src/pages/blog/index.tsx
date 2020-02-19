@@ -192,7 +192,7 @@ class Index extends Component {
 
         <View className="AtNoticebar">
           <AtNoticebar marquee icon='volume-plus'>
-            诚邀您加入“溜忙”😊😊😊，我们的官网是：lmongo.com，期望与您共建美好家园。🤒🤒🤒
+            诚邀您加入“溜忙”😊😊😊，我们的官网是：fengzq.cn，期望与您共建美好家园。🤒🤒🤒
           </AtNoticebar>
         </View>
 
