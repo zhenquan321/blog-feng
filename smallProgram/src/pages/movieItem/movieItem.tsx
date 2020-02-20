@@ -94,7 +94,7 @@ class Index extends Component {
       this.getmovieDetail();
     })
     let timestamp = new Date().getTime();
-    if (timestamp < 1579505369489) {
+    if (timestamp < 1582249630000) {
       this.setState({
         showDownload: false
       })
