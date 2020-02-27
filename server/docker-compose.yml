@@ -22,7 +22,7 @@ services:
       - ./:/usr/local/app
     restart: always  
     working_dir: /usr/local/app
-    command: "sh -c 'node ./build/config/server/index.js'" 
+    command: "sh -c 'npm install && tsc && node ./build/config/server/index.js'" 
     depends_on:
       - redis-server
     links:
