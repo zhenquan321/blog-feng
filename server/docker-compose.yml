@@ -11,7 +11,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - /tmp/logs:/var/log/nginx
       - ./https/:/home/blog-feng/server/https/
-      
+
   redis-server:
     image: redis:latest
     ports:
@@ -20,6 +20,7 @@ services:
 
   app:
     build: ./
+    image: node:8.16.2
     volumes:
       - ./:/usr/local/app
     restart: always  

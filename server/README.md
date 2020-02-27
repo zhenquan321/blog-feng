@@ -110,10 +110,6 @@ mongod -f mongodb.conf --shutdown
 ./bin/mongod --repair
 
 
-
 ## docker 启动
 docker-compose up -d --scale app=3
 
-
-
-sudo yum install docker-ce-19.03.6 docker-ce-cli-19.03.6 containerd.io
