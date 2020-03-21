@@ -99,11 +99,11 @@ mongod -f mongodb.conf --bind_ip_all
 
 #### 百度云服务器配置的 mongo 启动方式
 
-mongod --config /etc/mongod.conf --bind_ip_all
+mongod --config /etc/mongod.conf --bind_ip_all    
 
 ## Linux 下关闭 mongodb
 
-mongod -f mongodb.conf --shutdown
+mongod -f /etc/mongod.conf --shutdown
 
 ## 重启服务器
 
@@ -113,3 +113,6 @@ mongod -f mongodb.conf --shutdown
 ## docker 启动
 docker-compose up -d --scale app=3
 
+cfg={ _id:"lmongo", members:[ {_id:0,host:'180.76.101.233:27017',priority:2}, {_id:1,host:'39.99.207.84:27017',priority:1}, {_id:2,host:'180.76.101.233:27018',arbiterOnly:true}] };
+
+rs.add({host:"39.99.207.84:27017",priority: 1 })

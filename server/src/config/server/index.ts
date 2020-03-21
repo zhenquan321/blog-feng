@@ -7,8 +7,8 @@ import server from './server';
 const httpsOption = {
     // key : fs.readFileSync("./https/3094015_lmongo.com.key"),
     // cert: fs.readFileSync("./https/3094015_lmongo.com.pem")
-    key : fs.readFileSync("./https/3094016_fengzq.cn.key"),
-    cert: fs.readFileSync("./https/3094016_fengzq.cn.pem")
+    key : fs.readFileSync("./https/3636953_fengzq.cn.key"),
+    cert: fs.readFileSync("./https/3636953_fengzq.cn.pem")
 }
 
 const Server: http.Server = http.createServer(server);
