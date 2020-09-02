@@ -102,6 +102,10 @@
 .nav-right .btn-group.open .dropdown-toggle a {
   color: #e59233;
 }
+.sepcaliColor-cheng {
+  color: #ff8800 !important;
+  font-weight: 600;
+}
 .logoDiv {
   float: left;
   height: 50px;
