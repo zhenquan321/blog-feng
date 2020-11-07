@@ -48,7 +48,7 @@ const BlogService: IBlogService = {
 
             const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort(sort).limit(pageSize).skip(page * pageSize);
             const BlogList: any[] = JSON.parse(JSON.stringify(BlogListFind));
-            const count: number = await BlogModel.find(findKeyObj).countDocuments();
+            const count: number = await BlogModel.find(findKeyObj).count();
 
             for (let i: number = 0; i < BlogList.length; i++) {
                 BlogList[i].author = await UserService.findOne(BlogList[i].author);

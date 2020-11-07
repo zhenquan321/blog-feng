@@ -50,7 +50,7 @@ const HandBookService: IHandBookService = {
 
             const HandBookListFind: any[] = await HandBookModel.find(findKeyObj).sort(sort).limit(pageSize).skip(page * pageSize);
             const HandBookList: any[] = JSON.parse(JSON.stringify(HandBookListFind));
-            const count: number = await HandBookModel.find(findKeyObj).countDocuments();
+            const count: number = await HandBookModel.find(findKeyObj).count();
 
             for (let i: number = 0; i < HandBookList.length; i++) {
                 HandBookList[i].author = await UserService.findOne(HandBookList[i].author);

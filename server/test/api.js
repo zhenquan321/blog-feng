@@ -15,6 +15,7 @@ describe('API', () => {
             .expect((res) => {
                 res.status.should.equal(200);
                 res.body.should.be.an('array');
+                console.log("ssss")
             })
             .end(done);
     });

@@ -22,7 +22,7 @@ const CommentService: ICommentService = {
             };
 
             const commentList: ICommentModel[] = await CommentModel.find(findKeyObj).sort({ updatedAt: -1 }).limit(pageSize).skip(page * pageSize);
-            const count: number = await CommentModel.find(findKeyObj).countDocuments();
+            const count: number = await CommentModel.find(findKeyObj).count();
             const commentListRt: any = JSON.parse(JSON.stringify(commentList));
 
             for (let i = 0; i < commentListRt.length; i++) {
@@ -112,7 +112,7 @@ const CommentService: ICommentService = {
     async count(id: string): Promise<number> {
         try {
 
-            return await CommentModel.find({ subjectId: id }).countDocuments();
+            return await CommentModel.find({ subjectId: id }).count();
 
         } catch (error) {
             throw new Error(error.message);

@@ -17,7 +17,7 @@ docker run <相关参数> <镜像 ID> <初始命令>
 
 ##  docker-compose  运行
 
-2.【Linux 命令】docker-compose up【命令解释】 命令聚合每个容器的输出，命令退出时，所有容器都将停止。
+2.【Linux 命令】docker-compose令解释】 命令聚合每个容器的输出，命令退出时，所有容器都将停止。
 
 3.【Linux 命令】docker-compose up -d【命令解释】 在后台启动容器并使它们保持运行。
 
@@ -79,3 +79,4 @@ function createRedisClient({port, ip, prefix, db}) {
         res(reply);
     }
 });
+

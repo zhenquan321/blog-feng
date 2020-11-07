@@ -105,7 +105,7 @@ const MovieService: MovieService = {
 
             // 电影按时间倒序
             const movieList: IMovieModel[] = await MovieModel.find(findKeyObj).sort({ updateDate: -1 }).limit(pageSize).skip(page * pageSize);
-            const count: number = await MovieModel.find(findKeyObj).countDocuments();
+            const count: number = await (MovieModel.find(findKeyObj)as any).count();
 
             if (!query.Reptile) {
                 for (let i = 0; i < movieList.length; i++) {
@@ -144,7 +144,7 @@ const MovieService: MovieService = {
 
     async getCount(): Promise<number> {
         try {
-            return await MovieModel.find().countDocuments();
+            return await (MovieModel.find() as any).count();
         } catch (error) {
             throw new Error(error.message);
         }
