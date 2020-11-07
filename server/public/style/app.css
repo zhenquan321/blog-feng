@@ -168,6 +168,10 @@ textarea:focus {
 .nav-right .btn-group.open .dropdown-toggle a {
   color: #e59233;
 }
+.sepcaliColor-cheng {
+  color: #ff8800 !important;
+  font-weight: 600;
+}
 .logoDiv {
   float: left;
   height: 50px;
@@ -645,7 +649,7 @@ a.thumbnail:hover {
 }
 .classificationHeader ul li {
   display: inline-block;
-  padding: 0 10px;
+  padding: 0 6px;
 }
 .blogList {
   margin-top: 50px;
@@ -788,7 +792,7 @@ a.thumbnail:hover {
 }
 .blogItem {
   background-color: #fff;
-  padding: 20px;
+  padding: 30px;
   margin-bottom: 30px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   margin-bottom: 20px;
@@ -846,7 +850,7 @@ a.thumbnail:hover {
 .classificationHeader ul li {
   font-size: 14px;
   display: inline-block;
-  padding: 0 10px;
+  padding: 0 6px;
   padding-right: 12px;
   color: #777;
   cursor: pointer;
