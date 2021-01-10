@@ -20,15 +20,15 @@ Server.on('listening',serverHandlers.onListening.bind(Server));
 
 
 // //============================= https =================================
-if(process.env.NODE_ENV =="production"){
-    const httpsOption = {
-        // key : fs.readFileSync("./https/3094015_lmongo.com.key"),
-        // cert: fs.readFileSync("./https/3094015_lmongo.com.pem")
-        // key : fs.readFileSync("./https/3636953_fengzq.cn.key"),
-        // cert: fs.readFileSync("./https/3636953_fengzq.cn.pem")
-    }
-    const ServerHttps: https.Server = https.createServer(httpsOption,server);
-    ServerHttps.listen(443);
-    ServerHttps.on('error',(error: Error) => serverHandlers.onError(error,443));
-    ServerHttps.on('listening',serverHandlers.onListening.bind(ServerHttps));
-}
+// if(process.env.NODE_ENV =="production"){
+//     const httpsOption = {
+//         // key : fs.readFileSync("./https/3094015_lmongo.com.key"),
+//         // cert: fs.readFileSync("./https/3094015_lmongo.com.pem")
+//         // key : fs.readFileSync("./https/3636953_fengzq.cn.key"),
+//         // cert: fs.readFileSync("./https/3636953_fengzq.cn.pem")
+//     }
+//     const ServerHttps: https.Server = https.createServer(httpsOption,server);
+//     ServerHttps.listen(443);
+//     ServerHttps.on('error',(error: Error) => serverHandlers.onError(error,443));
+//     ServerHttps.on('listening',serverHandlers.onListening.bind(ServerHttps));
+// }
