@@ -3,8 +3,8 @@ import { HttpError } from '../../config/error';
 import { IUserModel } from './model';
 import { NextFunction, Request, Response } from 'express';
 import client from './../../utils/baiduSh';
-interface RequestEd extends Request{
-    flash:any;
+interface RequestEd extends Request {
+    flash: any;
 }
 /**
  * @export
@@ -94,8 +94,8 @@ export async function update(req: RequestEd, res: Response, next: NextFunction):
         };
 
         // 用户头像审核；&& 用户填写内容审核；暂时不用
-        const shData: any = (await client.faceAudit([('http://' + req.host + query.picture)], 'url', 1)).result[0];
-        const userInfoSh: string = userInfo.name + userInfo.location + userInfo.Occupation + userInfo.gender;
+        // const shData: any = (await client.faceAudit([('http://' + req.host + query.picture)], 'url', 1)).result[0];
+        const userInfoSh: string = userInfo.picture + userInfo.name + userInfo.location + userInfo.Occupation + userInfo.gender;
         const shDataNei: any = await client.textCensorUserDefined(userInfoSh);
 
         // if ((!shData) || shData.error_msg || (shData.result && shData.result[0] && shData.result[0].res_code === 0)) {
@@ -113,8 +113,8 @@ export async function update(req: RequestEd, res: Response, next: NextFunction):
         } else {
             res.status(200).json({
                 state: 1,
-                msg: shDataNei.data[0].msg,
-                data: shData
+                // msg: shDataNei.data[0].msg,
+                data: shDataNei
             });
 
             return
