@@ -24,7 +24,7 @@ export interface IJobModel extends Document {
     }
 }
 
-const JobSchema: Schema = new Schema({
+const JobSchema: any = new Schema({
     name: String,
     updateDate:String,
     clickNum:Number,
@@ -41,7 +41,7 @@ const JobSchema: Schema = new Schema({
     collection: 'Jobmodel',
     versionKey: false
 }).pre('save', async function (next: NextFunction): Promise<void> {
-    const Job: IJobModel = this; // tslint:disable-line
+    // const Job: IJobModel = this; // tslint:disable-line
     next();
 });
 

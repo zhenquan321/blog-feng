@@ -32,7 +32,7 @@ export interface IHandBookModel extends Document {
     quantitySold:number;
 }
 
-const HandBookSchema: Schema = new Schema({
+const HandBookSchema: any = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -111,7 +111,7 @@ const HandBookSchema: Schema = new Schema({
     collection: 'HandBookmodel',
     versionKey: false
 }).pre('save', async function (next: NextFunction): Promise<void> {
-    const HandBook: IHandBookModel = this; // tslint:disable-line
+    // const HandBook: IHandBookModel = this; // tslint:disable-line
     next();
 });
 

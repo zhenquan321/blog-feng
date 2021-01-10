@@ -16,7 +16,7 @@ export interface IClassificationModel extends Document {
 }
 
 
-const ClassificatSchema: Schema = new Schema({
+const ClassificatSchema: any = new Schema({
     name: {
         type: String,
         default: ''
@@ -44,7 +44,7 @@ const ClassificatSchema: Schema = new Schema({
     collection: 'classificationmodel',
     versionKey: false
 }).pre('save', async function (next: NextFunction): Promise<void> {
-    const Classification: IClassificationModel = this; // tslint:disable-line
+    // const Classification: IClassificationModel = this; // tslint:disable-line
     next();
 });
 

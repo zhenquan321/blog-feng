@@ -102,7 +102,7 @@ export async function blogCreate(req: RequestEd, res: Response, next: NextFuncti
         const classifications: any = await ClassificationService.findAll({ type: 'classification' });
         const createType: any = await ClassificationService.findAll({ type: 'createType' });
         const mbId: string = "5dc7e479b9e1565fbe48666b";
-        let blogId: string = (req.query && req.query.blogId) || mbId;
+        let blogId: any = (req.query && req.query.blogId) || mbId;
         let rtNlog: any = {};
         let mbBlog: any = {};
 
@@ -189,7 +189,7 @@ export async function createHandBook(req: RequestEd, res: Response, next: NextFu
     try {
         const editor: string = 'markDown';
         const mbId: string = '';
-        let handBookId: string = (req.query && req.query.handBookId) || mbId;
+        let handBookId: any = (req.query && req.query.handBookId) || mbId;
         let rtHandBook: any = handBookId ? await HandBookService.findOne(handBookId) : {};
         let title: string = '创建溜忙手册';
         let handBookJson:string=encodeURIComponent(JSON.stringify(rtHandBook)) ;
@@ -207,7 +207,7 @@ export async function viewHandBook(req: RequestEd, res: Response, next: NextFunc
     try {
         const editor: string = 'markDown';
         const mbId: string = '';
-        let handBookId: string = (req.query && req.query.handBookId) || mbId;
+        let handBookId: any = (req.query && req.query.handBookId) || mbId;
         let rtHandBook: any = handBookId ? await HandBookService.findOne(handBookId) : {};
         let title: string = '溜忙手册';
         let handBookJson:string=encodeURIComponent(JSON.stringify(rtHandBook)) ;

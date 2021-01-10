@@ -27,7 +27,7 @@ export interface IMovieModel extends Document {
     };
 }
 
-const MovieSchema: Schema = new Schema({
+const MovieSchema: any = new Schema({
     name: String,
     updateDate:String,
     clickNum: {
@@ -56,7 +56,7 @@ const MovieSchema: Schema = new Schema({
     collection: 'moviemodel',
     versionKey: false
 }).pre('save', async function (next: NextFunction): Promise<void> {
-    const movie: IMovieModel = this; // tslint:disable-line
+    // const movie: IMovieModel = this; // tslint:disable-line
     next();
 });
 

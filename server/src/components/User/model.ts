@@ -64,7 +64,7 @@ export type AuthToken = {
  *      items:
  *        $ref: '#/components/schemas/UserSchema'
  */
-const UserSchema: Schema = new Schema({
+const UserSchema: any = new Schema({
     email: {
         type: String,
         unique: true,

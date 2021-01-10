@@ -32,7 +32,7 @@ export interface IBlogModel extends Document {
     deleted: boolean;
 }
 
-const BlogSchema: Schema = new Schema({
+const BlogSchema: any = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -108,7 +108,6 @@ const BlogSchema: Schema = new Schema({
     collection: 'Blogmodel',
     versionKey: false
 }).pre('save', async function (next: NextFunction): Promise<void> {
-    const Blog: IBlogModel = this; // tslint:disable-line
     next();
 });
 

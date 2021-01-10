@@ -17,7 +17,7 @@ export interface ICommentModel extends Document {
 }
 
 
-const CommentSchema: Schema = new Schema({
+const CommentSchema: any = new Schema({
     userId: {
         type: String,
         required: true
@@ -55,7 +55,7 @@ const CommentSchema: Schema = new Schema({
     collection: 'commentmodel',
     versionKey: false
 }).pre('save', async function (next: NextFunction): Promise<void> {
-    const Comment: ICommentModel = this; // tslint:disable-line
+    // const Comment: ICommentModel = this; // tslint:disable-line
     next();
 });
 
