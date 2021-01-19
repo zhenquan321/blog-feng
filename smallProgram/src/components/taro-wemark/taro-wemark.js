@@ -35,7 +35,6 @@ export default class TaroWemark extends Component {
     if (!options.name) options.name = 'wemark';
 
     var tokens = parser.parse(md, {});
-    console.log(tokens);
     // markdwon渲染列表
     var renderList = [];
     // 图片高度数组
