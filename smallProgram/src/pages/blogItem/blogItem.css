@@ -31,11 +31,12 @@ page {
   box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
   text-align: center;
   line-height: 32px;
-  padding-top: 16px;
+  padding: 16px 0 0;
 }
 .shareBtn .wz {
-  display: inline-block;
+  display: block;
   height: 20px;
   line-height: 20px;
   font-size: 24px;
+  padding-top: 6px;
 }

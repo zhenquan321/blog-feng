@@ -224,7 +224,7 @@ export default class TaroWemark extends Component {
                       {
                         renderInline.type !== 'image' ?
                           <View className={'wemark_inline_' + renderInline.type}>{renderInline.content}</View>
-                          : <Image mode="widthFix" className="wemark_inline_image" src={renderInline.src}></Image>
+                          : <Image mode="scaleToFill" className="wemark_inline_image" src={renderInline.src}></Image>
                       }
                     </>
                   )
