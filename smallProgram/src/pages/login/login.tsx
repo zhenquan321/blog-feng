@@ -1,4 +1,6 @@
-import Taro, { Component } from "@tarojs/taro";
+
+import Taro from '@tarojs/taro'
+import React, { Component } from 'react'
 import { View, Button, Input, Text, Image } from "@tarojs/components";
 import { AtButton } from "taro-ui";
 import "./login.less";

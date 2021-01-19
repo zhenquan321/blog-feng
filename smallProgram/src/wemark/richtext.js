@@ -25,7 +25,7 @@ exports.getRichTextNodes = function(parsedData){
 
 	var getBlockNode = function(node){
 		var nodeType = node.type;
-		// console.log('nodeType:', nodeType);
+		console.log('nodeType:', nodeType);
 		var richTextNode = {
 			name: getNodeName(nodeType, 'inline'),
 			attrs: {

@@ -1,4 +1,5 @@
-import Taro, { Component, Config } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
+import React, { Component } from 'react'
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
 import request from "../../api/request";
 import Share from "../../utils/share/share"
@@ -26,9 +27,7 @@ interface Index {
 })
 
 class Index extends Component {
-  config: Config = {
-    navigationBarTitleText: ''
-  }
+
   constructor(prop) {
     super(prop)
     this.state = {

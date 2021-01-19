@@ -1,15 +1,15 @@
-import Taro, { Component, Config } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
+import { getCurrentInstance } from '@tarojs/taro'
+import React, { Component } from 'react'
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
 import request from "../../api/request";
 import { AtNoticebar, AtSearchBar,AtDivider } from 'taro-ui'
-import { add, minus, asyncAdd } from '../../actions/counter'
 import Share from "../../utils/share/share"
-
 import './index.less'
 import "taro-ui/dist/style/components/icon.scss";
 import "taro-ui/dist/style/components/search-bar.scss";
 import "taro-ui/dist/style/components/button.scss";
+import "taro-ui/dist/style/components/noticebar.scss";
 
 
 
@@ -41,22 +41,6 @@ interface Index {
   props: IProps;
 }
 
-
-
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
-}))
-
 @Share({
   title: '溜忙 · 技术博文',
   imageUrl: '',
@@ -65,16 +49,6 @@ interface Index {
 
 class Index extends Component {
 
-  /**
- * 指定config的类型声明为: Taro.Config
- *
- * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
- * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
- * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
- */
-  config: Config = {
-    navigationBarTitleText: '溜忙'
-  }
   constructor(prop) {
     super(prop)
     this.state = {
@@ -145,13 +119,13 @@ class Index extends Component {
   }
 
   componentWillMount() {
-    if (this.$router.params.blogId) {
+    if (getCurrentInstance().router.params.blogId) {
       Taro.navigateTo({
-        url:"/pages/blogItem/blogItem?blogId="+this.$router.params.blogId,
+        url:"/pages/blogItem/blogItem?blogId="+getCurrentInstance().router.params.blogId,
       })
-    }else if(this.$router.params.movieId){
+    }else if(getCurrentInstance().router.params.movieId){
       Taro.navigateTo({
-        url:"/pages/movieItem/movieItem?movieId="+this.$router.params.movieId,
+        url:"/pages/movieItem/movieItem?movieId="+getCurrentInstance().router.params.movieId,
       })
     }
   }
@@ -167,7 +141,6 @@ class Index extends Component {
 
   render() {
     const { blogList } = this.state;
-    console.log(blogList);
     return (
       <View className='index'>
         <View className="search-bar">

@@ -1,9 +1,7 @@
-import Taro, { Component, Config } from '@tarojs/taro'
+import React, { Component } from 'react';
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
 import request from "../../api/request";
 import { AtNoticebar, AtSearchBar, AtGrid } from 'taro-ui'
-import { add, minus, asyncAdd } from '../../actions/counter'
 
 import './user.less'
 import "taro-ui/dist/style/components/icon.scss";
@@ -37,21 +35,6 @@ interface Index {
   props: IProps;
 }
 
-
-
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
-}))
 
 
 class Index extends Component {

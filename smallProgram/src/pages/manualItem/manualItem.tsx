@@ -1,4 +1,6 @@
-import Taro, { Component, Config } from '@tarojs/taro'
+
+import Taro from '@tarojs/taro'
+import React, { Component } from 'react'
 import { View, Button, Text, Image, Swiper, SwiperItem, RichText } from '@tarojs/components'
 import { AtPagination,AtButton,AtDrawer,AtList, AtListItem } from 'taro-ui'
 import request from "../../api/request"
@@ -31,12 +33,12 @@ interface ManualItem {
 })
 
 class ManualItem extends Component {
-  config: Config = {
-    navigationBarTitleText: '',
-    usingComponents: {
-      wemark: '../../wemark/wemark'
-    }
-  }
+  // config: Config = {
+  //   navigationBarTitleText: '',
+  //   usingComponents: {
+  //     wemark: '../../wemark/wemark'
+  //   }
+  // }
   constructor(prop) {
     super(prop)
     this.state = {
@@ -58,7 +60,7 @@ class ManualItem extends Component {
   componentWillUnmount() {
 
   }
-  
+
   getHandBook = () => {
     request
       .request({
@@ -139,10 +141,10 @@ class ManualItem extends Component {
       this.getBlogDetail();
       this.onClose();
     })
-    
+
   }
   componentDidMount() {
-    
+
   }
   componentDidShow() {
 
@@ -167,13 +169,13 @@ class ManualItem extends Component {
           <View className="wz">分享</View>
         </Button> */}
         <View className="AtPagination">
-          <View className="wenan"> 
+          <View className="wenan">
             当前章节：
           </View>
           <View className="zjjh">
-            <AtPagination 
+            <AtPagination
               icon
-              total={chapter} 
+              total={chapter}
               pageSize={1}
               current={current}
               onPageChange={this.onPageChange.bind(this)}
@@ -183,12 +185,12 @@ class ManualItem extends Component {
           <View className="quanbu">
             <AtButton className="btn"  size='small' onClick={this.onShowQb.bind(this)}>全部章节</AtButton>
           </View>
-          
+
         </View>
-        <AtDrawer 
-          show={this.state.show} 
-          onClose={this.onClose.bind(this)} 
-          mask 
+        <AtDrawer
+          show={this.state.show}
+          onClose={this.onClose.bind(this)}
+          mask
         >
           <AtList>
            {
@@ -196,7 +198,7 @@ class ManualItem extends Component {
                 return <AtListItem className={index==current-1?'active':''} title={(index+1)+'、'+item.title} arrow='right' onClick={this.onItemChange.bind(this,index)}  />
               })
            }
-        
+
           </AtList>
         </AtDrawer>
       </View>

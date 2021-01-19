@@ -1,5 +1,7 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button, Text, Image, Swiper, SwiperItem, RichText } from '@tarojs/components'
+
+import Taro, { getCurrentInstance } from '@tarojs/taro'
+import React, { Component } from 'react'
+import { View, Button} from '@tarojs/components'
 import request from "../../api/request"
 import Share from "../../utils/share/share"
 import TaroWemark from '../../components/taro-wemark/taro-wemark'
@@ -26,17 +28,12 @@ interface Index {
 })
 
 class Index extends Component {
-  config: Config = {
-    navigationBarTitleText: '',
-    usingComponents: {
-      wemark: '../../wemark/wemark'
-    }
-  }
+
   constructor(prop) {
     super(prop)
     this.state = {
       blog: {
-        content:"# hjhashj"
+        content: "# hjhashj"
       },
       blogId: "",
     }
@@ -61,7 +58,7 @@ class Index extends Component {
         if (res.data.state == 0) {
           Taro.setNavigationBarTitle({ title: res.data.data.title })
           //分享信息
-      
+
           this.setState({
             blog: res.data.data
           })
@@ -83,13 +80,13 @@ class Index extends Component {
     // })
   }
   componentWillMount() {
-    
+
   }
 
 
   componentDidMount() {
     this.setState({
-      blogId: this.$router.params.blogId
+      blogId: getCurrentInstance().router.params.blogId
     }, () => {
       this.getBlogDetail();
     })
@@ -109,7 +106,7 @@ class Index extends Component {
             {blog.title}
           </View>
           <View className="content">
-            <TaroWemark md={blog.content} link highlight type='wemark'></TaroWemark> 
+            <TaroWemark md={blog.content} link highlight type='wemark'></TaroWemark>
           </View>
         </View>
         <Button className="shareBtn" open-type="share">

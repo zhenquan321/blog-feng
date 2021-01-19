@@ -1,4 +1,6 @@
-import Taro, { Component, Config } from '@tarojs/taro'
+
+import Taro from '@tarojs/taro'
+import React, { Component } from 'react'
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
 import request from "../../api/request";
 import { AtSearchBar, AtDivider } from 'taro-ui'
@@ -33,10 +35,6 @@ interface Index {
   props: IProps;
 }
 
-
-
-
-
 @Share({
   title: '溜忙 · 电影',
   imageUrl: '',
@@ -45,9 +43,6 @@ interface Index {
 
 class Index extends Component {
 
-  config: Config = {
-    navigationBarTitleText: '电影'
-  }
   constructor(prop) {
     super(prop)
     this.state = {
@@ -132,7 +127,7 @@ class Index extends Component {
     let page: number = this.state.page + 1;
     this.setState({
       page: page,
-      
+
     }, () => {
       this.getMovies();
     })

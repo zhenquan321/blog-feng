@@ -1,5 +1,4 @@
 import Taro from '@tarojs/taro';
-// import { connect } from '@tarojs/redux';
 
 function withShare(opts:any):any{
 
@@ -10,10 +9,9 @@ function withShare(opts:any):any{
 
   return function demoComponent(Component) {
     // redux里面的用户数据
-    // @connect(({ user }) => ({
-    //   userInfo: user.userInfo
-    // }))
+
     class WithShare extends Component {
+
       async componentWillMount() {
         Taro.showShareMenu({
           withShareTicket: true

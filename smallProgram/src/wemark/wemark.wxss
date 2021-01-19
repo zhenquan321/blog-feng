@@ -103,31 +103,37 @@
 	/* border-top:1px solid #e0e0e0; */
 }
 .wemark_inline_table_th{
+  display: inline;
 	background:#f0f0f0;
 	/* border-top:1px solid #e0e0e0; */
 }
 .wemark_inline_strong{
+  display: inline;
 	font-weight: bold;
 	padding:0 5px;
 	word-wrap:break-word;
 }
 .wemark_inline_em{
+  display: inline;
 	font-style: italic;
 	padding:0 5px;
 	word-wrap:break-word;
 }
 .wemark_inline_strong_em{
+  display: inline;
 	font-style: italic;
 	font-weight: bold;
 	padding:0 5px;
 	word-wrap:break-word;
 }
 .wemark_inline_deleted{
+  display: inline;
 	text-decoration: line-through;
 	padding:0 5px;
 	word-wrap:break-word;
 }
 .wemark_inline_image{
+  display: inline;
 	width:100%;
 	height:auto;
 }
@@ -137,6 +143,7 @@
 	word-wrap:break-word;
 }
 .wemark_inline_text{
+  display: inline;
 	word-wrap:break-word;
 }
 .wemark_inline_link{

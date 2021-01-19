@@ -1,9 +1,8 @@
-import Taro, { Component, Config } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
+import React, { Component } from 'react'
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
 import request from "../../api/request";
 import { AtNoticebar, AtSearchBar, AtGrid, AtDivider } from 'taro-ui'
-import { add, minus, asyncAdd } from '../../actions/counter'
 import Share from "../../utils/share/share"
 
 import './manual.less'
@@ -42,20 +41,6 @@ interface Manual {
 
 
 
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
-}))
-
 @Share({
   title: '溜忙 · 技术博文',
   imageUrl: '',
@@ -64,16 +49,6 @@ interface Manual {
 
 class Manual extends Component {
 
-  /**
- * 指定config的类型声明为: Taro.Config
- *
- * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
- * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
- * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
- */
-  config: Config = {
-    navigationBarTitleText: '溜忙'
-  }
   constructor(prop) {
     super(prop)
     this.state = {

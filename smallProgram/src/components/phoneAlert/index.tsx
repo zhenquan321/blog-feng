@@ -1,4 +1,5 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
+import React, { Component } from 'react'
 import { View, Image } from '@tarojs/components'
 import './index.less'
 import login_number from '../../assets/images/h5Active/login_number.png'
