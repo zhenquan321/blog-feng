@@ -66,6 +66,7 @@ page {
   background-color: #fff;
   border-radius: 12px;
   margin-top: 20px;
+  word-break: break-all;
 }
 .movieDetail .detailCard {
   font-size: 24px;

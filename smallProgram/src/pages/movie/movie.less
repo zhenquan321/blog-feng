@@ -1,13 +1,13 @@
-@boxShow: 0 0 12px  rgba(187, 187, 187, 0.3);
+@boxShow: 0 6px 6px  rgba(187, 187, 187, 0.3);
 @mainColor:#e59233;
 page {
     background-color: #fafafa;
 }
 .search-bar {
-  position: fixed !important;
-  top: 0;
-  width: 100%;
-  z-index: 100;
+  // position: fixed !important;
+  // top: 0;
+  // width: 100%;
+  // z-index: 100;
 }
 .at-search-bar::after{
     border-bottom-width:0px;
@@ -19,8 +19,8 @@ page {
     justify-content: space-around;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 10px;
-    padding:0 10px;
+    display: flex;
+    justify-content: space-around;
     .movieCard{
         box-shadow: @boxShow;
         width: 47%;
@@ -83,7 +83,6 @@ page {
 
 .fenLei{
     padding: 10px;
-    margin-top: 76px;
     background-color: #fff;
     box-shadow: @boxShow;
     margin-bottom: 20px;
@@ -108,21 +107,13 @@ page {
                 color:@mainColor;
             }
         }
-           
+
     }
 }
 
 
-.search-bar{
-    position: fixed!important;
-    top: -2px;
-    width: 100%;
-    z-index: 100;
-    box-shadow: @boxShow;
-}
 
 
 .at-divider__content{
     background-color: #fafafa;
   }
-  

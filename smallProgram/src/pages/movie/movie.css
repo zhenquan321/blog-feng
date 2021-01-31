@@ -1,27 +1,19 @@
 page {
   background-color: #fafafa;
 }
-.search-bar {
-  position: fixed !important;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-}
 .at-search-bar::after {
   border-bottom-width: 0px;
   box-shadow: 0 0 6px rgba(187, 187, 187, 0.5);
 }
 .movieList {
-  display: flex;
   width: 100%;
-  justify-content: space-around;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 10px;
-  padding: 0 10px;
+  display: flex;
+  justify-content: space-around;
 }
 .movieList .movieCard {
-  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  box-shadow: 0 6px 6px rgba(187, 187, 187, 0.3);
   width: 47%;
   background-color: #fff;
   border-radius: 20px ;
@@ -77,9 +69,8 @@ page {
 }
 .fenLei {
   padding: 10px;
-  margin-top: 76px;
   background-color: #fff;
-  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
+  box-shadow: 0 6px 6px rgba(187, 187, 187, 0.3);
   margin-bottom: 20px;
 }
 .fenLei .flCard {
@@ -102,13 +93,6 @@ page {
 .fenLei .flCard .flType .active {
   background-color: #eee;
   color: #e59233;
-}
-.search-bar {
-  position: fixed!important;
-  top: -2px;
-  width: 100%;
-  z-index: 100;
-  box-shadow: 0 0 12px rgba(187, 187, 187, 0.3);
 }
 .at-divider__content {
   background-color: #fafafa;
