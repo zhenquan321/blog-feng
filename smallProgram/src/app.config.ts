@@ -40,12 +40,6 @@ export default {
         iconPath: "./assets/images/menus/movie.png",
         selectedIconPath: "./assets/images/menus/movie-act.png"
       }
-      // {
-      //   pagePath: "pages/user/user",
-      //   text: "我的",
-      //   iconPath: "./assets/images/menus/user.png",
-      //   selectedIconPath: "./assets/images/menus/user-act.png"
-      // },
     ]
   }
 }

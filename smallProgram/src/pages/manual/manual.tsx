@@ -1,71 +1,71 @@
-import Taro from '@tarojs/taro'
-import React, { Component } from 'react'
-import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
+import Taro from "@tarojs/taro";
+import React, { Component } from "react";
+import {
+  View,
+  Button,
+  Text,
+  Image,
+  Swiper,
+  SwiperItem,
+} from "@tarojs/components";
 import request from "../../api/request";
-import { AtNoticebar, AtSearchBar, AtGrid, AtDivider } from 'taro-ui'
-import Share from "../../utils/share/share"
+import { AtNoticebar, AtSearchBar, AtGrid, AtDivider } from "taro-ui";
+import Share from "../../utils/share/share";
 
-import './manual.less'
+import "./manual.less";
 import "taro-ui/dist/style/components/icon.scss";
 import "taro-ui/dist/style/components/search-bar.scss";
 import "taro-ui/dist/style/components/button.scss";
 
-
 type PageStateProps = {
   counter: {
-    num: number
-  }
-}
+    num: number;
+  };
+};
 
 type PageDispatchProps = {
-  add: () => void
-  dec: () => void
-  asyncAdd: () => any
-}
+  add: () => void;
+  dec: () => void;
+  asyncAdd: () => any;
+};
 
-type PageOwnProps = {}
+type PageOwnProps = {};
 
 type PageState = {
   blogList: any;
   value: string;
-  page: number,
-  pagesize: number,
-  noMore: boolean
-}
+  page: number;
+  pagesize: number;
+  noMore: boolean;
+};
 
-type IProps = PageStateProps & PageDispatchProps & PageOwnProps
+type IProps = PageStateProps & PageDispatchProps & PageOwnProps;
 interface Manual {
-  state: PageState,
+  state: PageState;
   props: IProps;
 }
 
-
-
 @Share({
-  title: '溜忙 · 技术博文',
-  imageUrl: '',
-  path: 'pages/blog/manual?shareMag=66666'
+  title: "溜忙 · 技术博文",
+  imageUrl: "",
+  path: "pages/blog/manual?shareMag=66666",
 })
-
 class Manual extends Component {
-
   constructor(prop) {
-    super(prop)
+    super(prop);
     this.state = {
       blogList: [],
-      value: '',
+      value: "",
       page: 1,
       pagesize: 20,
-      noMore: false
-    }
+      noMore: false,
+    };
   }
   componentWillReceiveProps(nextProps) {
-    console.log(this.props, nextProps)
+    console.log(this.props, nextProps);
   }
 
-  componentWillUnmount() {
-
-  }
+  componentWillUnmount() {}
 
   getBlogs = () => {
     request
@@ -74,19 +74,20 @@ class Manual extends Component {
         method: "get",
         data: {
           HandBookSearch: this.state.value,
-          page: this.state.page
-        }
+          page: this.state.page,
+        },
       })
       .then((res: any) => {
         console.log(res);
         if (res.data.state == 0) {
           let noMore: boolean = res.data.data.data < this.state.pagesize;
-          let blogListGet: any[] = this.state.page == 1 ? [] : this.state.blogList;
-          blogListGet = blogListGet.concat(res.data.data.data)
+          let blogListGet: any[] =
+            this.state.page == 1 ? [] : this.state.blogList;
+          blogListGet = blogListGet.concat(res.data.data.data);
           this.setState({
             noMore: noMore,
             blogList: blogListGet,
-          })
+          });
         }
       });
   };
@@ -95,58 +96,52 @@ class Manual extends Component {
   }
   onActionClick(e) {
     let value: string = e.detail.value;
-    this.setState({
-      page: 1,
-      value: value,
-    }, () => {
-      this.getBlogs();
-    })
+    this.setState(
+      {
+        page: 1,
+        value: value,
+      },
+      () => {
+        this.getBlogs();
+      }
+    );
   }
-
 
   onReachBottom() {
     let page: number = this.state.page + 1;
-    this.setState({
-      page: page,
-    }, () => {
-      this.getBlogs();
-    })
+    this.setState(
+      {
+        page: page,
+      },
+      () => {
+        this.getBlogs();
+      }
+    );
   }
   goDetail(id: string) {
     Taro.navigateTo({
       url: "/pages/manualItem/manualItem?manualId=" + id,
-    })
+    });
   }
 
-  componentWillMount() {
-    if (this.$router.params.blogId) {
-      Taro.navigateTo({
-        url: "/pages/blogItem/blogItem?blogId=" + this.$router.params.blogId,
-      })
-    } else if (this.$router.params.movieId) {
-      Taro.navigateTo({
-        url: "/pages/movieItem/movieItem?movieId=" + this.$router.params.movieId,
-      })
-    }
-  }
+  componentWillMount() {}
 
   componentDidMount() {
     this.getBlogs();
+    Taro.setNavigationBarTitle({ title: "精心手册" });
   }
-  componentDidShow() {
+  componentDidShow() {}
 
-  }
-
-  componentDidHide() { }
+  componentDidHide() {}
 
   render() {
     const { blogList } = this.state;
     console.log(blogList);
     return (
-      <View className='manual'>
+      <View className="manual">
         <View className="search-bar">
           <AtSearchBar
-            actionName='搜索'
+            actionName="搜索"
             value={this.state.value}
             onChange={this.onChange.bind(this)}
             onBlur={this.onActionClick.bind(this)}
@@ -154,49 +149,60 @@ class Manual extends Component {
         </View>
 
         <View className="blogList">
-          {
-            blogList.map((item: any) => {
-              return <View className="blogCard" key={item._id} onClick={this.goDetail.bind(this, item._id)}>
+          {blogList.map((item: any) => {
+            return (
+              <View
+                className="blogCard"
+                key={item._id}
+                onClick={this.goDetail.bind(this, item._id)}
+              >
                 <View className="leftImage">
                   <Image
-                    style='width: 100px;height: 140px;background: #fff;'
+                    style="width: 100px;height: 140px;background: #fff;"
                     src={item.coverPhoto}
                   />
                 </View>
                 <View className="rightNr">
-
                   <View className="userInfo">
-                    <View className="title">
-                      《{item.title}》
-                    </View>
+                    <View className="title">《{item.title}》</View>
                     <View className="right">
-                      {item.isHot ?
+                      {item.isHot ? (
                         <View>
                           <View className="re">热</View>
                           <View className="dian"> · </View>
-                        </View> : ""
-                      }
-                      {item.isRecommend ?
+                        </View>
+                      ) : (
+                        ""
+                      )}
+                      {item.isRecommend ? (
                         <View>
                           <View className="jian">{item.isRecommend}</View>
                           <View className="dian"> · </View>
-                        </View> : ""
-                      }
+                        </View>
+                      ) : (
+                        ""
+                      )}
                       <View className="lei">{item.classifications.name}</View>
                     </View>
                     <View className="left">
-                      <Image className="img" src={item.author.profile.picture}></Image>
-                      <View className="name">{item.author.profile.name || item.author.email}</View>
+                      <Image
+                        className="img"
+                        src={item.author.profile.picture}
+                      ></Image>
+                      <View className="name">
+                        {item.author.profile.name || item.author.email}
+                      </View>
                     </View>
                   </View>
-                  <View className="describe">
-                    {item.describe}
-                  </View>
+                  <View className="describe">{item.describe}</View>
                   <View className="card-bottom">
                     <View className="left">
-                      <View className='at-icon at-icon-eye'></View><View className="number">{item.pv}</View>
-                      <View className='at-icon at-icon-message'> </View><View className="number">{item.comments}</View>
-                      <View className='at-icon at-icon-heart'> </View><View className="number">{item.thumbsUp}</View>
+                      <View className="at-icon at-icon-eye"></View>
+                      <View className="number">{item.pv}</View>
+                      <View className="at-icon at-icon-message"> </View>
+                      <View className="number">{item.comments}</View>
+                      <View className="at-icon at-icon-heart"> </View>
+                      <View className="number">{item.thumbsUp}</View>
                     </View>
                     {/* <View className="right">
                       {item.createdAt}
@@ -204,14 +210,23 @@ class Manual extends Component {
                   </View>
                 </View>
               </View>
-            })
-          }
+            );
+          })}
         </View>
         <View style="margin:20px;">
-          {this.state.noMore ? <AtDivider content='没有更多了' fontSize="20" fontColor='#aaa' lineColor='#aaa' /> : ''}
+          {this.state.noMore ? (
+            <AtDivider
+              content="没有更多了"
+              fontSize="20"
+              fontColor="#aaa"
+              lineColor="#aaa"
+            />
+          ) : (
+            ""
+          )}
         </View>
       </View>
-    )
+    );
   }
 }
 

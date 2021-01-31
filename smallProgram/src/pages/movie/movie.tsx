@@ -66,7 +66,9 @@ class Index extends Component {
       current: value,
     });
   }
-  componentDidMount() {}
+  componentDidMount() {
+    Taro.setNavigationBarTitle({title:"海量电影"})
+  }
   componentDidShow() {}
   componentDidHide() {}
 

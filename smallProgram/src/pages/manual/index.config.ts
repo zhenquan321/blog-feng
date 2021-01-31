@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '精心手册',
+  navigationBarTitleText: '南易博客',
 }
