@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro";
 import React, { Component } from "react";
-import { View } from "@tarojs/components";
+import { View, Button } from "@tarojs/components";
 import { AtTabs, AtTabsPane } from "taro-ui";
 import Share from "../../utils/share/share";
 import MovieTab from "./movieTab";
@@ -43,9 +43,22 @@ class Index extends Component {
       "1": "TV",
       "2": "comic",
     };
-    const type =data[String(this.state.current)]
-    console.log(this.state.current,type)
+    const type = data[String(this.state.current)];
+    console.log(this.state.current, type);
     eventEmeitter.emit(type);
+  }
+  goTop() {
+    if (Taro.pageScrollTo) {
+      Taro.pageScrollTo({
+        scrollTop: 0,
+      });
+    } else {
+      Taro.showModal({
+        title: "提示",
+        content:
+          "当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。",
+      });
+    }
   }
 
   handleClick(value) {
@@ -56,6 +69,7 @@ class Index extends Component {
   componentDidMount() {}
   componentDidShow() {}
   componentDidHide() {}
+
   render() {
     const tabList = [{ title: "电影" }, { title: "电视剧" }, { title: "动漫" }];
     return (
@@ -75,6 +89,10 @@ class Index extends Component {
             <MovieTab type={"comic"}></MovieTab>
           </AtTabsPane>
         </AtTabs>
+        <Button className="shareBtn" onClick={this.goTop.bind(this)}>
+          <View className="at-icon at-icon-chevron-up"></View>
+          <View className="wz">顶部</View>
+        </Button>
       </View>
     );
   }

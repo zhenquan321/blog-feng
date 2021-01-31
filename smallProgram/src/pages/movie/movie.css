@@ -97,3 +97,24 @@ page {
 .at-divider__content {
   background-color: #fafafa;
 }
+.shareBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 150px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #e59233;
+  color: #fff;
+  box-shadow: 0 6px 6px rgba(187, 187, 187, 0.3);
+  text-align: center;
+  line-height: 32px;
+  padding: 16px 0 0;
+}
+.shareBtn .wz {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 24px;
+  padding-top: 6px;
+}
