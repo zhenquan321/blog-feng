@@ -1069,3 +1069,8 @@ a.thumbnail:hover {
 .fixedCard ul li i {
   font-size: 1.9rem;
 }
+footer {
+  text-align: center;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}

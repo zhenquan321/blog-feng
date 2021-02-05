@@ -1,7 +1,14 @@
-<footer class="footer has-background-dark has-text-white-bis">
+<footer class="footer">
     <div class="container">
         <div class="has-text-centered">
-            <p>&copy; 2018</p>
+            <p>&copy; 2021 | 南易 | 京ICP备16001834号-<span id="comType">2</span></p>
+            <p><a href="http://39.99.207.84/view/movie" target="view_window">电影外链</a></p>
         </div>
     </div>
 </footer>
+<script>
+    let href = window.location.host;
+    if(href.indexOf("lmongo")>-1){
+        document.getElementById("comType").innerHTML="1"
+    }
+</script>
