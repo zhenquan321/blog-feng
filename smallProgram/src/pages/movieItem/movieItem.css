@@ -80,8 +80,13 @@ page {
   margin-top: 20px;
   text-align: center;
 }
-.copy button {
+.copy .bofang {
+  margin-right: 10px;
   background-color: #e59233;
+}
+.copy button {
+  border: 0;
+  background-color: gray;
 }
 .shareBtn {
   position: fixed;

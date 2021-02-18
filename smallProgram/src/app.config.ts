@@ -7,6 +7,7 @@ export default {
     "pages/blogItem/blogItem",
     "pages/movieItem/movieItem",
     "pages/manual/manual",
+    "pages/movieplay/movieplay",
     "pages/manualItem/manualItem"
   ],
   window: {

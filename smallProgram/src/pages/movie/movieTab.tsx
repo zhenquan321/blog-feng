@@ -9,17 +9,15 @@ import {
   SwiperItem,
 } from "@tarojs/components";
 import request from "../../api/request";
-import { AtSearchBar, AtDivider } from "taro-ui";
-import { AtTabs, AtTabsPane } from "taro-ui";
+import { AtNoticebar, AtDivider } from "taro-ui";
 import Share from "../../utils/share/share";
 import eventEmeitter from "../../utils/eventEmeitter";
 
 import "./movie.less";
 import "taro-ui/dist/style/components/icon.scss";
-import "taro-ui/dist/style/components/search-bar.scss";
 import "taro-ui/dist/style/components/divider.scss";
 import "taro-ui/dist/style/components/button.scss";
-import "taro-ui/dist/style/components/tabs.scss";
+import "taro-ui/dist/style/components/noticebar.scss";
 import { categories } from "./data";
 
 type PageOwnProps = {
@@ -240,6 +238,11 @@ class Index extends Component {
                 })}
             </View>
           </View>
+        </View>
+        <View className="AtNoticebar">
+          <AtNoticebar marquee icon='volume-plus'>
+            资源来自互联网，仅供个人娱乐，不可商用，如有侵权，请联系随时下架。
+          </AtNoticebar>
         </View>
         <View className="movieList">
           {movieList.map((item: any) => {

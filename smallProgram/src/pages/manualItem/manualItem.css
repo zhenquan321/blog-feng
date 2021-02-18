@@ -57,8 +57,12 @@ page {
 .AtPagination .zjjh {
   width: 50%;
 }
+.AtPagination .zjjh .at-button {
+  border: 0px;
+}
 .AtPagination .quanbu {
-  width: 25%;
+  width: 21%;
+  margin-right: 8px;
   text-align: center;
 }
 .AtPagination .quanbu .btn {
@@ -70,6 +74,7 @@ page {
   border-color: #e59233;
   color: #e59233;
   font-size: 24px;
+  width: 100%;
 }
 .at-list__item {
   font-size: 26px;

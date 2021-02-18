@@ -5,9 +5,8 @@ import { AtTabs, AtTabsPane } from "taro-ui";
 import Share from "../../utils/share/share";
 import MovieTab from "./movieTab";
 import eventEmeitter from "../../utils/eventEmeitter";
-
-import "./movie.less";
 import "taro-ui/dist/style/components/tabs.scss";
+import "./movie.less";
 
 type PageOwnProps = {};
 
@@ -80,6 +79,7 @@ class Index extends Component {
           current={this.state.current}
           tabList={tabList}
           onClick={this.handleClick.bind(this)}
+          className="tabs"
         >
           <AtTabsPane current={this.state.current} index={0}>
             <MovieTab type={"movie"}></MovieTab>

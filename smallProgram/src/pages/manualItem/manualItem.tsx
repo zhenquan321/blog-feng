@@ -1,10 +1,17 @@
-
-import Taro from '@tarojs/taro'
+import Taro , { getCurrentInstance } from '@tarojs/taro'
 import React, { Component } from 'react'
-import { View, Button, Text, Image, Swiper, SwiperItem, RichText } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtPagination,AtButton,AtDrawer,AtList, AtListItem } from 'taro-ui'
 import request from "../../api/request"
-import Share from "../../utils/share/share"
+import Share from "../../utils/share/share";
+import TaroWemark from '../../components/taro-wemark/taro-wemark'
+
+
+import "taro-ui/dist/style/components/pagination.scss";
+import "taro-ui/dist/style/components/button.scss";
+import "taro-ui/dist/style/components/icon.scss";
+import "taro-ui/dist/style/components/drawer.scss";
+import "taro-ui/dist/style/components/list.scss";
 
 import "./manualItem.less";
 
@@ -33,12 +40,6 @@ interface ManualItem {
 })
 
 class ManualItem extends Component {
-  // config: Config = {
-  //   navigationBarTitleText: '',
-  //   usingComponents: {
-  //     wemark: '../../wemark/wemark'
-  //   }
-  // }
   constructor(prop) {
     super(prop)
     this.state = {
@@ -107,7 +108,7 @@ class ManualItem extends Component {
 
   componentWillMount() {
     this.setState({
-      manualId: this.$router.params.manualId
+      manualId: getCurrentInstance().router.params.manualId
     }, () => {
       this.getHandBook();
     })
@@ -161,7 +162,7 @@ class ManualItem extends Component {
             {blog.title}
           </View>
           <View className="content">
-            <wemark md={blog.content} link highlight type='wemark' />
+            <TaroWemark md={blog.content} link highlight type='wemark'></TaroWemark>
           </View>
         </View>
         {/* <Button className="shareBtn" open-type="share">

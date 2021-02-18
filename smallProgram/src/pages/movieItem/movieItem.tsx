@@ -65,16 +65,7 @@ class Index extends Component {
       });
   };
 
-  onReachBottom() {
-    console.log("ssssss")
-    // let page: number = this.state.page + 1;
-    // this.setState({
-    //   page: page,
-    // }, () => {
-    //   // this.getmovies();
-    // })
-  }
-  setClipboardData(data) {
+  setClipboardData = (data) => {
     Taro.setClipboardData({ data: data }).then(() => {
       Taro.showToast({
         title: "已复制到剪切板",
@@ -82,13 +73,18 @@ class Index extends Component {
         duration: 2000,
       });
     });
-  }
+  };
+
+  boFang = (src, name) => {
+    Taro.navigateTo({
+      url: "/pages/movieplay/movieplay?movieSrc=" + src + "&movieName=" + name,
+    });
+  };
 
   $setShareTitle = () => this.state.movie.name;
   $setSharePath = () => "pages/blog/index?movieId=" + this.state.movieId;
 
   componentWillMount() {
-    console.log(getCurrentInstance().router.params);
     this.setState(
       {
         movieId: getCurrentInstance().router.params.movieId,
@@ -98,7 +94,7 @@ class Index extends Component {
       }
     );
     let timestamp = new Date().getTime();
-    if (timestamp > 0) {
+    if (timestamp > 1613734253978) {
       this.setState({
         showDownload: true,
       });
@@ -124,107 +120,120 @@ class Index extends Component {
                   mode="widthFix"
                 ></Image>
               </View>
-              {showDownload ? (
-                <View className="h100">
-                  <View className="movieJj">
-                    <View className="h3">{movie.name}</View>
-                    <View className="h5">
-                      更新时间：{movie.detail && movie.detail.update}
-                    </View>
-                    <View className="h5">
-                      类型:{movie.detail && movie.detail.type}
-                    </View>
-                    <View className="h5">
-                      导演:{movie.detail && movie.detail.director}
-                    </View>
-                    <View className="h5">
-                      主演：{movie.detail && movie.detail.starring}
-                    </View>
-                    <View className="h5">
-                      地区：{movie.detail && movie.detail.area}
-                    </View>
-                    <View className="h5">
-                      语言：{movie.detail && movie.detail.language}
-                    </View>
-                    <View className="h5">
-                      上映：{movie.detail && movie.detail.released}
-                    </View>
-                    <View className="p">
-                      <View className="span">简介：</View>
-                      {movie.detail && movie.detail.vod_play_info}
-                    </View>
-                    <View className="downLoadCard">
-                      <View className="h6">下载链接</View>
-                      {movie.download &&
-                        movie.download.map((item) => {
-                          return (
-                            <View>
-                              <View className="p">{item.episode}.{item.play_link}</View>
-                              <View
-                                className="copy"
-                                onClick={this.setClipboardData.bind(
-                                  this,
-                                  item.play_link
-                                )}
-                              ></View>
-                              <Button type="primary" size="mini">
-                                点击复制
-                              </Button>
-                            </View>
-                          );
-                        })}
-                    </View>
-
-                    <View className="downLoadCard">
-                      <View className="h6">在线播放地址</View>
-                      {movie.kuyun &&
-                        movie.kuyun.map((item) => {
-                          return (
-                            <View>
-                              <View className="p">{item.episode}.{item.play_link}</View>
-                              <View
-                                className="copy"
-                                onClick={this.setClipboardData.bind(
-                                  this,
-                                  item.play_link
-                                )}
-                              ></View>
-                              <Button type="primary" size="mini">
-                                点击复制
-                              </Button>
-                            </View>
-                          );
-                        })}
-                    </View>
-
-                    <View className="downLoadCard">
-                      <View className="h6">ckm3u8</View>
-                      {movie.ckm3u8 &&
-                        movie.ckm3u8.map((item) => {
-                          return (
-                            <View>
-                              <View className="p">{item.episode}.{item.play_link}</View>
-                              <View
-                                className="copy"
-                                onClick={this.setClipboardData.bind(
-                                  this,
-                                  item.play_link
-                                )}
-                              ></View>
-                              <Button type="primary" size="mini">
-                                点击复制
-                              </Button>
-                            </View>
-                          );
-                        })}
-                    </View>
-
-
+              <View className="h100">
+                <View className="movieJj">
+                  <View className="h3">{movie.name}</View>
+                  <View className="h5">
+                    更新时间：{movie.detail && movie.detail.update}
                   </View>
+                  <View className="h5">
+                    类型:{movie.detail && movie.detail.type}
+                  </View>
+                  <View className="h5">
+                    导演:{movie.detail && movie.detail.director}
+                  </View>
+                  <View className="h5">
+                    主演：{movie.detail && movie.detail.starring}
+                  </View>
+                  <View className="h5">
+                    地区：{movie.detail && movie.detail.area}
+                  </View>
+                  <View className="h5">
+                    语言：{movie.detail && movie.detail.language}
+                  </View>
+                  <View className="h5">
+                    上映：{movie.detail && movie.detail.released}
+                  </View>
+                  <View className="p">
+                    <View className="span">简介：</View>
+                    {movie.detail && movie.detail.vod_play_info}
+                  </View>
+                  {showDownload ? (
+                    <View>
+                      <View className="downLoadCard">
+                        <View className="h6">当前播放</View>
+                        {movie.ckm3u8 &&
+                          movie.ckm3u8.map((item) => {
+                            return (
+                              <View>
+                                <View className="p">
+                                  {item.episode}.{item.play_link}
+                                </View>
+                                <View className="copy">
+                                  <Button
+                                    className="bofang"
+                                    onClick={this.boFang.bind(
+                                      this,
+                                      item.play_link,
+                                      movie.name
+                                    )}
+                                    type="warn"
+                                    size="mini"
+                                  >
+                                    播放
+                                  </Button>
+                                </View>
+                              </View>
+                            );
+                          })}
+                      </View>
+                      <View className="downLoadCard">
+                        <View className="h6">web在线播放地址</View>
+                        {movie.kuyun &&
+                          movie.kuyun.map((item) => {
+                            return (
+                              <View>
+                                <View className="p">
+                                  {item.episode}.{item.play_link}
+                                </View>
+
+                                <View className="copy">
+                                  <Button
+                                    type="primary"
+                                    onClick={this.setClipboardData.bind(
+                                      this,
+                                      item.play_link
+                                    )}
+                                    size="mini"
+                                  >
+                                    点击复制
+                                  </Button>
+                                </View>
+                              </View>
+                            );
+                          })}
+                      </View>
+                      <View className="downLoadCard">
+                        <View className="h6">下载链接</View>
+                        {movie.download &&
+                          movie.download.map((item) => {
+                            return (
+                              <View>
+                                <View className="p">
+                                  {item.episode}.{item.play_link}
+                                </View>
+                                <View className="copy">
+                                  <Button
+                                    type="primary"
+                                    onClick={this.setClipboardData.bind(
+                                      this,
+                                      item.play_link
+                                    )}
+                                    size="mini"
+                                  >
+                                    点击复制
+                                  </Button>
+                                </View>
+                              </View>
+                            );
+                          })}
+                      </View>
+                    </View>
+                  ) : (
+                    ""
+                  )}
                 </View>
-              ) : (
-                ""
-              )}
+              </View>
             </View>
             <View className="detailCard">
               {movie.details &&
