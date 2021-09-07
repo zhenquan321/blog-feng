@@ -64,8 +64,12 @@ textarea:focus {
   background-color: #fff;
   padding: 30px 50px!important;
 }
+html,
+body {
+  height: 100%;
+}
 .navbar-default {
-  background-color: #ffffff;
+  background-color: hsl(0, 0%, 100%);
   border-color: #e7e7e7;
 }
 .btn-primary {
@@ -293,6 +297,7 @@ a {
   padding-top: 60px;
   margin-bottom: 30px;
   min-height: 100%;
+  padding-bottom: 100px;
 }
 a {
   color: #555;
@@ -1135,6 +1140,12 @@ a.thumbnail:hover {
 }
 .fixedCard ul li i {
   font-size: 1.9rem;
+}
+footer {
+  text-align: center;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+  transform: translate(0px, -110px);
 }
 @media screen and (max-width: 500px) {
   .col-lg-1,
