@@ -1,5 +1,9 @@
+html,
+body {
+  height: 100%;
+}
 .navbar-default {
-  background-color: #ffffff;
+  background-color: hsl(0, 0%, 100%);
   border-color: #e7e7e7;
 }
 .btn-primary {
