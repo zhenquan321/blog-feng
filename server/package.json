@@ -84,7 +84,7 @@
     "ejs-mate": "^3.0.0",
     "jsdoc": "^3.6.3",
     "mocha": "6.2.0",
-    "nodemon": "1.18.10",
+    "nodemon": "^1.18.10",
     "source-map-loader": "0.2.4",
     "supertest": "4.0.2",
     "swagger-jsdoc": "^3.4.0",

@@ -510,6 +510,19 @@ a.thumbnail:hover {
 .blogCreate .header-left .selTypes .dropdown-toggle i:hover {
   color: #e59233;
 }
+.blogCreate .header-left .selTypes input[type=checkbox] {
+  line-height: normal;
+  position: relative;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+}
+.blogCreate .header-left .selTypes .form-check {
+  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
 .blogCreate .header-left .selTypes:hover {
   color: #555;
 }
@@ -665,6 +678,11 @@ a.thumbnail:hover {
 }
 .blogList .blogCard .jian {
   color: red;
+  font-weight: 600;
+}
+.blogList .blogCard .fr {
+  float: right;
+  color: #e75123;
   font-weight: 600;
 }
 .blogList .blogCard .re {

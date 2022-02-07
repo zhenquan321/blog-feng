@@ -27,37 +27,41 @@
     </div>
     <div class="row">
         <% blogArray.forEach(function(blog){ %>
-        <div class="blogCard">
-            <a href="/blog/<%=blog._id %>">
-                <h6>
-                    <% if(blog.isHot){ %><span class="jian"><i class="iconfont icon-remen "></i>热</span> · <% } %>
-                    <% if(blog.isRecommend){ %><span class="re"> <%= blog.isRecommend %> </span> · <% } %>
-                    <span class="lei"><%= blog.classifications.name %></span> ·
-                    <% if(blog.createType&&blog.createType.name){ %> <span class="createType"><%= blog.createType.name %></span> · <% } %>
-                    <%= ((blog.author.profile && blog.author.profile.name)||blog.author.email) %> ·
-                    <%= blog.createdAt %>
-                </h6>
-                <h4><%= blog.title %></h4>
-                <div class="dzBtnGroup">
-                    <span><i class="iconfont icon-guankan"></i><%= blog.pv||0 %></span>
-                    <span><i class="iconfont icon-dianzan"></i><%= blog.thumbsUp ||0 %></span>
-                    <span><i class="iconfont icon-pinglun"></i><%= blog.comments ||0 %></span>
+            <% if (!blog.onlyOwer || (req.session.user && blog.author.id === req.session.user._id)){%> 
+                <div class="blogCard">
+                    <a href="/blog/<%=blog._id %>">
+                        <h6>
+                            <% if(blog.isHot){ %><span class="jian"><i class="iconfont icon-remen "></i>热</span> · <% } %>
+                            <% if(blog.isRecommend){ %><span class="re"> <%= blog.isRecommend %> </span> · <% } %>
+                            <span class="lei"><%= blog.classifications.name %></span> ·
+                            <% if(blog.createType&&blog.createType.name){ %> <span class="createType"><%= blog.createType.name %></span> · <% } %>
+                            <%= ((blog.author.profile && blog.author.profile.name)||blog.author.email) %> ·
+                            <%= blog.createdAt %>
+                            <% if(blog.onlyOwer){ %><span class="fr">仅自己可见</span><% } %>
+
+                        </h6>
+                        <h4><%= blog.title %></h4>
+                        <div class="dzBtnGroup">
+                            <span><i class="iconfont icon-guankan"></i><%= blog.pv||0 %></span>
+                            <span><i class="iconfont icon-dianzan"></i><%= blog.thumbsUp ||0 %></span>
+                            <span><i class="iconfont icon-pinglun"></i><%= blog.comments ||0 %></span>
+                        </div>
+                    </a>
+                    <% if (req.session.user && blog.author.id == req.session.user._id ){%>
+                        <% if (blog.publishForm != 'handBook'){%>
+                        <div class="removeBlog" >
+                            <a href="/blogCreate?blogId=<%= blog._id %>" target="_blank"><i class="iconfont icon-bianji"></i></a> 
+                            <i onclick="removeBlog('<%= blog._id %>','<%= blog.title %>')" class="iconfont icon-shanchu"></i>
+                        </div>
+                        <% } else {%>
+                            <div class="removeBlog" >
+                                该篇博文属于手册，<br />
+                                请在手册中修改。     
+                            </div>
+                        <% } %>
+                    <% } %>
                 </div>
-            </a>
-            <% if (req.session.user && blog.author.id == req.session.user._id ){%>
-                <% if (blog.publishForm != 'handBook'){%>
-                <div class="removeBlog" >
-                    <a href="/blogCreate?blogId=<%= blog._id %>" target="_blank"><i class="iconfont icon-bianji"></i></a> 
-                    <i onclick="removeBlog('<%= blog._id %>','<%= blog.title %>')" class="iconfont icon-shanchu"></i>
-                </div>
-                <% } else {%>
-                    <div class="removeBlog" >
-                        该篇博文属于手册，<br />
-                        请在手册中修改。     
-                    </div>
-                <% } %>
             <% } %>
-        </div>
         <% }); %>
 
         <% if(!(blogArray&&blogArray.length>0)){%>
@@ -66,8 +70,9 @@
     </div>
     <%- include('./../components/pagination.html') %>
     </div>
-
+    
     <script>
+        console.log('<%= JSON.stringify(req.session)  %>')
         //删除文章
         function removeBlog(id, name) {
             if (confirm("确定删除《" + name + "》吗？")) {

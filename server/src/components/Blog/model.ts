@@ -21,6 +21,7 @@ export interface IBlogModel extends Document {
     contentType: string;
     keyWords: string;
     published: boolean;
+    onlyOwer:boolean;
     publishForm: string;
     isRecommend: string;
     isHot: boolean;
@@ -83,6 +84,10 @@ const BlogSchema: any = new Schema({
         default: false
     },
     published: {
+        type: Boolean,
+        default: false
+    },
+    onlyOwer: {
         type: Boolean,
         default: false
     },

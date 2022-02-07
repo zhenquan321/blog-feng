@@ -14,9 +14,8 @@ import client from './../../utils/baiduSh';
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const query: any = req.query || req.body;
-
         query.page = query.page >= 1 ? query.page - 1 : 0;
-
+        query.userid = req.user?req.user.id:""
         const Blogs: any = await BlogService.findAll(query);//
 
         res.status(200).json({

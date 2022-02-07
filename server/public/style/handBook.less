@@ -68,7 +68,10 @@
             display: block;
             height: 40px;
             line-height: 40px;
-
+            &:hover {
+                color: #555
+            }
+            
             input {
                 margin-top: 0px;
                 border: 0px;
@@ -91,9 +94,23 @@
                 }
             }
 
-            &:hover {
-                color: #555
+            input[type=checkbox]{
+                line-height: normal;
+                position: relative;
+                top: 2px;
+                width: 16px;
+                height: 16px;
             }
+
+            .form-check {
+                font-size: 16px;
+                height: 30px;
+                line-height: 30px;
+                cursor: pointer;
+                font-weight: 500;
+            }
+
+
         }
 
 

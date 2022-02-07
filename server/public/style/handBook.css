@@ -58,6 +58,9 @@
   height: 40px;
   line-height: 40px;
 }
+.HandBookCreateModel .body .selTypes:hover {
+  color: #555;
+}
 .HandBookCreateModel .body .selTypes input {
   margin-top: 0px;
   border: 0px;
@@ -76,8 +79,19 @@
 .HandBookCreateModel .body .selTypes .dropdown-toggle i:hover {
   color: #e59233;
 }
-.HandBookCreateModel .body .selTypes:hover {
-  color: #555;
+.HandBookCreateModel .body .selTypes input[type=checkbox] {
+  line-height: normal;
+  position: relative;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+}
+.HandBookCreateModel .body .selTypes .form-check {
+  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  font-weight: 500;
 }
 .HandBookCreateModel .body .btn {
   margin-top: 20px;

@@ -36,16 +36,16 @@ const BlogService: IBlogService = {
                     $or: [
                         { title: blogSearchKeyWords },
                         { content: blogSearchKeyWords }
-                    ]
+                    ],
                 };
             }
+           
             if (pageQurey && pageQurey.keywords) {
                 findKeyObj.keywords = pageQurey.keywords;
             }
             if (pageQurey && pageQurey.classifications) {
                 findKeyObj.classifications = pageQurey.classifications;
             }
-
             const BlogListFind: any[] = await BlogModel.find(findKeyObj).sort(sort).limit(pageSize).skip(page * pageSize);
             const BlogList: any[] = JSON.parse(JSON.stringify(BlogListFind));
             const count: number = await BlogModel.find(findKeyObj).count();
@@ -56,6 +56,7 @@ const BlogService: IBlogService = {
                 BlogList[i].createType = await ClassificationService.findOne(BlogList[i].createType);
                 BlogList[i].comments = await CommentService.count(BlogList[i]._id);
                 BlogList[i].createdAt = new Time().formatDate(BlogList[i].createdAt);
+
                 if (BlogList[i].pv > 200) {
                     BlogList[i].isHot = true;
                 }

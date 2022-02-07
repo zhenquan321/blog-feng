@@ -11,6 +11,14 @@
             <input id="blogCreate-title" type="text" class="form-control" placeholder="请输入文章标题"
                 value="<%- blog.title ||'' %>">
             <hr />
+            <div class="btn-group selTypes" style="right:380px">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="onlyOwer">
+                    <label class="form-check-label" for="onlyOwer">
+                    仅自己可见
+                    </label>
+                </div>
+            </div>
             <div class="btn-group selTypes" style="right:200px">
                 <div class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="iconfont icon-fenlei"></i>
@@ -96,10 +104,6 @@
         vditor.setValue(document.getElementById('blogContent').textContent);
     }
 
-</script>
-
-
-<script>
     let classificationsId = '<%- (blog.classifications&&blog.classifications._id) %>' || '';
     let createTypeId = '<%- (blog.createType&&blog.createType._id) %>' || '';
 
@@ -148,6 +152,7 @@
             content: contert,
             contentType: contentType,
             createType: createTypeId,
+            onlyOwer: document.getElementById("onlyOwer").checked?true:false,
             classifications: classificationsId,
         }
         let blogId = "<%= blog._id %>";
