@@ -262,6 +262,11 @@
   dependencies:
     "@types/inquirer" "*"
 
+abab@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
+  integrity sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==
+
 abbrev@1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/abbrev/download/abbrev-1.1.1.tgz"
@@ -409,13 +414,6 @@ async-each@^1.0.1:
   resolved "http://registry.npm.taobao.org/async-each/download/async-each-1.0.3.tgz"
   integrity sha1-tyfb+H12UWAvBvTUrDh/R9kbDL8=
 
-async@^2.5.0:
-  version "2.6.1"
-  resolved "https://registry.npm.taobao.org/async/download/async-2.6.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fasync%2Fdownload%2Fasync-2.6.1.tgz"
-  integrity sha1-skWiPKcZMAROxT+kaqAKPofGphA=
-  dependencies:
-    lodash "^4.17.10"
-
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "http://registry.npm.taobao.org/asynckit/download/asynckit-0.4.0.tgz"
@@ -490,11 +488,6 @@ bcrypt@^3.0.6:
   dependencies:
     nan "2.14.0"
     node-pre-gyp "0.14.0"
-
-big.js@^5.2.2:
-  version "5.2.2"
-  resolved "http://registry.npm.taobao.org/big.js/download/big.js-5.2.2.tgz"
-  integrity sha1-ZfCvOC9Xi83HQr2cKB6cstd2gyg=
 
 binary-extensions@^1.0.0:
   version "1.13.1"
@@ -1226,11 +1219,6 @@ emoji-regex@^7.0.1:
   resolved "https://registry.npm.taobao.org/emoji-regex/download/emoji-regex-7.0.3.tgz"
   integrity sha1-kzoEBShgyF6DwSJHnEdIqOTHIVY=
 
-emojis-list@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.npm.taobao.org/emojis-list/download/emojis-list-2.1.0.tgz"
-  integrity sha1-TapNnbAPmBmIDHn6RXrlsJof04k=
-
 encodeurl@~1.0.1:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/encodeurl/download/encodeurl-1.0.2.tgz"
@@ -1928,6 +1916,13 @@ iconv-lite@0.4.19, iconv-lite@^0.4.15, iconv-lite@^0.4.16, iconv-lite@^0.4.4:
   resolved "https://registry.npm.taobao.org/iconv-lite/download/iconv-lite-0.4.19.tgz"
   integrity sha1-90aPYBNfXl2tM5nAqBvpoWA6CCs=
 
+iconv-lite@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.6.3.tgz#a52f80bf38da1952eb5c681790719871a1a72501"
+  integrity sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==
+  dependencies:
+    safer-buffer ">= 2.1.2 < 3.0.0"
+
 ienoopen@1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/ienoopen/-/ienoopen-1.1.0.tgz"
@@ -2313,13 +2308,6 @@ json-stringify-safe@~5.0.1:
   resolved "http://registry.npm.taobao.org/json-stringify-safe/download/json-stringify-safe-5.0.1.tgz"
   integrity sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
 
-json5@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npm.taobao.org/json5/download/json5-1.0.1.tgz"
-  integrity sha1-d5+wAYYE+oVOrL9iUhgNg1Q+Pb4=
-  dependencies:
-    minimist "^1.2.0"
-
 jsonfile@^4.0.0:
   version "4.0.0"
   resolved "http://registry.npm.taobao.org/jsonfile/download/jsonfile-4.0.0.tgz"
@@ -2394,15 +2382,6 @@ linkify-it@^2.0.0:
   dependencies:
     uc.micro "^1.0.1"
 
-loader-utils@^1.1.0:
-  version "1.2.3"
-  resolved "http://registry.npm.taobao.org/loader-utils/download/loader-utils-1.2.3.tgz"
-  integrity sha1-H/XcaRHJ8KBiUxpMBLYJQGEIwsc=
-  dependencies:
-    big.js "^5.2.2"
-    emojis-list "^2.0.0"
-    json5 "^1.0.1"
-
 locate-path@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/locate-path/download/locate-path-3.0.0.tgz"
@@ -2421,7 +2400,7 @@ lodash.isequal@^4.5.0:
   resolved "http://registry.npm.taobao.org/lodash.isequal/download/lodash.isequal-4.5.0.tgz"
   integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
-lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.14:
+lodash@^4.15.0, lodash@^4.17.11, lodash@^4.17.14:
   version "4.17.15"
   resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.15.tgz"
   integrity sha1-tEf2ZwoEVbv+7dETku/zMOoJdUg=
@@ -3552,7 +3531,7 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
+"safer-buffer@>= 2.1.2 < 3.0.0", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "http://registry.npm.taobao.org/safer-buffer/download/safer-buffer-2.1.2.tgz"
   integrity sha1-RPoWGwGHuVSd2Eu5GAL5vYOFzWo=
@@ -3746,13 +3725,19 @@ sorted-array-functions@^1.0.0:
   resolved "https://registry.npmjs.org/sorted-array-functions/-/sorted-array-functions-1.2.0.tgz"
   integrity sha512-sWpjPhIZJtqO77GN+LD8dDsDKcWZ9GCOJNqKzi1tvtjGIzwfoyuRH8S0psunmc6Z5P+qfDqztSbwYR5X/e1UTg==
 
-source-map-loader@0.2.4:
-  version "0.2.4"
-  resolved "https://registry.npm.taobao.org/source-map-loader/download/source-map-loader-0.2.4.tgz"
-  integrity sha1-wYsNxuI79m9nkkN1V8VpoR4HInE=
+source-map-js@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
+  integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
+
+source-map-loader@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/source-map-loader/-/source-map-loader-4.0.1.tgz#72f00d05f5d1f90f80974eda781cbd7107c125f2"
+  integrity sha512-oqXpzDIByKONVY8g1NUPOTQhe0UTU5bWUl32GSkqK2LjJj0HmwTMVKxcUip0RgAYhY1mqgOxjbQM48a0mmeNfA==
   dependencies:
-    async "^2.5.0"
-    loader-utils "^1.1.0"
+    abab "^2.0.6"
+    iconv-lite "^0.6.3"
+    source-map-js "^1.0.2"
 
 source-map-resolve@^0.5.0:
   version "0.5.2"
