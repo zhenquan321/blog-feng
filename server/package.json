@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "baidu-aip-sdk": "^2.4.4",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.1.0",
     "body-parser": "1.18.2",
     "cheerio": "^1.0.0-rc.3",
     "compression": "1.7.1",
@@ -57,7 +57,7 @@
     "util": "0.11.1"
   },
   "devDependencies": {
-    "@types/bcrypt": "3.0.0",
+    "@types/bcrypt": "5.0.0",
     "@types/body-parser": "1.16.8",
     "@types/chai": "4.1.7",
     "@types/compression": "0.0.36",
