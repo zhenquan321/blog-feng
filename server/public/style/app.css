@@ -988,7 +988,7 @@ a.thumbnail:hover {
 .comment .userHeader .headerImg span {
   width: 40px;
   height: 40px;
-  padding-top: 10px;
+  padding-top: 3px;
 }
 .comment .userHeader .headerImg span i {
   font-size: 35px;
